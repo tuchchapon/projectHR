@@ -38,26 +38,43 @@ class _loginState extends State<login> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('ระบบจัดการทรัพยากรมนุษย์'),
-      ),
 
-      body: new Container(
-        padding: new EdgeInsets.all(20.0),
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
+    Color colorappbar = const Color(0xFF2ac3fe);
+
+    return new Scaffold(
+      body: new Container(width: screenWidth,height: screenHeight,
+       
         child: new Center(
           child: new Column(
             children: <Widget>[
-              new TextField(
+              new Container(height: screenHeight*0.27,
+              width: screenWidth,
+                color: colorappbar,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text('ระบบจัดการทรัพยากรมนุษย์',style: TextStyle(fontSize: 24),),
+                    Padding(padding: EdgeInsets.only(bottom: 20))
+                  ],
+                ),
+              ),
+
+            new TextField(
                 decoration: new InputDecoration(labelText: 'Username'),
                 onChanged: (String userinput){
                   setState(() {
                     _user = userinput;
                   });
-              }
+              },
               ),
+              Padding(padding: EdgeInsets.only(top: 10,)),
               new TextField(
                 decoration: new InputDecoration(labelText: 'Password'),
                 onChanged: (String passinput){
@@ -72,11 +89,11 @@ class _loginState extends State<login> {
                 padding: new EdgeInsets.all(10.0),
                 child: new RaisedButton(onPressed: _checklogin, child: new Text('เข้าสู่ระบบ'),
 
-                  padding: EdgeInsets.only(left: 60.0,right: 60.0) ,color: (Colors.blue),),
+                  padding: EdgeInsets.only(left: 50.0,right: 50.0,bottom: 10,top: 10) ,color:colorappbar,),
               ),
               new Padding(
                 padding: new EdgeInsets.all(10.0),
-                child: new FlatButton(onPressed: null, child: new Text('หากลืมรหัสผ่าน',),color: (Colors.red),),
+               // child: new FlatButton(onPressed: null, child: new Text('หากลืมรหัสผ่าน',),color: (Colors.red),),
               )
             ],
       ),

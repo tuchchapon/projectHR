@@ -8,8 +8,14 @@ class member extends StatefulWidget {
 class _memberState extends State<member>  {
 Widget build(BuildContext context) {
   Color buttoncolor = const Color(0xFF4fa2e1);
+  Color colorappbar = const Color(0xFF2ac3fe);
+  MediaQueryData queryData = MediaQuery.of(context);
+
+  double screenWidth = queryData.size.width;
+  double screenHeight = queryData.size.height;
   return new Scaffold(
     appBar: new AppBar(
+      backgroundColor: colorappbar,
         title: new Text('สมาชิก'),
         actions: <Widget>[
           new IconButton(icon: new Icon(Icons.search), onPressed: null),
@@ -20,11 +26,17 @@ Widget build(BuildContext context) {
       drawer: Drawer(
         child: Column(
           children: <Widget>[
-            AppBar(
-              automaticallyImplyLeading: false,
-              leading: CircleAvatar(child: Icon(Icons.image),radius: 16,),
-              title: Text('Menu'),
-            ),
+              Container(width: screenWidth,height: screenHeight*0.22,
+                color: colorappbar,
+                child: Center(
+                  child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.orange,),
+                        Text('admin')
+                      ],
+                  ),
+                ),
+              ),
             //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
             ListTile(
               leading: Icon(Icons.people,color: Colors.black),
@@ -64,7 +76,7 @@ Widget build(BuildContext context) {
           ],
         ),
       ),
-      body: new Container(
+      body: new Container(height: screenHeight,width: screenWidth,
           child: new Center(
             child: new ListView(
               children: <Widget>[
