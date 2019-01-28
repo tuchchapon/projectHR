@@ -68,12 +68,16 @@ class _addvacationState extends State<addvacation> {
   }
 
   Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('เพิ่มข้อมูล'),
       ),
 
-      body: new SafeArea(
+      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
         child: new Center(
           child: new ListView(
           children: <Widget>[
@@ -144,11 +148,12 @@ class _addvacationState extends State<addvacation> {
               ),
             ),
             Divider(color: Colors.grey,),
+            RaisedButton(onPressed: null,child: Text('บันทึก'),)
+            
           ],
         ),
         ),
       ),
-      floatingActionButton: RaisedButton(padding: EdgeInsets.fromLTRB(150,0 /*top*/, 150/*right*/, 0/*bottom*/),onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
     );
   }
 }
