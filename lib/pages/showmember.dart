@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+
+class showmember extends StatefulWidget {
+  @override
+  _showmemberState createState() => _showmemberState();
+}
+
+class _showmemberState extends State<showmember> {
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('ข้อมูลพนักงาน'),
+      ),
+      body: new AspectRatio(aspectRatio: 16.0/30.0,
+        //  padding: new EdgeInsets.all(10.0),
+        child: new ListView(
+          children: <Widget>[
+            Padding(padding: EdgeInsets.all(6)),
+            ListTile(
+              leading: CircleAvatar(child: Icon(Icons.add_photo_alternate,size: 30.0,color: Colors.white,),radius: 35,backgroundColor: Colors.grey,),
+
+            ),
+            ListTile(
+              leading: Text('รหัส'),
+              title: Text('1'),
+            ),
+            ListTile(
+              leading: Text('ชื่อ-นามสกุล   ',style: TextStyle(fontSize: 16),),
+              title: Text('นายธัชพล สุธรรมมา',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
+              leading: Text('เบอร์โทร        ',style: TextStyle(fontSize: 16),),
+              title: Text('088-888-1596',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
+              leading: Text('ตำแหน่ง       ',style: TextStyle(fontSize: 16),),
+              title: Text('Mobile dev',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
+              leading: Text('ที่อยู่               ',style: TextStyle(fontSize: 16),),
+              title: Text('พระราม 999 60 ซอย 4 เสรี 8 แขวงสวนหลวง เขตสวนหลวง กรุงเทพ 10500',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
+              leading: Text('ผู้ติดต่อฉุกเฉิน ',style: TextStyle(fontSize: 16),),
+              title: Text('นางธัชพล สุธรรมมา',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
+              leading: Text('เบอร์ติดต่อ      ',style: TextStyle(fontSize: 16),),
+              title: Text('088-048-5940',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
+              leading: Text('เกี่ยวข้องเป็น   ',style: TextStyle(fontSize: 16),),
+              title: Text('ภรรยา',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
+              leading: Text('ที่อยู่               ',style: TextStyle(fontSize: 16),),
+              title: Text('พระราม 999 60 ซอย 4 เสรี 8 แขวงสวนหลวง เขตสวนหลวง กรุงเทพ 10500',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
+              leading: Text('เงินเดือน         ',style: TextStyle(fontSize: 16),),
+              title: Text('100000',style: TextStyle(fontSize: 14),),
+            ),
+            Text('       สิทธิประโยชน์\n',style: TextStyle(fontSize: 16),),
+            ListTile(
+              leading: Column(mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                Text('รายการ'),
+                Text('ค่าฟิตเนส'),
+                Text('ค่าหฟกฟหก'),
+                Text('sdajasd'),
+              ],),
+              trailing: Column(mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text('มูลค่า'),
+                  Text('5000'),
+                  Text('5000'),
+                  Text('3000'),
+                ],
+              ),
+            ),
+            Padding(padding: EdgeInsets.all(20))
+          ],
+        ),
+        ),
+      );
+  }
+}

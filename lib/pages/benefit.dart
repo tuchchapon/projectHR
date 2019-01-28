@@ -1,0 +1,100 @@
+import 'package:flutter/material.dart';
+
+class benefit extends StatefulWidget {
+  @override
+  _benefitState createState() => new _benefitState();
+}
+
+class _benefitState extends State<benefit>  {
+
+  String money = 'บาท';
+
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+          title: new Text('สิทธิประโยชน์'),
+          actions: <Widget>[
+            new IconButton(icon: new Icon(Icons.search), onPressed: null),
+              new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
+          ]
+      ),
+
+        drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              AppBar(
+                automaticallyImplyLeading: false,
+                title: Text('Menu'),
+              ),
+              //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
+              ListTile(
+                leading: Icon(Icons.people,color: Colors.black),
+                title: Text('พนักงาน'),
+                onTap: (){Navigator.of(context).pushNamed('/member');},
+              ),
+              ListTile(
+                leading: Icon(Icons.event,color: Colors.black),
+                title: Text('การลา') ,
+                onTap: (){Navigator.of(context).pushNamed('/vacation');},
+              ),
+              ListTile(
+                leading: Icon(Icons.work,color: Colors.black),
+                title: Text('ตำแหน่ง'),
+                onTap:(){Navigator.of(context).pushNamed('/position');},
+              ),
+              ListTile(
+                leading: Icon(Icons.account_balance,color: Colors.black),
+                title: Text('สาขา'),
+                onTap:(){Navigator.of(context).pushNamed('/branch');},
+              ),
+              ListTile(
+                leading: Icon(Icons.assignment,color: Colors.black),
+                title: Text('โปรเจค'),
+                onTap:(){Navigator.of(context).pushNamed('/project');},
+              ),
+        /*    ListTile(
+                leading: Icon(Icons.attach_money,color: Colors.black),
+                title: Text('ค่าใช้จ่าย'),
+                onTap:(){Navigator.of(context).pushNamed('/cost');},
+              ),*/
+              ListTile(
+                leading: Icon(Icons.card_giftcard,color: Colors.black),
+                title: Text('สิทธิประโยชน์'),
+                onTap:(){Navigator.of(context).pushNamed('/benefit');},
+              ),
+            ],
+          ),
+        ),
+        body: new Container(
+          child: new Center(
+            child: new ListView(
+              children: <Widget>[
+                Padding(padding: EdgeInsets.all(10)),
+                Text('  ข้อมูลสิทธิประโยชน์'),
+                ListTile(
+                  leading: Icon(Icons.card_giftcard,color: Colors.black,size: 40),
+                  title: Text('ค่าฟิตเนส'),
+                  subtitle: Text('5000${money}'),
+                  onTap: (){Navigator.of(context).pushNamed('/showbenefit');},
+                ),
+                ListTile(
+                  leading: Icon(Icons.card_giftcard,color: Colors.black,size: 40,),
+                  title: Text('ค่าฟิตเนส'),
+                  subtitle: Text('5000${money}'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.card_giftcard,color: Colors.black,size: 40),
+                  title: Text('ค่าฟิตเนส'),
+                  subtitle: Text('5000${money}'),
+                ),
+                Padding(padding: EdgeInsets.all(50))
+              ],
+            ),
+          ),
+        ), floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.orange,
+          onPressed: (){Navigator.of(context).pushNamed('/addbenefit');},
+          child: Icon(Icons.add),)
+    );
+  }
+}
