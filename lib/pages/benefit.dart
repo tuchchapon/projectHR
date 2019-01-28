@@ -10,6 +10,12 @@ class _benefitState extends State<benefit>  {
   String money = 'บาท';
 
   Widget build(BuildContext context) {
+    Color buttoncolor = const Color(0xFF4fa2e1);
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(
           title: new Text('สิทธิประโยชน์'),
@@ -22,9 +28,17 @@ class _benefitState extends State<benefit>  {
         drawer: Drawer(
           child: Column(
             children: <Widget>[
-              AppBar(
-                automaticallyImplyLeading: false,
-                title: Text('Menu'),
+              Container(width: screenWidth,height: screenHeight*0.22,
+                color: colorappbar,
+                child: Center(
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
+                    CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
+                    Padding(padding: EdgeInsets.only(top: 20,left: 50)),
+                    Text('admin',style: TextStyle(fontSize: 20),)
+                    ],
+                  ),
+                ),padding: EdgeInsets.only(right: 200,top: 10),
               ),
               //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
               ListTile(
@@ -52,11 +66,11 @@ class _benefitState extends State<benefit>  {
                 title: Text('โปรเจค'),
                 onTap:(){Navigator.of(context).pushNamed('/project');},
               ),
-        /*    ListTile(
-                leading: Icon(Icons.attach_money,color: Colors.black),
-                title: Text('ค่าใช้จ่าย'),
-                onTap:(){Navigator.of(context).pushNamed('/cost');},
-              ),*/
+              /*   ListTile(
+              leading: Icon(Icons.attach_money,color: Colors.black),
+              title: Text('ค่าใช้จ่าย'),
+              onTap:(){Navigator.of(context).pushNamed('/cost');},
+            ),*/
               ListTile(
                 leading: Icon(Icons.card_giftcard,color: Colors.black),
                 title: Text('สิทธิประโยชน์'),
@@ -92,7 +106,7 @@ class _benefitState extends State<benefit>  {
             ),
           ),
         ), floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.orange,
+          backgroundColor: buttoncolor,
           onPressed: (){Navigator.of(context).pushNamed('/addbenefit');},
           child: Icon(Icons.add),)
     );

@@ -31,12 +31,12 @@ Widget build(BuildContext context) {
                 child: Center(
                   child: Column(mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
-                        CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.orange,),
+                        CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
                       Padding(padding: EdgeInsets.only(top: 20,left: 50)),
-                      Text('admin')
+                      Text('admin',style: TextStyle(fontSize: 20),)
                       ],
                   ),
-                ),
+                ),padding: EdgeInsets.only(right: 200,top: 10),
               ),
             //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
             ListTile(
