@@ -9,11 +9,12 @@ class _showvacationState extends State<showvacation> {
 
   @override
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('ข้อมูลการลา'),
       ),
-      body: new AspectRatio(aspectRatio: 16.0/24.0,
+      body: new Container(
         //  padding: new EdgeInsets.all(10.0),
         child: new ListView(
           children: <Widget>[

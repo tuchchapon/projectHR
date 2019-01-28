@@ -72,12 +72,14 @@ class _addvacationState extends State<addvacation> {
 
     double screenWidth = queryData.size.width;
     double screenHeight = queryData.size.height;
+    Color colorappbar = const Color(0xFF2ac3fe);
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('เพิ่มข้อมูล'),
       ),
 
-      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+      body: new Container(
+        width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
         child: new Center(
           child: new ListView(
           children: <Widget>[
@@ -110,7 +112,8 @@ class _addvacationState extends State<addvacation> {
             Divider(color: Colors.grey,),
          Padding(padding: EdgeInsets.fromLTRB(16, 5, 0, 0),child: Text('ประเภทการลา'),),
          ListTile(
-                leading: Container(child: Row(
+                leading: Container(
+                  child: Row(
                   children: <Widget>[
                     Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 20)),
                      Radio(
@@ -127,8 +130,7 @@ class _addvacationState extends State<addvacation> {
 
                       ),
                      Text('ลาป่วย'),
-
-                  Radio(
+                    Radio(
                         value: 3,
                         groupValue: groupvalue,
                         onChanged: (int e) => vacationtype(e),
@@ -147,8 +149,8 @@ class _addvacationState extends State<addvacation> {
                 ),
               ),
             ),
-            Divider(color: Colors.grey,),
-            RaisedButton(onPressed: null,child: Text('บันทึก'),)
+            Divider(color: Colors.grey,),Padding(
+                padding: EdgeInsets.only(bottom: 50),child: RaisedButton(onPressed: save,child: Text('บันทึก'),color: Colors.green,),)
             
           ],
         ),

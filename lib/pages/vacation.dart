@@ -15,7 +15,7 @@ class _vacationState extends State<vacation>  {
     double screenWidth = queryData.size.width;
     double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
           title: new Text('การลา'),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: null),

@@ -8,8 +8,9 @@ class showposition extends StatefulWidget {
 class _showpositionState extends State<showposition> {
   @override
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('ข้อมูลตำแหน่ง'),
       ),
       body: new Container(

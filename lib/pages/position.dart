@@ -82,18 +82,18 @@ class _positionState extends State<position>  {
             child: ListView(
                 children: <Widget>[
                   ListTile(
-                           leading: Icon(Icons.work,size: 50,color: Colors.black,),
+
                         title: Text('Mobile-dev'),
                         onTap: (){Navigator.of(context).pushNamed('/showposition');},
                       ),
                 Padding(padding: EdgeInsets.all(6)),
                 ListTile(
-                        leading: Icon(Icons.work,size: 50,color: Colors.black,),
+
                         title: Text('Front-End'),
                       ),
                   Padding(padding: EdgeInsets.all(6)),
                    ListTile(
-                        leading: Icon(Icons.work,size: 50,color: Colors.black,),
+
                         title: Text('Front-End'),
                       )
 

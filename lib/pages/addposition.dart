@@ -12,13 +12,12 @@ void click () {
 class _addpositionState extends State<addposition> {
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
+
     double screenWidth = queryData.size.width;
     double screenHeight = queryData.size.height;
-    screenHeight = screenHeight*0.9;
-    screenWidth = screenWidth ;
-
+    Color colorappbar = const Color(0xFF2ac3fe);
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('เพิ่มข้อมูล'),
 
       ),
@@ -26,17 +25,17 @@ class _addpositionState extends State<addposition> {
       body: new Container(
         height: screenHeight,
         width: screenWidth,
-        child: new Center(child: new Column(
+        margin: EdgeInsets.all(10),
+        child: new Center(
+          child: new ListView(
           children: <Widget>[
          ListTile(
           leading: Text('ตำแหน่ง'),
           title: TextField(decoration: InputDecoration.collapsed(
               hintText: 'ป้อนตำแหน่ง'),autofocus: true,),
         ),
-Divider(color: Colors.grey,),
-         RaisedButton(
-           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-           onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
+        Divider(color: Colors.grey,),
+         RaisedButton(onPressed: save,child: Text('บันทึก'),color: Colors.green,)
           ]
         ),
         ),

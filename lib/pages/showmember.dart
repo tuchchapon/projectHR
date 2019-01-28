@@ -9,11 +9,19 @@ class _showmemberState extends State<showmember> {
 
   @override
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('ข้อมูลพนักงาน'),
       ),
-      body: new AspectRatio(aspectRatio: 16.0/30.0,
+      body: new Container(
+        height: screenHeight,
+        width: screenWidth,
+        margin: EdgeInsets.all(10),
         //  padding: new EdgeInsets.all(10.0),
         child: new ListView(
           children: <Widget>[
@@ -62,6 +70,7 @@ class _showmemberState extends State<showmember> {
               leading: Text('เงินเดือน         ',style: TextStyle(fontSize: 16),),
               title: Text('100000',style: TextStyle(fontSize: 14),),
             ),
+            Divider(color: Colors.grey,),
             Text('       สิทธิประโยชน์\n',style: TextStyle(fontSize: 16),),
             ListTile(
               leading: Column(mainAxisAlignment: MainAxisAlignment.start,
