@@ -57,9 +57,10 @@ class _addmemberState extends State<addmember> {
     double screenHeight = queryData.size.height;
     screenHeight = screenHeight*0.9;
     screenWidth = screenWidth ;
-    Color c = const Color(0xFF2ac3fe);
+    Color colorappbar = const Color(0xFF2ac3fe);
+
     return new Scaffold(
-      appBar: new AppBar(backgroundColor: c,
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('เพิ่มข้อมูล'),
       ),
       body: Container(
