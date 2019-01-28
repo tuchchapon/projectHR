@@ -29,10 +29,11 @@ Widget build(BuildContext context) {
               Container(width: screenWidth,height: screenHeight*0.22,
                 color: colorappbar,
                 child: Center(
-                  child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
                         CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.orange,),
-                        Text('admin')
+                      Padding(padding: EdgeInsets.only(top: 20,left: 50)),
+                      Text('admin')
                       ],
                   ),
                 ),
