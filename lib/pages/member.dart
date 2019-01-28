@@ -7,7 +7,7 @@ class member extends StatefulWidget {
 
 class _memberState extends State<member>  {
 Widget build(BuildContext context) {
-  Color c = const Color(0xFF4fa2e1);
+  Color buttoncolor = const Color(0xFF4fa2e1);
   return new Scaffold(
     appBar: new AppBar(
         title: new Text('สมาชิก'),
@@ -110,7 +110,7 @@ Widget build(BuildContext context) {
       ),
 
       floatingActionButton: FloatingActionButton(
-  backgroundColor: c,
+  backgroundColor: buttoncolor,
       onPressed: (){Navigator.of(context).pushNamed('/addmember');},
     child: Icon(Icons.add),)
 
