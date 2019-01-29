@@ -8,11 +8,16 @@ class showbranch extends StatefulWidget {
 class _showbranchState extends State<showbranch> {
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
+    Color colorappbar = const Color(0xFF2ac3fe);
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('ข้อมูลสาขา'),
       ),
-      body: new Container(
+      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
         //  padding: new EdgeInsets.all(10.0),
         child: new ListView(
           children: <Widget>[
@@ -40,7 +45,7 @@ class _showbranchState extends State<showbranch> {
                     Text('\nรายการ',style: TextStyle(fontSize: 16)),
                     Text('ค่าน้ำ'),
                     Text('ค่าเน็ต'),
-                    Text('sdajasd'),
+                    Text('ค่าไฟ'),
                     Padding(padding: EdgeInsets.all(10))
                   ],),
                 trailing: Column(mainAxisAlignment: MainAxisAlignment.center,
@@ -53,12 +58,13 @@ class _showbranchState extends State<showbranch> {
             ),
             Text('  \n   ค่าใช้จ่ายอื่นๆ\n',style: TextStyle(fontSize: 16),),
                 ListTile(
-                  leading: Column(mainAxisAlignment: MainAxisAlignment.start,
+                  leading: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text('\n รายการ',style: TextStyle(fontSize: 16)),
                       Text('ค่าโต๊ะ'),
                       Text('ค่าเน็ต'),
-                      Text('sdajasd'),
+                      Text('ค่าไฟ'),
                       Padding(padding: EdgeInsets.all(10))
                     ],),
                   trailing: Column(mainAxisAlignment: MainAxisAlignment.center,

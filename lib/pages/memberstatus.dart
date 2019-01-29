@@ -9,11 +9,16 @@ class memberstatus extends StatefulWidget {
 class _memberstatusState extends State<memberstatus> {
   @override
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('ข้อมูลสมาชิก'),
+        appBar: new AppBar(backgroundColor: colorappbar,
+          title: new Text('ข้อมูลสมาชิก',style: TextStyle(color: Colors.brown[500]),),
         ),
-        body: new Container(
+        body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
           child: new Center(
             child: new ListView(
               children: <Widget>[

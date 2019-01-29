@@ -16,7 +16,7 @@ class _projectState extends State<project>  {
     double screenHeight = queryData.size.height;
     String bkk ='twinsynergy BKK';
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
           title: new Text('โปรเจค'),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: null),

@@ -9,17 +9,23 @@ class _teammanageState extends State<teammanage> {
 
   @override
   Widget build(BuildContext context) {
+    Color buttoncolor = const Color(0xFF4fa2e1);
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('เพิ่มข้อมูล'),
+      appBar: new AppBar(backgroundColor: colorappbar,
+        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
       ),
-      body: new Container(
+      body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
         child: new Center(
           child: new ListView(
             children: <Widget>[
              ListTile(
                      leading: Text('สมาชิก'),
-                     title: Text('Team A'),
+                     title: Text('Team A',style: TextStyle(color: Colors.blue),),
                   ),
                 ListTile(
               leading: CircleAvatar(child: Icon(Icons.image,color: Colors.black,),radius: 24,backgroundColor: Colors.grey,),
@@ -46,7 +52,7 @@ class _teammanageState extends State<teammanage> {
         ),
       ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.orange,
+          backgroundColor: buttoncolor,
           onPressed: (){Navigator.of(context).pushNamed('/addteammember');},
           child: Icon(Icons.add),)
     );

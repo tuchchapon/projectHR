@@ -10,6 +10,7 @@ class addteammember extends StatefulWidget {
 enum Answers{Front1,Front2,Front3,Front4,back1,back2,back3,back4,mobile1,mobile2,mobile3,mobile4,design1,design2,design3,design4}
 
 class _addteammemberState extends State<addteammember> {
+  
   String _member = '';
 void _setValue(String member) => setState(() => _member = member);
   Future _addmember() async {
@@ -97,11 +98,16 @@ void _setValue(String member) => setState(() => _member = member);
 
   @override
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-        appBar: new AppBar(
+        appBar: new AppBar(backgroundColor: colorappbar,
           title: new Text('เพิ่มข้อมูล'),
         ),
-        body: new Container(
+        body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
           child: new Center(
             child: new ListView(
               children: <Widget>[

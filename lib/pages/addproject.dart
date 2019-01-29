@@ -35,12 +35,18 @@ class _addprojectState extends State<addproject> {
   }
   
   Widget build(BuildContext context) {
+    Color buttoncolor = const Color(0xFF4fa2e1);
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('เพิ่มโปรเจค'),
+      appBar: new AppBar(backgroundColor: colorappbar,
+        title: new Text('เพิ่มโปรเจค',style:TextStyle(color: Colors.brown[500]),),
       ),
 
-      body: new AspectRatio(aspectRatio: 20.0/30.0,
+      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
         child: new Center(
           child: new ListView(
           children: <Widget>[
@@ -76,12 +82,11 @@ class _addprojectState extends State<addproject> {
               title: TextField(decoration: InputDecoration.collapsed(hintText: 'ระบุหมายเหตุ'),),
             ),
             Divider(color: Colors.grey),
+            RaisedButton(onPressed: save,child:Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,),
           ],
         ),
         ),
       ),
-      floatingActionButton: RaisedButton(padding: EdgeInsets.fromLTRB(150,0 /*top*/, 150/*right*/, 0/*bottom*/),onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
-
     );
   }
 }

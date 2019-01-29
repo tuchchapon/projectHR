@@ -41,12 +41,12 @@ class _HomeState extends State<Home>  {
 
   @override
   Widget build(BuildContext context) {
+    Color buttoncolor = const Color(0xFF4fa2e1);
+    Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
 
     double screenWidth = queryData.size.width;
     double screenHeight = queryData.size.height;
-    screenHeight = screenHeight;
-    screenWidth = screenWidth ;
     /*SizedBox screen =  new SizedBox(
       width: screenWidth,
       height: screenHeight,
@@ -57,7 +57,7 @@ class _HomeState extends State<Home>  {
 
     return  new Scaffold(
 
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
           title: new Text('หน้าหลัก'),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: null),
@@ -69,9 +69,17 @@ class _HomeState extends State<Home>  {
       drawer: Drawer(
         child: Column(
           children: <Widget>[
-            AppBar(
-              automaticallyImplyLeading: false,
-              title: Text('Menu'),
+            Container(width: screenWidth,height: screenHeight*0.22,
+              color: colorappbar,
+              child: Center(
+                child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
+                  CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
+                  Padding(padding: EdgeInsets.only(top: 20,left: 50)),
+                  Text('admin',style: TextStyle(fontSize: 20),)
+                  ],
+                ),
+              ),padding: EdgeInsets.only(right: 200,top: 10),
             ),
             //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
             ListTile(
@@ -99,7 +107,7 @@ class _HomeState extends State<Home>  {
               title: Text('โปรเจค'),
               onTap:(){Navigator.of(context).pushNamed('/project');},
             ),
-        /*    ListTile(
+            /*   ListTile(
               leading: Icon(Icons.attach_money,color: Colors.black),
               title: Text('ค่าใช้จ่าย'),
               onTap:(){Navigator.of(context).pushNamed('/cost');},

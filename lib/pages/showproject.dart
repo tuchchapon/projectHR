@@ -8,12 +8,17 @@ class showproject extends StatefulWidget {
 class _showprojectState extends State<showproject> {
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
+    Color colorappbar = const Color(0xFF2ac3fe);
       return new Scaffold(
-        appBar: new AppBar(
+        appBar: new AppBar(backgroundColor: colorappbar,
           title: new Text('ข้อมูลโปรเจค'),
         ),
-        body: new Container(
-        //  padding: new EdgeInsets.all(10.0),
+        body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
+          //padding: new EdgeInsets.all(10.0),
           child: new ListView(
             children: <Widget>[
               ListTile(
@@ -23,6 +28,10 @@ class _showprojectState extends State<showproject> {
               ListTile(
                 leading: Text('ชื่อโปรเจค   ',style: TextStyle(fontSize: 16),),
                 title: Text('ระบบ HR',style: TextStyle(fontSize: 14)),
+              ),
+              ListTile(
+                leading: Text('ลูกค้า   ',style: TextStyle(fontSize: 16),),
+                title: Text('Twin Synergy',style: TextStyle(fontSize: 14)),
               ),
               ListTile(
                 leading: Text('วันที่เริ่ม       ',style: TextStyle(fontSize: 16),),
