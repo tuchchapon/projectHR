@@ -8,11 +8,16 @@ class showcost extends StatefulWidget {
 class _showcostState extends State<showcost> {
   @override
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('ข้อมูลค่าใช้จ่ายเพิ่มเติม'),
+      appBar: new AppBar(backgroundColor: colorappbar,
+        title: new Text('ข้อมูลค่าใช้จ่ายเพิ่มเติม',style: TextStyle(color: Colors.brown[500]),),
       ),
-      body: new Container(
+      body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
         //  padding: new EdgeInsets.all(10.0),
         child: new ListView(
           children: <Widget>[

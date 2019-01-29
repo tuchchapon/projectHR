@@ -9,9 +9,14 @@ class _costState extends State<cost>  {
 
   String money = 'บาท';
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(
-          title: new Text('ค่าใช้จ่าย'),
+      appBar: new AppBar(backgroundColor: colorappbar,
+          title: new Text('ค่าใช้จ่าย',style: TextStyle(color: Colors.brown[500]),),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: null),
             new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
@@ -19,15 +24,17 @@ class _costState extends State<cost>  {
       ),
 
 
-      body: new SafeArea(
+      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
        child: new Center(
          child: new ListView(
             children: <Widget>[
+
               ListTile(
                 leading: Text('    ค่าใช้จ่ายทั่วไป'),
                 trailing: IconButton(icon: Icon(Icons.add), onPressed: (){Navigator.of(context).pushNamed('/addfixcost');},
               ),
                   ),
+             
               ListTile(
                 leading: Icon(Icons.attach_money,size: 30,), 
                 title: Text('ค่าเน็ต'),

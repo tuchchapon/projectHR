@@ -18,7 +18,8 @@ class _benefitState extends State<benefit>  {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(
-          title: new Text('สิทธิประโยชน์'),
+          backgroundColor: colorappbar,
+          title: new Text('สิทธิประโยชน์',style: TextStyle(color: Colors.brown[500]),),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: null),
               new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
@@ -28,10 +29,13 @@ class _benefitState extends State<benefit>  {
         drawer: Drawer(
           child: Column(
             children: <Widget>[
-              Container(width: screenWidth,height: screenHeight*0.22,
+              Container(
+                width: screenWidth,
+                height: screenHeight*0.22,
                 color: colorappbar,
                 child: Center(
-                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
                     CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
                     Padding(padding: EdgeInsets.only(top: 20,left: 50)),
@@ -42,7 +46,7 @@ class _benefitState extends State<benefit>  {
               ),
               //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
               ListTile(
-                leading: Icon(Icons.people,color: Colors.black),
+                leading: Icon(Icons.people,color: Colors.black,),
                 title: Text('พนักงาน'),
                 onTap: (){Navigator.of(context).pushNamed('/member');},
               ),
@@ -79,27 +83,28 @@ class _benefitState extends State<benefit>  {
             ],
           ),
         ),
-        body: new Container(
+
+        body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
           child: new Center(
             child: new ListView(
               children: <Widget>[
                 Padding(padding: EdgeInsets.all(10)),
                 Text('  ข้อมูลสิทธิประโยชน์'),
                 ListTile(
-                  leading: Icon(Icons.card_giftcard,color: Colors.black,size: 40),
+
                   title: Text('ค่าฟิตเนส'),
-                  subtitle: Text('5000${money}'),
+                  subtitle: Text('5000 ${money}'),
                   onTap: (){Navigator.of(context).pushNamed('/showbenefit');},
                 ),
                 ListTile(
-                  leading: Icon(Icons.card_giftcard,color: Colors.black,size: 40,),
+
                   title: Text('ค่าฟิตเนส'),
-                  subtitle: Text('5000${money}'),
+                  subtitle: Text('5000 ${money}'),
                 ),
                 ListTile(
-                  leading: Icon(Icons.card_giftcard,color: Colors.black,size: 40),
+
                   title: Text('ค่าฟิตเนส'),
-                  subtitle: Text('5000${money}'),
+                  subtitle: Text('5000 ${money}'),
                 ),
                 Padding(padding: EdgeInsets.all(50))
               ],

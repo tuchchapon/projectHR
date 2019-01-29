@@ -22,11 +22,16 @@ class _costmanageState extends State<costmanage> {
 
   @override
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('เพิ่มข้อมูลค่าใช้จ่าย'),
       ),
-      body: new Container(
+      body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(10),
         child: new Center(
           child: new ListView(
             children: <Widget>[
@@ -52,14 +57,11 @@ class _costmanageState extends State<costmanage> {
                 title: TextField(decoration: InputDecoration.collapsed(hintText: 'ระบุหมายเหตุ'),),
               ),
               Divider(color: Colors.grey,),
+              RaisedButton(onPressed: save,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
             ],
           ),
         ),
       ),
-      floatingActionButton:
-      RaisedButton(
-        padding:
-        EdgeInsets.fromLTRB(150, 10 /*top*/, 150/*right*/, 10/*bottom*/),onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
-    );
+       );
   }
 }

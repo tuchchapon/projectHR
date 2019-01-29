@@ -8,13 +8,19 @@ class addbenefit extends StatefulWidget {
 
 class _addbenefitState extends State<addbenefit> {
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('เพิ่มข้อมูล'),
       ),
 
-      body: new Container(
-        child: new Center(child: new Column(
+      body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(10),
+        child: new Center(
+          child: new ListView(
           children: <Widget>[
           ListTile(leading: Text('รายการ   '),
             title:
@@ -42,12 +48,11 @@ class _addbenefitState extends State<addbenefit> {
             ),
           ),
           Divider(color: Colors.grey,),
+          RaisedButton(onPressed: save,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
           ],
         ),
         ),
-      ),floatingActionButton: RaisedButton(
-      padding: EdgeInsets.fromLTRB(150,0 /*top*/, 150/*right*/, 0/*bottom*/),
-      onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
+      ),
     );
   }
 }

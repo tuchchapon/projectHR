@@ -8,12 +8,17 @@ class addfixcost extends StatefulWidget {
 
 class _addfixcostState extends State<addfixcost> {
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('เพิ่มค่าใช้จ่ายทั่วไป'),
+      appBar: new AppBar(backgroundColor: colorappbar,
+        title: new Text('เพิ่มค่าใช้จ่ายทั่วไป',style: TextStyle(color: Colors.brown[500]),),
       ),
 
-      body: new Container(
+      body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
         child: new Center(child: new Column(
           children: <Widget>[
             ListTile(
@@ -47,7 +52,7 @@ class _addfixcostState extends State<addfixcost> {
         ),
         ),
       ),floatingActionButton: RaisedButton(
-      padding: EdgeInsets.fromLTRB(150,0 /*top*/, 150/*right*/, 0/*bottom*/),
+      padding: EdgeInsets.fromLTRB(160,0 /*top*/, 150/*right*/, 0/*bottom*/),
       onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
     );
   }

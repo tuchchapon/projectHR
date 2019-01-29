@@ -14,15 +14,16 @@ class _showbranchState extends State<showbranch> {
     double screenHeight = queryData.size.height;
     Color colorappbar = const Color(0xFF2ac3fe);
     return new Scaffold(
-      appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('ข้อมูลสาขา'),
+      appBar: new AppBar(
+        backgroundColor: colorappbar,
+      title: new Text('ข้อมูลสาขา',style: TextStyle(color: Colors.brown[500]),),
       ),
       body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
         //  padding: new EdgeInsets.all(10.0),
-        child: new ListView(
+        child: Center(child: new ListView(
           children: <Widget>[
-            Padding(padding: EdgeInsets.all(8)),
-         /*   ListTile(
+
+            /*   ListTile(
               leading: CircleAvatar(child: Icon(Icons.store_mall_directory,size: 36,),radius: 30),
             ),*/
             ListTile(
@@ -39,7 +40,7 @@ class _showbranchState extends State<showbranch> {
               //subtitle: Text('จัดการค่าใช้จ่าย'),
             ),
             Text('  \n   ค่าใช้จ่ายทั่วไป\n',style: TextStyle(fontSize: 16)),
-             ListTile(
+            ListTile(
                 leading: Column(mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Text('\nรายการ',style: TextStyle(fontSize: 16)),
@@ -57,27 +58,27 @@ class _showbranchState extends State<showbranch> {
                   ],)
             ),
             Text('  \n   ค่าใช้จ่ายอื่นๆ\n',style: TextStyle(fontSize: 16),),
-                ListTile(
-                  leading: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text('\n รายการ',style: TextStyle(fontSize: 16)),
-                      Text('ค่าโต๊ะ'),
-                      Text('ค่าเน็ต'),
-                      Text('ค่าไฟ'),
-                      Padding(padding: EdgeInsets.all(10))
-                    ],),
-                  trailing: Column(mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text('มูลค่า',style: TextStyle(fontSize: 16)),
-                      Text('50000'),
-                      Text('50000'),
-                      Text('30000'),
-                    ],
-                  ),
+            ListTile(
+              leading: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text('\n รายการ',style: TextStyle(fontSize: 16)),
+                  Text('ค่าโต๊ะ'),
+                  Text('ค่าเน็ต'),
+                  Text('ค่าไฟ'),
+                  Padding(padding: EdgeInsets.all(10))
+                ],),
+              trailing: Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('มูลค่า',style: TextStyle(fontSize: 16)),
+                  Text('50000'),
+                  Text('50000'),
+                  Text('30000'),
+                ],
+              ),
             ),
           ],
-        ),
+        ),)
       ),
     );
 
