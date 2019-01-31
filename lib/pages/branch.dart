@@ -1,4 +1,21 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'listbranch.dart';
+
+Future<List<Branch>> fetchPosts(http.Client client) async {
+  final response = await client.get('http://35.198.219.154:1337/branch'); // ดึงข้อมูลจาก API
+
+  return compute(parsePosts, response.body); // compute ต้องประกาศ import 'package:flutter/foundation.dart';
+}
+
+List<Branch> parsePosts(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<Branch>((json) => Branch.fromJson(json)).toList();
+}
 
 class branch extends StatefulWidget {
   @override
@@ -77,36 +94,17 @@ class _branchState extends State<branch>  {
             ],
           ),
         ),
-        body: Container(
-          child: Center(
-            child: ListView(
-                children: <Widget>[
-                  ListTile(
+        body: Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+          child: FutureBuilder<List<Branch>>(
+          future: fetchPosts(http.Client()),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
 
-                        title: Text('Twinsynergy BKK '),
-                        subtitle: Text('ที่อยู่ พระราม 999 ซอย 4 เสรี 8 '),
-                      onTap: (){Navigator.of(context).pushNamed('/showbranch');},
-                  ),
-                  Padding(padding: EdgeInsets.all(4)),
-                  ListTile(
-
-                    title: Text('Twinsynergy CMX '),
-                    subtitle: Text('ที่อยู่ พระราม 999 ซอย 4 เสรี 8'
-                        'ที่อยู่ พระราม 999 ซอย 4 เสรี 8 '),
-
-                      ),
-                  Padding(padding: EdgeInsets.all(4)),
-                 ListTile(
-
-                   title: Text('Twinsynergy CRI '),
-                   subtitle: Text('ที่อยู่ พระราม 999 ซอย 4 เสรี 8'
-                       'ที่อยู่ พระราม 999 ซอย 4 เสรี 8 '),
-                 ),
-                  Padding(padding: EdgeInsets.all(4)),
-                ]
-
-            ),
-          ),
+            return snapshot.hasData
+                ? ListViewPosts(posts: snapshot.data)
+                : Center(child: CircularProgressIndicator());
+          },
+        ),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: buttoncolor,

@@ -1,4 +1,22 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'listposition.dart';
+
+Future<List<Position>> fetchPosts(http.Client client) async {
+  final response = await client.get('http://35.198.219.154:1337/position'); // ดึงข้อมูลจาก API
+
+  return compute(parsePosts, response.body); // compute ต้องประกาศ import 'package:flutter/foundation.dart';
+}
+List<Position> parsePosts(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<Position>((json) => Position.fromJson(json)).toList();
+}
+
+
 
 class position extends StatefulWidget {
   @override
@@ -77,29 +95,16 @@ class _positionState extends State<position>  {
             ],
           ),
         ),
-        body: Container(
-          child: Center(
-            child: ListView(
-                children: <Widget>[
-                  ListTile(
+        body: Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+          child: FutureBuilder<List<Position>>(
+            future: fetchPosts(http.Client()),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
 
-                        title: Text('Mobile-dev'),
-                        onTap: (){Navigator.of(context).pushNamed('/showposition');},
-                      ),
-                Padding(padding: EdgeInsets.all(6)),
-                ListTile(
-
-                        title: Text('Front-End'),
-                      ),
-                  Padding(padding: EdgeInsets.all(6)),
-                   ListTile(
-
-                        title: Text('Front-End'),
-                      )
-
-                ]
-
-            ),
+              return snapshot.hasData
+                  ? ListViewPosts(posts: snapshot.data)
+                  : Center(child: CircularProgressIndicator());
+            },
           ),
         ),
         floatingActionButton: FloatingActionButton(
