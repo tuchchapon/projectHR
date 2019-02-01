@@ -49,7 +49,7 @@ class _loginState extends State<login> {
     Color colorappbar = const Color(0xFF2ac3fe);
 
     return new Scaffold(
-      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+      body: new Container(width: screenWidth,height: screenHeight,
        
         child: new Center(
           child: new Column(
