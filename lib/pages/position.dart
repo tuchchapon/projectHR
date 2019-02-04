@@ -58,19 +58,19 @@ class _positionState extends State<position>  {
               ),
               //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
               ListTile(
+                leading: Icon(Icons.dashboard,color: Colors.black),
+                title: Text('Dashboard'),
+                onTap: (){Navigator.of(context).pushNamed('/Home');},
+              ),
+              ListTile(
+                leading: Icon(Icons.assignment,color: Colors.black),
+                title: Text('โปรเจค'),
+                onTap:(){Navigator.of(context).pushNamed('/project');},
+              ),
+              ListTile(
                 leading: Icon(Icons.people,color: Colors.black),
                 title: Text('พนักงาน'),
                 onTap: (){Navigator.of(context).pushNamed('/member');},
-              ),
-              ListTile(
-                leading: Icon(Icons.event,color: Colors.black),
-                title: Text('การลา') ,
-                onTap: (){Navigator.of(context).pushNamed('/vacation');},
-              ),
-              ListTile(
-                leading: Icon(Icons.work,color: Colors.black),
-                title: Text('ตำแหน่ง'),
-                onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
               ListTile(
                 leading: Icon(Icons.account_balance,color: Colors.black),
@@ -78,20 +78,21 @@ class _positionState extends State<position>  {
                 onTap:(){Navigator.of(context).pushNamed('/branch');},
               ),
               ListTile(
-                leading: Icon(Icons.assignment,color: Colors.black),
-                title: Text('โปรเจค'),
-                onTap:(){Navigator.of(context).pushNamed('/project');},
+                leading: Icon(Icons.work,color: Colors.black),
+                title: Text('ตำแหน่ง'),
+                onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
               /*   ListTile(
-              leading: Icon(Icons.attach_money,color: Colors.black),
-              title: Text('ค่าใช้จ่าย'),
-              onTap:(){Navigator.of(context).pushNamed('/cost');},
+              leading: Icon(Icons.event,color: Colors.black),
+              title: Text('การลา') ,
+              onTap: (){Navigator.of(context).pushNamed('/vacation');},
+            ),
+            ListTile(
+              leading: Icon(Icons.card_giftcard,color: Colors.black),
+              title: Text('สิทธิประโยชน์'),
+              onTap:(){Navigator.of(context).pushNamed('/benefit');},
+
             ),*/
-              ListTile(
-                leading: Icon(Icons.card_giftcard,color: Colors.black),
-                title: Text('สิทธิประโยชน์'),
-                onTap:(){Navigator.of(context).pushNamed('/benefit');},
-              ),
             ],
           ),
         ),
