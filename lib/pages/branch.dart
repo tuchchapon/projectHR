@@ -36,7 +36,7 @@ class _branchState extends State<branch>  {
           title: new Text('สาขา'),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: null),
-            new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
+            new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/showbranch');})
           ]
       ),
 
