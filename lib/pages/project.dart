@@ -102,6 +102,7 @@ class _projectState extends State<project>  {
               if (snapshot.hasError) print(snapshot.error);
 
               return snapshot.hasData
+
                   ? ListViewPosts(posts: snapshot.data)
                   : Center(child: CircularProgressIndicator());
             },
