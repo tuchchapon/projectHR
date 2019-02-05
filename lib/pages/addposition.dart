@@ -1,27 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'listposition.dart';
-import 'dart:io';
 
-String url = 'https://jsonplaceholder.typicode.com/posts';
 
-Future<List<Position>> getAllPosts() async {
-  final response = await http.get('http://35.198.219.154:1337/position');
-  print(response.body);
-  return allPostsFromJson(response.body);
-}
-
-Future<Position> getPost() async{
-  final response = await http.get('$url/1');
-  return postFromJson(response.body);
-}
-
-Future<http.Response> createPost(Position post) async{
-  final response = await http.post('$url',
-      body: postToJson(post)
-  );
-  return response;
-}
 
 
 class addposition extends StatefulWidget {

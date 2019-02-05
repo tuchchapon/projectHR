@@ -134,13 +134,7 @@ class _HomeState extends State<Home>  {
               ],
             ),
           )
-      ), floatingActionButton: FloatingActionButton(
-      backgroundColor: Colors.orange,
-      onPressed: save,
-      tooltip: 'add',
-      child: Icon(Icons.add),
-
-    ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
