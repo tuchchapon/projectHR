@@ -79,7 +79,7 @@ class _addmemberState extends State<addmember> {
                 Padding(padding: EdgeInsets.all(2)),
                 Divider(color: Colors.grey,),
                 ListTile(
-                  leading: Text('ชื่อ-นามสกุล      ',style: TextStyle(),),
+                  leading: Text('ชื่อ-นามสกุล     ',style: TextStyle(),),
                   title: TextField(maxLength: 40,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนชื่อนามสกุล'
@@ -88,10 +88,37 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(color: Colors.grey,),
                 ListTile(
-                  leading: Text('เบอร์โทร           '),
+                  leading: Text('ที่อยู่                 '),
+                  title: TextField(maxLength: 50,
+                    decoration: InputDecoration.collapsed(
+                        hintText: 'ป้อนที่อยู่'
+                    ),
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Text('เบอร์โทร          '),
                   title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเบอร์โทร'
+                    ),
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Text('เงินเดือน          '),
+                  title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
+                    decoration: InputDecoration.collapsed(
+                        hintText: 'ป้อนเงินเดือน'
+                    ),
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Text('สาขา                '),
+                  title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
+                    decoration: InputDecoration.collapsed(
+                        hintText: 'ป้อนสาขา'
                     ),
                   ),
                 ),
@@ -103,19 +130,10 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(color: Colors.grey,),
                 ListTile(
-                  leading: Text('ที่อยู่                '),
-                  title: TextField(maxLength: 50,
-                    decoration: InputDecoration.collapsed(
-                        hintText: 'ป้อนที่อยู่'
-                    ),
-                  ),
-                ),
-                Divider(color: Colors.grey,),
-                ListTile(
                   leading: Text('ผู้ติดต่อฉุกเฉิน  '),
                   title: TextField(maxLength: 40,
                     decoration: InputDecoration.collapsed(
-                        hintText: 'ป้อนผุ้ติดต่อฉุกเฉิน'
+                        hintText: 'ป้อนผู้ติดต่อฉุกเฉิน'
                     ),
                   ),
                 ),
@@ -139,24 +157,15 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(color: Colors.grey,),
                 ListTile(
-                  leading: Text('ที่อยู่                '),
+                  leading: Text('ที่อยู่                 '),
                   title: TextField(maxLength: 50,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนที่อยู่'
                     ),
                   ),
                 ),
-                Divider(color: Colors.grey,),
-                ListTile(
-                  leading: Text('เงินเดือน          '),
-                  title: TextField(keyboardType: TextInputType.number,
-                    decoration: InputDecoration.collapsed(
-                        hintText: 'ป้อนเงินเดือน'
-                    ),
-                  ),
-                ),
-                Divider(color: Colors.grey,),
-                ListTile(
+            Divider(),
+            /*    ListTile(
                   leading: Text('สิทธิประโยชน์'),
                   title: Container(
                     child: Column(
@@ -180,8 +189,7 @@ class _addmemberState extends State<addmember> {
                       ],
                     ),
                   ),
-                ),
-                Divider(color: Colors.grey,),
+                ),*/
               //  Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 30)),
                 RaisedButton(onPressed: save,
                   child: Text('บันทึก'),

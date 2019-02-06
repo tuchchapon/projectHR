@@ -67,14 +67,15 @@ class _loginState extends State<login> {
                 ),
               ),
 
-            new TextField(
-                decoration: new InputDecoration(labelText: 'Username'),
-                onChanged: (String userinput){
-                  setState(() {
-                    _user = userinput;
-                  });
+            Container(child: new TextField(
+              decoration: new InputDecoration(labelText: 'Username'),
+              autocorrect: false,
+              onChanged: (String userinput){
+                setState(() {
+                  _user = userinput;
+                });
               },
-              ),
+            ),),
               Padding(padding: EdgeInsets.only(top: 10,)),
               new TextField(
                 decoration: new InputDecoration(labelText: 'Password'),

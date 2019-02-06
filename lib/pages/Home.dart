@@ -15,7 +15,63 @@ class Sales {
   charts.Color color;
   Sales(this.year,this.sales,this.color);
 }
+class DonutPieChart extends StatelessWidget {
+  final List<charts.Series> seriesList;
+  final bool animate;
 
+  DonutPieChart(this.seriesList, {this.animate});
+
+  /// Creates a [PieChart] with sample data and no transition.
+  factory DonutPieChart.withSampleData() {
+    return new DonutPieChart(
+      _createSampleData(),
+      // Disable animations for image tests.
+      animate: false,
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return new charts.PieChart(seriesList,
+        animate: animate,
+        // Configure the width of the pie slices to 60px. The remaining space in
+        // the chart will be left as a hole in the center.
+        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 30));
+  }
+
+  /// Create one series with sample hard coded data.
+  static List<charts.Series<LinearSales, int>> _createSampleData() {
+    final data = [
+      new LinearSales(0,60, charts.MaterialPalette.blue.shadeDefault),
+      new LinearSales(1, 30, charts.MaterialPalette.red.shadeDefault),
+      new LinearSales(2, 40, charts.MaterialPalette.yellow.shadeDefault),
+      new LinearSales(3, 60, charts.MaterialPalette.purple.shadeDefault),
+    ];
+
+    return [
+      new charts.Series<LinearSales, int>(
+        id: 'Sales',
+        domainFn: (LinearSales sales, _) => sales.year,
+        measureFn: (LinearSales sales, _) => sales.sales,
+        data: data,
+      ),
+
+    ];
+  }
+
+}
+class LinearSales {
+  final int year;
+  final int sales;
+  charts.Color color;
+
+
+
+  LinearSales(this.year, this.sales,this.color);
+}
 class _HomeState extends State<Home> {
 
   List<Sales> _data;
@@ -25,10 +81,8 @@ class _HomeState extends State<Home> {
   void _makeData() {
     _chartdata = new List<charts.Series<Sales, int>>();
     _data = <Sales>[
-      new Sales(0,80, charts.MaterialPalette.purple.shadeDefault),
+      new Sales(0,50, charts.MaterialPalette.purple.shadeDefault),
       new Sales(1,75, charts.MaterialPalette.blue.shadeDefault),
-      new Sales(2,25, charts.MaterialPalette.green.shadeDefault),
-      new Sales(3,5, charts.MaterialPalette.yellow.shadeDefault),
     ];
 
     _chartdata.add(new charts.Series(
@@ -114,16 +168,50 @@ class _HomeState extends State<Home> {
     ListTile(title: Text('ตำแหน่งพนักงาน'),
         trailing: Text('สาขา BKK',style: TextStyle(fontSize: 12),),) ,
   Divider(),
-  Container(margin: EdgeInsets.all(5),
+  Container(margin: EdgeInsets.all(10),
     width: screenWidth,height: screenHeight*0.65,
-    child: new charts.PieChart<dynamic>(
-    _chartdata,
-    animate: true,
-    animationDuration: new Duration(seconds: 2),
-    defaultRenderer: new charts.ArcRendererConfig(arcWidth: 26)
+    child: DonutPieChart.withSampleData()
+  ),
+    new Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        new Container(
+          decoration: new BoxDecoration(
+            border: new Border.all(color: Colors.purple[200], width: 6.0),
+          ),
+        ),
 
-      ),
+        Text('  Front-end  2'),
+        Text('      '),
+        new Container(
+          decoration: new BoxDecoration(
+            border: new Border.all(color: Colors.blue, width: 6.0),
+          ),
+        ),
+        Text('  Back-end 3'),
+      ],
     ),
+    new Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        new Container(
+          decoration: new BoxDecoration(
+            border: new Border.all(color: Colors.yellow, width: 6.0),
+          ),
+        ),
+
+        Text('  Mobile  1'),
+        Text('      '),
+        new Container(
+          decoration: new BoxDecoration(
+            border: new Border.all(color: Colors.orange[300], width: 6.0),
+          ),
+        ),
+        Text('  dev-ops'),
+      ],
+    ),
+    ]
+          ),
       ListTile(title: Text('ค่าใช้จ่ายปี'),
       trailing: Text('2019',style: TextStyle(color: Colors.grey),),),
       ListTile(title: Text('Total Budget',style: TextStyle(fontSize: 10),),
@@ -133,7 +221,7 @@ class _HomeState extends State<Home> {
       width: screenWidth,height: screenHeight*0.5,
       child: new charts.PieChart<dynamic>(
           _chartdata,
-          animate: true,
+          animate: false,
           animationDuration: new Duration(seconds: 5),
     defaultRenderer: new charts.ArcRendererConfig(arcWidth: 10),
       ),
@@ -182,9 +270,9 @@ class _HomeState extends State<Home> {
     ),
       ],
           )
-        ],
-      )
-    );
+
+      );
+
   }
 }
 
