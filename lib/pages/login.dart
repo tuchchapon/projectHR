@@ -16,7 +16,8 @@ class _loginState extends State<login> {
     if(_user == 'admin' && _pass == '1234') {
       print('login ID:${_user} \nPassword:${_pass}');
       print('login Status admin!');
-      Navigator.of(context).pushNamed('/Home');
+          Navigator.of(context).pushNamed('/Home');
+
     }
     else if (_user == 'HR' && _pass == '1234'){
       print('login ID:${_user} \nPassword:${_pass}');
@@ -60,7 +61,7 @@ class _loginState extends State<login> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Text('ระบบจัดการทรัพยากรมนุษย์',style: TextStyle(fontSize: 24),),
+                    Text('ระบบจัดการข้อมูล',style: TextStyle(color: Colors.white,fontSize: 26),),
                     Padding(padding: EdgeInsets.only(bottom: 20))
                   ],
                 ),

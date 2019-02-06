@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
   void _makeData() {
     _chartdata = new List<charts.Series<Sales, int>>();
     _data = <Sales>[
-      new Sales(0,80, charts.MaterialPalette.red.shadeDefault),
+      new Sales(0,80, charts.MaterialPalette.purple.shadeDefault),
       new Sales(1,75, charts.MaterialPalette.blue.shadeDefault),
       new Sales(2,25, charts.MaterialPalette.green.shadeDefault),
       new Sales(3,5, charts.MaterialPalette.yellow.shadeDefault),
@@ -112,14 +112,15 @@ class _HomeState extends State<Home> {
           Column(
         children: <Widget>[
     ListTile(title: Text('ตำแหน่งพนักงาน'),
-        trailing: Text('สาขา BKK'),) ,
+        trailing: Text('สาขา BKK',style: TextStyle(fontSize: 12),),) ,
+  Divider(),
   Container(margin: EdgeInsets.all(5),
-    width: screenWidth,height: screenHeight*0.5,
+    width: screenWidth,height: screenHeight*0.65,
     child: new charts.PieChart<dynamic>(
     _chartdata,
     animate: true,
     animationDuration: new Duration(seconds: 2),
-    defaultRenderer: new charts.ArcRendererConfig(arcWidth: 20)
+    defaultRenderer: new charts.ArcRendererConfig(arcWidth: 26)
 
       ),
     ),
@@ -136,7 +137,27 @@ class _HomeState extends State<Home> {
           animationDuration: new Duration(seconds: 5),
     defaultRenderer: new charts.ArcRendererConfig(arcWidth: 10),
       ),
+
     ),
+      new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Container(
+          decoration: new BoxDecoration(
+            border: new Border.all(color: Colors.blue[200], width: 6.0),
+          ),
+        ),
+
+          Text('  Total Spend'),
+          Text('      '),
+          new Container(
+            decoration: new BoxDecoration(
+              border: new Border.all(color: Colors.purple[300], width: 6.0),
+            ),
+          ),
+          Text('  Money Saved'),
+        ],
+      ),
       ListTile(
         title: Text('อันดับพนักงาน',style: TextStyle(fontSize: 12),),
         trailing: Text('จำนวนงาน',style: TextStyle(fontSize: 10),),
