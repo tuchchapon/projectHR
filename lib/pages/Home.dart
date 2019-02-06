@@ -122,14 +122,14 @@ class _HomeState extends State<Home> {
         trailing: Text('สาขา BKK',style: TextStyle(fontSize: 12),),) ,
   Divider(),
     Stack(children: <Widget>[
-      Container(child: Text('99 คน'),margin: EdgeInsets.only(top: 62,left: 166),),
+      Container(child: Text('99 คน'),margin: EdgeInsets.only(top: 62,left: 166),height: screenHeight*0.4,),
       Container(margin: EdgeInsets.all(5),
         width: screenWidth,height: screenHeight*0.5,
         child: new charts.PieChart<dynamic>(
           _chartdata,
           animate: false,
           animationDuration: new Duration(seconds: 5),
-          defaultRenderer: new charts.ArcRendererConfig(arcWidth: 10),
+          defaultRenderer: new charts.ArcRendererConfig(arcWidth: 20),
         ),
 
       ),

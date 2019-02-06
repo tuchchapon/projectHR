@@ -62,30 +62,56 @@ class _loginState extends State<login> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Text('ระบบจัดการข้อมูล',style: TextStyle(color: Colors.white,fontSize: 26),),
-                    Padding(padding: EdgeInsets.only(bottom: 20))
+                    Padding(
+                        padding: EdgeInsets.only(bottom: 20))
                   ],
                 ),
               ),
-
-            Container(child: new TextField(
-              decoration: new InputDecoration(labelText: 'Username'),
-              autocorrect: false,
-              onChanged: (String userinput){
-                setState(() {
-                  _user = userinput;
-                });
-              },
-            ),),
-              Padding(padding: EdgeInsets.only(top: 10,)),
-              new TextField(
-                decoration: new InputDecoration(labelText: 'Password'),
-                onChanged: (String passinput){
+              Container(
+                height: 40,
+                margin: EdgeInsets.only(top: 20,left: 20,right: 20),
+              child: new Container(child: TextField(
+                autocorrect: false,
+                decoration: InputDecoration(
+                  hintText: 'username',border: InputBorder.none),
+                onChanged: (String userinput){
                   setState(() {
-                    _pass = passinput;
+                    _user = userinput;
                   });
-                },
-                obscureText: true,
+                },),
+                decoration: new BoxDecoration(border: Border.all(width: 0.1),
+                  color: Colors.transparent,
+                  borderRadius: new BorderRadius.only(
+                      topLeft:const Radius.circular(15.0),
+                      topRight: const Radius.circular(15.0),
+                      bottomLeft: const Radius.circular(15.0),
+                      bottomRight: const Radius.circular(15.0))
+                ),
+              ),
+              ),
 
+
+              Padding(padding: EdgeInsets.only(top: 10,)),
+
+              Container(
+                height: 40,
+                margin: EdgeInsets.only(top: 20,left: 20,right: 20),
+                child: new Container(child: TextField(obscureText: true,autocorrect: false,
+                  decoration: InputDecoration(
+                      hintText: 'username',border: InputBorder.none),
+                  onChanged: (String Passinput)
+                  {setState(() {_pass = Passinput;}
+                  );
+                  },),
+                  decoration: new BoxDecoration(border: Border.all(width: 0.1),
+                      color: Colors.transparent,
+                      borderRadius: new BorderRadius.only(
+                          topLeft:const Radius.circular(15.0),
+                          topRight: const Radius.circular(15.0),
+                          bottomLeft: const Radius.circular(15.0),
+                          bottomRight: const Radius.circular(15.0))
+                  ),
+                ),
               ),
               new Padding(
                 padding: new EdgeInsets.all(10.0),
