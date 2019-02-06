@@ -1,75 +1,72 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'addmember.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+
+
+
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => new _HomeState();
 }
 
-class _HomeState extends State<Home>  {
+class Sales {
+  int year;
+  int sales;
+  charts.Color color;
+  Sales(this.year,this.sales,this.color);
+}
 
-  void _deleteAlert(BuildContext context, String message) async {
-    return showDialog(
-        context: context,
-        child: new AlertDialog(
-          title: new Text(message),
-          actions: <Widget>[
-            new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('YES')),
-            new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('NO')),
-          ],
-        )
+class _HomeState extends State<Home> {
 
-    );
+  List<Sales> _data;
+  List<charts.Series<Sales, int>> _chartdata;
+
+
+  void _makeData() {
+    _chartdata = new List<charts.Series<Sales, int>>();
+    _data = <Sales>[
+      new Sales(0,80, charts.MaterialPalette.red.shadeDefault),
+      new Sales(1,75, charts.MaterialPalette.blue.shadeDefault),
+      new Sales(2,25, charts.MaterialPalette.green.shadeDefault),
+      new Sales(3,5, charts.MaterialPalette.yellow.shadeDefault),
+    ];
+
+    _chartdata.add(new charts.Series(
+      id: 'Sales',
+      data: _data,
+      colorFn: (Sales sales,_) => sales.color,
+      domainFn: (Sales sales,_) => sales.year,
+      measureFn: (Sales sales,_) => sales.sales,
+    ));
   }
-  void _addAlert(BuildContext context, String message) async {
-    return showDialog(
-        context: context,
-        child: new AlertDialog(
-          title: new Text(message),
-          actions: <Widget>[
-            new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('YES')),
-            new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('NO')),
-          ],
-        )
-
-    );
-  }
-  String _value = '';
-
 
 
   @override
+  void initState() {
+    _makeData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Color buttoncolor = const Color(0xFF4fa2e1);
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
 
     double screenWidth = queryData.size.width;
-    double screenHeight = queryData.size.height;
-    /*SizedBox screen =  new SizedBox(
-      width: screenWidth,
-      height: screenHeight,
-      child: new DecoratedBox(
-        decoration: new BoxDecoration(color: Colors.red),
-      ),
-    );*/
-
-    return  new Scaffold(
-
-      appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('หน้าหลัก'),
+    double screenHeight = queryData.size.height*0.4;
+    return new Scaffold(
+      appBar: new AppBar(
+          backgroundColor: colorappbar,
+          title: new Text('หน้าหลัก',style:TextStyle(color: Colors.brown[500]),),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: null),
-           //new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');}
-
+            new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
           ]
       ),
 
       drawer: Drawer(
         child: Column(
           children: <Widget>[
-            Container(width: screenWidth,height: screenHeight*0.22,
+            Container(width: screenWidth,height: screenHeight*0.6,
               color: colorappbar,
               child: Center(
                 child: Column(mainAxisAlignment: MainAxisAlignment.start,
@@ -88,10 +85,10 @@ class _HomeState extends State<Home>  {
               onTap: (){Navigator.of(context).pushNamed('/Home');},
             ),
             ListTile(
-            leading: Icon(Icons.assignment,color: Colors.black),
-            title: Text('โปรเจค'),
-            onTap:(){Navigator.of(context).pushNamed('/project');},
-          ),
+              leading: Icon(Icons.assignment,color: Colors.black),
+              title: Text('โปรเจค'),
+              onTap:(){Navigator.of(context).pushNamed('/project');},
+            ),
             ListTile(
               leading: Icon(Icons.people,color: Colors.black),
               title: Text('พนักงาน'),
@@ -107,34 +104,98 @@ class _HomeState extends State<Home>  {
               title: Text('ตำแหน่ง'),
               onTap:(){Navigator.of(context).pushNamed('/position');},
             ),
-         /*   ListTile(
-              leading: Icon(Icons.event,color: Colors.black),
-              title: Text('การลา') ,
-              onTap: (){Navigator.of(context).pushNamed('/vacation');},
-            ),
-            ListTile(
-              leading: Icon(Icons.card_giftcard,color: Colors.black),
-              title: Text('สิทธิประโยชน์'),
-              onTap:(){Navigator.of(context).pushNamed('/benefit');},
-
-            ),*/
           ],
         ),
       ),
+      body: ListView(
+        children: <Widget>[
+          Column(
+        children: <Widget>[
+    ListTile(title: Text('ตำแหน่งพนักงาน'),
+        trailing: Text('สาขา BKK'),) ,
+  Container(margin: EdgeInsets.all(5),
+    width: screenWidth,height: screenHeight*0.5,
+    child: new charts.PieChart<dynamic>(
+    _chartdata,
+    animate: true,
+    animationDuration: new Duration(seconds: 2),
+    defaultRenderer: new charts.ArcRendererConfig(arcWidth: 20)
 
-      body: new Container(
-        width: screenWidth,
-        height: screenHeight,
-        margin: EdgeInsets.fromLTRB(15, 15, 15, 15),
-        //padding: new EdgeInsets.all(32.0),
-          child: new Center(
-            child: new Column(
-              children: <Widget>[
-                new Text('data'),
-              ],
-            ),
+      ),
+    ),
+      ListTile(title: Text('ค่าใช้จ่ายปี'),
+      trailing: Text('2019',style: TextStyle(color: Colors.grey),),),
+      ListTile(title: Text('Total Budget',style: TextStyle(fontSize: 10),),
+      trailing: Text('500,000',style: TextStyle(color: Colors.green,fontSize: 10),),),
+      Divider(),
+      Container(margin: EdgeInsets.all(5),
+      width: screenWidth,height: screenHeight*0.5,
+      child: new charts.PieChart<dynamic>(
+          _chartdata,
+          animate: true,
+          animationDuration: new Duration(seconds: 5),
+    defaultRenderer: new charts.ArcRendererConfig(arcWidth: 10),
+      ),
+    ),
+      ListTile(
+        title: Text('อันดับพนักงาน',style: TextStyle(fontSize: 12),),
+        trailing: Text('จำนวนงาน',style: TextStyle(fontSize: 10),),
+      ),
+          Divider(),
+          ListTile(
+            title: Text('ธัชพล สุธรรมมา'),
+            subtitle: Text('Mobile-dev'),
+            trailing: Text('80%'),
+          ),
+    Divider(),
+    ListTile(
+      title: Text('ธัชพล สุธรรมมา'),
+      subtitle: Text('Mobile-dev'),
+      trailing: Text('80%'),
+    ),
+    Divider(),
+    ListTile(
+      title: Text('ธัชพล สุธรรมมา'),
+      subtitle: Text('Mobile-dev'),
+      trailing: Text('80%'),
+    ),
+      ],
           )
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        ],
+      )
     );
   }
 }
+
+/*
+ ListView(
+        children: <Widget>[Container(color: Colors.black,height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
+              child: new Column(
+                children: <Widget>[
+                  new ListTile(
+                    title: Text('ตำแหน่งพนักงาน'),
+                    trailing:  Text('สาขา BKK'),
+                  ),
+                  Divider(),
+                  Container(width: screenWidth,height: screenHeight*0.4,child: new charts.PieChart<dynamic>(
+                      _chartdata,
+                      animate: true,
+                      animationDuration: new Duration(seconds: 2)
+
+                  ),
+                  ),
+
+
+                  Divider(),
+                  ListTile(title: Text('ค่าใช้จ่ายปี'),
+                    trailing: Text('2019'),),
+                  ListTile(title: Text('ค่าใช้จ่ายปี'),
+                    trailing: Text('2019'),),
+                  Padding(padding: EdgeInsets.only(bottom: 5)),
+
+                ],
+              ),
+
+        ),],
+      )
+ */

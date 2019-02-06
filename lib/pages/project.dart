@@ -33,11 +33,8 @@ class _projectState extends State<project>  {
     String bkk ='twinsynergy BKK';
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('โปรเจค'),
-          actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.search), onPressed: null),
-            new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-          ]
+          title: new Text('โปรเจค',style:TextStyle(color: Colors.brown[500]),),
+
       ),
 
         drawer: Drawer(

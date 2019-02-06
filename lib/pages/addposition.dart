@@ -10,8 +10,12 @@ class addposition extends StatefulWidget {
 }
 
 
-
-//String _position = '';
+void save(){
+ if (_position != '' ){
+   print(_position);
+ }
+}
+String _position = '';
 
 class _addpositionState extends State<addposition> {
   Widget build(BuildContext context) {
@@ -35,20 +39,31 @@ class _addpositionState extends State<addposition> {
           children: <Widget>[
          ListTile(
           leading: Text('ตำแหน่ง'),
-          title: TextField(decoration: InputDecoration.collapsed(
+          title: TextFormField(decoration: InputDecoration.collapsed(
               hintText: 'ป้อนตำแหน่ง'),autofocus: true,
-            onChanged: (String Posiotion){
-            setState(() {
-            String  _position = Posiotion;
-            });
-          },),
+              validator: validateName,autovalidate: true,
+
+          ),
         ),
         Divider(color: Colors.grey,),
-         RaisedButton(onPressed: null,child: Text('บันทึก'),color: Colors.green,)
+         RaisedButton(onPressed: save,child: Text('บันทึก'),color: Colors.green,)
           ]
         ),
         ),
       ),
     );
   }
+}
+
+String validateName(String value) {
+  Pattern pattern =
+    '[a-zA-Zก-ฮ]';
+  RegExp regex = new RegExp(pattern);
+  if (value.length < 3) {
+    return 'ชื่อตำแหน่งต้องมีพยัญชนะมากกว่า 2 ตัว';
+  } else if (!regex.hasMatch(value)) {
+    return 'รูปแบบไม่ถูกต้อง';
+  }
+  else
+    return null;
 }
