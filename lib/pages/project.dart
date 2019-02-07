@@ -33,7 +33,8 @@ class _projectState extends State<project>  {
     String bkk ='twinsynergy BKK';
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('โปรเจค',style:TextStyle(color: Colors.brown[500]),),
+          title: new Text('โปรเจ็ค',style:TextStyle(color: Colors.brown[500]),),
+        actions: <Widget>[ new IconButton(icon: new Icon(Icons.search,color: Colors.black,), onPressed: null),],
 
       ),
 
@@ -92,18 +93,23 @@ class _projectState extends State<project>  {
             ],
           ),
         ),
-        body: Container(
-          child: FutureBuilder<List<Project>>(
-            future: fetchPosts(http.Client()),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) print(snapshot.error);
+        body: Container(margin: EdgeInsets.all(10),
+          child: Column(
+            children: <Widget>[
+              FutureBuilder<List<Project>>(
+                future: fetchPosts(http.Client()),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) print(snapshot.error);
 
-              return snapshot.hasData
+                  return snapshot.hasData
+                      ? ListViewPosts(posts: snapshot.data)
+                      : Center(child: CircularProgressIndicator());
+                },
+              ),
 
-                  ? ListViewPosts(posts: snapshot.data)
-                  : Center(child: CircularProgressIndicator());
-            },
+            ],
           ),
+
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: buttoncolor,

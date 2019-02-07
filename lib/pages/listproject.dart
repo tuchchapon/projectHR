@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class Project {
@@ -9,7 +10,7 @@ class Project {
   String projectStartDate;
   String projectEndDate;
   String projectTeamName;
-  int projectTotalCost;
+  double projectTotalCost;
   String projectNote;
 
   Project({

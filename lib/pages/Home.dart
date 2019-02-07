@@ -92,8 +92,8 @@ class _HomeState extends State<Home> {
           backgroundColor: colorappbar,
           title: new Text('หน้าหลัก',style:TextStyle(color: Colors.brown[500]),),
           actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.search), onPressed: null),
-            new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
+            new IconButton(icon: new Icon(Icons.search,color: Colors.black,), onPressed: null),
+          //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
           ]
       ),
 
@@ -145,18 +145,18 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           Column(
         children: <Widget>[
-    ListTile(title: Text('ตำแหน่งพนักงาน'),
-        trailing: Text('สาขา BKK',style: TextStyle(fontSize: 12),),) ,
+    ListTile(title: Text('ตำแหน่งพนักงาน',style: TextStyle(fontSize: 20),),
+        ) ,
   Divider(),
     Stack(children: <Widget>[
-      Container(child: Text('99 คน'),margin: EdgeInsets.only(top: 62,left: 166),height: screenHeight*0.4,),
+      Container(child: Text('99 คน'),margin: EdgeInsets.only(top: 80,left: 166),height: screenHeight*0.4,),
       Container(margin: EdgeInsets.all(5),
-        width: screenWidth,height: screenHeight*0.5,
+        width: screenWidth,height: screenHeight*0.7,
         child: new charts.PieChart<dynamic>(
           _chartemp,
           animate: true,
           animationDuration: new Duration(seconds: 2),
-          defaultRenderer: new charts.ArcRendererConfig(arcWidth: 20),
+          defaultRenderer: new charts.ArcRendererConfig(arcWidth: 30),
         ),
 
       ),
@@ -202,68 +202,89 @@ class _HomeState extends State<Home> {
     ),
     ]
           ),
-      ListTile(title: Text('ค่าใช้จ่ายปี'),
-      trailing: Text('2019',style: TextStyle(color: Colors.grey),),),
-      ListTile(title: Text('Total Budget',style: TextStyle(fontSize: 10),),
-      trailing: Text('500,000',style: TextStyle(color: Colors.green,fontSize: 10),),),
-      Divider(),
-      Stack(children: <Widget>[
-        Container(child: Text('  48%\n Saved'),margin: EdgeInsets.only(top: 58,left: 163),),
-        Container(margin: EdgeInsets.all(5),
-          width: screenWidth,height: screenHeight*0.5,
-          child: new charts.PieChart<dynamic>(
-            _chartdata,
-            animate: true,
-            animationDuration: new Duration(seconds: 3),
-            defaultRenderer: new charts.ArcRendererConfig(arcWidth: 10),
-          ),
+          Divider(),
+          Padding(padding: EdgeInsets.only(top: 30,bottom: 30),child:
+          Text('   Selling rate',style: TextStyle(fontSize: 20),),),
+    Divider(),
+    ListTile(
+      title: Text('ธัชพล สุธรรมมา'),
+      subtitle: Text('22000   บาท',style: TextStyle(color: Colors.green),),
 
-        ),
-      ],),
-      new Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          new Container(
-          decoration: new BoxDecoration(
-            border: new Border.all(color: Colors.blue[200], width: 6.0),
-          ),
-        ),
-
-          Text('  Total Spend'),
-          Text('      '),
-          new Container(
-            decoration: new BoxDecoration(
-              border: new Border.all(color: Colors.purple[300], width: 6.0),
-            ),
-          ),
-          Text('  Money Saved'),
-        ],
-      ),
-      ListTile(
-        title: Text('อันดับพนักงาน',style: TextStyle(fontSize: 12),),
-        trailing: Text('จำนวนงาน',style: TextStyle(fontSize: 10),),
-      ),
+    ),
           Divider(),
           ListTile(
             title: Text('ธัชพล สุธรรมมา'),
-            subtitle: Text('Mobile-dev'),
-            trailing: Text('80%'),
+            subtitle: Text('22000   บาท',style: TextStyle(color: Colors.green),),
+
+          ),
+          Divider(),
+          ListTile(
+            title: Text('ธัชพล สุธรรมมา'),
+            subtitle: Text('22000   บาท',style: TextStyle(color: Colors.green),),
+
           ),
     Divider(),
-    ListTile(
-      title: Text('ธัชพล สุธรรมมา'),
-      subtitle: Text('Mobile-dev'),
-      trailing: Text('80%'),
-    ),
-    Divider(),
-    ListTile(
-      title: Text('ธัชพล สุธรรมมา'),
-      subtitle: Text('Mobile-dev'),
-      trailing: Text('80%'),
-    ),
+          Padding(padding: EdgeInsets.all(20)),
+          Divider(),
+          Padding(padding: EdgeInsets.only(top: 30,bottom: 30),child:
+          Text('   project sell',style: TextStyle(fontSize: 20),),),
+          Divider(),
+          ListTile(
+            leading: Text('ระบบ HR',style: TextStyle(fontSize: 18),),
+          ),
+          ListTile(
+            leading: Text('ลูกค้า :'),
+            title: Text('Twins'),
+          ),
+          ListTile(
+            leading: Text('ราคาต้นทุน : '),
+            title: Row(children: <Widget>[
+              Text('22000   ',style: TextStyle(color: Colors.red),),
+              Text('บาท')
+            ],),
+          ),
+          ListTile(
+            leading: Text('ราคาขาย :    '),
+            title: Row(children: <Widget>[
+              Text('22000   ',style: TextStyle(color: Colors.green),),
+              Text('บาท')
+            ],),
+          ),
+          Divider(),
+          ListTile(
+            leading: Text('ระบบ HR',style: TextStyle(fontSize: 18),),
+          ),
+          ListTile(
+            leading: Text('ลูกค้า :'),
+            title: Text('Twins'),
+          ),
+          ListTile(
+            leading: Text('ราคาต้นทุน : '),
+            title: Row(children: <Widget>[
+              Text('22000   ',style: TextStyle(color: Colors.red),),
+              Text('บาท')
+            ],),
+          ),
+          ListTile(
+            leading: Text('ราคาขาย :    '),
+            title: Row(children: <Widget>[
+              Text('22000   ',style: TextStyle(color: Colors.green),),
+              Text('บาท')
+            ],),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('ราคาต้นทุนทั้งหมด'),
+            subtitle: Text('44000',style: TextStyle(color: Colors.red),),
+          ),
+          ListTile(
+            title: Text('ราคาขายทั้งหมด'),
+            subtitle: Text('44000',style: TextStyle(color: Colors.green),),
+          ),
+          Divider(),
+          
       ],
           )
-
       );
 
   }
