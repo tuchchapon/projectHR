@@ -15,7 +15,12 @@ class Sales {
   charts.Color color;
   Sales(this.year,this.sales,this.color);
 }
-
+class Emp {
+  int emps;
+  int value;
+  charts.Color color;
+  Emp(this.emps,this.value,this.color);
+}
 
 
 
@@ -27,8 +32,12 @@ class Sales {
 }
 class _HomeState extends State<Home> {
 
+
   List<Sales> _data;
   List<charts.Series<Sales, int>> _chartdata;
+
+  List<Emp> _empdata;
+  List<charts.Series<Emp, int>> _chartemp;
 
 
   void _makeData() {
@@ -46,11 +55,29 @@ class _HomeState extends State<Home> {
       measureFn: (Sales sales,_) => sales.sales,
     ));
   }
+  void _makeEmp() {
+    _chartemp = new List<charts.Series<Emp, int>>();
+    _empdata = <Emp>[
+      new Emp(0,20, charts.MaterialPalette.purple.shadeDefault),
+      new Emp(1,30, charts.MaterialPalette.blue.shadeDefault),
+      new Emp(2,10, charts.MaterialPalette.yellow.shadeDefault),
+      new Emp(3,70, charts.MaterialPalette.deepOrange.shadeDefault),
+    ];
+
+    _chartemp.add(new charts.Series(
+      id: 'Emps',
+      data: _empdata,
+      colorFn: (Emp emp,_) => emp.color,
+      domainFn: (Emp emp,_) => emp.emps,
+      measureFn: (Emp emp,_) => emp.value,
+    ));
+  }
 
 
   @override
   void initState() {
     _makeData();
+    _makeEmp();
   }
 
   @override
@@ -126,9 +153,9 @@ class _HomeState extends State<Home> {
       Container(margin: EdgeInsets.all(5),
         width: screenWidth,height: screenHeight*0.5,
         child: new charts.PieChart<dynamic>(
-          _chartdata,
-          animate: false,
-          animationDuration: new Duration(seconds: 5),
+          _chartemp,
+          animate: true,
+          animationDuration: new Duration(seconds: 2),
           defaultRenderer: new charts.ArcRendererConfig(arcWidth: 20),
         ),
 
@@ -167,7 +194,7 @@ class _HomeState extends State<Home> {
         Text('           '),
         new Container(
           decoration: new BoxDecoration(
-            border: new Border.all(color: Colors.orange, width: 6.0),
+            border: new Border.all(color: Colors.deepOrange, width: 6.0),
           ),
         ),
         Text('  dev-ops  7'),
@@ -186,8 +213,8 @@ class _HomeState extends State<Home> {
           width: screenWidth,height: screenHeight*0.5,
           child: new charts.PieChart<dynamic>(
             _chartdata,
-            animate: false,
-            animationDuration: new Duration(seconds: 5),
+            animate: true,
+            animationDuration: new Duration(seconds: 3),
             defaultRenderer: new charts.ArcRendererConfig(arcWidth: 10),
           ),
 

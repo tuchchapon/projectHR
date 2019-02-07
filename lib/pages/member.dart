@@ -83,34 +83,34 @@ Widget build(BuildContext context) {
             child: new ListView(
               children: <Widget>[
                 ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
+              //    leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
                   title: Text('นายธัชพล สุธรรมมา'),
                   subtitle:  Text('Mobile dev'),
                   onTap: () {Navigator.of(context).pushNamed('/showmember');},
                 ),
                  new Padding(padding: EdgeInsets.only(top: 5.0)),
                 ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
+             //     leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
                   title: Text('นายธัชพล สุธรรมมา'),
                   subtitle:  Text('Mobile dev'),
                 ),
                 ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
+            //      leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
                   title: Text('นายธัชพล สุธรรมมา'),
                   subtitle:  Text('Mobile dev'),
                 ),
                 ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
+            //      leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
                   title: Text('นายธัชพล สุธรรมมา'),
                   subtitle:  Text('Mobile dev'),
                 ),
                 ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
+             //     leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
                   title: Text('นายธัชพล สุธรรมมา'),
                   subtitle:  Text('Mobile dev'),
                 ),
                 ListTile(
-                  leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
+            //      leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
                   title: Text('นายธัชพล สุธรรมมา'),
                   subtitle:  Text('Mobile dev'),
 

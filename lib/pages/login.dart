@@ -98,7 +98,7 @@ class _loginState extends State<login> {
                 margin: EdgeInsets.only(top: 20,left: 20,right: 20),
                 child: new Container(child: TextField(obscureText: true,autocorrect: false,
                   decoration: InputDecoration(
-                      hintText: 'username',border: InputBorder.none),
+                      hintText: 'password',border: InputBorder.none),
                   onChanged: (String Passinput)
                   {setState(() {_pass = Passinput;}
                   );
@@ -113,13 +113,17 @@ class _loginState extends State<login> {
                   ),
                 ),
               ),
+              /*
               new Padding(
                 padding: new EdgeInsets.all(10.0),
                 child: new RaisedButton(onPressed: _checklogin, child: new Text('เข้าสู่ระบบ'),
 
                   padding: EdgeInsets.only(left: 50.0,right: 50.0,bottom: 10,top: 10) ,color:colorappbar,),
               ),
+*/
+              FlatButton(onPressed: _checklogin,child: Image(image: AssetImage('pic/11.png'),),padding: EdgeInsets.all(8),),
               new Padding(
+
                 padding: new EdgeInsets.all(10.0),
                // child: new FlatButton(onPressed: null, child: new Text('หากลืมรหัสผ่าน',),color: (Colors.red),),
               )
