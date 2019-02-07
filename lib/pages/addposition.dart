@@ -57,10 +57,10 @@ class _addpositionState extends State<addposition> {
 
 String validateName(String value) {
   Pattern pattern =
-    '[a-zA-Zก-ฮ]';
+    '[a-zA-Zก-ฮ1-9]';
   RegExp regex = new RegExp(pattern);
-  if (value.length < 3) {
-    return 'ชื่อตำแหน่งต้องมีพยัญชนะมากกว่า 2 ตัว';
+  if (value.length < 1) {
+    return 'กรุณาป้อนตำแหน่ง';
   } else if (!regex.hasMatch(value)) {
     return 'รูปแบบไม่ถูกต้อง';
   }

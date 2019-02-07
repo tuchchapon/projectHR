@@ -78,21 +78,33 @@ Widget build(BuildContext context) {
           ],
         ),
       ),
-      body: new Container(height: screenHeight,width: screenWidth,
+      body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
           child: new Center(
             child: new ListView(
               children: <Widget>[
                 ListTile(
               //    leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
                   title: Text('นายธัชพล สุธรรมมา'),
-                  subtitle:  Text('Mobile dev'),
+                  subtitle:  Text('Mobile dev',style: TextStyle(color: Colors.green,),),
                   onTap: () {Navigator.of(context).pushNamed('/showmember');},
                 ),
                  new Padding(padding: EdgeInsets.only(top: 5.0)),
                 ListTile(
              //     leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
                   title: Text('นายธัชพล สุธรรมมา'),
-                  subtitle:  Text('Mobile dev'),
+                  subtitle:  Stack(
+                    children: <Widget>[
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Text('Front-end',style: TextStyle(color: Colors.green),),
+                            Text('เบอร์ติดต่อ:  088-808-5084'),
+                            Text('ที่อยู่: aiaosadjklasaiskasksdkasdkadk'),
+                          ],
+                       mainAxisAlignment: MainAxisAlignment.spaceAround, ),
+                      ),
+                    ],
+                  )
                 ),
                 ListTile(
             //      leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),

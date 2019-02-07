@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'listproject.dart';
 
 Future<List<Project>> fetchPosts(http.Client client) async {
-  final response = await client.get('http://35.198.219.154:1337/Projectmanage'); // ดึงข้อมูลจาก API
+  final response = await client.get('http://localhost:1337/Projectmanage'); // ดึงข้อมูลจาก API
 
   return compute(parsePosts, response.body); // compute ต้องประกาศ import 'package:flutter/foundation.dart';
 }
