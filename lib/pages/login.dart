@@ -121,12 +121,12 @@ class _loginState extends State<login> {
                   padding: EdgeInsets.only(left: 50.0,right: 50.0,bottom: 10,top: 10) ,color:colorappbar,),
               ),
 */
-              FlatButton(onPressed: _checklogin,child: Image(image: AssetImage('pic/11.png'),),padding: EdgeInsets.all(8),),
               new Padding(
-
                 padding: new EdgeInsets.all(10.0),
-               // child: new FlatButton(onPressed: null, child: new Text('หากลืมรหัสผ่าน',),color: (Colors.red),),
-              )
+                // child: new FlatButton(onPressed: null, child: new Text('หากลืมรหัสผ่าน',),color: (Colors.red),),
+              ),
+              FlatButton(onPressed: _checklogin,child: Image(image: AssetImage('pic/11.png'),),),
+
             ],
       ),
       ),
