@@ -22,7 +22,7 @@ class _addpositionState extends State<addposition> {
     Color colorappbar = const Color(0xFF2ac3fe);
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มข้อมูล'),
+        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
 
       ),
 
@@ -42,7 +42,7 @@ class _addpositionState extends State<addposition> {
           ),
         ),
         Divider(color: Colors.grey,),
-         RaisedButton(onPressed: save,child: Text('บันทึก'),color: Colors.green,)
+         RaisedButton(onPressed: save,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
           ]
         ),
         ),

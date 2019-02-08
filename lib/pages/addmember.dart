@@ -76,7 +76,7 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('ชื่อ-นามสกุล     ',style: TextStyle(),),
+                  leading: Text('ชื่อ-นามสกุล     \n',style: TextStyle(),),
                   title: TextField(maxLength: 40,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนชื่อนามสกุล'
@@ -94,7 +94,7 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('เบอร์ติดต่อ          '),
+                  leading: Text('เบอร์ติดต่อ       '),
                   title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเบอร์ติดต่อ'
@@ -113,7 +113,7 @@ class _addmemberState extends State<addmember> {
                 Divider(),
                 ListTile(
                   leading: Text('สาขา                '),
-                  title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
+                  title: TextField(maxLength: 20,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนสาขา'
                     ),
@@ -149,7 +149,7 @@ class _addmemberState extends State<addmember> {
                 ),
           Divider(),
           ListTile(
-            leading: Text('เกี่ยวข้องเป็น       '),
+            leading: Text('เกี่ยวข้องเป็น     '),
             title: TextField(maxLength: 20,
               decoration: InputDecoration.collapsed(
                   hintText: 'ป้อนสถานะ'
@@ -158,7 +158,7 @@ class _addmemberState extends State<addmember> {
           ),
                 Divider(),
                 ListTile(
-                  leading: Text('เบอร์ติดต่อ       '),
+                  leading: Text('เบอร์ติดต่อ      '),
                   title: TextField(maxLength: 10,keyboardType: TextInputType.phone,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเบอร์ติดต่อ'
@@ -169,7 +169,7 @@ class _addmemberState extends State<addmember> {
                 ListTile(
                   leading: new Text('สิทธิประโยชน์      ',style: TextStyle(fontSize: 16),),
                   trailing: new IconButton(icon: new Icon(Icons.list),
-                      onPressed: (){Navigator.of(context).pushNamed('/benefit');},),
+                      onPressed: (){Navigator.of(context).pushNamed('/addbenefit');},),
                 ),
 
             /*    ListTile(

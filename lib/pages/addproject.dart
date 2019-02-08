@@ -8,8 +8,31 @@ class addproject extends StatefulWidget {
 }
 String _value = 'ปปปป-ดด-วว';
 String _value2 = 'ปปปป-ดด-วว';
+/*
+void _addAlert(BuildContext context, String message) async {
+  return AlertDialog(
+      context: context,
+      child: new AlertDialog(
+        title: new Text(message),
+        actions: <Widget>[
+          new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('YES')),
+          new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('NO')),
+        ],
+      )
 
+  );
+}
+*/
+Future _showAlert(BuildContext context, String message) async {
+  return showDialog(
+      context: context,
+      child: new AlertDialog(
+        title: new Text(message),
+        
+      )
 
+  );
+}
 
 class _addprojectState extends State<addproject> {
 
@@ -82,7 +105,7 @@ class _addprojectState extends State<addproject> {
               title: TextField(decoration: InputDecoration.collapsed(hintText: 'ระบุหมายเหตุ'),),
             ),
             Divider(color: Colors.grey),
-            RaisedButton(onPressed: save,child:Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,),
+            RaisedButton(onPressed: () => _showAlert(context, 'บันทึกสำเร็จ'),child:Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,),
           ],
         ),
         ),

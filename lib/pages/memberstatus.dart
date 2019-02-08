@@ -57,6 +57,8 @@ class _memberstatusState extends State<memberstatus> {
 
                 ),
                 Divider(color: Colors.grey,),
+                RaisedButton(onPressed: save,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
+
 
               ],
             ),

@@ -15,7 +15,7 @@ class _showprojectState extends State<showproject> {
     Color colorappbar = const Color(0xFF2ac3fe);
       return new Scaffold(
         appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('ข้อมูลโปรเจค',style: TextStyle(color: Colors.brown[500]),),
+          title: new Text('ข้อมูลโปรเจ็ค',style: TextStyle(color: Colors.brown[500]),),
         ),
         body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
           //padding: new EdgeInsets.all(10.0),
@@ -60,24 +60,24 @@ class _showprojectState extends State<showproject> {
                 leading: Column(
                   children: <Widget>[
                     Text('รายการ'),
-                    Text('ค่าเซิฟเวอร์'),
-                    Text('ค่าหฟกฟหก'),
-                    Text('sdajasd'),
+                    Text('ค่าเซิฟเวอร์',style:TextStyle(color: Colors.grey) ,),
+                    Text('ค่าหฟกฟหก',style:TextStyle(color: Colors.grey) ,),
+                    Text('sdajasd',style:TextStyle(color: Colors.grey) ,),
                   ],),
                 subtitle: Column(
                   children: <Widget>[
                     Text('วันที่'),
-                    Text('01/oct/2019'),
-                    Text('01/oct/2019'),
-                    Text('01/oct/2019'),
+                    Text('01/oct/2019',style:TextStyle(color: Colors.grey) ,),
+                    Text('01/oct/2019',style:TextStyle(color: Colors.grey) ,),
+                    Text('01/oct/2019',style:TextStyle(color: Colors.grey) ,),
                   ],
                 ),
-                trailing: Column(
+                trailing: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Text('มูลค่า'),
-                    Text('5000'),
-                    Text('5000'),
-                    Text('3000'),
+                    Text('5000',style:TextStyle(color: Colors.grey) ,),
+                    Text('5000',style:TextStyle(color: Colors.grey) ,),
+                    Text('3000',style:TextStyle(color: Colors.grey) ,),
                   ],
                 ),
               ),

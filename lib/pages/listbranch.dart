@@ -151,8 +151,7 @@ class ListViewPosts extends StatelessWidget {
                       ),
                     );
                   },
-                ),
-                Divider(color: Colors.grey,)
+                ),Padding(padding: EdgeInsets.all(5))
               ],
             );
           }),
