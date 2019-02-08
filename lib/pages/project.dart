@@ -93,28 +93,45 @@ class _projectState extends State<project>  {
             ],
           ),
         ),
-        body: Container(margin: EdgeInsets.all(10),
-          child: Column(
-            children: <Widget>[
-              FutureBuilder<List<Project>>(
-                future: fetchPosts(http.Client()),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) print(snapshot.error);
+        body: ListView(children: <Widget>[
+          Container(margin: EdgeInsets.all(10),
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: Text('ข้อมูลโปรเจ็ค :'),
+                  title: Text('Twinsynergy BKK',style: TextStyle(color: Colors.blue),),
+                ),
+                ListTile(
+                  onTap: (){Navigator.of(context).pushNamed('/showproject');},
+                  title: Text('ระบบ HR'),
+                  subtitle: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text('ลูกค้า: ',style: TextStyle(color: Colors.black),),
+                          Text('Twins'),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Text('ทีมรับผิดชอบ:',style: TextStyle(color: Colors.black),),
+                          Text('Team A'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
 
-                  return snapshot.hasData
-                      ? ListViewPosts(posts: snapshot.data)
-                      : Center(child: CircularProgressIndicator());
-                },
-              ),
 
-            ],
+              ],
+            ),
+
           ),
-
-        ),
+        ],),
         floatingActionButton: FloatingActionButton(
           backgroundColor: buttoncolor,
           onPressed: (){Navigator.of(context).pushNamed('/addproject');},
-          child: Icon(Icons.add),)
+          child: Icon(Icons.add,size: 30),)
     );
   }
 }

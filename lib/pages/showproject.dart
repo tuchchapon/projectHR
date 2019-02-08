@@ -15,7 +15,7 @@ class _showprojectState extends State<showproject> {
     Color colorappbar = const Color(0xFF2ac3fe);
       return new Scaffold(
         appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('ข้อมูลโปรเจค'),
+          title: new Text('ข้อมูลโปรเจค',style: TextStyle(color: Colors.brown[500]),),
         ),
         body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
           //padding: new EdgeInsets.all(10.0),
@@ -50,7 +50,7 @@ class _showprojectState extends State<showproject> {
               ),
               ListTile(
                 leading: Text('หมายเหตุ      ',style: TextStyle(fontSize: 16),),
-                title: Text('ระบบ HR aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',style: TextStyle(fontSize: 14),),
+                title: Text('-',style: TextStyle(fontSize: 14),),
               ),
               ListTile(
                 leading: Text('รายการค่าใช้จ่ายของโปรเจ็ค'),

@@ -94,7 +94,9 @@ void _setValue(String member) => setState(() => _member = member);
         break;
     }
   }
+void save (){
 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,9 +107,9 @@ void _setValue(String member) => setState(() => _member = member);
     double screenHeight = queryData.size.height;
     return new Scaffold(
         appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('เพิ่มข้อมูล'),
+          title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
         ),
-        body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+        body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
           child: new Center(
             child: new ListView(
               children: <Widget>[
@@ -127,6 +129,7 @@ void _setValue(String member) => setState(() => _member = member);
                   title: TextField(decoration: InputDecoration.collapsed(hintText: 'ป้อนจำนวน Sprint'),),
                 ),
                 Divider(color: Colors.grey),
+                RaisedButton(onPressed: save,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
             ],
             ),
           ),

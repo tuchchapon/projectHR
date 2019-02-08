@@ -61,7 +61,7 @@ class _addmemberState extends State<addmember> {
 
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มข้อมูล'),
+        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
       ),
       body: Container(
         height: screenHeight,
@@ -71,13 +71,10 @@ class _addmemberState extends State<addmember> {
         child: Center(
           child: ListView(
               children: <Widget>[
-                Padding(padding: EdgeInsets.all(6)),
                 ListTile(
-                  leading: CircleAvatar(child: Icon(Icons.add_photo_alternate,size: 30.0,color: Colors.white,),radius: 35,backgroundColor: Colors.grey,),
+                  leading: Text('ข้อมูลส่วนตัว',style: TextStyle(fontSize: 20),),
                 ),
-
-                Padding(padding: EdgeInsets.all(2)),
-                Divider(color: Colors.grey,),
+                Divider(),
                 ListTile(
                   leading: Text('ชื่อ-นามสกุล     ',style: TextStyle(),),
                   title: TextField(maxLength: 40,
@@ -86,7 +83,7 @@ class _addmemberState extends State<addmember> {
                     ),
                   ),
                 ),
-                Divider(color: Colors.grey,),
+                Divider(),
                 ListTile(
                   leading: Text('ที่อยู่                 '),
                   title: TextField(maxLength: 50,
@@ -97,10 +94,10 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('เบอร์โทร          '),
+                  leading: Text('เบอร์ติดต่อ          '),
                   title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
                     decoration: InputDecoration.collapsed(
-                        hintText: 'ป้อนเบอร์โทร'
+                        hintText: 'ป้อนเบอร์ติดต่อ'
                     ),
                   ),
                 ),
@@ -122,13 +119,16 @@ class _addmemberState extends State<addmember> {
                     ),
                   ),
                 ),
-                Divider(color: Colors.grey,),
+                Divider(),
                 ListTile(
                   leading: new Text('ตำแหน่ง      ',style: TextStyle(fontSize: 16),),
                   title: Text('${_position}',style: TextStyle(fontSize: 14),),
                   trailing: new IconButton(icon: new Icon(Icons.list), onPressed: _askUser),
                 ),
-                Divider(color: Colors.grey,),
+                Divider(),
+                ListTile(
+                  leading: Text('ข้อมูลผู้ติดต่อ',style: TextStyle(fontSize: 20),),),
+                Divider(),
                 ListTile(
                   leading: Text('ผู้ติดต่อฉุกเฉิน  '),
                   title: TextField(maxLength: 40,
@@ -137,25 +137,8 @@ class _addmemberState extends State<addmember> {
                     ),
                   ),
                 ),
-                Divider(color: Colors.grey,),
-                ListTile(
-                  leading: Text('เบอร์ติดต่อ       '),
-                  title: TextField(maxLength: 10,keyboardType: TextInputType.phone,
-                    decoration: InputDecoration.collapsed(
-                        hintText: 'ป้อนเบอร์ติดต่อ'
-                    ),
-                  ),
-                ),
-                Divider(color: Colors.grey,),
-                ListTile(
-                  leading: Text('เกี่ยวข้องเป็น    '),
-                  title: TextField(maxLength: 20,
-                    decoration: InputDecoration.collapsed(
-                        hintText: 'ป้อนสถานะ'
-                    ),
-                  ),
-                ),
-                Divider(color: Colors.grey,),
+
+                Divider(),
                 ListTile(
                   leading: Text('ที่อยู่                 '),
                   title: TextField(maxLength: 50,
@@ -164,7 +147,22 @@ class _addmemberState extends State<addmember> {
                     ),
                   ),
                 ),
-            Divider(),
+                Divider(),
+                ListTile(
+                  leading: Text('เบอร์ติดต่อ       '),
+                  title: TextField(maxLength: 10,keyboardType: TextInputType.phone,
+                    decoration: InputDecoration.collapsed(
+                        hintText: 'ป้อนเบอร์ติดต่อ'
+                    ),
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  leading: new Text('สิทธิประโยชน์      ',style: TextStyle(fontSize: 16),),
+                  trailing: new IconButton(icon: new Icon(Icons.list),
+                      onPressed: (){Navigator.of(context).pushNamed('/benefit');},),
+                ),
+
             /*    ListTile(
                   leading: Text('สิทธิประโยชน์'),
                   title: Container(
@@ -195,7 +193,7 @@ class _addmemberState extends State<addmember> {
                   child: Text('บันทึก'),
                   color:(Colors.green),
                   textColor: (Colors.white),
-                  padding: EdgeInsets.all(20),),
+                  padding: EdgeInsets.all(10),),
               ]
           ),
 

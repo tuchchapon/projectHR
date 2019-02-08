@@ -16,10 +16,10 @@ Widget build(BuildContext context) {
   return new Scaffold(
     appBar: new AppBar(
       backgroundColor: colorappbar,
-        title: new Text('สมาชิก'),
+        title: new Text('พนักงาน',style: TextStyle(color: Colors.brown[500]),),
         actions: <Widget>[
           new IconButton(icon: new Icon(Icons.search), onPressed: null),
-          new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
+       //   new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
         ]
     ),
 
@@ -82,55 +82,58 @@ Widget build(BuildContext context) {
           child: new Center(
             child: new ListView(
               children: <Widget>[
-                ListTile(
-              //    leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
-                  title: Text('นายธัชพล สุธรรมมา'),
-                  subtitle:  Text('Mobile dev',style: TextStyle(color: Colors.green,),),
-                  onTap: () {Navigator.of(context).pushNamed('/showmember');},
-                ),
                  new Padding(padding: EdgeInsets.only(top: 5.0)),
-                ListTile(
+                ListTile(onTap: (){Navigator.of(context).pushNamed('/showmember');},
              //     leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
                   title: Text('นายธัชพล สุธรรมมา'),
                   subtitle:  Stack(
                     children: <Widget>[
-                      Container(
+                      Container(padding: EdgeInsets.all(8),
                         child: Column(
                           children: <Widget>[
-                            Text('Front-end',style: TextStyle(color: Colors.green),),
-                            Text('เบอร์ติดต่อ:  088-808-5084'),
-                            Text('ที่อยู่: aiaosadjklasaiskasksdkasdkadk'),
+                            Row(children: <Widget>[
+                              Text('Front-end',style: TextStyle(color: Colors.green),),
+
+                            ],
+                            ),
+                            Row(children: <Widget>[
+                              Text('เบอร์ติดต่อ:  088-808-5084'),
+                            ],),
+                            Row(children: <Widget>[
+                              Text('ที่อยู่: aiaosadjklasaiskasksdkasdkadk'),
+                            ],)
                           ],
                        mainAxisAlignment: MainAxisAlignment.spaceAround, ),
                       ),
                     ],
                   )
                 ),
-                ListTile(
-            //      leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
-                  title: Text('นายธัชพล สุธรรมมา'),
-                  subtitle:  Text('Mobile dev'),
-                ),
-                ListTile(
-            //      leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
-                  title: Text('นายธัชพล สุธรรมมา'),
-                  subtitle:  Text('Mobile dev'),
-                ),
-                ListTile(
-             //     leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
-                  title: Text('นายธัชพล สุธรรมมา'),
-                  subtitle:  Text('Mobile dev'),
-                ),
-                ListTile(
-            //      leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
-                  title: Text('นายธัชพล สุธรรมมา'),
-                  subtitle:  Text('Mobile dev'),
+                 ListTile(
+                   //     leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
+                     title: Text('นายธัชพล สุธรรมมา'),
+                     subtitle:  Stack(
+                       children: <Widget>[
+                         Container(padding: EdgeInsets.all(8),
+                           child: Column(
+                             children: <Widget>[
+                               Row(children: <Widget>[
+                                 Text('Front-end',style: TextStyle(color: Colors.green),),
 
-                ),
-
-
-
-              ],
+                               ],
+                               ),
+                               Row(children: <Widget>[
+                                 Text('เบอร์ติดต่อ:  088-808-5084'),
+                               ],),
+                               Row(children: <Widget>[
+                                 Text('ที่อยู่: aiaosadjklasaiskasksdkasdkadk'),
+                               ],)
+                             ],
+                             mainAxisAlignment: MainAxisAlignment.spaceAround, ),
+                         ),
+                       ],
+                     )
+                 ),
+            ],
             ),
           )
       ),

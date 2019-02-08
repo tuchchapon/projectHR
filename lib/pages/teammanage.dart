@@ -18,43 +18,42 @@ class _teammanageState extends State<teammanage> {
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.search),color: Colors.black, onPressed: null)
+        ],
       ),
-      body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
-        child: new Center(
-          child: new ListView(
-            children: <Widget>[
-             ListTile(
-                     leading: Text('สมาชิก'),
-                     title: Text('Team A',style: TextStyle(color: Colors.blue),),
-                  ),
+      body:  ListView(
+        children: <Widget>[
+          Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+            child: Column(
+              children: <Widget>[
                 ListTile(
-              leading: CircleAvatar(child: Icon(Icons.image,color: Colors.black,),radius: 24,backgroundColor: Colors.grey,),
-                title: Text('นายธัชพล สุธรรมมา'),
-                  subtitle: Text('Mobile dev'),
+                  leading: Text('สมาชิก:',style: TextStyle(fontSize: 16),),
+                  title: Text('Team A',style: TextStyle(color: Colors.blue),),
+                ),
+                ListTile(
                   onTap: (){Navigator.of(context).pushNamed('/memberstatus');},
-              ),ListTile(
-                leading: CircleAvatar(child: Icon(Icons.image,color: Colors.black,),radius: 24,backgroundColor: Colors.grey,),
-                title: Text('นายธัชพล สุธรรมมา '),
-                subtitle: Text('Front-end'),
-              ),ListTile(
-                leading: CircleAvatar(child: Icon(Icons.image,color: Colors.black,),radius: 24,backgroundColor: Colors.grey,),
-                title: Text('นายธัชพล สุธรรมมา '),
-                subtitle: Text('back-end'),
-              ),ListTile(
-                leading: CircleAvatar(child: Icon(Icons.image,color: Colors.black,),radius: 24,backgroundColor: Colors.grey,),
-                title: Text('นายธัชพล สุธรรมมา'),
-              ),ListTile(
-                leading: CircleAvatar(child: Icon(Icons.image,color: Colors.black,),radius: 24,backgroundColor: Colors.grey,),
-                title: Text('นายธัชพล สุธรรมมา'),
-              ),
-            ],
-          ),
-        ),
+                  title: Text('ธัชพล สุธรรมมา'),
+                  subtitle: Column(children: <Widget>[
+                    Row(children: <Widget>[
+                      Text('ตำแหน่ง:',style: TextStyle(color: Colors.black),),
+                      Text('Mobile',style: TextStyle(color: Colors.blue),),
+                    ],),
+                    Row(children: <Widget>[
+                      Text('จำนวน Sprint:  ',style: TextStyle(color: Colors.black),),
+                      Text('9',style: TextStyle(color: Colors.blue),),
+                    ],)
+                  ],),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: buttoncolor,
           onPressed: (){Navigator.of(context).pushNamed('/addteammember');},
-          child: Icon(Icons.add),)
+          child: Icon(Icons.add,size: 30,),)
     );
   }
 }

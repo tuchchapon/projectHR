@@ -16,39 +16,41 @@ class _showmemberState extends State<showmember> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('ข้อมูลพนักงาน'),
+        title: new Text('ข้อมูลพนักงาน',style: TextStyle(color: Colors.brown[500]),),
       ),
       body: new Container(
         height: screenHeight,
         width: screenWidth,
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.all(5),
         //  padding: new EdgeInsets.all(10.0),
         child: new ListView(
           children: <Widget>[
             Padding(padding: EdgeInsets.all(6)),
             ListTile(
-              leading: CircleAvatar(child: Icon(Icons.add_photo_alternate,size: 30.0,color: Colors.white,),radius: 35,backgroundColor: Colors.grey,),
-
-            ),
-            ListTile(
-              leading: Text('รหัส'),
-              title: Text('1'),
+              leading: Text('ข้อมูลส่วนตัว',style: TextStyle(fontSize: 20),),
             ),
             ListTile(
               leading: Text('ชื่อ-นามสกุล   ',style: TextStyle(fontSize: 16),),
               title: Text('นายธัชพล สุธรรมมา',style: TextStyle(fontSize: 14),),
             ),
             ListTile(
+              leading: Text('ที่อยู่               ',style: TextStyle(fontSize: 16),),
+              title: Text('พระราม 999 60 ซอย 4 เสรี 8 แขวงสวนหลวง เขตสวนหลวง กรุงเทพ 10500',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
               leading: Text('เบอร์โทร        ',style: TextStyle(fontSize: 16),),
               title: Text('088-888-1596',style: TextStyle(fontSize: 14),),
+            ),
+            ListTile(
+              leading: Text('เงินเดือน         ',style: TextStyle(fontSize: 16),),
+              title: Text('100000',style: TextStyle(fontSize: 14),),
             ),
             ListTile(
               leading: Text('ตำแหน่ง       ',style: TextStyle(fontSize: 16),),
               title: Text('Mobile dev',style: TextStyle(fontSize: 14),),
             ),
             ListTile(
-              leading: Text('ที่อยู่               ',style: TextStyle(fontSize: 16),),
-              title: Text('พระราม 999 60 ซอย 4 เสรี 8 แขวงสวนหลวง เขตสวนหลวง กรุงเทพ 10500',style: TextStyle(fontSize: 14),),
+              leading: Text('ข้อมูลผู้ติดต่อ',style: TextStyle(fontSize: 20),),
             ),
             ListTile(
               leading: Text('ผู้ติดต่อฉุกเฉิน ',style: TextStyle(fontSize: 16),),
@@ -59,18 +61,10 @@ class _showmemberState extends State<showmember> {
               title: Text('088-048-5940',style: TextStyle(fontSize: 14),),
             ),
             ListTile(
-              leading: Text('เกี่ยวข้องเป็น   ',style: TextStyle(fontSize: 16),),
-              title: Text('ภรรยา',style: TextStyle(fontSize: 14),),
-            ),
-            ListTile(
               leading: Text('ที่อยู่               ',style: TextStyle(fontSize: 16),),
               title: Text('พระราม 999 60 ซอย 4 เสรี 8 แขวงสวนหลวง เขตสวนหลวง กรุงเทพ 10500',style: TextStyle(fontSize: 14),),
             ),
-            ListTile(
-              leading: Text('เงินเดือน         ',style: TextStyle(fontSize: 16),),
-              title: Text('100000',style: TextStyle(fontSize: 14),),
-            ),
-            Divider(color: Colors.grey,),
+            Padding(padding: EdgeInsets.all(5)),
             Text('       สิทธิประโยชน์\n',style: TextStyle(fontSize: 16),),
             ListTile(
               leading: Column(mainAxisAlignment: MainAxisAlignment.start,

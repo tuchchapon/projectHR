@@ -22,7 +22,7 @@ class _benefitState extends State<benefit>  {
           title: new Text('สิทธิประโยชน์',style: TextStyle(color: Colors.brown[500]),),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: null),
-              new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
+        //      new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
           ]
       ),
 
@@ -74,12 +74,13 @@ class _benefitState extends State<benefit>  {
               leading: Icon(Icons.attach_money,color: Colors.black),
               title: Text('ค่าใช้จ่าย'),
               onTap:(){Navigator.of(context).pushNamed('/cost');},
-            ),*/
+            ),
               ListTile(
                 leading: Icon(Icons.card_giftcard,color: Colors.black),
                 title: Text('สิทธิประโยชน์'),
                 onTap:(){Navigator.of(context).pushNamed('/benefit');},
               ),
+              */
             ],
           ),
         ),

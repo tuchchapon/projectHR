@@ -206,21 +206,36 @@ class _HomeState extends State<Home> {
           Padding(padding: EdgeInsets.only(top: 30,bottom: 30),child:
           Text('   Selling rate',style: TextStyle(fontSize: 20),),),
     Divider(),
-    ListTile(
-      title: Text('ธัชพล สุธรรมมา'),
-      subtitle: Text('22000   บาท',style: TextStyle(color: Colors.green),),
-
-    ),
-          Divider(),
           ListTile(
             title: Text('ธัชพล สุธรรมมา'),
-            subtitle: Text('22000   บาท',style: TextStyle(color: Colors.green),),
+            subtitle: Row(
+              children: <Widget>[
+                Text('22000 ',style: TextStyle(color: Colors.green),),
+                Text(' บาท',style: TextStyle(fontSize: 16),)
+              ],
+            ),
 
           ),
           Divider(),
           ListTile(
             title: Text('ธัชพล สุธรรมมา'),
-            subtitle: Text('22000   บาท',style: TextStyle(color: Colors.green),),
+            subtitle: Row(
+              children: <Widget>[
+                Text('22000 ',style: TextStyle(color: Colors.green),),
+                Text(' บาท',style: TextStyle(fontSize: 16),)
+              ],
+            ),
+
+          ),
+          Divider(),
+          ListTile(
+            title: Text('ธัชพล สุธรรมมา'),
+            subtitle: Row(
+              children: <Widget>[
+                Text('22000 ',style: TextStyle(color: Colors.green),),
+                Text(' บาท',style: TextStyle(fontSize: 16),)
+              ],
+            ),
 
           ),
     Divider(),

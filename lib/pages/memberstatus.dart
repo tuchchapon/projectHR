@@ -47,21 +47,22 @@ class _memberstatusState extends State<memberstatus> {
                 Divider(color: Colors.grey,),
                 ListTile(
                   leading: Text('ระยะเวลาทำงาน'),
-                  title: Text('30 วัน'),
+                  title: Text('90 วัน'),
 
                 ),
                 Divider(color: Colors.grey,),
                 ListTile(
                   leading: Text('จำนวน sprint   '),
-                    title: Text('3'),
+                    title: Text('9'),
 
                 ),
                 Divider(color: Colors.grey,),
+
               ],
             ),
           ),
         ),
-      floatingActionButton: RaisedButton(padding: EdgeInsets.fromLTRB(150, 10 /*top*/, 150/*right*/, 10/*bottom*/),onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
+
 
     );
   }

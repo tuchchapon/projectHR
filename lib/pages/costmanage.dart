@@ -29,7 +29,7 @@ class _costmanageState extends State<costmanage> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มข้อมูลค่าใช้จ่าย'),
+        title: new Text('เพิ่มข้อมูลค่าใช้จ่าย',style: TextStyle(color: Colors.brown[500]),),
       ),
       body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(10),
         child: new Center(

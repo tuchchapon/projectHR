@@ -19,10 +19,6 @@ class _showbenefitState extends State<showbenefit> {
         child: new ListView(
           children: <Widget>[
             ListTile(
-              leading: Text('ลำดับ     '),
-              title: Text('1'),
-            ),
-            ListTile(
               leading: Text('รายการ    '),
               title: Text('ฟิตเนส'),
             ),

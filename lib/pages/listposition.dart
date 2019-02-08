@@ -115,7 +115,7 @@ class ListViewPosts extends StatelessWidget {
                     );
                   },
                 ),
-                Divider(),
+                Padding(padding: EdgeInsets.all(20))
               ],
             );
           }

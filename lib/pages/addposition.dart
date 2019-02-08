@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
-
-
 class addposition extends StatefulWidget {
   @override
   _addpositionState createState() => new _addpositionState();
