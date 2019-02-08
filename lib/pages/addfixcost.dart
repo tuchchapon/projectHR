@@ -18,42 +18,45 @@ class _addfixcostState extends State<addfixcost> {
         title: new Text('เพิ่มค่าใช้จ่ายทั่วไป',style: TextStyle(color: Colors.brown[500]),),
       ),
 
-      body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
-        child: new Center(child: new Column(
-          children: <Widget>[
-            ListTile(
+      body: new Container(
+        height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
+          child: new Center(child: ListView(
+            children: <Widget>[
+              ListTile(
               leading: Text('รายการ   '),
             title:            TextField(
               decoration: InputDecoration.collapsed(
                 hintText: ('ป้อนรายการค่าใช้จ่าย'),
               ),
             ),
+          ),
+        Divider(color: Colors.grey,),
+        ListTile(
+          leading: Text('มูลค่า      '),
+          title:            TextField(
+            decoration: InputDecoration.collapsed(
+              hintText: ('ระบุมูลค่า'),
             ),
-            Divider(color: Colors.grey,),
-            ListTile(
-              leading: Text('มูลค่า      '),
-              title:            TextField(
-                decoration: InputDecoration.collapsed(
-                  hintText: ('ระบุมูลค่า'),
-                ),
-              ),
-            ),
-            Divider(color: Colors.grey,),
-            ListTile(
-              leading: Text('หมายเหตุ '),
-              title:            TextField(
-                decoration: InputDecoration.collapsed(
-                  hintText: ('ระบุหมายเหตุ'),
-                ),
-              ),
-            ),
-            Divider(color: Colors.grey,),
-          ],
+          ),
         ),
+        Divider(color: Colors.grey,),
+        ListTile(
+          leading: Text('หมายเหตุ '),
+          title:            TextField(
+            decoration: InputDecoration.collapsed(
+              hintText: ('ระบุหมายเหตุ'),
+            ),
+          ),
         ),
-      ),floatingActionButton: RaisedButton(
-      padding: EdgeInsets.fromLTRB(160,0 /*top*/, 150/*right*/, 0/*bottom*/),
-      onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
+        Divider(color: Colors.grey,),
+        RaisedButton(
+          padding: EdgeInsets.only(right: 25),
+          onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
+            ],
+          ),
+
+        ),
+      ),
     );
   }
 }

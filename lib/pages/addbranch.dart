@@ -19,7 +19,8 @@ class _addbranchState extends State<addbranch> {
 
       body: new Container(height: screenHeight,width: screenWidth,
         margin: EdgeInsets.all(10),
-        child: new Center(child: new ListView(
+        child: new Center(
+          child: new ListView(
           children: <Widget>[
             Padding(padding: EdgeInsets.all(6)),
           /*  ListTile(

@@ -138,6 +138,12 @@ class _HomeState extends State<Home> {
               title: Text('ตำแหน่ง'),
               onTap:(){Navigator.of(context).pushNamed('/position');},
             ),
+            ListTile(
+              leading: Icon(Icons.card_giftcard,color: Colors.black),
+              title: Text('สิทธิประโยชน์'),
+              onTap:(){Navigator.of(context).pushNamed('/benefit');},
+
+            ),
           ],
         ),
       ),

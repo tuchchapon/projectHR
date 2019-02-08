@@ -67,7 +67,56 @@ class DetailScreen extends StatelessWidget {
                 leading: Text('ที่อยู่       ',style: TextStyle(fontSize: 16),),
                 title: Text(branch.branchAddress,style: TextStyle(fontSize: 16),),
               ),
-
+              Padding(padding: EdgeInsets.all(5)),
+              ListTile(
+                leading: Text('รายการค่าใช้จ่ายของสาขา',style: TextStyle(fontSize: 14),),
+                trailing: FlatButton(onPressed: (){Navigator.of(context).pushNamed('/cost');}, child: Text('จัดการค่าใช่จ่าย >',style: TextStyle(fontSize: 14,color: Colors.grey),)),
+              ),
+              ListTile(
+                leading: Text('ค่าใช้จ่ายทั่วไป',style: TextStyle(fontSize: 14),),
+               
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                Text('รายการ'),
+                Text('มูลค่า')
+              ],),
+              Padding(padding: EdgeInsets.all(5)),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('ค่าเช่าออฟฟิศ',style: TextStyle(color: Colors.grey),),
+                  Text('30000 ',style: TextStyle(color: Colors.grey))
+                ],),
+              Padding(padding: EdgeInsets.all(2)),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('ค่าเช่าออฟฟิศ',style: TextStyle(color: Colors.grey),),
+                  Text('30000 ',style: TextStyle(color: Colors.grey))
+                ],),
+              Padding(padding: EdgeInsets.all(2)),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('ค่าเช่าออฟฟิศ',style: TextStyle(color: Colors.grey),),
+                  Text('30000 ',style: TextStyle(color: Colors.grey))
+                ],),
+              ListTile(
+                leading: Text('ค่าใช้จ่ายอื่นๆ',style: TextStyle(fontSize: 14),),
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('รายการ'),
+                  Text('มูลค่า')
+                ],),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('ค่าซ่อมท่อน้ำ',style: TextStyle(color: Colors.grey),),
+                  Text('450 ',style: TextStyle(color: Colors.grey))
+                ],),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('ค่าเน็ต',style: TextStyle(color: Colors.grey),),
+                  Text('10000 ',style: TextStyle(color: Colors.grey))
+                ],),
             ],
           ),
         )

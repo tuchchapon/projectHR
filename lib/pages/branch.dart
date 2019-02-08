@@ -86,12 +86,13 @@ class _branchState extends State<branch>  {
               title: Text('การลา') ,
               onTap: (){Navigator.of(context).pushNamed('/vacation');},
             ),
-            ListTile(
-              leading: Icon(Icons.card_giftcard,color: Colors.black),
-              title: Text('สิทธิประโยชน์'),
-              onTap:(){Navigator.of(context).pushNamed('/benefit');},
+            */
+              ListTile(
+                leading: Icon(Icons.card_giftcard,color: Colors.black),
+                title: Text('สิทธิประโยชน์'),
+                onTap:(){Navigator.of(context).pushNamed('/benefit');},
 
-            ),*/
+              ),
             ],
           ),
         ),

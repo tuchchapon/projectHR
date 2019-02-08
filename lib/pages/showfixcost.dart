@@ -15,9 +15,9 @@ class _showfixcostState extends State<showfixcost> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('ข้อมูลค่าใช้จ่ายที่จำเป็น',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('ข้อมูลค่าใช้จ่ายทั่วไป',style: TextStyle(color: Colors.brown[500]),),
       ),
-      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(20),
+      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
         //  padding: new EdgeInsets.all(10.0),
         child: new ListView(
           children: <Widget>[
@@ -25,14 +25,17 @@ class _showfixcostState extends State<showfixcost> {
               leading: Text('รายการ    '),
               title: Text('ค่าเน็ต'),
             ),
+        Divider(),
             ListTile(
               leading: Text('มูลค่า     '),
               title: Text('500000'),
             ),
+            Divider(),
             ListTile(
               leading: Text('หมายเหตุ'),
               title: Text('ค่าเน็ต 1000 GB'),
             ),
+            Divider(),
           ],
         ),
       ),

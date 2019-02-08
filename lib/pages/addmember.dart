@@ -147,6 +147,15 @@ class _addmemberState extends State<addmember> {
                     ),
                   ),
                 ),
+          Divider(),
+          ListTile(
+            leading: Text('เกี่ยวข้องเป็น       '),
+            title: TextField(maxLength: 20,
+              decoration: InputDecoration.collapsed(
+                  hintText: 'ป้อนสถานะ'
+              ),
+            ),
+          ),
                 Divider(),
                 ListTile(
                   leading: Text('เบอร์ติดต่อ       '),

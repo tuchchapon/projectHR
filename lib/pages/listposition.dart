@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'dart:convert';
 
 
-
-
-Position postFromJson(String str) {
-  final jsonData = json.decode(str);
-  return Position.fromJson(jsonData);
-}
-
-String postToJson(Position data) {
-  final dyn = data.toJson();
-  return json.encode(dyn);
-}
-
-List<Position> allPostsFromJson(String str) {
+List<Position> positionFromJson(String str) {
   final jsonData = json.decode(str);
   return new List<Position>.from(jsonData.map((x) => Position.fromJson(x)));
 }
 
-String allPostsToJson(List<Position> data) {
+String positionToJson(List<Position> data) {
   final dyn = new List<dynamic>.from(data.map((x) => x.toJson()));
   return json.encode(dyn);
 }
@@ -33,11 +21,11 @@ class Position {
   int status;
 
   Position({
-    @required  this.createdAt,
-    @required  this.updatedAt,
-    @required  this.id,
-    @required  this.positionName,
-    @required  this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.id,
+    this.positionName,
+    this.status,
   });
 
   factory Position.fromJson(Map<String, dynamic> json) => new Position(
@@ -56,6 +44,8 @@ class Position {
     "status": status,
   };
 }
+
+
 
 class DetailScreen extends StatelessWidget {
 
@@ -94,6 +84,7 @@ class ListViewPosts extends StatelessWidget {
 
   final List<Position> posts;
   final int id;
+
   ListViewPosts({Key key, this.posts,this.id}) : super(key: key);
 
   @override
@@ -115,7 +106,7 @@ class ListViewPosts extends StatelessWidget {
                     );
                   },
                 ),
-                Padding(padding: EdgeInsets.all(20))
+                Divider(),
               ],
             );
           }

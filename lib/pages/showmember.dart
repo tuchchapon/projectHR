@@ -42,10 +42,6 @@ class _showmemberState extends State<showmember> {
               title: Text('088-888-1596',style: TextStyle(fontSize: 14),),
             ),
             ListTile(
-              leading: Text('เงินเดือน         ',style: TextStyle(fontSize: 16),),
-              title: Text('100000',style: TextStyle(fontSize: 14),),
-            ),
-            ListTile(
               leading: Text('ตำแหน่ง       ',style: TextStyle(fontSize: 16),),
               title: Text('Mobile dev',style: TextStyle(fontSize: 14),),
             ),
@@ -70,18 +66,22 @@ class _showmemberState extends State<showmember> {
               leading: Column(mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                 Text('รายการ'),
-                Text('ค่าฟิตเนส'),
-                Text('ค่าหฟกฟหก'),
-                Text('sdajasd'),
+                Text('ค่าฟิตเนส',style: TextStyle(color: Colors.grey),),
+                Text('ค่าฟิตเนส',style: TextStyle(color: Colors.grey),),
+                Text('ค่าอาหาร',style: TextStyle(color: Colors.grey),),
               ],),
               trailing: Column(mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text('มูลค่า'),
-                  Text('5000'),
-                  Text('5000'),
-                  Text('3000'),
+                  Text('5000',style: TextStyle(color: Colors.grey),),
+                  Text('5000',style: TextStyle(color: Colors.grey),),
+                  Text('3000',style: TextStyle(color: Colors.grey),),
                 ],
               ),
+            ),
+            ListTile(
+              leading: Text('เงินเดือน         ',style: TextStyle(fontSize: 16),),
+              title: Text('100000',style: TextStyle(fontSize: 14),),
             ),
             Padding(padding: EdgeInsets.all(20))
           ],

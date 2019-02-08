@@ -81,6 +81,12 @@ class _benefitState extends State<benefit>  {
                 onTap:(){Navigator.of(context).pushNamed('/benefit');},
               ),
               */
+              ListTile(
+                leading: Icon(Icons.card_giftcard,color: Colors.black),
+                title: Text('สิทธิประโยชน์'),
+                onTap:(){Navigator.of(context).pushNamed('/benefit');},
+
+              ),
             ],
           ),
         ),

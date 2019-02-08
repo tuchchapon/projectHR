@@ -19,76 +19,63 @@ class _costState extends State<cost>  {
           title: new Text('ค่าใช้จ่าย',style: TextStyle(color: Colors.brown[500]),),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search), onPressed: null),
-            new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
+          //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
           ]
       ),
 
 
-      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+      body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
        child: new Center(
          child: new ListView(
             children: <Widget>[
 
-              ListTile(
-                leading: Text('    ค่าใช้จ่ายทั่วไป'),
-                trailing: IconButton(icon: Icon(Icons.add), onPressed: (){Navigator.of(context).pushNamed('/addfixcost');},
-              ),
-                  ),
+              Row(children: <Widget>[
+                Text('ค่าใช้จ่ายทั่วไป  ',style: TextStyle(fontSize: 16),),
+                IconButton(icon: Icon(Icons.add,size: 20,), onPressed: (){Navigator.of(context).pushNamed('/addfixcost');})
+              ],),
              
               ListTile(
-                leading: Icon(Icons.attach_money,size: 30,), 
                 title: Text('ค่าเน็ต'),
                 subtitle: Text('500000 ${money}'),
                 onTap: (){Navigator.of(context).pushNamed('/showfixcost');}
               ),
               ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
                 title: Text('ค่าเช่าออฟsdfsdfsdfsdfsdfsdfsdfฟิต'),
                 subtitle: Text('1213113310 ${money}'),
               ),
               ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
+                title: Text('ค่าเช่าออฟฟิต'),
+                subtitle: Text('2112310 ${money}'),
+              ),
+                Row(children: <Widget>[
+                  Text('ค่าใช้จ่ายอื่นๆ  ',style: TextStyle(fontSize: 16),),
+                  IconButton(icon: Icon(Icons.add,size: 20,), onPressed: (){Navigator.of(context).pushNamed('/addcost');})
+                ],),
+                ListTile(
+                title: Text('ค่าซ่อมท่อน้ำ'),
+                subtitle: Text('450 ${money}'),
+                  onTap: (){Navigator.of(context).pushNamed('/showcost');}
+              ),
+              ListTile(
+                title: Text('ค่าเช่าออฟฟิdsfdsfsdfsfต'),
+                subtitle: Text('2112310 ${money}'),
+              ),
+              ListTile(
+                title: Text('ค่าเช่าออฟฟิต'),
+                subtitle: Text('2145624512310 ${money}'),
+              ),
+              ListTile(
                 title: Text('ค่าเช่าออฟฟิต'),
                 subtitle: Text('2112310 ${money}'),
               ),
               ListTile(
-                title: new Text('ค่าใช้จ่ายอื่นๆ'),
-                trailing: new IconButton(icon: Icon(Icons.add), onPressed: (){Navigator.of(context).pushNamed('/addcost');}),
-              ),
-                ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
-                title: Text('ค่าซ่อมท่อน้ำ'),
-                subtitle: Text('450 ${money}'),
-                  onTap: (){Navigator.of(context).pushNamed('/showcost');}
-              ),              ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
-                title: Text('ค่าเช่าออฟฟิdsfdsfsdfsfต'),
-                subtitle: Text('2112310 ${money}'),
-              ),              ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
-                title: Text('ค่าเช่าออฟฟิต'),
-                subtitle: Text('2145624512310 ${money}'),
-              ),              ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
-                title: Text('ค่าเช่าออฟฟิต'),
-                subtitle: Text('2112310 ${money}'),
-              ),              ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
                 title: Text('ค่าเช่าออฟฟิต'),
                 subtitle: Text('245542110 ${money}'),
               ),              ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
-                title: Text('ค่าเช่าออฟฟิต'),
-                subtitle: Text('2112310 ${money}'),
-              ),              ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
-                title: Text('ค่าเช่าออฟฟิต'),
-                subtitle: Text('2112310 ${money}'),
-              ),              ListTile(
-                leading: Icon(Icons.attach_money,size: 30,),
                 title: Text('ค่าเช่าออฟฟิต'),
                 subtitle: Text('2112310 ${money}'),
               ),
+
             ],
           ),
         ),
