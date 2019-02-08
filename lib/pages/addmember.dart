@@ -154,7 +154,7 @@ class _addmemberState extends State<addmember> {
               decoration: InputDecoration.collapsed(
                   hintText: 'ป้อนสถานะ'
               ),
-            ),
+            ),//
           ),
                 Divider(),
                 ListTile(
