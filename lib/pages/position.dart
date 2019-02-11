@@ -3,27 +3,36 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'listposition.dart';
-
-Future<List<Position>> fetchPosts(http.Client client) async {
-  final response = await client.get('http://localhost:1337/position'); // ดึงข้อมูลจาก API
-
-  return compute(parsePosts, response.body); // compute ต้องประกาศ import 'package:flutter/foundation.dart';
-}
-List<Position> parsePosts(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<Position>((json) => Position.fromJson(json)).toList();
-}
+//import 'listposition.dart';
 
 
 
+
+
+//
+
+
+
+//
 class position extends StatefulWidget {
   @override
   _positionState createState() => new _positionState();
 }
 
 class _positionState extends State<position>  {
+  final String url = "http://localhost:1337/position/datatable";
+
+  List data;
+  Future<String> getSWData() async {
+    var res = await http.get(Uri.parse(url), headers: {"Accept": "application/json"});
+
+    setState(() {
+      var resBody = json.decode(res.body);
+      data = resBody["data"];
+    });
+
+    return "Success!";
+  }
 
   Widget build(BuildContext context){
     Color buttoncolor = const Color(0xFF4fa2e1);
@@ -33,13 +42,13 @@ class _positionState extends State<position>  {
     double screenWidth = queryData.size.width;
     double screenHeight = queryData.size.height;
     return new Scaffold(
-      appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
-          title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
-          actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.search), onPressed: null),
-          //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-          ]
-      ),
+        appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
+            title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+            actions: <Widget>[
+              new IconButton(icon: new Icon(Icons.search), onPressed: null),
+              //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
+            ]
+        ),
 
         drawer: Drawer(
           child: Column(
@@ -102,15 +111,24 @@ class _positionState extends State<position>  {
             ],
           ),
         ),
-        body: Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
-          child: FutureBuilder<List<Position>>(
-            future: fetchPosts(http.Client()),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) print(snapshot.error);
+        body: Container
+          (width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+          child: ListView.builder(
+            itemCount: data == null ? 0 : data.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                       Container(
+                          child: ListTile(title: Text(data[index]["position_name"], style: TextStyle(fontSize: 18.0, color: Colors.black87)),),
 
-              return snapshot.hasData
-                  ? ListViewPosts(posts: snapshot.data)
-                  : Center(child: CircularProgressIndicator());
+                       ),
+                    ],
+                  ),
+                ),
+              );
             },
           ),
         ),
@@ -119,5 +137,10 @@ class _positionState extends State<position>  {
           onPressed: (){Navigator.of(context).pushNamed('/addposition');},
           child: Icon(Icons.add),)
     );
+  }
+  @override
+  void initState() {
+    super.initState();
+    this.getSWData();
   }
 }

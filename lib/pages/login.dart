@@ -50,13 +50,12 @@ class _loginState extends State<login> {
     Color colorappbar = const Color(0xFF2ac3fe);
 
     return new Scaffold(
-      body: new Container(width: screenWidth,height: screenHeight,
-       
+      body: Container(width: screenWidth,height: screenHeight,
         child: new Center(
           child: new Column(
             children: <Widget>[
               new Container(height: screenHeight*0.27,
-              width: screenWidth,
+                width: screenWidth,
                 color: colorappbar,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -67,52 +66,57 @@ class _loginState extends State<login> {
                   ],
                 ),
               ),
-              Container(
-                height: 40,
-                margin: EdgeInsets.only(top: 20,left: 20,right: 20),
-              child: new Container(child: TextField(
-                autocorrect: false,
-                decoration: InputDecoration(
-                  hintText: 'username',border: InputBorder.none),
-                onChanged: (String userinput){
-                  setState(() {
-                    _user = userinput;
-                  });
-                },),
-                decoration: new BoxDecoration(border: Border.all(width: 0.1),
-                  color: Colors.transparent,
-                  borderRadius: new BorderRadius.only(
-                      topLeft:const Radius.circular(15.0),
-                      topRight: const Radius.circular(15.0),
-                      bottomLeft: const Radius.circular(15.0),
-                      bottomRight: const Radius.circular(15.0))
+              Stack(children: <Widget>[
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(top: 20,left: 20,right: 20),
+                  child: new Container(child: TextField(
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                        hintText: 'username',border: InputBorder.none),
+                    onChanged: (String userinput){
+                      setState(() {
+                        _user = userinput;
+                      });
+                    },),
+                    decoration: new BoxDecoration(border: Border.all(width: 0.1),
+                        color: Colors.transparent,
+                        borderRadius: new BorderRadius.only(
+                            topLeft:const Radius.circular(15.0),
+                            topRight: const Radius.circular(15.0),
+                            bottomLeft: const Radius.circular(15.0),
+                            bottomRight: const Radius.circular(15.0))
+                    ),
+                  ),
                 ),
-              ),
-              ),
+              ],),
 
 
               Padding(padding: EdgeInsets.only(top: 10,)),
 
-              Container(
-                height: 40,
-                margin: EdgeInsets.only(top: 20,left: 20,right: 20),
-                child: new Container(child: TextField(obscureText: true,autocorrect: false,
-                  decoration: InputDecoration(
-                      hintText: 'password',border: InputBorder.none),
-                  onChanged: (String Passinput)
-                  {setState(() {_pass = Passinput;}
-                  );
-                  },),
-                  decoration: new BoxDecoration(border: Border.all(width: 0.1),
-                      color: Colors.transparent,
-                      borderRadius: new BorderRadius.only(
-                          topLeft:const Radius.circular(15.0),
-                          topRight: const Radius.circular(15.0),
-                          bottomLeft: const Radius.circular(15.0),
-                          bottomRight: const Radius.circular(15.0))
+              Stack(children: <Widget>[
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(top: 20,left: 20,right: 20),
+                  child: new Container(
+                    child: TextField(obscureText: true,autocorrect: false,
+                      decoration: InputDecoration(
+                          hintText: 'password',border: InputBorder.none),
+                      onChanged: (String Passinput)
+                      {setState(() {_pass = Passinput;}
+                      );
+                      },),
+                    decoration: new BoxDecoration(border: Border.all(width: 0.1),
+                        color: Colors.transparent,
+                        borderRadius: new BorderRadius.only(
+                            topLeft:const Radius.circular(15.0),
+                            topRight: const Radius.circular(15.0),
+                            bottomLeft: const Radius.circular(15.0),
+                            bottomRight: const Radius.circular(15.0))
+                    ),
                   ),
                 ),
-              ),
+              ],)
               /*
               new Padding(
                 padding: new EdgeInsets.all(10.0),
@@ -121,15 +125,15 @@ class _loginState extends State<login> {
                   padding: EdgeInsets.only(left: 50.0,right: 50.0,bottom: 10,top: 10) ,color:colorappbar,),
               ),
 */
-              new Padding(
+              ,new Padding(
                 padding: new EdgeInsets.all(10.0),
                 // child: new FlatButton(onPressed: null, child: new Text('หากลืมรหัสผ่าน',),color: (Colors.red),),
               ),
               FlatButton(onPressed: _checklogin,child: Image(image: AssetImage('pic/11.png'),),),
 
             ],
-      ),
-      ),
+          ),
+        ),
 
       ),
     );
