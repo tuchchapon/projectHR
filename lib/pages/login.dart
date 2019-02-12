@@ -43,27 +43,32 @@ class _loginState extends State<login> {
     Future<dynamic> LoginA(username , password) async {
       print(username);
       print(password);
-      var url = 'http://35.198.219.154:1337/api/users/login';
-      var body = {
-        'username': username,
-        'password': password,
-      };
-    //  print(body);
-       http.Response response = await http.post(
-          url,
-          body: body);
-     // Navigator.of(context).pushReplacementNamed('/Home');
+        var url = 'http://35.198.219.154:1337/api/users/login';
+        var body = {
+          'username': username,
+          'password': password,
+        };
+        //  print(body);
+        http.Response response = await http.post(
+            url,
+            body: body);
+
       final Map<String, dynamic> responseData = await json.decode(
           response.body);
       print(responseData);
       String jsonString = response.body.toString();
       final jsonResponse = json.decode(jsonString);
       Gettoken token = new Gettoken.fromJson(jsonResponse);
-      print(token.token);
-    //  String Tokenn = token.token.toString();
-    //  print('TOKEN IS :'+token.token.toString());
-     // print('TOKEN IS :'+Tokenn);
-      return responseData;
+      print('Token is:'+token.token);
+    if (token.username == 'admin'){
+       Navigator.of(context).pushReplacementNamed('/Home');
+    }
+    else {
+         AlertDialog(
+            title: new Text('Username or Password Wrong'),
+          );
+
+    }
 
     }
   /*
@@ -168,8 +173,8 @@ Future<String>getToken()async{
               ),
               FlatButton(onPressed:() {
                 LoginA(user,pass);
-                print(user);
-                print(pass);
+                print('username is :'+user);
+                print('password is :'+pass);
               }
                 ,child: Image(image: AssetImage('pic/11.png'),),),
 

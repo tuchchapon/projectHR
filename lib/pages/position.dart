@@ -21,24 +21,27 @@ class position extends StatefulWidget {
 
 class _positionState extends State<position>  {
 
-  final String url = "http://localhost:1337/position/datatable";
+  final String url = "http://35.198.219.154:1337/position/datatable";
 
   List data;
   Future<String> getSWData() async {
     var res = await http.get(Uri.parse(url),
-        headers: {"Accept": "application/json"});
+        headers: {'authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1NDk5NzE4NzYsImV4cCI6MTU0OTk4MjY3Nn0.f92IAoIGWFx838EvFq7Yf1SyjXucKfe4eR_fwVCxuH0"});
 
     setState(() {
       var resBody = json.decode(res.body);
-      data = resBody["data"];
-
+      data = resBody["data".toString()];
     });
 
     return "Success!";
   }
+
+  Future<String> DeletePo() async{
+
+  }
+
   @override
   void initState() {
-    print('hello');
     super.initState();
     getSWData();
   }
@@ -131,8 +134,14 @@ class _positionState extends State<position>  {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                        Container(
-                          child: ListTile(title: Text(data[index]["position_name"], style: TextStyle(fontSize: 18.0, color: Colors.black87)),),
-
+                          child: ListTile(leading: Text(data[index]["position_name"], style: TextStyle(fontSize: 18.0, color: Colors.black87)),
+                          subtitle: Row(
+                            children: <Widget>[
+                              IconButton(icon: Icon(Icons.edit), onPressed: null),
+                              IconButton(icon: Icon(Icons.delete), onPressed: null)
+                            ],
+                          ),
+                          ),
                        ),
                     ],
                   ),

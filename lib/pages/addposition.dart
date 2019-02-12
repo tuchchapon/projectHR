@@ -122,8 +122,8 @@ class _addpositionState extends State<addposition> {
     print(body);
     http.Response response = await http.post(
         url,
-             // headers: {token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1NDk5NDk5MzMsImV4cCI6MTU0OTk2MDczM30.0ha9BvkxYAxGdolLc63SU7SISIvnlyb0-y87YRJlUOU}},
-        body: body);
+        headers: {'authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1NDk5ODI3MDksImV4cCI6MTU0OTk5MzUwOX0.9JYhzwF7IRIiQq-GcgXJse9I5ujFW20OMDL6vFF5EtE"},
+          body: body);
     Navigator.of(context).pushReplacementNamed('/position');
     final Map<String, dynamic> responseData = await json.decode(
         response.body);
@@ -133,9 +133,6 @@ class _addpositionState extends State<addposition> {
   }
 }
 //
-
-//
-
 
 //
 String validateName(String value) {
