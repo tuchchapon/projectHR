@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
         '/homehr': (BuildContext contrext) => new homehr(),
         '/homeacc': (BuildContext contrext) => new homeacc(),
       },
-      home: new Home(), //first page displayed
+      home: new login(), //first page displayed
     );
   }
 }

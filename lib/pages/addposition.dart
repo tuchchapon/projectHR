@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../model/Position.dart';
+import 'position.dart';
 
 
 
@@ -47,20 +48,19 @@ void save(){
 
 class _addpositionState extends State<addposition> {
  String _position;
-
-
+ final myController = TextEditingController();
+/*
   void addPosition(String name,) {
    _position ;
     http.post('http://localhost:1337/position/create',
         body: json.encode(_position)).then((http.Response response) {
-      final Map<String, dynamic> responseData = json.decode(response.body);
       final Position newPosition = Position(
           positionName: name);
-      _position.;
+      _position;
     }
     );
   }
-
+*/
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
 
@@ -83,6 +83,7 @@ class _addpositionState extends State<addposition> {
          ListTile(
           leading: Text('ตำแหน่ง'),
           title: TextFormField(
+            controller: myController,
               decoration: InputDecoration.collapsed(
               hintText: 'ป้อนตำแหน่ง'),
             onSaved: (String value) {
@@ -104,14 +105,22 @@ class _addpositionState extends State<addposition> {
 
     );
   }
- void _submitForm() {
-   if (_position != null ){
-     ;
-   }
-   Navigator.pushReplacementNamed(context, '/position');
+  Future<http.Response>  _submitForm() async {
+
+    var url ='http://localhost:1337/position/create';
+    String data =  myController.text;
+    print(data);
+     http.post(url, body: myController);
+
+  // Navigator.pushReplacementNamed(context, '/position');
  }
 }
+//
 
+//
+
+
+//
 String validateName(String value) {
   Pattern pattern =
     '[a-zA-Zก-ฮ1-9]';

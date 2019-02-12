@@ -1,47 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class login extends StatefulWidget {
   @override
   _loginState createState() => _loginState();
 }
 
-  String _user = '';
-  String _pass = '';
+
 
 
 class _loginState extends State<login> {
+  String user ;
+  String pass ;
 
-  void _checklogin (){
+ // final usercon = TextEditingController();
+ // final passcon = TextEditingController();
 
-    if(_user == 'admin' && _pass == '1234') {
-      print('login ID:${_user} \nPassword:${_pass}');
-      print('login Status admin!');
-          Navigator.of(context).pushNamed('/Home');
+    Future<dynamic> LoginA(username , password) async {
 
+    //  print(user);
+     // print(pass);
+      print(username);
+     // print(password);
+      var url = 'http://35.198.219.154:1337/api/users/login';
+      var body = {
+        'username': username,
+        'password': password,
+      };
+      print(body);
+       http.Response response = await http.post(
+          "http://35.198.219.154:1337/api/users/login",
+          body: body);
+
+      final Map<String, dynamic> responseData = await json.decode(
+          response.body);
+      print(responseData);
+      return responseData['code'];
     }
-    else if (_user == 'HR' && _pass == '1234'){
-      print('login ID:${_user} \nPassword:${_pass}');
-      print('login Status HR');
-      Navigator.of(context).pushNamed('/homehr');
-    }else if (_user == 'account' && _pass == '1234'){
-      print('login ID:${_user} \nPassword:${_pass}');
-      print('login Status account');
-      Navigator.of(context).pushNamed('/homeacc');
-    } else if (_user == 'user' && _pass == '1234') {
-      print('login ID:${_user} \nPassword:${_pass}');
-      print('login Status user');
-      Navigator.of(context).pushNamed('/homeuser');
-    }
-    else {
-      print('login ID:${_user} \nPassword:${_pass}');
-      print('ID or password wrong');
-
-    }
-  }
 
 
   @override
   Widget build(BuildContext context) {
+
+
 
     MediaQueryData queryData = MediaQuery.of(context);
 
@@ -70,15 +72,17 @@ class _loginState extends State<login> {
                 Container(
                   height: 40,
                   margin: EdgeInsets.only(top: 20,left: 20,right: 20),
-                  child: new Container(child: TextField(
+                  child: new Container(
+                    child: TextField(
                     autocorrect: false,
                     decoration: InputDecoration(
                         hintText: 'username',border: InputBorder.none),
-                    onChanged: (String userinput){
-                      setState(() {
-                        _user = userinput;
-                      });
-                    },),
+                      //  controller: usercon,
+                        onChanged: (String unameinput) {
+                      user  = unameinput;
+                        print(user);
+                          },
+                ),
                     decoration: new BoxDecoration(border: Border.all(width: 0.1),
                         color: Colors.transparent,
                         borderRadius: new BorderRadius.only(
@@ -102,10 +106,12 @@ class _loginState extends State<login> {
                     child: TextField(obscureText: true,autocorrect: false,
                       decoration: InputDecoration(
                           hintText: 'password',border: InputBorder.none),
-                      onChanged: (String Passinput)
-                      {setState(() {_pass = Passinput;}
-                      );
-                      },),
+                    //  controller: passcon,
+                      onChanged: (String passinput) {
+                     pass = passinput;
+                        print(pass);
+                      },
+                    ),
                     decoration: new BoxDecoration(border: Border.all(width: 0.1),
                         color: Colors.transparent,
                         borderRadius: new BorderRadius.only(
@@ -116,20 +122,18 @@ class _loginState extends State<login> {
                     ),
                   ),
                 ),
-              ],)
-              /*
-              new Padding(
-                padding: new EdgeInsets.all(10.0),
-                child: new RaisedButton(onPressed: _checklogin, child: new Text('เข้าสู่ระบบ'),
-
-                  padding: EdgeInsets.only(left: 50.0,right: 50.0,bottom: 10,top: 10) ,color:colorappbar,),
-              ),
-*/
+              ],
+              )
               ,new Padding(
                 padding: new EdgeInsets.all(10.0),
                 // child: new FlatButton(onPressed: null, child: new Text('หากลืมรหัสผ่าน',),color: (Colors.red),),
               ),
-              FlatButton(onPressed: _checklogin,child: Image(image: AssetImage('pic/11.png'),),),
+              FlatButton(onPressed:() {
+                LoginA(user,pass);
+                print(user);
+                print(pass);
+              }
+                ,child: Image(image: AssetImage('pic/11.png'),),),
 
             ],
           ),

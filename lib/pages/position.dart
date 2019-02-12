@@ -20,18 +20,28 @@ class position extends StatefulWidget {
 }
 
 class _positionState extends State<position>  {
+
   final String url = "http://localhost:1337/position/datatable";
 
   List data;
   Future<String> getSWData() async {
-    var res = await http.get(Uri.parse(url), headers: {"Accept": "application/json"});
+    print('Start func');
+    var res = await http.get(Uri.parse(url),
+        headers: {"Accept": "application/json"});
 
     setState(() {
       var resBody = json.decode(res.body);
       data = resBody["data"];
+   //   for(int i =0;i<resBody.length; i++){print(resBody[i]);}
     });
 
     return "Success!";
+  }
+  @override
+  void initState() {
+    print('hello');
+    super.initState();
+    getSWData();
   }
 
   Widget build(BuildContext context){
@@ -134,13 +144,9 @@ class _positionState extends State<position>  {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: buttoncolor,
-          onPressed: (){Navigator.of(context).pushNamed('/addposition');},
+          onPressed: (){Navigator.of(context).pushNamed('/addposition').then((resulty){getSWData();});},
           child: Icon(Icons.add),)
     );
   }
-  @override
-  void initState() {
-    super.initState();
-    this.getSWData();
-  }
+
 }
