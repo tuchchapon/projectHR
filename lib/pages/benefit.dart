@@ -15,7 +15,7 @@ class _benefitState extends State<benefit>  {
     MediaQueryData queryData = MediaQuery.of(context);
 
     double screenWidth = queryData.size.width;
-    double screenHeight = queryData.size.height;
+    double screenHeight = queryData.size.height*0.4;
     return new Scaffold(
       appBar: new AppBar(
           backgroundColor: colorappbar,
@@ -29,13 +29,10 @@ class _benefitState extends State<benefit>  {
         drawer: Drawer(
           child: Column(
             children: <Widget>[
-              Container(
-                width: screenWidth,
-                height: screenHeight*0.22,
+              Container(width: screenWidth,height: screenHeight*0.6,
                 color: colorappbar,
                 child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
                     CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
                     Padding(padding: EdgeInsets.only(top: 20,left: 50)),
@@ -46,19 +43,19 @@ class _benefitState extends State<benefit>  {
               ),
               //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
               ListTile(
-                leading: Icon(Icons.people,color: Colors.black,),
+                leading: Icon(Icons.dashboard,color: Colors.black),
+                title: Text('Dashboard'),
+                onTap: (){Navigator.of(context).pushNamed('/Home');},
+              ),
+              ListTile(
+                leading: Icon(Icons.assignment,color: Colors.black),
+                title: Text('โปรเจค'),
+                onTap:(){Navigator.of(context).pushNamed('/project');},
+              ),
+              ListTile(
+                leading: Icon(Icons.people,color: Colors.black),
                 title: Text('พนักงาน'),
                 onTap: (){Navigator.of(context).pushNamed('/member');},
-              ),
-              ListTile(
-                leading: Icon(Icons.event,color: Colors.black),
-                title: Text('การลา') ,
-                onTap: (){Navigator.of(context).pushNamed('/vacation');},
-              ),
-              ListTile(
-                leading: Icon(Icons.work,color: Colors.black),
-                title: Text('ตำแหน่ง'),
-                onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
               ListTile(
                 leading: Icon(Icons.account_balance,color: Colors.black),
@@ -66,21 +63,10 @@ class _benefitState extends State<benefit>  {
                 onTap:(){Navigator.of(context).pushNamed('/branch');},
               ),
               ListTile(
-                leading: Icon(Icons.assignment,color: Colors.black),
-                title: Text('โปรเจค'),
-                onTap:(){Navigator.of(context).pushNamed('/project');},
+                leading: Icon(Icons.work,color: Colors.black),
+                title: Text('ตำแหน่ง'),
+                onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
-              /*   ListTile(
-              leading: Icon(Icons.attach_money,color: Colors.black),
-              title: Text('ค่าใช้จ่าย'),
-              onTap:(){Navigator.of(context).pushNamed('/cost');},
-            ),
-              ListTile(
-                leading: Icon(Icons.card_giftcard,color: Colors.black),
-                title: Text('สิทธิประโยชน์'),
-                onTap:(){Navigator.of(context).pushNamed('/benefit');},
-              ),
-              */
               ListTile(
                 leading: Icon(Icons.card_giftcard,color: Colors.black),
                 title: Text('สิทธิประโยชน์'),

@@ -1,13 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class login extends StatefulWidget {
   @override
   _loginState createState() => _loginState();
 }
+class Gettoken {
+String username;
+String status;
+String token;
 
+Gettoken({
+this.username,
+this.status,
+this.token
+});
 
+factory Gettoken.fromJson(Map<String, dynamic> json) => new Gettoken(
+  username:  json["username"],
+  status:  json["status"],
+  token:  json["token"],
+);
+
+Map<String, dynamic> toJson() => {
+  "username": username,
+  "status": status,
+  "token": token,
+};
+}
 
 
 class _loginState extends State<login> {
@@ -18,28 +41,43 @@ class _loginState extends State<login> {
  // final passcon = TextEditingController();
 
     Future<dynamic> LoginA(username , password) async {
-
-    //  print(user);
-     // print(pass);
       print(username);
-     // print(password);
+      print(password);
       var url = 'http://35.198.219.154:1337/api/users/login';
       var body = {
         'username': username,
         'password': password,
       };
-      print(body);
+    //  print(body);
        http.Response response = await http.post(
-          "http://35.198.219.154:1337/api/users/login",
+          url,
           body: body);
-
+     // Navigator.of(context).pushReplacementNamed('/Home');
       final Map<String, dynamic> responseData = await json.decode(
           response.body);
       print(responseData);
-      return responseData['code'];
+      String jsonString = response.body.toString();
+      final jsonResponse = json.decode(jsonString);
+      Gettoken token = new Gettoken.fromJson(jsonResponse);
+      print(token.token);
+    //  String Tokenn = token.token.toString();
+    //  print('TOKEN IS :'+token.token.toString());
+     // print('TOKEN IS :'+Tokenn);
+      return responseData;
+
     }
-
-
+  /*
+Future<bool> SaveToken(String name) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("name",name);
+      return prefs.commit();
+}
+Future<String>getToken()async{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String name = prefs.getString("name");
+  return name;
+}
+*/
   @override
   Widget build(BuildContext context) {
 

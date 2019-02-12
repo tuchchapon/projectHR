@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 
 
@@ -8,6 +11,8 @@ class Home extends StatefulWidget {
   @override
   _HomeState createState() => new _HomeState();
 }
+
+
 
 class Sales {
   int year;
@@ -31,6 +36,8 @@ class Emp {
 
 }
 class _HomeState extends State<Home> {
+
+
 
 
   List<Sales> _data;
@@ -78,10 +85,14 @@ class _HomeState extends State<Home> {
   void initState() {
     _makeData();
     _makeEmp();
+    print("token");
+
   }
 
   @override
   Widget build(BuildContext context) {
+
+// Try reading data from the counter key. If it does not exist, return 0.
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
 

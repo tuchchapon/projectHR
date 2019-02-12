@@ -47,8 +47,8 @@ void save(){
 */
 
 class _addpositionState extends State<addposition> {
- String _position;
- final myController = TextEditingController();
+ String position;
+ //final myController = TextEditingController();
 /*
   void addPosition(String name,) {
    _position ;
@@ -82,12 +82,13 @@ class _addpositionState extends State<addposition> {
           children: <Widget>[
          ListTile(
           leading: Text('ตำแหน่ง'),
-          title: TextFormField(
-            controller: myController,
+          title: TextField(
+       //     controller: myController,
               decoration: InputDecoration.collapsed(
               hintText: 'ป้อนตำแหน่ง'),
-            onSaved: (String value) {
-              _position = value;
+            onChanged: (String value) {
+              position = value;
+              print(position);
             },
 
 
@@ -97,7 +98,10 @@ class _addpositionState extends State<addposition> {
      //  Text(_position),
        //   new Text(_position),
         Divider(color: Colors.grey,),
-         RaisedButton(onPressed: _submitForm,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
+         RaisedButton(onPressed: (){
+           Position(position);
+           print(position);
+         },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
           ]
         ),
         ),
@@ -105,15 +109,28 @@ class _addpositionState extends State<addposition> {
 
     );
   }
-  Future<http.Response>  _submitForm() async {
+  Future<dynamic> Position(position) async {
 
-    var url ='http://localhost:1337/position/create';
-    String data =  myController.text;
-    print(data);
-     http.post(url, body: myController);
+    //  print(user);
+    // print(pass);
+    print(position);
+    // print(password);
+    var url = 'http://35.198.219.154:1337/position/create';
+    var body = {
+      'position_name': position,
+    };
+    print(body);
+    http.Response response = await http.post(
+        url,
+             // headers: {token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1NDk5NDk5MzMsImV4cCI6MTU0OTk2MDczM30.0ha9BvkxYAxGdolLc63SU7SISIvnlyb0-y87YRJlUOU}},
+        body: body);
+    Navigator.of(context).pushReplacementNamed('/position');
+    final Map<String, dynamic> responseData = await json.decode(
+        response.body);
+    print(responseData);
+    return responseData['code'];
 
-  // Navigator.pushReplacementNamed(context, '/position');
- }
+  }
 }
 //
 

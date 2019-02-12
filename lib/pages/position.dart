@@ -25,14 +25,13 @@ class _positionState extends State<position>  {
 
   List data;
   Future<String> getSWData() async {
-    print('Start func');
     var res = await http.get(Uri.parse(url),
         headers: {"Accept": "application/json"});
 
     setState(() {
       var resBody = json.decode(res.body);
       data = resBody["data"];
-   //   for(int i =0;i<resBody.length; i++){print(resBody[i]);}
+
     });
 
     return "Success!";
@@ -144,7 +143,7 @@ class _positionState extends State<position>  {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: buttoncolor,
-          onPressed: (){Navigator.of(context).pushNamed('/addposition').then((resulty){getSWData();});},
+          onPressed: (){Navigator.of(context).pushNamed('/addposition');},
           child: Icon(Icons.add),)
     );
   }
