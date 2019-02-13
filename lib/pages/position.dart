@@ -6,12 +6,13 @@ import 'package:http/http.dart' as http;
 //import 'listposition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/Position.dart';
-
+import 'positiondetail.dart';
 //
 
 
 //
 class position extends StatefulWidget {
+
   @override
   _positionState createState() => new _positionState();
 }
@@ -49,8 +50,15 @@ class Getposition {
 
 
 class _positionState extends State<position>  {
-  List data;
-  Future<Position> fetchPost() async {
+  List positionlist;
+  Position listPosition = new Position();
+  int isTrue = 0;
+  @override
+  void initState() {
+    super.initState();
+    fetchPost();
+  }
+  Future<void> fetchPost() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
     final response =
@@ -62,25 +70,21 @@ class _positionState extends State<position>  {
    //* print('respondata ${responseData['data']}');
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
-    Position positiondata = new Position.fromJson(jsonResponse);
-   //
-    for (int i = 0 ; i < positiondata.data.length; i++)
-    {
-      print('createdAt is:' + positiondata.data[i].createdAt.toString());
-      print('updatedAt is:' + positiondata.data[i].updatedAt.toString());
-      print('id is:' + positiondata.data[i].id.toString());
-      print('positionName is:' + positiondata.data[i].positionName);
-      print('status is:' + positiondata.data[i].status.toString());
-    }
+
 
     if (response.statusCode == 200) {
-      print('ok');
+
       // If the call to the server was successful, parse the JSON
-      return Position.fromJson(json.decode(response.body));
+//      Jeturn Position.fromJson(json.decode(response.body));
+      listPosition = new Position.fromJson(jsonResponse);
+      setState(() {
+        this.isTrue = 1;
+      });
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
     }
+    print('print+++++++'+listPosition.data[1].positionName);
   }
 
 /*
@@ -100,16 +104,43 @@ class _positionState extends State<position>  {
     return "Success!";
   }
 */
-  Future<String> DeletePo() async{
+
+  Future<dynamic> update(position) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/position/update';
+    var body = {
+      'position_name': position,
+    };
+    print(body);
+    http.Response response = await http.post(
+        url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    Navigator.of(context).pushReplacementNamed('/position');
+    final Map<String, dynamic> responseData = await json.decode(
+        response.body);
+    print(responseData);
+    return responseData['code'];
 
   }
-
-  @override
-  void initState() {
-    super.initState();
+//
+  Future<String> DeletePosition(id) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/position/delete';
+    var body = {
+      'id': id,
+    };
+     http.Response response = await http.post(url,
+     headers: {'authorization': "Bearer "+Token},
+    body: body);
+     print(response.body);
     fetchPost();
+    ;
   }
-
+//
+//
   Widget build(BuildContext context){
     Color buttoncolor = const Color(0xFF4fa2e1);
     Color colorappbar = const Color(0xFF2ac3fe);
@@ -117,6 +148,7 @@ class _positionState extends State<position>  {
 
     double screenWidth = queryData.size.width;
     double screenHeight = queryData.size.height;
+//    print('mylength'+listposition.data.length.toString());
     return new Scaffold(
         appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
             title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
@@ -178,39 +210,16 @@ class _positionState extends State<position>  {
         ),
         body: Container
           (width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
-          child: ListView.builder(
-            itemCount: data == null ? 0 : data.length,
+          child:  isTrue != 0 ?
+          ListView.builder(
+            itemCount: listPosition.data.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                          child: ListTile(
-                            leading: Text(data[index]["position_name"], style: TextStyle(fontSize: 18.0, color: Colors.black87)),
-                            subtitle: Row(mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                IconButton(icon: Icon(Icons.edit), onPressed: null),
-                                IconButton(icon: Icon(Icons.delete), onPressed: null)
-                              ],
-                            ),
-                            /*      onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailScreen(),
-                      ),
-                    );
-                  },*/
-                          )
-                      )
-                    ],
-                  ),
-                ),
+                child: DetailPosition(id: listPosition.data[index].id,positionName:listPosition.data[index].positionName ,del: DeletePosition,)
               );
             },
-          ),
+          ):Text('Waiting')
+
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: buttoncolor,
@@ -220,3 +229,43 @@ class _positionState extends State<position>  {
   }
 
 }
+class DetailPosition extends StatelessWidget {
+  Function del;
+  int id;
+  String positionName;
+  DetailPosition({this.id,this.positionName,this.del});
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      child:Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          InkWell(
+            onTap: (){ print('ok');},
+            child: Text(positionName),
+          ),
+          Row(
+            children: <Widget>[
+              IconButton(
+                onPressed: () {
+    Navigator.push(context,
+    MaterialPageRoute(
+    builder: (context) => Positiondetail(id: id,positionName: positionName,)),);},
+                icon: Icon(Icons.atm),
+              ),
+              IconButton(
+                onPressed: (){
+                  print(id);
+                  del(id.toString());
+                },
+                icon: Icon(Icons.atm),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
