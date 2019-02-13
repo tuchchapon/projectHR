@@ -3,18 +3,26 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-
+//import 'listposition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../model/Position.dart';
+
+//
 
 
-class Position {
+//
+class position extends StatefulWidget {
+  @override
+  _positionState createState() => new _positionState();
+}
+class Getposition {
   int createdAt;
   int updatedAt;
   int id;
   String positionName;
   int status;
 
-  Position({
+  Getposition({
     this.createdAt,
     this.updatedAt,
     this.id,
@@ -22,7 +30,7 @@ class Position {
     this.status,
   });
 
-  factory Position.fromJson(Map<String, dynamic> json) => new Position(
+  factory Getposition.fromJson(Map<String, dynamic> json) => new Getposition(
     createdAt: json["createdAt"],
     updatedAt: json["updatedAt"],
     id: json["id"],
@@ -40,64 +48,58 @@ class Position {
 }
 
 
-//
-class DetailScreen extends StatelessWidget {
-
-
-
-  Color colorappbar = const Color(0xFF2ac3fe);
-
-
-  final  Position position;
-
-
-  DetailScreen({Key key,  this.position}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(context);
-
-    double screenWidth = queryData.size.width;
-    double screenHeight = queryData.size.height;
-
-    return Scaffold(
-      appBar: AppBar(backgroundColor: colorappbar,
-        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
-      ),
-      body: Container(margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
-        padding: EdgeInsets.all(16.0),
-        child: Text('ตำแหน่ง  '+position.positionName,style: TextStyle(fontSize: 16),),
-      ),
-    );
-  }
-}
-
-
-//
-class position extends StatefulWidget {
-  @override
-  _positionState createState() => new _positionState();
-}
-
 class _positionState extends State<position>  {
+  List data;
+  Future<Position> fetchPost() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/position/datatable',
+        headers: {'authorization': "Bearer "+token});
+//for (i=0 ,i>)
+    final Map<String, dynamic> responseData = await json.decode(response.body);
+  //  response.body;
+   //* print('respondata ${responseData['data']}');
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    Position positiondata = new Position.fromJson(jsonResponse);
+   //
+    for (int i = 0 ; i < positiondata.data.length; i++)
+    {
+      print('createdAt is:' + positiondata.data[i].createdAt.toString());
+      print('updatedAt is:' + positiondata.data[i].updatedAt.toString());
+      print('id is:' + positiondata.data[i].id.toString());
+      print('positionName is:' + positiondata.data[i].positionName);
+      print('status is:' + positiondata.data[i].status.toString());
+    }
 
-  final String url = "http://35.198.219.154:1337/position/datatable";
+    if (response.statusCode == 200) {
+      print('ok');
+      // If the call to the server was successful, parse the JSON
+      return Position.fromJson(json.decode(response.body));
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+  }
 
+/*
   List data;
   Future<String> getSWData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Token = prefs.getString("prefsToken");
+    String token = prefs.getString("prefsToken");
     var res = await http.get(Uri.parse(url),
-        headers: {'authorization': "Bearer "+Token});
+        headers: {'authorization': "Bearer "+token});
 
     setState(() {
       var resBody = json.decode(res.body);
       data = resBody["data".toString()];
+      print(data);
     });
 
     return "Success!";
   }
-
+*/
   Future<String> DeletePo() async{
 
   }
@@ -105,7 +107,7 @@ class _positionState extends State<position>  {
   @override
   void initState() {
     super.initState();
-    getSWData();
+    fetchPost();
   }
 
   Widget build(BuildContext context){
@@ -165,16 +167,6 @@ class _positionState extends State<position>  {
                 title: Text('ตำแหน่ง'),
                 onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
-              /*   ListTile(
-              leading: Icon(Icons.event,color: Colors.black),
-              title: Text('การลา') ,
-              onTap: (){Navigator.of(context).pushNamed('/vacation');},
-            ),
-            ListTile(
-              leading: Icon(Icons.card_giftcard,color: Colors.black),
-              title: Text('สิทธิประโยชน์'),
-              onTap:(){Navigator.of(context).pushNamed('/benefit');},
-            ),*/
               ListTile(
                 leading: Icon(Icons.card_giftcard,color: Colors.black),
                 title: Text('สิทธิประโยชน์'),
@@ -195,23 +187,24 @@ class _positionState extends State<position>  {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Container(
-                        child: ListTile(
-                          leading: Text(data[index]["position_name"], style: TextStyle(fontSize: 18.0, color: Colors.black87)),
-                          subtitle: Row(
-                            children: <Widget>[
-                              IconButton(icon: Icon(Icons.edit), onPressed: null),
-                              IconButton(icon: Icon(Icons.delete), onPressed: null)
-                            ],
-                          ),
-                        onTap: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailScreen(position:),
+                          child: ListTile(
+                            leading: Text(data[index]["position_name"], style: TextStyle(fontSize: 18.0, color: Colors.black87)),
+                            subtitle: Row(mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                IconButton(icon: Icon(Icons.edit), onPressed: null),
+                                IconButton(icon: Icon(Icons.delete), onPressed: null)
+                              ],
                             ),
-                          );
-                        }),
+                            /*      onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailScreen(),
                       ),
+                    );
+                  },*/
+                          )
+                      )
                     ],
                   ),
                 ),

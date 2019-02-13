@@ -54,9 +54,10 @@ class _loginState extends State<login> {
             url,
             body: body);
 
-      final Map<String, dynamic> responseData = await json.decode(
-          response.body);
-      print(responseData);
+    /*  final Map<String, dynamic> responseData = await json.decode(response.body);
+      print('responbody ${response.body}');
+      print('respondata ${responseData}');
+*/
       String jsonString = response.body.toString();
       final jsonResponse = json.decode(jsonString);
       Gettoken token = new Gettoken.fromJson(jsonResponse);

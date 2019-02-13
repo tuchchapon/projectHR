@@ -6,8 +6,9 @@ import 'package:http/http.dart' as http;
 import 'listbranch.dart';
 
 Future<List<Branch>> fetchPosts(http.Client client) async {
-  final response = await client.get('http://localhost:1337/branch'); // ดึงข้อมูลจาก API
+  final response = await client.get('http://localhost:1337/branch',); // ดึงข้อมูลจาก API
   return compute(parsePosts, response.body); // compute ต้องประกาศ import 'package:flutter/foundation.dart';
+
 }
 
 List<Branch> parsePosts(String responseBody) {
