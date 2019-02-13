@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../model/Position.dart';
 import 'position.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -110,7 +111,8 @@ class _addpositionState extends State<addposition> {
     );
   }
   Future<dynamic> Position(position) async {
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
     //  print(user);
     // print(pass);
     print(position);
@@ -122,7 +124,7 @@ class _addpositionState extends State<addposition> {
     print(body);
     http.Response response = await http.post(
         url,
-        headers: {'authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1NDk5ODI3MDksImV4cCI6MTU0OTk5MzUwOX0.9JYhzwF7IRIiQq-GcgXJse9I5ujFW20OMDL6vFF5EtE"},
+ headers: {'authorization': "Bearer "+Token},
           body: body);
     Navigator.of(context).pushReplacementNamed('/position');
     final Map<String, dynamic> responseData = await json.decode(

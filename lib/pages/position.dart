@@ -3,14 +3,74 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-//import 'listposition.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 
+class Position {
+  int createdAt;
+  int updatedAt;
+  int id;
+  String positionName;
+  int status;
 
+  Position({
+    this.createdAt,
+    this.updatedAt,
+    this.id,
+    this.positionName,
+    this.status,
+  });
+
+  factory Position.fromJson(Map<String, dynamic> json) => new Position(
+    createdAt: json["createdAt"],
+    updatedAt: json["updatedAt"],
+    id: json["id"],
+    positionName: json["position_name"],
+    status: json["status"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "id": id,
+    "position_name": positionName,
+    "status": status,
+  };
+}
 
 
 //
+class DetailScreen extends StatelessWidget {
 
+
+
+  Color colorappbar = const Color(0xFF2ac3fe);
+
+
+  final  Position position;
+
+
+  DetailScreen({Key key,  this.position}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
+
+    return Scaffold(
+      appBar: AppBar(backgroundColor: colorappbar,
+        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+      ),
+      body: Container(margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
+        padding: EdgeInsets.all(16.0),
+        child: Text('ตำแหน่ง  '+position.positionName,style: TextStyle(fontSize: 16),),
+      ),
+    );
+  }
+}
 
 
 //
@@ -25,8 +85,10 @@ class _positionState extends State<position>  {
 
   List data;
   Future<String> getSWData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
     var res = await http.get(Uri.parse(url),
-        headers: {'authorization': "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1NDk5NzE4NzYsImV4cCI6MTU0OTk4MjY3Nn0.f92IAoIGWFx838EvFq7Yf1SyjXucKfe4eR_fwVCxuH0"});
+        headers: {'authorization': "Bearer "+Token});
 
     setState(() {
       var resBody = json.decode(res.body);
@@ -112,7 +174,6 @@ class _positionState extends State<position>  {
               leading: Icon(Icons.card_giftcard,color: Colors.black),
               title: Text('สิทธิประโยชน์'),
               onTap:(){Navigator.of(context).pushNamed('/benefit');},
-
             ),*/
               ListTile(
                 leading: Icon(Icons.card_giftcard,color: Colors.black),
@@ -133,16 +194,24 @@ class _positionState extends State<position>  {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                       Container(
-                          child: ListTile(leading: Text(data[index]["position_name"], style: TextStyle(fontSize: 18.0, color: Colors.black87)),
+                      Container(
+                        child: ListTile(
+                          leading: Text(data[index]["position_name"], style: TextStyle(fontSize: 18.0, color: Colors.black87)),
                           subtitle: Row(
                             children: <Widget>[
                               IconButton(icon: Icon(Icons.edit), onPressed: null),
                               IconButton(icon: Icon(Icons.delete), onPressed: null)
                             ],
                           ),
-                          ),
-                       ),
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailScreen(position:),
+                            ),
+                          );
+                        }),
+                      ),
                     ],
                   ),
                 ),

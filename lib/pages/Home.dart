@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 
@@ -36,6 +36,7 @@ class Emp {
 
 }
 class _HomeState extends State<Home> {
+
 
 
 
@@ -85,7 +86,6 @@ class _HomeState extends State<Home> {
   void initState() {
     _makeData();
     _makeEmp();
-    print("token");
 
   }
 

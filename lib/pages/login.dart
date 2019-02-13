@@ -43,6 +43,7 @@ class _loginState extends State<login> {
     Future<dynamic> LoginA(username , password) async {
       print(username);
       print(password);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
         var url = 'http://35.198.219.154:1337/api/users/login';
         var body = {
           'username': username,
@@ -60,6 +61,9 @@ class _loginState extends State<login> {
       final jsonResponse = json.decode(jsonString);
       Gettoken token = new Gettoken.fromJson(jsonResponse);
       print('Token is:'+token.token);
+      prefs.setString("prefsToken",token.token);
+
+
     if (token.username == 'admin'){
        Navigator.of(context).pushReplacementNamed('/Home');
     }
@@ -71,18 +75,14 @@ class _loginState extends State<login> {
     }
 
     }
-  /*
-Future<bool> SaveToken(String name) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("name",name);
-      return prefs.commit();
-}
+
+
 Future<String>getToken()async{
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String name = prefs.getString("name");
-  return name;
+  String Token = prefs.getString("prefsToken");
+  return Token;
 }
-*/
+
   @override
   Widget build(BuildContext context) {
 
@@ -120,7 +120,6 @@ Future<String>getToken()async{
                     autocorrect: false,
                     decoration: InputDecoration(
                         hintText: 'username',border: InputBorder.none),
-                      //  controller: usercon,
                         onChanged: (String unameinput) {
                       user  = unameinput;
                         print(user);

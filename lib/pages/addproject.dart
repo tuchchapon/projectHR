@@ -24,14 +24,7 @@ void _addAlert(BuildContext context, String message) async {
 }
 */
 Future _showAlert(BuildContext context, String message) async {
-  return showDialog(
-      context: context,
-      child: new AlertDialog(
-        title: new Text(message),
-        
-      )
 
-  );
 }
 
 class _addprojectState extends State<addproject> {
