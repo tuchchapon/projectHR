@@ -17,41 +17,7 @@ class position extends StatefulWidget {
   _positionState createState() => new _positionState();
 }
 
-class Getposition {
-  int createdAt;
-  int updatedAt;
-  int id;
-  String positionName;
-  int status;
-
-  Getposition({
-    this.createdAt,
-    this.updatedAt,
-    this.id,
-    this.positionName,
-    this.status,
-  });
-
-  factory Getposition.fromJson(Map<String, dynamic> json) => new Getposition(
-    createdAt: json["createdAt"],
-    updatedAt: json["updatedAt"],
-    id: json["id"],
-    positionName: json["position_name"],
-    status: json["status"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "createdAt": createdAt,
-    "updatedAt": updatedAt,
-    "id": id,
-    "position_name": positionName,
-    "status": status,
-  };
-}
-
-
 class _positionState extends State<position>  {
-
 
 
  // List positionlist;

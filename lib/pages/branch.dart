@@ -84,7 +84,7 @@ class _branchState extends State<branch>  {
         drawer: Drawer(
           child: Column(
             children: <Widget>[
-              Container(width: screenWidth,height: screenHeight*0.22,
+              Container(width: screenWidth,height: screenHeight*0.6,
                 color: colorappbar,
                 child: Center(
                   child: Column(mainAxisAlignment: MainAxisAlignment.start,
