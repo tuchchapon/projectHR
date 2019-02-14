@@ -66,13 +66,12 @@ class _addpositionState extends State<addposition> {
               decoration: InputDecoration.collapsed(
               hintText: 'ป้อนตำแหน่ง'),
             onChanged: (String value) {
+              validateName(value);
               position = value;
               print(position);
+
             },
-
-
-
-          ),
+            autocorrect: false,),
         ),
      //  Text(_position),
        //   new Text(_position),

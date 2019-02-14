@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 //import 'listbranch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/Branch.dart';
+import './editbranch.dart';
 
 
 
@@ -34,9 +35,9 @@ class _branchState extends State<branch>  {
     print(response.body);
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
-    print(jsonResponse["data"]);
-    print(jsonResponse["data"]);
-    listBrabch = new Branch.fromJson(jsonResponse);
+   // print(jsonResponse["data"]);
+
+      listBrabch = new Branch.fromJson(jsonResponse);
     if (response.statusCode == 200) {
       listBrabch = new Branch.fromJson(jsonResponse);
       setState(() {
@@ -47,7 +48,6 @@ class _branchState extends State<branch>  {
 
       throw Exception('Failed to load post');
     }
-
   }
  //
   Future<dynamic> deletebranch(id) async{
@@ -182,7 +182,7 @@ class Detailbranch extends StatelessWidget {
         child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
-            new FlatButton(onPressed: () {del(id.toString());}, child: new Text('ยืนยัน')
+            new FlatButton(onPressed: () => Navigator.pop(context)/*{del(id.toString());}*/, child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],
@@ -201,16 +201,14 @@ class Detailbranch extends StatelessWidget {
       leading: Text(branch_name),
       title: Row(mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          IconButton(icon: Icon(Icons.edit), onPressed: null/*(){
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => editposition(id: id,positionName: positionName,),
-              ),
-            );
-          }),*/
-          ) ,
-          IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
+          IconButton(icon: Icon(Icons.edit),onPressed:() {
+      Navigator.push(context,
+        MaterialPageRoute(
+            builder: (context) => editbranch(id: id,branchname: branch_name,branch_address: branchaddress,)
+        ),
+      );
+    },
+          ),IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
             // del(id.toString());
 
           ),
@@ -246,17 +244,18 @@ class DetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(backgroundColor: colorappbar,
-        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+        title: Text('ข้อมูลสาขา',style: TextStyle(color: Colors.brown[500]),),
       ),
       body: Container(
           margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
           padding: EdgeInsets.all(16.0),
-          child: Column(
+          child: Center(child: Column(
             children: <Widget>[
-              // Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
-              Text('ตำแหน่ง  '+branchname,style: TextStyle(fontSize: 16),),
-              Text('ตำแหน่ง  '+branchaddress,style: TextStyle(fontSize: 16),),
+              ListTile(leading: Text('ชื่อสาขา',style: TextStyle(fontSize: 14),), title: Text(branchname,style: TextStyle(fontSize: 12),),),
+              ListTile(leading: Text('ที่อยู่สาขา',style: TextStyle(fontSize: 14),), title: Text(branchaddress,style: TextStyle(fontSize: 12),),),
             ],
+          ),
+
           )
       ),
     );

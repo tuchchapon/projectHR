@@ -54,6 +54,7 @@ class _addbranchState extends State<addbranch> {
               leading: Text('ชื่อสาขา'),
                     title:TextField(
                       decoration: InputDecoration.collapsed(hintText: 'ป้อนชื่อสาขา'),
+                      autocorrect: false,
                       onChanged: (String branchinput){
                         branchname  = branchinput;
                       },
@@ -65,6 +66,7 @@ class _addbranchState extends State<addbranch> {
                 leading: Text('ที่อยู่      '),
                 title:TextField(
                   decoration: InputDecoration.collapsed(hintText: 'ป้อนที่อยู่'),
+                  autocorrect: false,
                   onChanged: (String addressinput){
                     branchad  = addressinput;
                   },
