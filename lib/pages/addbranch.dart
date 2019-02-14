@@ -5,26 +5,28 @@ class addbranch extends StatefulWidget {
   @override
   _addbranchState createState() => new _addbranchState();
 }
-Future<dynamic> AddBranch(branchName,branchAD) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String Token = prefs.getString("prefsToken");
-  //  print(user);
-  // print(pass);
-  // print(password);
-  var url = 'http://35.198.219.154:1337/branch/create';
-  var body = {
-    'branch_name': branchName,
-    'branch_address':branchAD,
-  };
-  print(body);
-  http.Response response = await http.post(
-      url,
-      headers: {'authorization': "Bearer "+Token},
-      body: body);
 
-
-}
 class _addbranchState extends State<addbranch> {
+
+  Future<dynamic> AddBranch(branchName,branchAD) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    //  print(user);
+    // print(pass);
+    // print(password);
+    var url = 'http://35.198.219.154:1337/branch/create';
+    var body = {
+      'branch_name': branchName,
+      'branch_address':branchAD,
+    };
+    print(body);
+    http.Response response = await http.post(
+        url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    Navigator.of(context).pushReplacementNamed('/branch');
+  }
+
   String branchname ;
   String branchad ;
   Widget build(BuildContext context) {

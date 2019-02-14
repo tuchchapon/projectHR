@@ -78,7 +78,7 @@ class _addpositionState extends State<addposition> {
        //   new Text(_position),
         Divider(color: Colors.grey,),
          RaisedButton(onPressed: (){
-           Position(position);
+           Addposition(position);
            print(position);
          },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
           ]
@@ -88,7 +88,7 @@ class _addpositionState extends State<addposition> {
 
     );
   }
-  Future<dynamic> Position(position) async {
+  Future<dynamic> Addposition(position) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
     //  print(user);

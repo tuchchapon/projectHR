@@ -16,6 +16,7 @@ class position extends StatefulWidget {
   @override
   _positionState createState() => new _positionState();
 }
+
 class Getposition {
   int createdAt;
   int updatedAt;
@@ -50,6 +51,9 @@ class Getposition {
 
 
 class _positionState extends State<position>  {
+
+
+
  // List positionlist;
   Position listPosition = new Position();
   int isTrue = 0;
@@ -65,7 +69,7 @@ class _positionState extends State<position>  {
     await http.get('http://35.198.219.154:1337/position/datatable',
         headers: {'authorization': "Bearer "+token});
 //for (i=0 ,i>)
-    final Map<String, dynamic> responseData = await json.decode(response.body);
+  //  final Map<String, dynamic> responseData = await json.decode(response.body);
   //  response.body;
    //* print('respondata ${responseData['data']}');
     String jsonString = response.body.toString();
@@ -107,7 +111,7 @@ class _positionState extends State<position>  {
 
   }
 //
-  Future<dynamic> DeletePosition(id) async{
+  Future<dynamic> deletePosition(id) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
     var url = 'http://35.198.219.154:1337/position/delete';
@@ -119,7 +123,6 @@ class _positionState extends State<position>  {
     body: body);
      print(response.body);
     fetchPost();
-
   }
 //
 //
@@ -129,7 +132,7 @@ class _positionState extends State<position>  {
     MediaQueryData queryData = MediaQuery.of(context);
 
     double screenWidth = queryData.size.width;
-    double screenHeight = queryData.size.height;
+    double screenHeight = queryData.size.height*0.4;
 //    print('mylength'+listposition.data.length.toString());
     return new Scaffold(
         appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
@@ -139,14 +142,14 @@ class _positionState extends State<position>  {
               //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
             ]
         ),
-
         drawer: Drawer(
           child: Column(
             children: <Widget>[
-              Container(width: screenWidth,height: screenHeight*0.22,
+              Container(width: screenWidth,height: screenHeight*0.6,
                 color: colorappbar,
                 child: Center(
-                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
                     CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
                     Padding(padding: EdgeInsets.only(top: 20,left: 50)),
@@ -181,12 +184,6 @@ class _positionState extends State<position>  {
                 title: Text('ตำแหน่ง'),
                 onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
-              /*   ListTile(
-              leading: Icon(Icons.event,color: Colors.black),
-              title: Text('การลา') ,
-              onTap: (){Navigator.of(context).pushNamed('/vacation');},
-            ),
-            */
               ListTile(
                 leading: Icon(Icons.card_giftcard,color: Colors.black),
                 title: Text('สิทธิประโยชน์'),
@@ -197,13 +194,13 @@ class _positionState extends State<position>  {
           ),
         ),
         body: Container
-          (width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+          (width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.white,
           child:  isTrue != 0 ?
           ListView.builder(
             itemCount: listPosition.data.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                child: DetailPosition( id: listPosition.data[index].id,positionName:listPosition.data[index].positionName ,del: DeletePosition,)
+                child: DetailPosition( id: listPosition.data[index].id,positionName:listPosition.data[index].positionName ,del: deletePosition,)
               );
             },
           ):Text('Waiting')
@@ -217,7 +214,23 @@ class _positionState extends State<position>  {
   }
 
 }
+
 class DetailPosition extends StatelessWidget {
+  //
+  Future _showAlert(BuildContext context, String message) async {
+    return showDialog(
+        context: context,
+        child: new AlertDialog(
+          title: new Text(message),
+          actions: <Widget>[
+            new FlatButton(onPressed: () =>Navigator.pop(context,/*{del(id.toString())}*/), child: new Text('ยืนยัน')
+            ),
+            new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
+          ],
+        )
+
+    );
+  }
   Function del;
   int id;
   String positionName;
@@ -236,9 +249,10 @@ class DetailPosition extends StatelessWidget {
               ),
             );
           }),
-          IconButton(icon: Icon(Icons.delete), onPressed: (){
-            del(id.toString());
-          }),
+          IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${positionName} หรือไม่!')
+            // del(id.toString());
+
+          ),
         ],
       ),
     onTap: () {
@@ -276,7 +290,7 @@ class DetailScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
+           // Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
             Text('ตำแหน่ง  '+positionName,style: TextStyle(fontSize: 16),),
           ],
         )
