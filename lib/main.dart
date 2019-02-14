@@ -31,6 +31,7 @@ import './pages/addteammember.dart';
 import './pages/homeacc.dart';
 import './pages/homehr.dart';
 import './pages/homeuser.dart';
+import './pages/editposition.dart';
 
 void main() => runApp(new MyApp());
 
@@ -74,8 +75,9 @@ class MyApp extends StatelessWidget {
         '/homeuser': (BuildContext contrext) => new homeuser(),
         '/homehr': (BuildContext contrext) => new homehr(),
         '/homeacc': (BuildContext contrext) => new homeacc(),
+        '/editposition': (BuildContext contrext) => new editposition(),
       },
-      home: new login(), //first page displayed
+      home: new Home(), //first page displayed
     );
   }
 }

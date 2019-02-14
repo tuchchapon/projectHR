@@ -143,7 +143,7 @@ Future<String>getToken()async{
               Stack(children: <Widget>[
                 Container(
                   height: 40,
-                  margin: EdgeInsets.only(top: 20,left: 20,right: 20),
+                  margin: EdgeInsets.only(top: 10,left: 20,right: 20),
                   child: new Container(
                     child: TextField(obscureText: true,autocorrect: false,
                       decoration: InputDecoration(
@@ -167,7 +167,7 @@ Future<String>getToken()async{
               ],
               )
               ,new Padding(
-                padding: new EdgeInsets.all(10.0),
+                padding: new EdgeInsets.only(top: 5),
                 // child: new FlatButton(onPressed: null, child: new Text('หากลืมรหัสผ่าน',),color: (Colors.red),),
               ),
               FlatButton(onPressed:() {

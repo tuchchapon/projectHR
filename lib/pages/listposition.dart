@@ -49,16 +49,11 @@ class Position {
 
 class DetailScreen extends StatelessWidget {
 
+  DetailScreen({Key key,  this.position}) : super(key: key);
 
 
   Color colorappbar = const Color(0xFF2ac3fe);
-
-
   final  Position position;
-
-
-  DetailScreen({Key key,  this.position}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 //import 'listposition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/Position.dart';
-import 'positiondetail.dart';
+import 'editposition.dart';
 //
 
 
@@ -50,7 +50,7 @@ class Getposition {
 
 
 class _positionState extends State<position>  {
-  List positionlist;
+ // List positionlist;
   Position listPosition = new Position();
   int isTrue = 0;
   @override
@@ -75,7 +75,7 @@ class _positionState extends State<position>  {
     if (response.statusCode == 200) {
 
       // If the call to the server was successful, parse the JSON
-//      Jeturn Position.fromJson(json.decode(response.body));
+//      return Position.fromJson(json.decode(response.body));
       listPosition = new Position.fromJson(jsonResponse);
       setState(() {
         this.isTrue = 1;
@@ -84,26 +84,8 @@ class _positionState extends State<position>  {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
     }
-    print('print+++++++'+listPosition.data[1].positionName);
+   // print('print+++++++'+listPosition.data[1].positionName);
   }
-
-/*
-  List data;
-  Future<String> getSWData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString("prefsToken");
-    var res = await http.get(Uri.parse(url),
-        headers: {'authorization': "Bearer "+token});
-
-    setState(() {
-      var resBody = json.decode(res.body);
-      data = resBody["data".toString()];
-      print(data);
-    });
-
-    return "Success!";
-  }
-*/
 
   Future<dynamic> update(position) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -125,7 +107,7 @@ class _positionState extends State<position>  {
 
   }
 //
-  Future<String> DeletePosition(id) async{
+  Future<dynamic> DeletePosition(id) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
     var url = 'http://35.198.219.154:1337/position/delete';
@@ -137,7 +119,7 @@ class _positionState extends State<position>  {
     body: body);
      print(response.body);
     fetchPost();
-    ;
+
   }
 //
 //
@@ -199,6 +181,12 @@ class _positionState extends State<position>  {
                 title: Text('ตำแหน่ง'),
                 onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
+              /*   ListTile(
+              leading: Icon(Icons.event,color: Colors.black),
+              title: Text('การลา') ,
+              onTap: (){Navigator.of(context).pushNamed('/vacation');},
+            ),
+            */
               ListTile(
                 leading: Icon(Icons.card_giftcard,color: Colors.black),
                 title: Text('สิทธิประโยชน์'),
@@ -215,12 +203,12 @@ class _positionState extends State<position>  {
             itemCount: listPosition.data.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                child: DetailPosition(id: listPosition.data[index].id,positionName:listPosition.data[index].positionName ,del: DeletePosition,)
+                child: DetailPosition( id: listPosition.data[index].id,positionName:listPosition.data[index].positionName ,del: DeletePosition,)
               );
             },
           ):Text('Waiting')
 
-        ),
+        ,padding: EdgeInsets.only(left: 10),),
         floatingActionButton: FloatingActionButton(
           backgroundColor: buttoncolor,
           onPressed: (){Navigator.of(context).pushNamed('/addposition');},
@@ -236,8 +224,68 @@ class DetailPosition extends StatelessWidget {
   DetailPosition({this.id,this.positionName,this.del});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
+    return ListTile(
+      leading: Text(positionName),
+      title: Row(mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          IconButton(icon: Icon(Icons.edit), onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => editposition(id: id,positionName: positionName,),
+              ),
+            );
+          }),
+          IconButton(icon: Icon(Icons.delete), onPressed: (){
+            del(id.toString());
+          }),
+        ],
+      ),
+    onTap: () {
+      Navigator.push(context,
+        MaterialPageRoute(
+            builder: (context) => DetailScreen(id: id,positionName: positionName,)
+        ),
+      );
+      },
+    );
+  }
+}
+class DetailScreen extends StatelessWidget {
+
+  int id;
+  String positionName;
+  DetailScreen({this.id,this.positionName,});
+
+
+  Color colorappbar = const Color(0xFF2ac3fe);
+//  final  Position position;
+  @override
+  Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
+
+    return Scaffold(
+      appBar: AppBar(backgroundColor: colorappbar,
+        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+      ),
+      body: Container(
+        margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
+            Text('ตำแหน่ง  '+positionName,style: TextStyle(fontSize: 16),),
+          ],
+        )
+      ),
+    );
+  }
+}
+/*
+Container(
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -252,20 +300,18 @@ class DetailPosition extends StatelessWidget {
     Navigator.push(context,
     MaterialPageRoute(
     builder: (context) => Positiondetail(id: id,positionName: positionName,)),);},
-                icon: Icon(Icons.atm),
+                icon: Icon(Icons.edit),
               ),
               IconButton(
                 onPressed: (){
                   print(id);
                   del(id.toString());
                 },
-                icon: Icon(Icons.atm),
+                icon: Icon(Icons.delete),
               )
             ],
           )
         ],
       ),
     );
-  }
-}
-
+ */

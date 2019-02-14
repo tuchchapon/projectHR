@@ -4,35 +4,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../model/Position.dart';
-import 'position.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 
 
 
-/*
-Future<http.Response> postRequest () async {
-  var url ='http://localhost:1337/position/create';
-  var body = {
-    'position_name' : position_name
-  } ;
 
-  print("Body: " + position_name );
-
-  http.post(url,
-      headers: {"Content-Type": "application/json"},
-      body: body
-  ).then((http.Response response) {
-    print("Response status: ${response.statusCode}");
-    print("Response body: ${response.contentLength}");
-    print(response.headers);
-    print(response.request);
-
-  }
-  );
-  }
-*/
 
 class addposition extends StatefulWidget {
   @override
