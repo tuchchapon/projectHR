@@ -182,7 +182,8 @@ class Detailbranch extends StatelessWidget {
         child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
-            new FlatButton(onPressed: () => Navigator.pop(context)/*{del(id.toString());}*/, child: new Text('ยืนยัน')
+            new FlatButton(onPressed: (){del(id.toString()); Navigator.pop(context);}
+                , child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],

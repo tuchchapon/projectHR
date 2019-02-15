@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/project.dart';
 import './editproject.dart';
+import 'package:moment/moment.dart';
+
 //
 
 
@@ -180,7 +182,7 @@ class _projectState extends State<project>  {
           ,padding: EdgeInsets.only(left: 10),),
         floatingActionButton: FloatingActionButton(
           backgroundColor: buttoncolor,
-          onPressed: (){Navigator.of(context).pushNamed('/addposition');},
+          onPressed: (){Navigator.of(context).pushNamed('/addproject');},
           child: Icon(Icons.add),)
     );
   }
@@ -283,7 +285,6 @@ class DetailScreen extends StatelessWidget {
     this.projectcost,
     this.projectnote});
 
-
   Color colorappbar = const Color(0xFF2ac3fe);
 //  final  Position position;
   @override
@@ -300,21 +301,26 @@ class DetailScreen extends StatelessWidget {
       body: ListView(children: <Widget>[
         Container(
             margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
-            padding: EdgeInsets.all(16.0),
+            //padding: EdgeInsets.all(10.0),
             child: Column(
               children: <Widget>[
-               Text('kuy'),
-               Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
-               Text('ชื่อโปรเจ็ค  '+projectname,style: TextStyle(fontSize: 16),),
-               Text('ลูกค้า  '+projectcostomerName,style: TextStyle(fontSize: 16),),
-               Text('วันนี่เริ่ม  '+startdate.toString(),style: TextStyle(fontSize: 16),),
-               Text('วันสิ้นสุด  '+enddate.toString(),style: TextStyle(fontSize: 16),),
-               Text('ทีมรับผิดชอบ  '+teamname,style: TextStyle(fontSize: 16),),
-               Text('หมายเหตุ  '+projectnote,style: TextStyle(fontSize: 16),),
-               Text('งบประมาณ  '+projectcost.toString(),style: TextStyle(fontSize: 16),),
+             //  Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
+               ListTile(leading: Text('ชื่อโปรเจ็ค  ',style: TextStyle(fontSize: 12)),title: Text(projectname,style: TextStyle(fontSize: 12)),),
+               ListTile(leading: Text('ลูกค้า          ',style: TextStyle(fontSize: 12)),title: Text(projectcostomerName,style: TextStyle(fontSize: 12)),),
+               ListTile(leading: Text('วันที่เริ่ม       ',style: TextStyle(fontSize: 12)),title: Text(Moment(startdate).format('dd/MMM/yyyy'),style: TextStyle(fontSize: 12)),),
+               ListTile(leading: Text('วันสิ้นสุด      ',style: TextStyle(fontSize: 12)),title: Text(Moment(enddate).format('dd/MMM/yyyy').toString(),style: TextStyle(fontSize: 12)),),
+               ListTile(leading: Text('ทีมรับผิดชอบ',style: TextStyle(fontSize: 12)),title: Text(teamname,style: TextStyle(fontSize: 12)),trailing: FlatButton(onPressed: null, child: Text('จัดการทีม >')),),
+               ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),title: Text(projectnote,style: TextStyle(fontSize: 12))),
+          // ListTile(leading: Text('งบประมาณ',style: TextStyle(fontSize: 12),),title: Text(projectcost.toString(),style: TextStyle(fontSize: 12),),)
+
+
+
               ],
             )
         ),
+        Container(
+
+        )
       ],)
     );
   }
