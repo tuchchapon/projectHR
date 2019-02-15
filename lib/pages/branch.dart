@@ -5,7 +5,11 @@ import 'package:http/http.dart' as http;
 //import 'listbranch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/Branch.dart';
+import '../model/fixcost.dart';
+import '../model/branchaddit.dart';
 import './editbranch.dart';
+import './showbranch.dart';
+
 
 
 
@@ -19,12 +23,13 @@ class branch extends StatefulWidget {
 class _branchState extends State<branch>  {
 
   Branch listBrabch = new Branch();
+
   int isTrue = 0;
   @override
   void initState() {
     super.initState();
     getbranchdata();
-    getbranchfixcost();
+   // getbranchfixcost();
   }
 //
   Future<void> getbranchdata() async {
@@ -40,7 +45,7 @@ class _branchState extends State<branch>  {
 
       listBrabch = new Branch.fromJson(jsonResponse);
     if (response.statusCode == 200) {
-      listBrabch = new Branch.fromJson(jsonResponse);
+      //listBrabch = new Branch.fromJson(jsonResponse);
       setState(() {
         this.isTrue = 1;
       });
@@ -51,46 +56,9 @@ class _branchState extends State<branch>  {
     }
   }
 //
-  Future<void> getbranchfixcost() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString("prefsToken");
-    final response =
-    await http.get('http://35.198.219.154:1337/fixcost/datatable',
-      headers: {'authorization': "Bearer "+token},);
-      print(response.body);
-    String jsonString = response.body.toString();
-    final jsonResponse = json.decode(jsonString);
-    if (response.statusCode == 200) {
 
-    } else {
-
-      throw Exception('Failed to load post');
-    }
-  }
 //
-  Future<void> getbranchaddit() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString("prefsToken");
-    final response =
-    await http.get('http://35.198.219.154:1337/branchaddit/datatable',
-      headers: {'authorization': "Bearer "+token},);
-    //  print(response.body);
-    String jsonString = response.body.toString();
-    final jsonResponse = json.decode(jsonString);
-    // print(jsonResponse["data"]);
 
-
-    if (response.statusCode == 200) {
-
-      setState(() {
-
-      });
-
-    } else {
-
-      throw Exception('Failed to load post');
-    }
-  }
 //
   Future<dynamic> deletebranch(id) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -164,29 +132,10 @@ class _branchState extends State<branch>  {
                 title: Text('ตำแหน่ง'),
                 onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
-              /*   ListTile(
-              leading: Icon(Icons.event,color: Colors.black),
-              title: Text('การลา') ,
-              onTap: (){Navigator.of(context).pushNamed('/vacation');},
-            ),
-            */
               ListTile(
                 leading: Icon(Icons.card_giftcard,color: Colors.black),
                 title: Text('สิทธิประโยชน์'),
                 onTap:(){Navigator.of(context).pushNamed('/benefit');},
-            /*    body: Container
-                  (width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
-                  child:  isTrue != 0 ?
-                  ListView.builder(
-                    itemCount: listPosition.data.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                          child: DetailPosition( id: listPosition.data[index].id,positionName:listPosition.data[index].positionName ,del: DeletePosition,)
-                      );
-                    },
-                  ):Text('Waiting')
-
-                  ,padding: EdgeInsets.only(left: 10),),*/
               ),
             ],
           ),
@@ -202,7 +151,7 @@ class _branchState extends State<branch>  {
                   child: Detailbranch(
                     id: listBrabch.data[index].id,
                     branch_name: listBrabch.data[index].branchName,
-                    branchaddress: listBrabch.data[index].branchAddress,del:  deletebranch)
+                    branchaddress: listBrabch.data[index].branchAddress,del:deletebranch)
               );
             },
           ):Text('Waiting')
@@ -260,7 +209,7 @@ class Detailbranch extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
           MaterialPageRoute(
-              builder: (context) => DetailScreen(id: id,branchname: branch_name,branchaddress: branchaddress,)
+              builder: (context) => showbranch(id: id,branch_name: branch_name,branchaddress: branchaddress,),
           ),
         );
       },
@@ -268,8 +217,47 @@ class Detailbranch extends StatelessWidget {
   }
 
 }
+/*
 class DetailScreen extends StatelessWidget {
 
+  Fixcost listfixcost = new Fixcost();
+  Branchaddit listadditcost = new Branchaddit();
+
+  Future<void> getbranchfixcost() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/fixcost/datatable',
+      headers: {'authorization': "Bearer "+token},);
+    // print(response.body);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    listfixcost = new Fixcost.fromJson(jsonResponse);
+    print('tuch');
+    if (response.statusCode == 200) {
+
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+  Future<void> getbranchaddit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/branchaddit/datatable',
+      headers: {'authorization': "Bearer "+token},);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+
+
+    if (response.statusCode == 200) {
+
+    } else {
+
+      throw Exception('Failed to load post');
+    }
+  }
+//
   int id;
   String branchname;
   String branchaddress;
@@ -304,3 +292,69 @@ class DetailScreen extends StatelessWidget {
     );
   }
 }
+*/
+//
+/*
+class Detailfixcost extends StatelessWidget {
+  //
+
+  Function del;
+  int id;
+  String branch_name;
+  String branchaddress;
+  Detailfixcost({this.id,this.branch_name,this.branchaddress,this.del});
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Text(branch_name),
+      title: Row(mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[],
+      ),
+    );
+  }
+
+}
+//
+class Detailadditcost extends StatelessWidget {
+  //
+
+  int createdAt;
+  int updatedAt;
+  int id;
+  String branchAdditTitle;
+  int branchAdditPrice;
+  int branchAdditDate;
+
+  Detailadditcost({
+    this.createdAt,
+    this.updatedAt,
+    this.id,
+    this.branchAdditTitle,
+    this.branchAdditPrice,
+    this.branchAdditDate,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Text(branchAdditTitle),
+      title: Row(mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[],
+      ),
+    );
+  }
+}
+
+*/
+/*    body: Container
+                  (width: screenWidth,height: screenHeight,margin: EdgeInsets.all(5),
+                  child:  isTrue != 0 ?
+                  ListView.builder(
+                    itemCount: listPosition.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          child: DetailPosition( id: listPosition.data[index].id,positionName:listPosition.data[index].positionName ,del: DeletePosition,)
+                      );
+                    },
+                  ):Text('Waiting')
+
+                  ,padding: EdgeInsets.only(left: 10),),*/

@@ -8,12 +8,7 @@ import 'position.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'branch.dart';
 
-class Editpo {
 
-  String positionName;
-
-  Editpo({this.positionName});
-}
 
 //
 class editbranch extends StatefulWidget {
@@ -39,7 +34,7 @@ class _editbranchState extends State<editbranch> {
   }
 
 
-  String positionName;
+  //String branchname;
   final branchnamecon = TextEditingController();
   final branchAddcon = TextEditingController();
   final idcon = TextEditingController();
