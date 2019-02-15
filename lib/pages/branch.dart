@@ -23,16 +23,17 @@ class _branchState extends State<branch>  {
   @override
   void initState() {
     super.initState();
-    fetchPost();
+    getbranchdata();
+    getbranchfixcost();
   }
- //
-  Future<void> fetchPost() async {
+//
+  Future<void> getbranchdata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
     final response =
     await http.get('http://35.198.219.154:1337/branch/datatable',
         headers: {'authorization': "Bearer "+token},);
-    print(response.body);
+  //  print(response.body);
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
    // print(jsonResponse["data"]);
@@ -49,7 +50,48 @@ class _branchState extends State<branch>  {
       throw Exception('Failed to load post');
     }
   }
- //
+//
+  Future<void> getbranchfixcost() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/fixcost/datatable',
+      headers: {'authorization': "Bearer "+token},);
+      print(response.body);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    if (response.statusCode == 200) {
+
+    } else {
+
+      throw Exception('Failed to load post');
+    }
+  }
+//
+  Future<void> getbranchaddit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/branchaddit/datatable',
+      headers: {'authorization': "Bearer "+token},);
+    //  print(response.body);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    // print(jsonResponse["data"]);
+
+
+    if (response.statusCode == 200) {
+
+      setState(() {
+
+      });
+
+    } else {
+
+      throw Exception('Failed to load post');
+    }
+  }
+//
   Future<dynamic> deletebranch(id) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
@@ -60,12 +102,12 @@ class _branchState extends State<branch>  {
     http.Response response = await http.post(url,
         headers: {'authorization': "Bearer "+Token},
         body: body);
-    print(response.body);
-    fetchPost();
+  //  print(response.body);
+    getbranchdata();
   }
- //
+//
   Widget build(BuildContext context) {
-    branch Listbranch = new branch();
+
     Color buttoncolor = const Color(0xFF4fa2e1);
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
@@ -214,7 +256,7 @@ class Detailbranch extends StatelessWidget {
 
           ),
         ],
-      ),
+      ),//subtitle: Text(branchaddress),
       onTap: () {
         Navigator.push(context,
           MaterialPageRoute(

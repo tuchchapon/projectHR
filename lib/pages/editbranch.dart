@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import '../model/Position.dart';
 import 'position.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'branch.dart';
 
 class Editpo {
 
@@ -111,7 +112,6 @@ Future<dynamic> Updatebranch(id,branchname,branchAdd) async {
     'branch_address': branchAdd,
 
   };
-  print(body);
   http.Response response = await http.post(
       url,
       headers: {'authorization': "Bearer "+Token},
@@ -119,6 +119,7 @@ Future<dynamic> Updatebranch(id,branchname,branchAdd) async {
   final Map<String, dynamic> responseData = await json.decode(
       response.body);
   print(responseData);
+  //fetchPost();
   return responseData['code'];
 
 }

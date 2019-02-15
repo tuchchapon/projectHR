@@ -78,13 +78,13 @@ class _addprojectState extends State<addproject> {
             Divider(color: Colors.grey),
          ListTile(
                 leading: Text('วันเริ่มต้น     '),
-                title: Text(Moment(_value).format('dd/MMM/yyyy')),
+                title: Text(_value),
                 trailing: IconButton(icon:Icon(Icons.event), onPressed: _startday),
               ),
             Divider(color: Colors.grey),
         ListTile(
                 leading: Text('วันเสร็จสิ้น    '),
-                title: Text(Moment(_value2).format('dd/MMM/yyyy')),
+                title: Text(_value2),
                 trailing: IconButton(icon:Icon(Icons.event), onPressed: _endday),
               ),
             Divider(color: Colors.grey),
