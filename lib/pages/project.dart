@@ -166,9 +166,11 @@ class _projectState extends State<project>  {
               return Container(
                   child: DetailProject(
                     id:listProject.data[index].id,
-                    projectname: listProject.data[index].projectCostomerName,
+                    projectname: listProject.data[index].projectName,
+                    projectcostomerName: listProject.data[index].projectCostomerName,
                     startdate: listProject.data[index].projectStartDate,
                     enddate: listProject.data[index].projectEndDate,
+                    projectTeamName: listProject.data[index].projectTeamName,
                   projectcost: listProject.data[index].projectTotalCost,
                   projectnote: listProject.data[index].projectNote,),
               );
@@ -193,7 +195,7 @@ class DetailProject extends StatelessWidget {
         child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
-            new FlatButton(onPressed: () {del(id.toString());}, child: new Text('ยืนยัน')
+            new FlatButton(onPressed: null/*() {del(id.toString());}*/, child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],
@@ -201,30 +203,43 @@ class DetailProject extends StatelessWidget {
 
     );
   }
-  Function del;
+  //Function del;
   int id;
   String projectname;
-  int startdate;
-  int enddate;
-  String teamname;
+  String projectcostomerName;
+  var startdate;
+  var enddate;
+  String projectTeamName;
   double projectcost;
   String projectnote;
 
-  DetailProject({this.id,this.projectname,this.startdate,this.enddate,this.teamname,this.projectcost,this.projectnote,this.del});
+  DetailProject({
+    this.id,
+    this.projectname,
+    this.projectcostomerName,
+    this.startdate,
+    this.enddate,
+    this.projectTeamName,
+    this.projectcost,
+    this.projectnote,
+    //this.del
+  }
+    );
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Text(projectname),
       title: Row(mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          IconButton(icon: Icon(Icons.edit), onPressed: (){
+          IconButton(icon: Icon(Icons.edit), onPressed: null/* (){
             Navigator.push(
               context,
               MaterialPageRoute(
               //  builder: (context) => editproject(id: ,),
               ),
             );
-          }),
+          }*/
+          ),
           IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${projectname} หรือไม่!')
             // del(id.toString());
 
@@ -234,7 +249,15 @@ class DetailProject extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
           MaterialPageRoute(
-            //  builder: (context) => DetailScreen(id: id,positionName: positionName,)
+              builder: (context) => DetailScreen(
+                id: id,
+                projectname: projectname,
+                projectcostomerName:  projectcostomerName ,
+                startdate: startdate,
+                enddate: enddate,
+                teamname:  projectTeamName,
+                projectnote: projectnote,
+                projectcost: projectcost,)
           ),
         );
       },
@@ -242,10 +265,23 @@ class DetailProject extends StatelessWidget {
   }
 }
 class DetailScreen extends StatelessWidget {
-
   int id;
-  String positionName;
-  DetailScreen({this.id,this.positionName,});
+  String projectname;
+  String projectcostomerName;
+  var startdate;
+  var enddate;
+  String teamname;
+  double projectcost;
+  String projectnote;
+  DetailScreen({
+    this.id,
+    this.projectname,
+    this.projectcostomerName,
+    this.startdate,
+    this.enddate,
+    this.teamname,
+    this.projectcost,
+    this.projectnote});
 
 
   Color colorappbar = const Color(0xFF2ac3fe);
@@ -259,18 +295,27 @@ class DetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(backgroundColor: colorappbar,
-        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+        title: Text('ข้อมูลโปรเจ็ค',style: TextStyle(color: Colors.brown[500]),),
       ),
-      body: Container(
-          margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              // Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
-              Text('ตำแหน่ง  '+positionName,style: TextStyle(fontSize: 16),),
-            ],
-          )
-      ),
+      body: ListView(children: <Widget>[
+        Container(
+            margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              children: <Widget>[
+               Text('kuy'),
+               Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
+               Text('ชื่อโปรเจ็ค  '+projectname,style: TextStyle(fontSize: 16),),
+               Text('ลูกค้า  '+projectcostomerName,style: TextStyle(fontSize: 16),),
+               Text('วันนี่เริ่ม  '+startdate.toString(),style: TextStyle(fontSize: 16),),
+               Text('วันสิ้นสุด  '+enddate.toString(),style: TextStyle(fontSize: 16),),
+               Text('ทีมรับผิดชอบ  '+teamname,style: TextStyle(fontSize: 16),),
+               Text('หมายเหตุ  '+projectnote,style: TextStyle(fontSize: 16),),
+               Text('งบประมาณ  '+projectcost.toString(),style: TextStyle(fontSize: 16),),
+              ],
+            )
+        ),
+      ],)
     );
   }
 }
