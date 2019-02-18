@@ -45,7 +45,7 @@ class _showbranchState extends State<showbranch> {
     final response =
     await http.get('http://35.198.219.154:1337/branchcost/fixcost/${bid.text}/view',
       headers: {'authorization': "Bearer "+token},);
-     print(response.body);
+    // print(response.body);
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
     listfixcost = new Branchfixcost.fromJson(jsonResponse);
@@ -114,7 +114,7 @@ class _showbranchState extends State<showbranch> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => cost(id: widget.id,listfixcost: listfixcost.data,listaddit: listadditcost.data,),
+                            builder: (context) => cost(id: widget.id,listfixcost: listfixcost,listaddit: listadditcost,),
                           ),
                         );
                       },
