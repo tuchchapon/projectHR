@@ -52,10 +52,8 @@ class _showbranchState extends State<showbranch> {
     final jsonResponse = json.decode(jsonString);
     listfixcost = new Branchfixcost.fromJson(jsonResponse);
     setState(() {
-      additisTrue = 1;
-      this.loopaddit = listadditcost.data.length;
-      print(loopaddit.toString());
-      //this.listfixcost = jsonResponse.length;
+      fixisTrue = 1;
+      this.loopfixcost = listfixcost.data.length;
     });
   //  print(listfixcost.data[0].fixcostBranchId.id.toString());
 
@@ -65,6 +63,7 @@ class _showbranchState extends State<showbranch> {
       throw Exception('Failed to load post');
     }
   }
+
   Future<void> getbranchaddit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
@@ -75,11 +74,8 @@ class _showbranchState extends State<showbranch> {
     final jsonResponse = json.decode(jsonString);
     listadditcost = new Branchaddit.fromJson(jsonResponse);
     setState(() {
-      fixisTrue = 1;
+      additisTrue = 1;
       this.loopaddit = listadditcost.data.length;
-      print(loopaddit.toString());
-      //this.listfixcost = jsonResponse.length;
-    print(loopaddit);
     });
     if (response.statusCode == 200) {
 
@@ -107,7 +103,7 @@ class _showbranchState extends State<showbranch> {
       ),
       body: ListView(
         children: <Widget>[
-          Container(color: Colors.amber,
+          Container(
               margin: EdgeInsets.only(right: 5,left: 5),height:screenHeight*0.3,width: screenWidth,
               child: Center(child: Column(
                 children: <Widget>[
@@ -121,6 +117,7 @@ class _showbranchState extends State<showbranch> {
               ),
 
           ),
+
           Text('     ค่าใช้จ่ายทั่วไป           ',style: TextStyle(fontSize: 12)),
           ListTile(leading: Text('รายการ'),trailing: Text('มูลค่า'),),
           Container(
@@ -153,9 +150,9 @@ class _showbranchState extends State<showbranch> {
       mylist.add(Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-        Text(listfixcost.data[i].fixcostTitle,style: TextStyle(color: Colors.grey),),
-        Text(listfixcost.data[i].fixcostPrice.toString()+'\$',style: TextStyle(color: Colors.grey),)
-      ]
+            Text(listfixcost.data[i].fixcostTitle,style: TextStyle(color: Colors.grey),),
+            Text(listfixcost.data[i].fixcostPrice.toString()+' \$',style: TextStyle(color: Colors.grey),)
+          ]
       ));
     }
     return mylist;
@@ -167,7 +164,7 @@ class _showbranchState extends State<showbranch> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(listadditcost.data[i].branchAdditTitle,style: TextStyle(color: Colors.grey),),
-            Text(listadditcost.data[i].branchAdditPrice.toString()+'\$',style: TextStyle(color: Colors.grey),)
+            Text(listadditcost.data[i].branchAdditPrice.toString()+' \$',style: TextStyle(color: Colors.grey),)
           ]
       )
       );
@@ -176,3 +173,8 @@ class _showbranchState extends State<showbranch> {
   }
 
 }
+
+
+
+
+
