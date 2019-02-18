@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'showbranch.dart';
 import '../model/branchaddit.dart';
 import '../model/fixcost.dart';
 import 'package:moment/moment.dart';
 import 'addfixcost.dart';
 import 'addcost.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class cost extends StatefulWidget {
   @override
   _costState createState() => new _costState();
@@ -16,6 +18,35 @@ class cost extends StatefulWidget {
 }
 
 class _costState extends State<cost>  {
+
+//
+  Future<dynamic> deletefix(id) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/fixcost/delete';
+    var body = {
+      'id': id,
+    };
+    http.Response response = await http.post(url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    //  print(response.body);
+  }
+//
+  Future<dynamic> deleteaddit(id) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/branchaddit/delete';
+    var body = {
+     // 'id': id,
+    };
+    print(id.toString());
+    http.Response response = await http.post(url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    //  print(response.body);
+  }
+//
   @override
   void initState() {
     super.initState();
@@ -30,6 +61,7 @@ class _costState extends State<cost>  {
   }
 
   Branchfixcost fixcostmanage = new Branchfixcost();
+
   int loopaddit = 0;
   int loopfixcost = 0;
   int fixisTrue = 1;
@@ -92,6 +124,23 @@ class _costState extends State<cost>  {
     );
   }
   List<Widget> detailfixcost(){
+
+    Future _showAlert(BuildContext context, String message) async {
+      return showDialog(
+          context: context,
+          child: new AlertDialog(
+            title: new Text(message),
+            actions: <Widget>[
+              new FlatButton(onPressed: (){deletefix(widget.listfixcost.data[widget.id].id.toString());}
+                  , child: new Text('ยืนยัน')
+              ),
+              new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
+            ],
+          )
+
+      );
+    }
+
     List<Widget> mylist = new List();
     for(int i = 0; i < this.loopfixcost ; i++ ){
       mylist.add(Column(
@@ -112,14 +161,33 @@ class _costState extends State<cost>  {
                   ),
                 );
               },
-            )
-          ]
+            trailing: IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${widget.listfixcost.data[i].fixcostTitle} หรือไม่!'),
+              )
+            )]
       )
       );
     }
+    //() => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
     return mylist;
   }
   List<Widget> detailadddit(){
+
+    Future _showAlert(BuildContext context, String message) async {
+      return showDialog(
+          context: context,
+          child: new AlertDialog(
+            title: new Text(message),
+            actions: <Widget>[
+              new FlatButton(onPressed: (){deleteaddit(widget.listaddit.data[widget.id].id.toString());}
+                  , child: new Text('ยืนยัน')
+              ),
+              new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
+            ],
+          )
+
+      );
+
+    }
     List<Widget> mylist = new List();
     for(int i = 0; i < this.loopaddit ; i++ ){
       mylist.add(Column(
@@ -138,7 +206,9 @@ class _costState extends State<cost>  {
                 ),
               );
             },
-          )
+             // trailing: FlatButton(onPressed: null, child: Icon(Icons.edit))
+          trailing: FlatButton(onPressed: () => (deleteaddit(widget.listaddit.data[i].id)), child: Icon(Icons.delete))
+            ,)
           ]
       )
       );
@@ -225,3 +295,9 @@ class Detailadditcost extends StatelessWidget {
     );
   }
 }
+//Row(mainAxisAlignment: MainAxisAlignment.end ,
+//              children: <Widget>[
+//          IconButton(icon: Icon(Icons.edit), onPressed: null),
+//          IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${widget.listfixcost.data[i].fixcostTitle} หรือไม่!'),
+//          )
+//              ],)

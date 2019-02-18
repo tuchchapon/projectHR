@@ -95,7 +95,6 @@ class _addcostState extends State<addcost> {
                       Addbranchaddit(addit_title, addit_price, timestamp.toString(), widget.id.toString());},
                     child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),
                   ),
-              Text(widget.id.toString())
             ],
           )
         ),
