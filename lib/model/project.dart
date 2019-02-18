@@ -33,42 +33,33 @@ class Project {
 }
 
 class Data {
-  int createdAt;
-  int updatedAt;
   int id;
   String projectName;
   String projectCostomerName;
-  int projectStartDate;
-  int projectEndDate;
   String projectTeamName;
-  double projectTotalCost;
-  String projectNote;
+  int projectStartDate;
+  String projectStartDateFormat;
 
   Data({
-    this.createdAt,
-    this.updatedAt,
+
     this.id,
     this.projectName,
     this.projectCostomerName,
-    this.projectStartDate,
-    this.projectEndDate,
     this.projectTeamName,
-    this.projectTotalCost,
-    this.projectNote,
+    this.projectStartDate,
+    this.projectStartDateFormat,
+
   });
 
   factory Data.fromJson(Map<String, dynamic> parsedJson){
     return Data(
-    createdAt: parsedJson["createdAt"],
-    updatedAt: parsedJson["updatedAt"],
     id: parsedJson["id"],
     projectName: parsedJson["project_name"],
     projectCostomerName: parsedJson["project_costomer_name"],
-    projectStartDate: parsedJson["project_start_date"],
-    projectEndDate: parsedJson["project_end_date"],
-    projectTeamName: parsedJson["project_team_name"],
-    projectTotalCost: parsedJson["project_total_cost"].toDouble(),
-    projectNote: parsedJson["project_note"],
+    projectTeamName: parsedJson["projectTeamName"],
+      projectStartDate: parsedJson["projectStartDate"],
+      projectStartDateFormat:  parsedJson["projectStartDateFormat"],
+
   );
     }
       }

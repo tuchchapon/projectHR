@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'showbranch.dart';
 import '../model/branchaddit.dart';
 import '../model/fixcost.dart';
+import 'package:moment/moment.dart';
+import 'addfixcost.dart';
+import 'addcost.dart';
 class cost extends StatefulWidget {
   @override
   _costState createState() => new _costState();
@@ -51,7 +54,14 @@ class _costState extends State<cost>  {
       body: new ListView(children: <Widget>[
         Row(children: <Widget>[
           Text('   ค่าใช้จ่ายทั่วไป'),
-          IconButton(icon: Icon(Icons.add), onPressed: null)
+          IconButton(icon: Icon(Icons.add), onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => addfixcost(id: widget.id,)
+              ),
+            );
+          },)
         ],),
         Container(
             margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
@@ -62,7 +72,14 @@ class _costState extends State<cost>  {
         ),
         Row(children: <Widget>[
           Text('   ค่าใช้จ่ายอื่นๆ'),
-          IconButton(icon: Icon(Icons.add), onPressed: null)
+          IconButton(icon: Icon(Icons.add), onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => addcost(id: widget.id,)
+              ),
+            );
+          })
         ],),
         Container(
             margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
@@ -82,6 +99,19 @@ class _costState extends State<cost>  {
           children: <Widget>[
             ListTile(title: Text(widget.listfixcost.data[i].fixcostTitle,),
               subtitle: Text(widget.listfixcost.data[i].fixcostPrice.toString()+'\$'),
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Detailfixcost(
+                        id: widget.listfixcost.data[i].id,
+                        fixcost_title: widget.listfixcost.data[i].fixcostTitle,
+                      fixcost_price: widget.listfixcost.data[i].fixcostPrice,
+                      fixcost_note: widget.listfixcost.data[i].fixcostNote.toString(),
+                       )
+                  ),
+                );
+              },
             )
           ]
       )
@@ -96,11 +126,102 @@ class _costState extends State<cost>  {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
           ListTile(title:  Text(widget.listaddit.data[i].branchAdditTitle),
-          subtitle: Text(widget.listaddit.data[i].branchAdditPrice.toString()+'\$'),)
+          subtitle: Text(widget.listaddit.data[i].branchAdditPrice.toString()+'\$'),
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Detailadditcost(id: widget.listaddit.data[i].id,
+                      branch_addit_title: widget.listaddit.data[i].branchAdditTitle,
+                    branch_addit_price: widget.listaddit.data[i].branchAdditPrice,
+                      branch_addit_date: widget.listaddit.data[i].branchAdditDate,)
+                ),
+              );
+            },
+          )
           ]
       )
       );
     }
     return mylist;
+  }
+
+}
+class Detailfixcost extends StatelessWidget {
+
+  int id;
+  String fixcost_title;
+  int fixcost_price;
+  String fixcost_note;
+  Detailfixcost({this.id,this.fixcost_title,this.fixcost_price,this.fixcost_note,});
+
+
+  Color colorappbar = const Color(0xFF2ac3fe);
+//  final  Position position;
+  @override
+  Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
+
+    return Scaffold(
+      appBar: AppBar(backgroundColor: colorappbar,
+        title: Text('ค่าใช้จ่ายทั่วไป',style: TextStyle(color: Colors.brown[500]),),
+      ),
+      body: Container(
+          margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
+          padding: EdgeInsets.all(5.0),
+          child: Column(
+            children: <Widget>[
+              // Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
+
+              ListTile(leading: Text('รายการ'),title: Text(fixcost_title),),
+              ListTile(leading: Text('มูลค่า'),title: Text(fixcost_price.toString()),),
+              ListTile(leading: Text('หมายเหตุ'),title: Text(fixcost_note),),
+            ],
+          )
+      ),
+    );
+  }
+}
+
+class Detailadditcost extends StatelessWidget {
+
+  int id;
+  String branch_addit_title;
+  int branch_addit_price;
+  int branch_addit_date;
+
+  Detailadditcost({this.id,this.branch_addit_title,this.branch_addit_price,this.branch_addit_date});
+
+
+  Color colorappbar = const Color(0xFF2ac3fe);
+//  final  Position position;
+  @override
+  Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
+
+    return Scaffold(
+      appBar: AppBar(backgroundColor: colorappbar,
+        title: Text('ค่าใช้จ่ายเพิ่มเติม',style: TextStyle(color: Colors.brown[500]),),
+      ),
+      body: Container(
+          margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
+          padding: EdgeInsets.all(5.0),
+          child: Column(
+            children: <Widget>[
+              // Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
+
+              ListTile(leading: Text('รายการ'),title: Text(branch_addit_title),),
+              ListTile(leading: Text('มูลค่า'),title: Text(branch_addit_price.toString()),),
+              ListTile(leading: Text('วันทีทำรายการ'),title: Text(Moment(branch_addit_date).format('dd/MMM/yyyy'),),
+              )],
+          )
+      ),
+    );
   }
 }

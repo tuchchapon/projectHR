@@ -171,10 +171,9 @@ class _projectState extends State<project>  {
                     projectname: listProject.data[index].projectName,
                     projectcostomerName: listProject.data[index].projectCostomerName,
                     startdate: listProject.data[index].projectStartDate,
-                    enddate: listProject.data[index].projectEndDate,
                     projectTeamName: listProject.data[index].projectTeamName,
-                  projectcost: listProject.data[index].projectTotalCost,
-                  projectnote: listProject.data[index].projectNote,),
+
+                  ),
               );
             },
           ):Text('Waiting')
@@ -256,8 +255,7 @@ class DetailProject extends StatelessWidget {
                 projectname: projectname,
                 projectcostomerName:  projectcostomerName ,
                 startdate: startdate,
-                enddate: enddate,
-                teamname:  projectTeamName,
+                projectTeamName:  projectTeamName,
                 projectnote: projectnote,
                 projectcost: projectcost,)
           ),
@@ -271,8 +269,7 @@ class DetailScreen extends StatelessWidget {
   String projectname;
   String projectcostomerName;
   var startdate;
-  var enddate;
-  String teamname;
+  String projectTeamName;
   double projectcost;
   String projectnote;
   DetailScreen({
@@ -280,8 +277,7 @@ class DetailScreen extends StatelessWidget {
     this.projectname,
     this.projectcostomerName,
     this.startdate,
-    this.enddate,
-    this.teamname,
+    this.projectTeamName,
     this.projectcost,
     this.projectnote});
 
@@ -308,12 +304,8 @@ class DetailScreen extends StatelessWidget {
                ListTile(leading: Text('ชื่อโปรเจ็ค  ',style: TextStyle(fontSize: 12)),title: Text(projectname,style: TextStyle(fontSize: 12)),),
                ListTile(leading: Text('ลูกค้า          ',style: TextStyle(fontSize: 12)),title: Text(projectcostomerName,style: TextStyle(fontSize: 12)),),
                ListTile(leading: Text('วันที่เริ่ม       ',style: TextStyle(fontSize: 12)),title: Text(Moment(startdate).format('dd/MMM/yyyy'),style: TextStyle(fontSize: 12)),),
-               ListTile(leading: Text('วันสิ้นสุด      ',style: TextStyle(fontSize: 12)),title: Text(Moment(enddate).format('dd/MMM/yyyy').toString(),style: TextStyle(fontSize: 12)),),
-               ListTile(leading: Text('ทีมรับผิดชอบ',style: TextStyle(fontSize: 12)),title: Text(teamname,style: TextStyle(fontSize: 12)),trailing: FlatButton(onPressed: null, child: Text('จัดการทีม >')),),
-               ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),title: Text(projectnote,style: TextStyle(fontSize: 12))),
+
           // ListTile(leading: Text('งบประมาณ',style: TextStyle(fontSize: 12),),title: Text(projectcost.toString(),style: TextStyle(fontSize: 12),),)
-
-
 
               ],
             )

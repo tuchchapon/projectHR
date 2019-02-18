@@ -6,29 +6,16 @@ class addproject extends StatefulWidget {
   @override
   _addprojectState createState() => new _addprojectState();
 }
-String _value = 'ปปปป-ดด-วว';
+int _value ;
+String time = 'วว/ดด/ปปปป' ;
 String _value2 = 'ปปปป-ดด-วว';
-/*
-void _addAlert(BuildContext context, String message) async {
-  return AlertDialog(
-      context: context,
-      child: new AlertDialog(
-        title: new Text(message),
-        actions: <Widget>[
-          new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('YES')),
-          new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('NO')),
-        ],
-      )
 
-  );
-}
-*/
 Future _showAlert(BuildContext context, String message) async {
 
 }
 
 class _addprojectState extends State<addproject> {
-
+ var firstdatecon = TextEditingController();
   Future _startday() async {
     DateTime picked = await showDatePicker(
         context: context,
@@ -36,9 +23,18 @@ class _addprojectState extends State<addproject> {
         firstDate: new DateTime(2018),
         lastDate: new DateTime(2020)
     );
-    if(picked != null) setState(() => _value = picked.toString());
-
-  }
+   // picked.millisecondsSinceEpoch;
+    if(picked != null){
+      time = Moment(_value).format('dd/MMM/yyyy');
+      _value = picked.millisecondsSinceEpoch;
+     // print(Moment(_value).format('dd/MMM/yyyy'));
+      print('time is '+time);
+      print('value is ${_value}');
+      firstdatecon.text = time;
+    }
+      print(time);
+      print(_value);
+    }
 
   Future _endday() async {
     DateTime picked = await showDatePicker(
@@ -47,6 +43,7 @@ class _addprojectState extends State<addproject> {
         firstDate: new DateTime(2018),
         lastDate: new DateTime(2020)
     );
+    picked.millisecondsSinceEpoch;
     if(picked != null) setState(() => _value2 = picked.toString());
   }
   
@@ -78,7 +75,12 @@ class _addprojectState extends State<addproject> {
             Divider(color: Colors.grey),
          ListTile(
                 leading: Text('วันเริ่มต้น     '),
-                title: Text(_value),
+                title: TextField(controller: firstdatecon,
+                  decoration: InputDecoration.collapsed(
+                    enabled: false,
+                    hintText: '${time}'
+                  ) ,
+                ),
                 trailing: IconButton(icon:Icon(Icons.event), onPressed: _startday),
               ),
             Divider(color: Colors.grey),
