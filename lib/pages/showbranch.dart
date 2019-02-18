@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'branch.dart';
 import '../model/fixcost.dart';
 import '../model/branchaddit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
+import 'cost.dart';
 class showbranch extends StatefulWidget {
   @override
   _showbranchState createState() => new _showbranchState();
@@ -33,7 +32,6 @@ class _showbranchState extends State<showbranch> {
     bname.text = widget.branch_name;
      baddress.text = widget.branchaddress;
   }
-  //String branchname;
   final bid = TextEditingController();
   final bname = TextEditingController();
   final baddress = TextEditingController();
@@ -105,12 +103,22 @@ class _showbranchState extends State<showbranch> {
         children: <Widget>[
           Container(
               margin: EdgeInsets.only(right: 5,left: 5),height:screenHeight*0.3,width: screenWidth,
-              child: Center(child: Column(
+              child: Center(
+                child: Column(
                 children: <Widget>[
                 //  Text(bid.text),
                   ListTile(leading: Text('ชื่อสาขา           ',style: TextStyle(fontSize: 12),), title: Text(bname.text,style: TextStyle(fontSize: 12),),),
                   ListTile(leading: Text('ที่อยู่สาขา         ',style: TextStyle(fontSize: 12),), title: Text(baddress.text,style: TextStyle(fontSize: 12),),),
-                  ListTile(leading: Text('รวมค่าใช้จ่ายของสาขา',style: TextStyle(fontSize: 12),), title: FlatButton(onPressed: null, child: Text(('จัดการค่าใช้จ่าย>'),style: TextStyle(fontSize: 12),))),
+                  ListTile(leading: Text('รวมค่าใช้จ่ายของสาขา',style: TextStyle(fontSize: 12),),
+                      title: FlatButton(onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => cost(id: widget.id,listfixcost: listfixcost.data,listaddit: listadditcost.data,),
+                          ),
+                        );
+                      },
+                          child: Text(('     จัดการค่าใช้จ่าย  >'),style: TextStyle(fontSize: 12),))),
                 ],
               ),
 

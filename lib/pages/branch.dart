@@ -207,7 +207,8 @@ class Detailbranch extends StatelessWidget {
         ],
       ),//subtitle: Text(branchaddress),
       onTap: () {
-        Navigator.push(context,
+        Navigator.push(
+          context,
           MaterialPageRoute(
               builder: (context) => showbranch(id: id,branch_name: branch_name,branchaddress: branchaddress,),
           ),
