@@ -200,7 +200,8 @@ class Detailbranch extends StatelessWidget {
         ),
       );
     },
-          ),IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
+          )
+          ,IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
             // del(id.toString());
 
           ),

@@ -7,6 +7,8 @@ import 'addcost.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'editfixcost.dart';
+import 'editbrannaddit.dart';
 class cost extends StatefulWidget {
   @override
   _costState createState() => new _costState();
@@ -25,8 +27,9 @@ class _costState extends State<cost>  {
     String Token = prefs.getString("prefsToken");
     var url = 'http://35.198.219.154:1337/fixcost/delete';
     var body = {
-      'id': id,
+    //  'id': id,
     };
+    print(id.toString());
     http.Response response = await http.post(url,
         headers: {'authorization': "Bearer "+Token},
         body: body);
@@ -50,14 +53,9 @@ class _costState extends State<cost>  {
   @override
   void initState() {
     super.initState();
-
     bid.text = widget.id.toString();
-
-    print(widget.listfixcost.data[0].fixcostTitle);
-    print(widget.listaddit.data[0].branchAdditTitle);
     loopfixcost = widget.listfixcost.data.length;
     loopaddit = widget.listaddit.data.length;
-    print(loopfixcost);
   }
 
   Branchfixcost fixcostmanage = new Branchfixcost();
@@ -131,7 +129,7 @@ class _costState extends State<cost>  {
           child: new AlertDialog(
             title: new Text(message),
             actions: <Widget>[
-              new FlatButton(onPressed: (){deletefix(widget.listfixcost.data[widget.id].id.toString());}
+              new FlatButton(onPressed: (){deletefix(widget.listfixcost.data[loopfixcost].id.toString());}
                   , child: new Text('ยืนยัน')
               ),
               new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
@@ -161,9 +159,22 @@ class _costState extends State<cost>  {
                   ),
                 );
               },
-            trailing: IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${widget.listfixcost.data[i].fixcostTitle} หรือไม่!'),
-              )
-            )]
+              trailing: IconButton(icon: Icon(Icons.edit), onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => editfixcost(bid: widget.id,
+                        id: widget.listfixcost.data[i].id,
+                        fixcost_title: widget.listfixcost.data[i].fixcostTitle,
+                      fixcost_price: widget.listfixcost.data[i].fixcostPrice,
+                      fixcost_note: widget.listfixcost.data[i].fixcostNote,)
+                  ),
+                );
+              },
+              ),
+           // trailing: IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${widget.listfixcost.data[i].fixcostTitle} หรือไม่!'),)
+            )
+          ]
       )
       );
     }
@@ -206,9 +217,20 @@ class _costState extends State<cost>  {
                 ),
               );
             },
-             // trailing: FlatButton(onPressed: null, child: Icon(Icons.edit))
-          trailing: FlatButton(onPressed: () => (deleteaddit(widget.listaddit.data[i].id)), child: Icon(Icons.delete))
-            ,)
+           //   trailing: FlatButton(onPressed: null, child: Icon(Icons.edit))
+         // trailing: FlatButton(onPressed: () => (deleteaddit(widget.listaddit.data[i].id)), child: Icon(Icons.delete)),
+            trailing: IconButton(icon: Icon(Icons.edit), onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => editbranchaddit(bid: widget.id,id:widget.listaddit.data[i].id,
+                    branch_addit_title: widget.listaddit.data[i].branchAdditTitle,
+                    branch_addit_price: widget.listaddit.data[i].branchAdditPrice,
+                    branch_addit_date: widget.listaddit.data[i].branchAdditDate,)
+                ),
+              );
+            },),
+          )
           ]
       )
       );

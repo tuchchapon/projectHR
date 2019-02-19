@@ -84,65 +84,11 @@ Widget build(BuildContext context) {
           ],
         ),
       ),
-      body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
-          child: new Center(
-            child: new ListView(
-              children: <Widget>[
-                 new Padding(padding: EdgeInsets.only(top: 5.0)),
-                ListTile(onTap: (){Navigator.of(context).pushNamed('/showmember');},
-             //     leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
-                  title: Text('นายธัชพล สุธรรมมา'),
-                  subtitle:  Stack(
-                    children: <Widget>[
-                      Container(padding: EdgeInsets.all(8),
-                        child: Column(
-                          children: <Widget>[
-                            Row(children: <Widget>[
-                              Text('Front-end',style: TextStyle(color: Colors.green),),
 
-                            ],
-                            ),
-                            Row(children: <Widget>[
-                              Text('เบอร์ติดต่อ:  088-808-5084'),
-                            ],),
-                            Row(children: <Widget>[
-                              Text('ที่อยู่: aiaosadjklasaiskasksdkasdkadk'),
-                            ],)
-                          ],
-                       mainAxisAlignment: MainAxisAlignment.spaceAround, ),
-                      ),
-                    ],
-                  )
-                ),
-                 ListTile(
-                   //     leading: CircleAvatar(backgroundColor: Colors.grey,radius: 26,child: Icon(Icons.people),),
-                     title: Text('นายธัชพล สุธรรมมา'),
-                     subtitle:  Stack(
-                       children: <Widget>[
-                         Container(padding: EdgeInsets.all(8),
-                           child: Column(
-                             children: <Widget>[
-                               Row(children: <Widget>[
-                                 Text('Front-end',style: TextStyle(color: Colors.green),),
-
-                               ],
-                               ),
-                               Row(children: <Widget>[
-                                 Text('เบอร์ติดต่อ:  088-808-5084'),
-                               ],),
-                               Row(children: <Widget>[
-                                 Text('ที่อยู่: aiaosadjklasaiskasksdkasdkadk'),
-                               ],)
-                             ],
-                             mainAxisAlignment: MainAxisAlignment.spaceAround, ),
-                         ),
-                       ],
-                     )
-                 ),
-            ],
-            ),
-          )
-      ),
+      body: ListView(children: <Widget>[
+        Container(child:
+          ,)
+      ],),
 
       floatingActionButton: FloatingActionButton(
   backgroundColor: buttoncolor,
