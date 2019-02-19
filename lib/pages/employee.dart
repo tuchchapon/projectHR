@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import '../model/employee.dart';
 
 class member extends StatefulWidget {
   @override
@@ -6,13 +11,55 @@ class member extends StatefulWidget {
 }
 
 class _memberState extends State<member>  {
+
+  Employee listEmp = new Employee();
+  int isTrue = 0;
+
+  Future<void> getempdata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/emp/datatable',
+      headers: {'authorization': "Bearer "+token},);
+    //  print(response.body);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    // print(jsonResponse["data"]);
+    listEmp = new Employee.fromJson(jsonResponse);
+    print('createdAt is'+listEmp.data[0].createdAt.toString());
+    print('updatedAt is'+listEmp.data[0].updatedAt.toString());
+    print('id is'+listEmp.data[0].id.toString());
+    print('empName is'+listEmp.data[0].empName);
+    print('empName is'+listEmp.data[0].empEmerConName);
+    print('empSalary is'+listEmp.data[0].empSalary.toString());
+    print('empEmerConTel is'+listEmp.data[0].empEmerConTel);
+
+    if (response.statusCode == 200) {
+      //listBrabch = new Branch.fromJson(jsonResponse);
+      setState(() {
+        this.isTrue = 1;
+      });
+
+     // print(listEmp.data[0].empName);
+    } else {
+
+      throw Exception('Failed to load post');
+    }
+  }
+//
+  @override
+  void initState() {
+    super.initState();
+    getempdata();
+  }
+//
 Widget build(BuildContext context) {
   Color buttoncolor = const Color(0xFF4fa2e1);
   Color colorappbar = const Color(0xFF2ac3fe);
   MediaQueryData queryData = MediaQuery.of(context);
 
   double screenWidth = queryData.size.width;
-  double screenHeight = queryData.size.height;
+  double screenHeight = queryData.size.height*0.4;
   return new Scaffold(
     appBar: new AppBar(
       backgroundColor: colorappbar,
@@ -26,7 +73,7 @@ Widget build(BuildContext context) {
       drawer: Drawer(
         child: Column(
           children: <Widget>[
-            Container(width: screenWidth,height: screenHeight*0.22,
+            Container(width: screenWidth,height: screenHeight*0.6,
               color: colorappbar,
               child: Center(
                 child: Column(mainAxisAlignment: MainAxisAlignment.start,
@@ -64,17 +111,6 @@ Widget build(BuildContext context) {
               title: Text('ตำแหน่ง'),
               onTap:(){Navigator.of(context).pushNamed('/position');},
             ),
-            /*   ListTile(
-              leading: Icon(Icons.event,color: Colors.black),
-              title: Text('การลา') ,
-              onTap: (){Navigator.of(context).pushNamed('/vacation');},
-            ),
-            ListTile(
-              leading: Icon(Icons.card_giftcard,color: Colors.black),
-              title: Text('สิทธิประโยชน์'),
-              onTap:(){Navigator.of(context).pushNamed('/benefit');},
-
-            ),*/
             ListTile(
               leading: Icon(Icons.card_giftcard,color: Colors.black),
               title: Text('สิทธิประโยชน์'),
@@ -83,7 +119,7 @@ Widget build(BuildContext context) {
             ),
           ],
         ),
-      ), 
+      ),
 
       body: ListView(children: <Widget>[
         Container(child: null

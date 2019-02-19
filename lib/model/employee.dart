@@ -1,18 +1,25 @@
-class Empployee {
-  int draw;
-  int recordsTotal;
-  int recordsFiltered;
-  List<Datum> data;
+class Employee {
 
-  Empployee({
-    this.draw,
-    this.recordsTotal,
-    this.recordsFiltered,
+  List<Data> data;
+
+  Employee({
+
     this.data,
   });
+  factory Employee.fromJson(Map<String, dynamic> parsedJson){
+    var list = parsedJson['data'] as List;
+    // print(list.runtimeType);
+    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
+
+
+    return Employee(
+        data: dataList
+    );
+  }
+
 }
 
-class Datum {
+class Data {
   int createdAt;
   int updatedAt;
   int id;
@@ -28,7 +35,7 @@ class Datum {
   String empEmerConTel;
   EmpBranchId empBranchId;
 
-  Datum({
+  Data({
     this.createdAt,
     this.updatedAt,
     this.id,
@@ -44,6 +51,23 @@ class Datum {
     this.empEmerConTel,
     this.empBranchId,
   });
+  factory Data.fromJson(Map<String, dynamic> json) => new Data(
+    createdAt: json["createdAt"],
+    updatedAt: json["updatedAt"],
+    id: json["id"],
+    empName: json["empName"],
+    empNickname: json["empNickname"],
+    empSalary: json["empSalary"],
+    empAddress: json["empAddress"],
+    empIdCard: json["empIdCard"],
+    empTel: json["empTel"],
+    empEmerConName: json["empEmerConName"],
+    empEmerConRelation: json["empEmerConRelation"],
+    empEmerConAddress: json["empEmerConAddress"],
+    empEmerConTel: json["empEmerConTel"],
+
+  );
+
 }
 
 class EmpBranchId {
@@ -62,4 +86,5 @@ class EmpBranchId {
     this.branchAddress,
     this.status,
   });
+
 }
