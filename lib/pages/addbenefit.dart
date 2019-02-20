@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './addemp.dart';
 
 class addbenefit extends StatefulWidget {
   @override
@@ -48,7 +47,7 @@ class _addbenefitState extends State<addbenefit> {
             ),
           ),
           Divider(color: Colors.grey,),
-          RaisedButton(onPressed: save,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
+          RaisedButton(onPressed: null,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
           ],
         ),
         ),

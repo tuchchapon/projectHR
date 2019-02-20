@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'addemp.dart';
 
 class costmanage extends StatefulWidget {
   @override
@@ -57,7 +56,7 @@ class _costmanageState extends State<costmanage> {
                 title: TextField(decoration: InputDecoration.collapsed(hintText: 'ระบุหมายเหตุ'),),
               ),
               Divider(color: Colors.grey,),
-              RaisedButton(onPressed: save,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
+              RaisedButton(onPressed: null,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
             ],
           ),
         ),

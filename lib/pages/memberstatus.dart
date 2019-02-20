@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'addemp.dart';
-
 class memberstatus extends StatefulWidget {
   @override
   _memberstatusState createState() => _memberstatusState();
@@ -57,7 +55,7 @@ class _memberstatusState extends State<memberstatus> {
 
                 ),
                 Divider(color: Colors.grey,),
-                RaisedButton(onPressed: save,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
+                RaisedButton(onPressed: null,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
 
 
               ],

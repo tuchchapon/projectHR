@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import './addemp.dart';
 class addvacation extends StatefulWidget {
   @override
   _addvacationState createState() => new _addvacationState();
@@ -150,7 +149,7 @@ class _addvacationState extends State<addvacation> {
               ),
             ),
             Divider(color: Colors.grey,),Padding(
-                padding: EdgeInsets.only(bottom: 50),child: RaisedButton(onPressed: save,child: Text('บันทึก'),color: Colors.green,),)
+                padding: EdgeInsets.only(bottom: 50),child: RaisedButton(onPressed: null,child: Text('บันทึก'),color: Colors.green,),)
             
           ],
         ),

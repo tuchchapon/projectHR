@@ -196,9 +196,10 @@ class Detailemp extends StatelessWidget {
             IconButton(icon: Icon(Icons.edit), onPressed: null),
             IconButton(icon: Icon(Icons.delete), onPressed: null)
           ],
-        )
+        ),
 
-      ],),
+      ],
+      ),
       onTap: () {
         Navigator.push(
           context,
