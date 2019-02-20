@@ -194,7 +194,17 @@ class Detailemp extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => showemp(),
+            builder: (context) => showemp(
+              id: id,
+              empname: empname,
+              emptel: emptel,
+              empnickname: empnickname,
+              emp_address: emp_address,
+              emp_salary: emp_salary,
+              conname: conname,
+              con_relation: con_relation,
+              contel: contel,
+              con_address: con_address,),
           ),
         );
       },

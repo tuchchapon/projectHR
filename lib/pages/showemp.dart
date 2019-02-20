@@ -1,12 +1,74 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import '../model/benefit.dart';
 class showemp extends StatefulWidget {
   @override
   _showempState createState() => _showempState();
 
+  int id;
+  String empname;
+  String empnickname;
+  String emptel;
+  String emp_address;
+  int emp_salary;
+  String conname;
+  String con_relation;
+  String contel;
+  String con_address;
+  showemp({
+    this.id,
+    this.empname,
+    this.empnickname,
+    this.emptel,
+    this.emp_address,
+    this.emp_salary,
+    this.conname,
+    this.con_relation,
+    this.contel,
+    this.con_address
+  });
+
 }
 
 class _showempState extends State<showemp> {
+
+  int positionIstrue = 0;
+  int benefitIstrue = 0;
+  int loopposition = 0;
+  int loopbenefit = 0;
+ // Branchfixcost listposition = new Branchfixcost();
+  Benefit listbenefit = new Benefit();
+  @override
+  void initState() {
+    super.initState();
+    getbenefit();
+   // getbranchfixcost();
+  }
+  Future<void> getbenefit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/employee/benefit/${widget.id}/view',
+      headers: {'authorization': "Bearer "+token},);
+     print(response.body);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    listbenefit = new Benefit.fromJson(jsonResponse);
+    setState(() {
+      benefitIstrue = 1;
+      this.loopbenefit = listbenefit.data.length;
+    });
+    //  print(listfixcost.data[0].fixcostBranchId.id.toString());
+
+    if (response.statusCode == 200) {
+
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,75 +81,58 @@ class _showempState extends State<showemp> {
       appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('ข้อมูลพนักงาน',style: TextStyle(color: Colors.brown[500]),),
       ),
-      body: new Container(
-        height: screenHeight,
-        width: screenWidth,
-        margin: EdgeInsets.all(5),
-        //  padding: new EdgeInsets.all(10.0),
-        child: new ListView(
-          children: <Widget>[
-            Padding(padding: EdgeInsets.all(6)),
-            ListTile(
-              leading: Text('ข้อมูลส่วนตัว',style: TextStyle(fontSize: 20),),
-            ),
-            ListTile(
-              leading: Text('ชื่อ-นามสกุล   ',style: TextStyle(fontSize: 16),),
-              title: Text('นายธัชพล สุธรรมมา',style: TextStyle(fontSize: 14),),
-            ),
-            ListTile(
-              leading: Text('ที่อยู่               ',style: TextStyle(fontSize: 16),),
-              title: Text('พระราม 999 60 ซอย 4 เสรี 8 แขวงสวนหลวง เขตสวนหลวง กรุงเทพ 10500',style: TextStyle(fontSize: 14),),
-            ),
-            ListTile(
-              leading: Text('เบอร์โทร        ',style: TextStyle(fontSize: 16),),
-              title: Text('088-888-1596',style: TextStyle(fontSize: 14),),
-            ),
-            ListTile(
-              leading: Text('ตำแหน่ง       ',style: TextStyle(fontSize: 16),),
-              title: Text('Mobile dev',style: TextStyle(fontSize: 14),),
-            ),
-            ListTile(
-              leading: Text('ข้อมูลผู้ติดต่อ',style: TextStyle(fontSize: 20),),
-            ),
-            ListTile(
-              leading: Text('ผู้ติดต่อฉุกเฉิน ',style: TextStyle(fontSize: 16),),
-              title: Text('นางธัชพล สุธรรมมา',style: TextStyle(fontSize: 14),),
-            ),
-            ListTile(
-              leading: Text('เบอร์ติดต่อ      ',style: TextStyle(fontSize: 16),),
-              title: Text('088-048-5940',style: TextStyle(fontSize: 14),),
-            ),
-            ListTile(
-              leading: Text('ที่อยู่               ',style: TextStyle(fontSize: 16),),
-              title: Text('พระราม 999 60 ซอย 4 เสรี 8 แขวงสวนหลวง เขตสวนหลวง กรุงเทพ 10500',style: TextStyle(fontSize: 14),),
-            ),
-            Padding(padding: EdgeInsets.all(5)),
-            Text('       สิทธิประโยชน์\n',style: TextStyle(fontSize: 16),),
-            ListTile(
-              leading: Column(mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                Text('รายการ'),
-                Text('ค่าฟิตเนส',style: TextStyle(color: Colors.grey),),
-                Text('ค่าฟิตเนส',style: TextStyle(color: Colors.grey),),
-                Text('ค่าอาหาร',style: TextStyle(color: Colors.grey),),
-              ],),
-              trailing: Column(mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text('มูลค่า'),
-                  Text('5000',style: TextStyle(color: Colors.grey),),
-                  Text('5000',style: TextStyle(color: Colors.grey),),
-                  Text('3000',style: TextStyle(color: Colors.grey),),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: Text('เงินเดือน         ',style: TextStyle(fontSize: 16),),
-              title: Text('100000',style: TextStyle(fontSize: 14),),
-            ),
-            Padding(padding: EdgeInsets.all(20))
-          ],
-        ),
-        ),
+      body: ListView(
+        children: <Widget>[
+          Text('  ข้อมูลส่วนตัว',style: TextStyle(fontSize: 16),),
+        Container(margin: EdgeInsets.all(5),
+        child: Center(child: Column(children: <Widget>[
+          ListTile(leading: Text('ชื่อ-นามสกุล',style: TextStyle(fontSize: 12),),
+            title: Text(widget.empname,style: TextStyle(fontSize: 12),),),
+          ListTile(leading: Text('ที่อยู่',style: TextStyle(fontSize: 12),),
+            title: Text(widget.emp_address,style: TextStyle(fontSize: 12),),),
+          ListTile(leading: Text('เบอร์โทร',style: TextStyle(fontSize: 12),),
+            title: Text(widget.emptel,style: TextStyle(fontSize: 12),),),
+          ListTile(leading: Text('เงินเดือน',style: TextStyle(fontSize: 12),),
+            title: Text(widget.emp_salary.toString(),style: TextStyle(fontSize: 12),),),
+        ],
+        ),),),
+        Text('  ข้อมูลผู้ติดต่อ',style: TextStyle(fontSize: 16),),
+          Container(child: Center(child: Column(children: <Widget>[
+            ListTile(leading: Text('ผู้ติดต่อฉุกเฉิน',style: TextStyle(fontSize: 12),),
+              title: Text(widget.conname,style: TextStyle(fontSize: 12),),),
+            ListTile(leading: Text('เบอร์ติดต่อ',style: TextStyle(fontSize: 12),),
+              title: Text(widget.contel,style: TextStyle(fontSize: 12),),),
+            ListTile(leading: Text('ที่อยู่',style: TextStyle(fontSize: 12),),
+              title: Text(widget.con_address,style: TextStyle(fontSize: 12),),),
+          ],),),),
+          Text('    สิทธิประโยชน์',style: TextStyle(fontSize: 12),),
+          ListTile(leading: Text('รายการ'),trailing: Text('มูลค่า'),),
+          Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
+              child: Column( children: benefitIstrue == 0 ? [
+                Text('Waiting Data'),
+              ] : detailbenefit()
+              )
+          ),
+        ]
+        ,)
       );
   }
+  List<Widget> detailbenefit(){
+    List<Widget> mylist = new List();
+    for(int i = 0; i < this.loopbenefit ; i++ ){
+      mylist.add(Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+             Text(listbenefit.data[i].benefitTitle,style: TextStyle(color: Colors.grey,fontSize: 12),),
+             Text(listbenefit.data[i].benefitPrice.toString()+' \$',style: TextStyle(color: Colors.grey,fontSize: 12),)
+
+          ]
+      )
+      );
+    }
+    return mylist;
+  }
+
 }
