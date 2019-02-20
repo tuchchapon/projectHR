@@ -15,7 +15,17 @@ class _addmemberState extends State<addmember> {
   int choiceloop;
   String _branch = 'กรุณาเลือกตำแหน่ง';
   int idbranch;
-//
+  String empname;
+  String empnickname;
+  String emp_salary;
+  String emp_addrees;
+  String emp_tel;
+  String emp_conname;
+  String emp_con_relation;
+  String emp_con_address;
+  String emp_con_tel;
+
+  //
   Future<dynamic> Addemp(emp_name,emp_nickname,emp_salary,emp_address,
       emp_tel,emp_emer_contactname,emp_contact_relation,emp_emer_contact_address,
       emp_emer_contect_tel,branch_id) async {
@@ -32,15 +42,15 @@ class _addmemberState extends State<addmember> {
       'emp_emer_con_relation':emp_contact_relation,
       'emp_emer_con_address':emp_emer_contact_address,
       'emp_emer_con_tel':emp_emer_contect_tel,
-      'emp_branch_id':branch_id,
+      'emp_branch_id':branch_id.toString(),
 
     };
-    print(body);
+   // print(body);
     http.Response response = await http.post(
         url,
         headers: {'authorization': "Bearer "+Token},
         body: body);
-    Navigator.of(context).pushReplacementNamed('/branch');
+   print(response.body);
   }
 //
   Future _askUser() async {
@@ -130,6 +140,10 @@ class _addmemberState extends State<addmember> {
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนชื่อนามสกุล'
                     ),
+                    onChanged: (String empinput) {
+                      empname  = empinput;
+                      print(empname);
+                    },
                   ),
                 ),
                 Divider(),
@@ -139,7 +153,10 @@ class _addmemberState extends State<addmember> {
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนชื่อเล่น'
                     ),
-                  onChanged: null,
+                    onChanged: (String nickname) {
+                      empnickname  = nickname;
+                      print(empnickname);
+                    },
                   ),
                 ),
                 Divider(),
@@ -149,6 +166,10 @@ class _addmemberState extends State<addmember> {
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนที่อยู่'
                     ),
+                    onChanged: (String address) {
+                      emp_addrees  = address;
+                      print(emp_addrees);
+                    },
                   ),
                 ),
                 Divider(),
@@ -158,6 +179,10 @@ class _addmemberState extends State<addmember> {
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเบอร์ติดต่อ'
                     ),
+                    onChanged: (String emptel) {
+                      emp_tel  = emptel;
+                      print(emp_tel);
+                    },
                   ),
                 ),
                 Divider(),
@@ -167,6 +192,10 @@ class _addmemberState extends State<addmember> {
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเงินเดือน'
                     ),
+                    onChanged: (String salary) {
+                      emp_salary  = salary;
+                      print(emp_salary);
+                    },
                   ),
                 ),
                 Divider(),
@@ -185,6 +214,10 @@ class _addmemberState extends State<addmember> {
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนผู้ติดต่อฉุกเฉิน'
                     ),
+                    onChanged: (String conname) {
+                      emp_conname  = conname;
+                      print(emp_conname);
+                    },
                   ),
                 ),
 
@@ -195,6 +228,10 @@ class _addmemberState extends State<addmember> {
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนที่อยู่'
                     ),
+                    onChanged: (String conadd) {
+                      emp_con_address  = conadd;
+                      print(emp_con_address);
+                    },
                   ),
                 ),
           Divider(),
@@ -204,6 +241,10 @@ class _addmemberState extends State<addmember> {
               decoration: InputDecoration.collapsed(
                   hintText: 'ป้อนสถานะ'
               ),
+              onChanged: (String relation) {
+                emp_con_relation  = relation;
+                print(emp_con_relation);
+              },
             ),//
           ),
                 Divider(),
@@ -213,48 +254,30 @@ class _addmemberState extends State<addmember> {
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเบอร์ติดต่อ'
                     ),
+                    onChanged: (String contel) {
+                      emp_con_tel  = contel;
+                      print(emp_con_tel);
+                    },
                   ),
                 ),
                 Divider(),
-
-
-            /*    ListTile(
-                  leading: Text('สิทธิประโยชน์'),
-                  title: Container(
-                    child: Column(
-                      children: <Widget>[
-
-                        new Row(children: <Widget>[
-                          Checkbox(value: _value1, onChanged: _check),
-                          Text('ฟิตเนส',style: TextStyle(fontSize: 12)),
-                          Checkbox(value: _value2, onChanged: _check2),
-                          Text('ค่าโทรศัพท์',style: TextStyle(fontSize: 12),
-                          ),
-                        ],
-                        ),
-                        new Row(
-                          children: <Widget>[
-                            Checkbox(value: _value3, onChanged: _check3),
-                            Text('ค่าอาหารกลางวัน',style: TextStyle(fontSize: 12)),
-                          ],
-                        ),
-
-                      ],
-                    ),
-                  ),
-                ),
-
-                                ListTile(
-                  leading: new Text('สิทธิประโยชน์      ',style: TextStyle(fontSize: 16),),
-                  trailing: new IconButton(icon: new Icon(Icons.list),
-                      onPressed: (){Navigator.of(context).pushNamed('/addbenefit');},),
-                ),*/
-              //  Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 30)),
-                RaisedButton(onPressed: null,
+                RaisedButton(
                   child: Text('บันทึก'),
                   color:(Colors.green),
                   textColor: (Colors.white),
-                  padding: EdgeInsets.all(10),),
+                  padding: EdgeInsets.all(10),
+                  onPressed: (){
+                    Addemp(empname,
+                        empnickname,
+                        emp_salary,
+                        emp_addrees,
+                        emp_tel,
+                        emp_conname,
+                        emp_con_relation,
+                        emp_con_relation,
+                        emp_con_tel,
+                        idbranch);},
+                ),
               ]
           ),
 
