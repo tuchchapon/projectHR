@@ -12,7 +12,7 @@ class Employee {
   });
   factory Employee.fromJson(Map<String, dynamic> parsedJson){
     var list = parsedJson['data'] as List;
-     print(list.runtimeType);
+    // print(list.runtimeType);
     List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
 
 

@@ -174,7 +174,7 @@ class Detailemp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(empname),
+      title: Text('${empname}(${empnickname})'),
       subtitle: Stack(
         children: <Widget>[
           Container(
@@ -189,7 +189,16 @@ class Detailemp extends StatelessWidget {
           )
           ,padding: EdgeInsets.only(bottom: 5),)
         ],
-      ),//subtitle: Text(branchaddress),
+      ), //subtitle: Text(branchaddress),
+      trailing: Stack(children: <Widget>[
+        Column(
+          children: <Widget>[
+            IconButton(icon: Icon(Icons.edit), onPressed: null),
+            IconButton(icon: Icon(Icons.delete), onPressed: null)
+          ],
+        )
+
+      ],),
       onTap: () {
         Navigator.push(
           context,
@@ -209,6 +218,7 @@ class Detailemp extends StatelessWidget {
         );
       },
     );
+
   }
 
 }

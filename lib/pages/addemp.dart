@@ -76,7 +76,7 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('ชื่อ-นามสกุล     \n',style: TextStyle(),),
+                  leading: Text('ชื่อ-นามสกุล    \n',style: TextStyle(),),
                   title: TextField(maxLength: 40,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนชื่อนามสกุล'
@@ -85,7 +85,16 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('ที่อยู่                 '),
+                  leading: Text('ชื่อเล่น             \n',style: TextStyle(),),
+                  title: TextField(maxLength: 40,
+                    decoration: InputDecoration.collapsed(
+                        hintText: 'ป้อนชื่อเล่น'
+                    ),
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Text('ที่อยู่                 \n'),
                   title: TextField(maxLength: 50,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนที่อยู่'
@@ -94,7 +103,7 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('เบอร์ติดต่อ       '),
+                  leading: Text('เบอร์ติดต่อ       \n'),
                   title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเบอร์ติดต่อ'
@@ -103,7 +112,7 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('เงินเดือน          '),
+                  leading: Text('เงินเดือน          \n'),
                   title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเงินเดือน'
@@ -112,18 +121,12 @@ class _addmemberState extends State<addmember> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('สาขา                '),
+                  leading: Text('สาขา                \n'),
                   title: TextField(maxLength: 20,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนสาขา'
                     ),
                   ),
-                ),
-                Divider(),
-                ListTile(
-                  leading: new Text('ตำแหน่ง      ',style: TextStyle(fontSize: 16),),
-                  title: Text('${_position}',style: TextStyle(fontSize: 14),),
-                  trailing: new IconButton(icon: new Icon(Icons.list), onPressed: _askUser),
                 ),
                 Divider(),
                 ListTile(
@@ -166,11 +169,7 @@ class _addmemberState extends State<addmember> {
                   ),
                 ),
                 Divider(),
-                ListTile(
-                  leading: new Text('สิทธิประโยชน์      ',style: TextStyle(fontSize: 16),),
-                  trailing: new IconButton(icon: new Icon(Icons.list),
-                      onPressed: (){Navigator.of(context).pushNamed('/addbenefit');},),
-                ),
+
 
             /*    ListTile(
                   leading: Text('สิทธิประโยชน์'),
@@ -196,6 +195,12 @@ class _addmemberState extends State<addmember> {
                       ],
                     ),
                   ),
+                ),
+
+                                ListTile(
+                  leading: new Text('สิทธิประโยชน์      ',style: TextStyle(fontSize: 16),),
+                  trailing: new IconButton(icon: new Icon(Icons.list),
+                      onPressed: (){Navigator.of(context).pushNamed('/addbenefit');},),
                 ),*/
               //  Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 30)),
                 RaisedButton(onPressed: save,

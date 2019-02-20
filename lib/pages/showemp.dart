@@ -54,7 +54,7 @@ class _showempState extends State<showemp> {
     final response =
     await http.get('http://35.198.219.154:1337/emp/position/${widget.id}/view',
       headers: {'authorization': "Bearer "+token},);
-     print(response.body);
+     //print(response.body);
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
     listposition = new Position.fromJson(jsonResponse);
