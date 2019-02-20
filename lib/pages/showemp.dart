@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class showmember extends StatefulWidget {
+class showemp extends StatefulWidget {
   @override
-  _showmemberState createState() => _showmemberState();
+  _showempState createState() => _showempState();
+
 }
 
-class _showmemberState extends State<showmember> {
+class _showempState extends State<showemp> {
 
   @override
   Widget build(BuildContext context) {

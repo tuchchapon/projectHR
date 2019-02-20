@@ -17,7 +17,7 @@ import './pages/addcost.dart';
 import './pages/addbenefit.dart';
 import './pages/login.dart';
 import './pages/showproject.dart';
-import './pages/showmember.dart';
+import './pages/showemp.dart';
 import './pages/showvacation.dart';
 import './pages/showposition.dart';
 import './pages/showbranch.dart';
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         '/addbenefit': (BuildContext contrext) => new addbenefit(),
         '/login': (BuildContext contrext) => new login(),
         '/showproject': (BuildContext contrext) => new showproject(),
-        '/showmember': (BuildContext contrext) => new showmember(),
+        '/showmember': (BuildContext contrext) => new showemp(),
         '/showvacation': (BuildContext contrext) => new showvacation(),
         '/showposition': (BuildContext contrext) => new showposition(),
         '/showbranch': (BuildContext contrext) => new showbranch(),
@@ -82,7 +82,8 @@ class MyApp extends StatelessWidget {
         '/editbranch': (BuildContext contrext) => new editbranch(),
         '/editproject': (BuildContext contrext) => new editproject(),
       },
-      home: new Home(), //first page displayed
+    //  home: new login(), //first page displayed
+     home: new Home(), //first page displayed
     );
   }
 }

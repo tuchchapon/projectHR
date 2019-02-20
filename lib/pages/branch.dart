@@ -142,8 +142,8 @@ class _branchState extends State<branch>  {
           ),
         ),
 
-        body: Container
-          (width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.white,
+        body: Container(
+          width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.white,
           child:  isTrue != 0 ?
           ListView.builder(
             itemCount: listBrabch.data.length,

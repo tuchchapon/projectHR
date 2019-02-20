@@ -30,7 +30,7 @@ class _showbranchState extends State<showbranch> {
     getbranchaddit();
     getbranchfixcost();
      bid.text = widget.id.toString();
-    bname.text = widget.branch_name;
+     bname.text = widget.branch_name;
      baddress.text = widget.branchaddress;
   }
   final bid = TextEditingController();

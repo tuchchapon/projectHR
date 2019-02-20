@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import '../model/employee.dart';
+import './showemp.dart';
 
 class member extends StatefulWidget {
   @override
@@ -29,10 +30,8 @@ class _memberState extends State<member>  {
     print('createdAt is'+listEmp.data[0].createdAt.toString());
     print('updatedAt is'+listEmp.data[0].updatedAt.toString());
     print('id is'+listEmp.data[0].id.toString());
-    print('empName is'+listEmp.data[0].empName);
-    print('empName is'+listEmp.data[0].empEmerConName);
     print('empSalary is'+listEmp.data[0].empSalary.toString());
-    print('empEmerConTel is'+listEmp.data[0].empEmerConTel);
+    print('empName is'+listEmp.data[0].empName);
 
     if (response.statusCode == 200) {
       //listBrabch = new Branch.fromJson(jsonResponse);
@@ -121,10 +120,22 @@ Widget build(BuildContext context) {
         ),
       ),
 
-      body: ListView(children: <Widget>[
-        Container(child: null
-          ,)
-      ],),
+      body: Container(
+        width: screenWidth,height: screenHeight*2.1,color: Colors.white,
+        child:  isTrue != 0 ?
+        ListView.builder(
+          itemCount: listEmp.data.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+                child: Detailemp(id: listEmp.data[index].id,empname: listEmp.data[index].empName,
+                emptel: listEmp.data[index].empTel,emp_address: listEmp.data[index].empAddress,
+                emp_salary: listEmp.data[index].empSalary,conname: listEmp.data[index].empEmerConName,
+                contel: listEmp.data[index].empEmerConTel,con_address: listEmp.data[index].empEmerConAddress,
+                empnickname: listEmp.data[index].empNickname,con_relation: listEmp.data[index].empEmerConRelation,)
+            );
+          },
+        ):Text('Waiting'),
+      ),
 
       floatingActionButton: FloatingActionButton(
   backgroundColor: buttoncolor,
@@ -134,3 +145,106 @@ Widget build(BuildContext context) {
   );
 }
 }
+class Detailemp extends StatelessWidget {
+  //
+
+  //Function del;
+  int id;
+  String empname;
+  String empnickname;
+  String emptel;
+  String emp_address;
+  int emp_salary;
+  String conname;
+  String con_relation;
+  String contel;
+  String con_address;
+  Detailemp({
+    this.id,
+    this.empname,
+    this.empnickname,
+    this.emptel,
+    this.emp_address,
+    this.emp_salary,
+    this.conname,
+    this.con_relation,
+    this.contel,
+    this.con_address
+  });
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(empname),
+      subtitle: Stack(
+        children: <Widget>[
+          Container(
+              child: Column(children: <Widget>[
+            Row(children: <Widget>[
+              Text('เบอร์ติดต่อ : '+emptel)
+            ],),
+            Row(children: <Widget>[
+              Text('ที่อยู่ : '+emp_address)
+            ],)
+          ],
+          )
+          ,padding: EdgeInsets.only(bottom: 5),)
+        ],
+      ),//subtitle: Text(branchaddress),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => showemp(),
+          ),
+        );
+      },
+    );
+  }
+
+}
+
+/*
+class Detailemp extends StatelessWidget {
+  //
+
+  //Function del;
+  int id;
+  String empname;
+  String emptel;
+  String emp_address;
+
+  Detailemp({this.id,this.empname,this.emptel,this.emp_address});
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(empname),
+      subtitle: Row(mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          IconButton(icon: Icon(Icons.edit),onPressed:() {
+            Navigator.push(context,
+              MaterialPageRoute(
+                 // builder: (context) => editbranch(id: id,branchname: branch_name,branch_address: branchaddress,)
+              ),
+            );
+          },
+          )
+          ,/*IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
+            // del(id.toString());++
+
+          ),*/
+        ],
+      ),//subtitle: Text(branchaddress),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+          //  builder: (context) => showbranch(id: id,branch_name: branch_name,branchaddress: branchaddress,),
+          ),
+        );
+      },
+    );
+  }
+
+}
+
+*/
