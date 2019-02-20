@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'branch.dart';
 
 
 
@@ -110,7 +111,6 @@ Future<dynamic> Updatebranch(id,branchname,branchAdd) async {
   final Map<String, dynamic> responseData = await json.decode(
       response.body);
   print(responseData);
-  //fetchPost();
   return responseData['code'];
 
 }

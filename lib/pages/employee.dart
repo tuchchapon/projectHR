@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import '../model/employee.dart';
 import './showemp.dart';
-
+import 'editemp.dart';
 class member extends StatefulWidget {
   @override
   _memberState createState() => new _memberState();
@@ -31,7 +31,7 @@ class _memberState extends State<member>  {
     print('updatedAt is'+listEmp.data[0].updatedAt.toString());
     print('id is'+listEmp.data[0].id.toString());
     print('empSalary is'+listEmp.data[0].empSalary.toString());
-    print('empName is'+listEmp.data[0].empName);
+    //print('branch id is'+listEmp.data[0].empBranchId.toString());
 
     if (response.statusCode == 200) {
       //listBrabch = new Branch.fromJson(jsonResponse);
@@ -159,6 +159,7 @@ class Detailemp extends StatelessWidget {
   String con_relation;
   String contel;
   String con_address;
+
   Detailemp({
     this.id,
     this.empname,
@@ -193,7 +194,15 @@ class Detailemp extends StatelessWidget {
       trailing: Stack(children: <Widget>[
         Column(
           children: <Widget>[
-            IconButton(icon: Icon(Icons.edit), onPressed: null),
+            IconButton(icon: Icon(Icons.edit), onPressed: () {
+      Navigator.push(context,
+        MaterialPageRoute(
+            builder: (context) => editemp(empid: id,empname: empname,empnickname: empnickname,emp_salary: emp_salary.toString(),
+            emp_addrees: emp_address,emp_conname: conname,emp_tel: emptel,emp_con_address: con_address,
+              emp_con_relation: con_relation,emp_con_tel: contel,)
+        ),
+      );
+    },),
             IconButton(icon: Icon(Icons.delete), onPressed: null)
           ],
         ),
