@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
         '/editbranch': (BuildContext contrext) => new editbranch(),
         '/editproject': (BuildContext contrext) => new editproject(),
       },
-    //  home: new login(), //first page displayed
+    // home: new login(), //first page displayed
      home: new Home(), //first page displayed
     );
   }

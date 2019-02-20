@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import '../model/benefit.dart';
+import '../model/positionemp.dart';
 class showemp extends StatefulWidget {
   @override
   _showempState createState() => _showempState();
@@ -39,13 +40,35 @@ class _showempState extends State<showemp> {
   int benefitIstrue = 0;
   int loopposition = 0;
   int loopbenefit = 0;
- // Branchfixcost listposition = new Branchfixcost();
+  Position listposition = new Position();
   Benefit listbenefit = new Benefit();
   @override
   void initState() {
     super.initState();
     getbenefit();
-   // getbranchfixcost();
+    getposition();
+  }
+  Future<void> getposition() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/emp/position/${widget.id}/view',
+      headers: {'authorization': "Bearer "+token},);
+     print(response.body);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    listposition = new Position.fromJson(jsonResponse);
+    setState(() {
+      positionIstrue = 1;
+      this.loopposition = listposition.data.length;
+    });
+    //  print(listfixcost.data[0].fixcostBranchId.id.toString());
+
+    if (response.statusCode == 200) {
+
+    } else {
+      throw Exception('Failed to load post');
+    }
   }
   Future<void> getbenefit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -53,7 +76,7 @@ class _showempState extends State<showemp> {
     final response =
     await http.get('http://35.198.219.154:1337/employee/benefit/${widget.id}/view',
       headers: {'authorization': "Bearer "+token},);
-     print(response.body);
+    // print(response.body);
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
     listbenefit = new Benefit.fromJson(jsonResponse);
@@ -96,6 +119,16 @@ class _showempState extends State<showemp> {
             title: Text(widget.emp_salary.toString(),style: TextStyle(fontSize: 12),),),
         ],
         ),),),
+          Text('  ตำแหน่ง',style: TextStyle(fontSize: 16),),
+          Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
+              child: Column( children: positionIstrue == 0 ? [
+                Text('Waiting Data'),
+              ] : detailposition()
+              )
+          ),
+        Divider(),
         Text('  ข้อมูลผู้ติดต่อ',style: TextStyle(fontSize: 16),),
           Container(child: Center(child: Column(children: <Widget>[
             ListTile(leading: Text('ผู้ติดต่อฉุกเฉิน',style: TextStyle(fontSize: 12),),
@@ -118,6 +151,19 @@ class _showempState extends State<showemp> {
         ]
         ,)
       );
+  }
+  List<Widget> detailposition(){
+    List<Widget> mylist = new List();
+    for(int i = 0; i < this.loopposition ; i++ ){
+      mylist.add(Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+      Text(listposition.data[i].positionName)
+          ]
+      )
+      );
+    }
+    return mylist;
   }
   List<Widget> detailbenefit(){
     List<Widget> mylist = new List();
