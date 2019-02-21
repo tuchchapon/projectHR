@@ -8,16 +8,16 @@ import '../model/empbenefit.dart';
 import 'showbenefit.dart';
 import 'editbenefit.dart';
 
-class benefit extends StatefulWidget {
+class empposition extends StatefulWidget {
   @override
-  _benefitState createState() => new _benefitState();
+  _emppositionState createState() => new _emppositionState();
   int empid ;
-  benefit({this.empid});
+  empposition({this.empid});
 }
 
-class _benefitState extends State<benefit>  {
- int benefitIstrue =0;
- int loopbenefit=0;
+class _emppositionState extends State<empposition>  {
+  int benefitIstrue =0;
+  int loopbenefit=0;
   @override
   void initState() {
     super.initState();
@@ -26,7 +26,7 @@ class _benefitState extends State<benefit>  {
 
   }
 
- Empbenefit listbenefit = new Empbenefit();
+  Empbenefit listbenefit = new Empbenefit();
   Future<void> getempbenefit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
@@ -40,7 +40,7 @@ class _benefitState extends State<benefit>  {
     listbenefit = new Empbenefit.fromJson(jsonResponse);
 
     //print('emp id is'+widget.empid.toString());
-   // print(response.body);
+    // print(response.body);
     setState(() {
       benefitIstrue = 1;
       this.loopbenefit = listbenefit.data.length;
@@ -54,20 +54,20 @@ class _benefitState extends State<benefit>  {
       throw Exception('Failed to load post');
     }
   }
- Future<dynamic> deletebenefit(id) async{
-   SharedPreferences prefs = await SharedPreferences.getInstance();
-   String Token = prefs.getString("prefsToken");
-   var url = 'http://35.198.219.154:1337/benefit/delete';
-   var body = {
-     'id': id,
-   };
-   http.Response response = await http.post(url,
-       headers: {'authorization': "Bearer "+Token},
-       body: body);
-     print(response.body);
+  Future<dynamic> deletebenefit(id) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/benefit/delete';
+    var body = {
+      'id': id,
+    };
+    http.Response response = await http.post(url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    print(response.body);
     print(id.toString());
 
- }
+  }
 
   Widget build(BuildContext context) {
     Color buttoncolor = const Color(0xFF4fa2e1);
@@ -77,20 +77,20 @@ class _benefitState extends State<benefit>  {
     double screenWidth = queryData.size.width;
     double screenHeight = queryData.size.height*0.4;
     return new Scaffold(
-      appBar: new AppBar(
-          backgroundColor: colorappbar,
-          title: new Text('สิทธิประโยชน์',style: TextStyle(color: Colors.brown[500]),),
-          actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.search), onPressed: null),
-        //      new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-          ]
-      ),
+        appBar: new AppBar(
+            backgroundColor: colorappbar,
+            title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+            actions: <Widget>[
+              new IconButton(icon: new Icon(Icons.search), onPressed: null),
+              //      new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
+            ]
+        ),
 
         body: ListView(
           children: <Widget>[
             Container(width: screenWidth,margin: EdgeInsets.all(5),
               child:  Column(children: <Widget>[
-                Text('ข้อมูลสิทธิประโยชน์'),
+                Text('ข้อมูลตำแหน่ง'),
                 Container(
                   width: screenWidth,height: screenHeight*2.1,
                   child:  benefitIstrue != 0 ?
@@ -100,9 +100,9 @@ class _benefitState extends State<benefit>  {
                       return Container(
                           child: detailbenefit(
                             empid: widget.empid,id: listbenefit.data[index].id,benefit_title:listbenefit.data[index].benefitTitle,
-                          benefit_price: listbenefit.data[index].benefitPrice,
+                            benefit_price: listbenefit.data[index].benefitPrice,
                             benefit_note: listbenefit.data[index].benefitNote,
-                          benefit_date: listbenefit.data[index].benefitDate,del: deletebenefit,)
+                            benefit_date: listbenefit.data[index].benefitDate,del: deletebenefit,)
                       );
                     },
                   ):Text('ไม่มีข้อมูล')
@@ -110,7 +110,7 @@ class _benefitState extends State<benefit>  {
                   ,padding: EdgeInsets.only(left: 10),)
               ],
               ),
-          ),
+            ),
 
           ],
 
@@ -160,8 +160,8 @@ class detailbenefit extends StatelessWidget {
     return ListTile(
       title: Text(benefit_title),
 
-    subtitle: Text(benefit_price.toString()),
-    onTap: () {
+      subtitle: Text(benefit_price.toString()),
+      onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -170,9 +170,9 @@ class detailbenefit extends StatelessWidget {
           ),
         );
       },
-trailing: IconButton(icon: Icon(Icons.delete),  onPressed: () {_showAlert(context, 'ต้องการลบ ${benefit_title} หรือไม่!');
+      trailing: IconButton(icon: Icon(Icons.delete),  onPressed: () {_showAlert(context, 'ต้องการลบ ${benefit_title} หรือไม่!');
 
-} ),
+      } ),
     );
   }
 

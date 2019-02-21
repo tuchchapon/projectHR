@@ -7,6 +7,7 @@ import '../model/employee.dart';
 import './showemp.dart';
 import 'editemp.dart';
 import './benefit.dart';
+import './empposition.dart';
 class employee extends StatefulWidget {
   @override
   _employeeState createState() => new _employeeState();
@@ -116,7 +117,7 @@ Widget build(BuildContext context) {
       ),
 
       body: Container(
-        width: screenWidth,height: screenHeight*2.1,color: Colors.white,
+        width: screenWidth,height: screenHeight*2.1,
         child:  isTrue != 0 ?
         ListView.builder(
           itemCount: listEmp.data.length,
@@ -130,7 +131,7 @@ Widget build(BuildContext context) {
             );
           },
         ):Text('Waiting'),
-      ),
+      margin: EdgeInsets.only(bottom: 20),),
 
       floatingActionButton: FloatingActionButton(
   backgroundColor: buttoncolor,
@@ -203,9 +204,15 @@ class Detailemp extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context) => benefit(empid: id,)
                 ),);
-            },),
-            IconButton(icon: Icon(Icons.assignment),tooltip: 'จัดการตำแหน่งพนักงาน', onPressed: null),
-             ],
+            },
+            ),
+            IconButton(icon: Icon(Icons.assignment),tooltip: 'จัดการตำแหน่งพนักงาน', onPressed: () {
+              Navigator.push(context,
+                MaterialPageRoute(
+                    builder: (context) => empposition()
+                ),);
+            },
+            )],
           ),
         onTap: () {
           Navigator.push(

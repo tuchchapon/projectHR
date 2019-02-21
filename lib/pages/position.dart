@@ -162,7 +162,8 @@ class _positionState extends State<position>  {
             itemCount: listPosition.data.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                child: DetailPosition( id: listPosition.data[index].id,positionName:listPosition.data[index].positionName ,del: deletePosition,)
+                child: DetailPosition( id: listPosition.data[index].id,
+                  positionName:listPosition.data[index].positionName ,del: deletePosition,)
               );
             },
           ):Text('Waiting')
