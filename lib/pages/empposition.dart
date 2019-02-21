@@ -4,9 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/empbenefit.dart';
-import 'showbenefit.dart';
-import 'editbenefit.dart';
+import './addempposition.dart';
+import '../model/positionemp.dart';
 
 class empposition extends StatefulWidget {
   @override
@@ -17,34 +16,34 @@ class empposition extends StatefulWidget {
 
 class _emppositionState extends State<empposition>  {
   int benefitIstrue =0;
-  int loopbenefit=0;
+  int loopemppo=0;
   @override
   void initState() {
     super.initState();
 
-    getempbenefit();
+    getempposition();
 
   }
 
-  Empbenefit listbenefit = new Empbenefit();
-  Future<void> getempbenefit() async {
+  Position listposition = new Position();
+
+  Future<void> getempposition() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
     print(widget.empid);
     final response =
-    await http.get('http://35.198.219.154:1337/employee/benefit/${widget.empid}/view',
+    await http.get('http://35.198.219.154:1337/emp/position/${widget.empid}/view',
       headers: {'authorization': "Bearer "+token},);
     // print(response.body);
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
-    listbenefit = new Empbenefit.fromJson(jsonResponse);
+    listposition = new Position.fromJson(jsonResponse);
 
     //print('emp id is'+widget.empid.toString());
     // print(response.body);
     setState(() {
       benefitIstrue = 1;
-      this.loopbenefit = listbenefit.data.length;
-      print(listbenefit.data[0].benefitEmpId);
+      this.loopemppo = listposition.data.length;
     });
     //  print(listfixcost.data[0].fixcostBranchId.id.toString());
 
@@ -64,9 +63,18 @@ class _emppositionState extends State<empposition>  {
     http.Response response = await http.post(url,
         headers: {'authorization': "Bearer "+Token},
         body: body);
-    print(response.body);
-    print(id.toString());
-
+  }
+  Future<dynamic> deleteposition(id) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/positionemp/delete';
+    var body = {
+      'id': id,
+    };
+    http.Response response = await http.post(url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    getempposition();
   }
 
   Widget build(BuildContext context) {
@@ -95,16 +103,13 @@ class _emppositionState extends State<empposition>  {
                   width: screenWidth,height: screenHeight*2.1,
                   child:  benefitIstrue != 0 ?
                   ListView.builder(
-                    itemCount: listbenefit.data.length,
+                    itemCount: listposition.data.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                          child: detailbenefit(
-                            empid: widget.empid,id: listbenefit.data[index].id,benefit_title:listbenefit.data[index].benefitTitle,
-                            benefit_price: listbenefit.data[index].benefitPrice,
-                            benefit_note: listbenefit.data[index].benefitNote,
-                            benefit_date: listbenefit.data[index].benefitDate,del: deletebenefit,)
+                          child: detailempposition(id: listposition.data[index].id,
+                            position_name: listposition.data[index].positionName,del: deleteposition,)
                       );
-                    },
+                      }
                   ):Text('ไม่มีข้อมูล')
 
                   ,padding: EdgeInsets.only(left: 10),)
@@ -121,7 +126,7 @@ class _emppositionState extends State<empposition>  {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => addbenefit(empid: widget.empid,)
+                  builder: (context) => addempposition(empid: widget.empid,)
               ),
             );
           },
@@ -130,7 +135,7 @@ class _emppositionState extends State<empposition>  {
   }
 
 }
-class detailbenefit extends StatelessWidget {
+class detailempposition extends StatelessWidget {
   //
   Future _showAlert(BuildContext context, String message) async {
     return showDialog(
@@ -138,7 +143,8 @@ class detailbenefit extends StatelessWidget {
         child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
-            new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);Navigator.of(context).pushNamed('/employee');}, child: new Text('ยืนยัน')
+            new FlatButton(onPressed: (){del(id.toString()); Navigator.pop(context);}
+                , child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],
@@ -146,35 +152,23 @@ class detailbenefit extends StatelessWidget {
 
     );
   }
-  //
-  Function del;
+
   int id;
-  int empid;
-  String benefit_title;
-  int benefit_price;
-  String benefit_note;
-  int benefit_date;
-  detailbenefit({this.empid,this.id,this.benefit_title,this.benefit_price,this.benefit_note,this.benefit_date,this.del});
+  String position_name;
+  Function del;
+
+  detailempposition({this.position_name,this.id,this.del});
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(benefit_title),
+      title: Text(position_name),
 
-      subtitle: Text(benefit_price.toString()),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => showbenefit(benefitid: id,title: benefit_title,
-              price: benefit_price,note: benefit_note ,date: benefit_date,),
-          ),
-        );
-      },
-      trailing: IconButton(icon: Icon(Icons.delete),  onPressed: () {_showAlert(context, 'ต้องการลบ ${benefit_title} หรือไม่!');
+        trailing: IconButton(icon: Icon(Icons.delete),  onPressed: () {_showAlert(context, 'ต้องการลบ ${position_name} หรือไม่!');
 
-      } ),
-    );
-  }
+
+    })
+
+    );}
 
 }
 ///

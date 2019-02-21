@@ -51,6 +51,7 @@ class _addempState extends State<addemp> {
         headers: {'authorization': "Bearer "+Token},
         body: body);
    print(response.body);
+    Navigator.of(context).pushReplacementNamed('/employee');
   }
 //
   Future _askUser() async {
@@ -276,7 +277,8 @@ class _addempState extends State<addemp> {
                         emp_con_relation,
                         emp_con_relation,
                         emp_con_tel,
-                        idbranch);},
+                        idbranch);
+                    },
                 ),
               ]
           ),

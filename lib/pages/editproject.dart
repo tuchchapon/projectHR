@@ -41,7 +41,7 @@ class _editprojectState extends State<editproject> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: Text('แก้ไขข้อมูลสาขา'),
+        title: Text('แก้ไขข้อมูล'),
       ),
       body: new Container(
         margin: EdgeInsets.all(10),

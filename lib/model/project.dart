@@ -56,8 +56,8 @@ class Data {
     id: parsedJson["id"],
     projectName: parsedJson["project_name"],
     projectCostomerName: parsedJson["project_costomer_name"],
-    projectTeamName: parsedJson["projectTeamName"],
-      projectStartDate: parsedJson["projectStartDate"],
+        projectTeamName: parsedJson["project_team_name"],
+      projectStartDate: parsedJson["project_start_date"],
       projectStartDateFormat:  parsedJson["projectStartDateFormat"],
 
   );

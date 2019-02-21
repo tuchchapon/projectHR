@@ -44,9 +44,8 @@ class _benefitState extends State<benefit>  {
     setState(() {
       benefitIstrue = 1;
       this.loopbenefit = listbenefit.data.length;
-      print(listbenefit.data[0].benefitEmpId);
     });
-    //  print(listfixcost.data[0].fixcostBranchId.id.toString());
+
 
     if (response.statusCode == 200) {
 
@@ -65,8 +64,8 @@ class _benefitState extends State<benefit>  {
        headers: {'authorization': "Bearer "+Token},
        body: body);
      print(response.body);
-    print(id.toString());
-
+  //  print(id.toString());
+   getempbenefit();
  }
 
   Widget build(BuildContext context) {
@@ -138,7 +137,7 @@ class detailbenefit extends StatelessWidget {
         child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
-            new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);Navigator.of(context).pushNamed('/employee');}, child: new Text('ยืนยัน')
+            new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);}, child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],

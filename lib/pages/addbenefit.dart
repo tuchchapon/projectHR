@@ -125,11 +125,7 @@ class _addbenefitState extends State<addbenefit> {
           ),
           Divider(color: Colors.grey,),
           RaisedButton(onPressed: (){
-            print('empid'+widget.empid.toString());
-            print('benefit_title'+benefit_title);
-            print('benefit_price'+benefit_price);
-            print('benefit_date'+benefit_date.toString());
-            print('benefit_note'+benefit_note);
+
            Addbenefit(widget.empid.toString(), benefit_title, benefit_price, benefit_date.toString(), benefit_note);
 
           },

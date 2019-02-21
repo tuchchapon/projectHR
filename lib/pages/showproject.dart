@@ -1,11 +1,51 @@
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
+import '../model/projectmanage.dart';
 class showproject extends StatefulWidget {
   @override
   _showprojectState createState() => _showprojectState();
+   int project_id;
+   showproject({this.project_id});
 }
 
 class _showprojectState extends State<showproject> {
+  @override
+  void initState() {
+    super.initState();
+    fetchPost();
+
+  }
+  int isTrue =0;
+  Project listProject = new Project();
+  Future<void> fetchPost() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/projectmanage/${widget.project_id}/view',
+        headers: {'authorization': "Bearer "+token});
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+   // print(jsonResponse);
+
+    if (response.statusCode == 200) {
+
+      // If the call to the server was successful, parse the JSON
+//      return Position.fromJson(json.decode(response.body));
+      listProject = new Project.fromJson(jsonResponse);
+
+      setState(() {
+        this.isTrue = 1;
+      });
+      print('AAAAAA');
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+    // print('print+++++++'+listPosition.data[1].positionName);
+  }
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
@@ -20,68 +60,7 @@ class _showprojectState extends State<showproject> {
         body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
           //padding: new EdgeInsets.all(10.0),
           child: new ListView(
-            children: <Widget>[
-              ListTile(
-                leading: Text('ลำดับที่       ',style: TextStyle(fontSize: 16),),
-                title: Text('1',style: TextStyle(fontSize: 14)),
-              ),
-              ListTile(
-                leading: Text('ชื่อโปรเจค   ',style: TextStyle(fontSize: 16),),
-                title: Text('ระบบ HR',style: TextStyle(fontSize: 14)),
-              ),
-              ListTile(
-                leading: Text('ลูกค้า   ',style: TextStyle(fontSize: 16),),
-                title: Text('Twin Synergy',style: TextStyle(fontSize: 14)),
-              ),
-              ListTile(
-                leading: Text('วันที่เริ่ม       ',style: TextStyle(fontSize: 16),),
-                title: Text('01/oct/2019',style: TextStyle(fontSize: 14)),
-                trailing: Icon(Icons.event),
-              ),
-              ListTile(
-                leading: Text('วันที่สินสุด    ',style: TextStyle(fontSize: 16),),
-                title: Text('01/oct/2019',style: TextStyle(fontSize: 14)),
-                trailing: Icon(Icons.event),
-              ),
-              ListTile(
-                leading: Text('ทีมรับผิดชอบ',style: TextStyle(fontSize: 16),),
-                title: Text('Team A',style: TextStyle(fontSize: 14)),
-                trailing: FlatButton(onPressed: (){Navigator.of(context).pushNamed('/teammanage');}, child: Text('จัดการทีม >')),
-              ),
-              ListTile(
-                leading: Text('หมายเหตุ      ',style: TextStyle(fontSize: 16),),
-                title: Text('-',style: TextStyle(fontSize: 14),),
-              ),
-              ListTile(
-                leading: Text('รายการค่าใช้จ่ายของโปรเจ็ค'),
-                trailing: FlatButton(onPressed: (){Navigator.of(context).pushNamed('/costmanage');}, child: Text('จัดการค่าใช้จ่าย >')),
-              ),
-              ListTile(
-                leading: Column(
-                  children: <Widget>[
-                    Text('รายการ'),
-                    Text('ค่าเซิฟเวอร์',style:TextStyle(color: Colors.grey) ,),
-                    Text('ค่าหฟกฟหก',style:TextStyle(color: Colors.grey) ,),
-                    Text('sdajasd',style:TextStyle(color: Colors.grey) ,),
-                  ],),
-                subtitle: Column(
-                  children: <Widget>[
-                    Text('วันที่'),
-                    Text('01/oct/2019',style:TextStyle(color: Colors.grey) ,),
-                    Text('01/oct/2019',style:TextStyle(color: Colors.grey) ,),
-                    Text('01/oct/2019',style:TextStyle(color: Colors.grey) ,),
-                  ],
-                ),
-                trailing: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Text('มูลค่า'),
-                    Text('5000',style:TextStyle(color: Colors.grey) ,),
-                    Text('5000',style:TextStyle(color: Colors.grey) ,),
-                    Text('3000',style:TextStyle(color: Colors.grey) ,),
-                  ],
-                ),
-              ),
-            ],
+            children: <Widget>[],
           ),
         ),
       );

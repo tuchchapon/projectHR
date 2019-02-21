@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/project.dart';
 import './editproject.dart';
 import 'package:moment/moment.dart';
+import './showproject.dart';
 
 //
 
@@ -57,39 +58,8 @@ class _projectState extends State<project>  {
     // print('print+++++++'+listPosition.data[1].positionName);
   }
 
-  Future<dynamic> update(position) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Token = prefs.getString("prefsToken");
-    var url = 'http://35.198.219.154:1337/position/update';
-    var body = {
-      'position_name': position,
-    };
-    print(body);
-    http.Response response = await http.post(
-        url,
-        headers: {'authorization': "Bearer "+Token},
-        body: body);
-    Navigator.of(context).pushReplacementNamed('/project');
-    final Map<String, dynamic> responseData = await json.decode(
-        response.body);
-    print(responseData);
-    return responseData['code'];
 
-  }
 //
-  Future<dynamic> deletePosition(id) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Token = prefs.getString("prefsToken");
-    var url = 'http://35.198.219.154:1337/position/delete';
-    var body = {
-      'id': id,
-    };
-    http.Response response = await http.post(url,
-        headers: {'authorization': "Bearer "+Token},
-        body: body);
-    print(response.body);
-    fetchPost();
-  }
 //
 //
   Widget build(BuildContext context){
@@ -153,6 +123,7 @@ class _projectState extends State<project>  {
             ],
           ),
         ),
+
         body: Container
           (width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.white,
           child:  isTrue != 0 ?
@@ -222,123 +193,43 @@ class DetailProject extends StatelessWidget {
     );
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Text(projectname),
-      title: Row(mainAxisAlignment: MainAxisAlignment.end,
+    return  ListTile(
+      title: Text(projectname),
+      subtitle: Column(
         children: <Widget>[
-          IconButton(icon: Icon(Icons.edit), onPressed: null/* (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-              //  builder: (context) => editproject(id: ,),
-              ),
-            );
-          }*/
-          ),
-          IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${projectname} หรือไม่!')
-            // del(id.toString());
-
-          ),
+          Text('ลูกค้า'+projectcostomerName),
+          Text('ทีมรับผิดชอบ'+projectTeamName)
         ],
+      ),
+      trailing: Stack(children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            IconButton(icon: Icon(Icons.edit), onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => editproject(),
+                ),
+              );
+            }
+            ),
+            IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${projectname} หรือไม่!')
+              // del(id.toString());
+
+            ),
+          ],
+        ),
+      ],
       ),
       onTap: () {
         Navigator.push(context,
           MaterialPageRoute(
-              builder: (context) => DetailScreen(
-                id: id,
-                projectname: projectname,
-                projectcostomerName:  projectcostomerName ,
-                startdate: startdate,
-                projectTeamName:  projectTeamName,
-                projectnote: projectnote,
-                projectcost: projectcost,)
+              builder: (context) => showproject(project_id: id,)
           ),
         );
       },
     );
+
   }
 }
-class DetailScreen extends StatelessWidget {
-  int id;
-  String projectname;
-  String projectcostomerName;
-  var startdate;
-  String projectTeamName;
-  double projectcost;
-  String projectnote;
-  DetailScreen({
-    this.id,
-    this.projectname,
-    this.projectcostomerName,
-    this.startdate,
-    this.projectTeamName,
-    this.projectcost,
-    this.projectnote});
-
-  Color colorappbar = const Color(0xFF2ac3fe);
-//  final  Position position;
-  @override
-  Widget build(BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(context);
-
-    double screenWidth = queryData.size.width;
-    double screenHeight = queryData.size.height;
-
-    return Scaffold(
-      appBar: AppBar(backgroundColor: colorappbar,
-        title: Text('ข้อมูลโปรเจ็ค',style: TextStyle(color: Colors.brown[500]),),
-      ),
-      body: ListView(children: <Widget>[
-        Container(
-            margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
-            //padding: EdgeInsets.all(10.0),
-            child: Column(
-              children: <Widget>[
-             //  Text('id  '+id.toString(),style: TextStyle(fontSize: 16),),
-               ListTile(leading: Text('ชื่อโปรเจ็ค  ',style: TextStyle(fontSize: 12)),title: Text(projectname,style: TextStyle(fontSize: 12)),),
-               ListTile(leading: Text('ลูกค้า          ',style: TextStyle(fontSize: 12)),title: Text(projectcostomerName,style: TextStyle(fontSize: 12)),),
-               ListTile(leading: Text('วันที่เริ่ม       ',style: TextStyle(fontSize: 12)),title: Text(Moment(startdate).format('dd/MMM/yyyy'),style: TextStyle(fontSize: 12)),),
-
-          // ListTile(leading: Text('งบประมาณ',style: TextStyle(fontSize: 12),),title: Text(projectcost.toString(),style: TextStyle(fontSize: 12),),)
-
-              ],
-            )
-        ),
-        Container(
-
-        )
-      ],)
-    );
-  }
-}
-/*
-Container(
-      child:Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          InkWell(
-            onTap: (){ print('ok');},
-            child: Text(positionName),
-          ),
-          Row(
-            children: <Widget>[
-              IconButton(
-                onPressed: () {
-    Navigator.push(context,
-    MaterialPageRoute(
-    builder: (context) => Positiondetail(id: id,positionName: positionName,)),);},
-                icon: Icon(Icons.edit),
-              ),
-              IconButton(
-                onPressed: (){
-                  print(id);
-                  del(id.toString());
-                },
-                icon: Icon(Icons.delete),
-              )
-            ],
-          )
-        ],
-      ),
-    );
- */

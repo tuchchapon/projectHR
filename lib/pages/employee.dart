@@ -209,7 +209,7 @@ class Detailemp extends StatelessWidget {
             IconButton(icon: Icon(Icons.assignment),tooltip: 'จัดการตำแหน่งพนักงาน', onPressed: () {
               Navigator.push(context,
                 MaterialPageRoute(
-                    builder: (context) => empposition()
+                    builder: (context) => empposition(empid: id,)
                 ),);
             },
             )],
