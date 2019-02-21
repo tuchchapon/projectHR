@@ -138,7 +138,7 @@ class _projectState extends State<project>  {
               ListTile(
                 leading: Icon(Icons.people,color: Colors.black),
                 title: Text('พนักงาน'),
-                onTap: (){Navigator.of(context).pushNamed('/member');},
+                onTap: (){Navigator.of(context).pushNamed('/employee');},
               ),
               ListTile(
                 leading: Icon(Icons.account_balance,color: Colors.black),
@@ -149,12 +149,6 @@ class _projectState extends State<project>  {
                 leading: Icon(Icons.work,color: Colors.black),
                 title: Text('ตำแหน่ง'),
                 onTap:(){Navigator.of(context).pushNamed('/position');},
-              ),
-              ListTile(
-                leading: Icon(Icons.card_giftcard,color: Colors.black),
-                title: Text('สิทธิประโยชน์'),
-                onTap:(){Navigator.of(context).pushNamed('/benefit');},
-
               ),
             ],
           ),

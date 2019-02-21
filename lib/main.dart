@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         //All available pages
         '/Home': (BuildContext contrext) => new Home(),
-       '/member': (BuildContext contrext) => new member(),
+       '/employee': (BuildContext contrext) => new employee(),
         '/vacation': (BuildContext contrext) => new vacation(),
         '/position': (BuildContext contrext) => new position(),
         '/branch': (BuildContext contrext) => new branch(),
@@ -82,8 +82,8 @@ class MyApp extends StatelessWidget {
         '/editbranch': (BuildContext contrext) => new editbranch(),
         '/editproject': (BuildContext contrext) => new editproject(),
       },
-      // home: new login(), //first page displayed
-       home: new Home(), //first page displayed
+      home: new login(), //first page displayed
+      //   home: new Home(), //first page displayed
     );
   }
 }

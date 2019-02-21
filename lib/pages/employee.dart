@@ -6,12 +6,13 @@ import 'dart:convert';
 import '../model/employee.dart';
 import './showemp.dart';
 import 'editemp.dart';
-class member extends StatefulWidget {
+import './benefit.dart';
+class employee extends StatefulWidget {
   @override
-  _memberState createState() => new _memberState();
+  _employeeState createState() => new _employeeState();
 }
 
-class _memberState extends State<member>  {
+class _employeeState extends State<employee>  {
 
   Employee listEmp = new Employee();
   int isTrue = 0;
@@ -98,7 +99,7 @@ Widget build(BuildContext context) {
             ListTile(
               leading: Icon(Icons.people,color: Colors.black),
               title: Text('พนักงาน'),
-              onTap: (){Navigator.of(context).pushNamed('/member');},
+              onTap: (){Navigator.of(context).pushNamed('/employee');},
             ),
             ListTile(
               leading: Icon(Icons.account_balance,color: Colors.black),
@@ -109,12 +110,6 @@ Widget build(BuildContext context) {
               leading: Icon(Icons.work,color: Colors.black),
               title: Text('ตำแหน่ง'),
               onTap:(){Navigator.of(context).pushNamed('/position');},
-            ),
-            ListTile(
-              leading: Icon(Icons.card_giftcard,color: Colors.black),
-              title: Text('สิทธิประโยชน์'),
-              onTap:(){Navigator.of(context).pushNamed('/benefit');},
-
             ),
           ],
         ),
@@ -175,61 +170,63 @@ class Detailemp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ListTile(
-      title: Text('${empname}(${empnickname})'),
-      subtitle: Stack(
-        children: <Widget>[
-          Container(
-            child: Column(
-              children: <Widget>[Row(
-                children: <Widget>[
-                  Text('เบอร์ติดต่อ : '+emptel)
-                ],),
-              Row(children: <Widget>[
-                Text('ที่อยู่ : '+emp_address)
-              ],)
-              ],
-            )
-            ,padding: EdgeInsets.only(bottom: 5),)
-        ],
-      ), //subtitle: Text(branchaddress),
-      trailing: Stack(children: <Widget>[
-        Column(
+      child: Card(child: ListTile(
+        title: Text('${empname}(${empnickname})'),
+        subtitle: Stack(
           children: <Widget>[
-            IconButton(icon: Icon(Icons.edit), onPressed: () {
+            Container(
+              child: Column(
+                children: <Widget>[Row(
+                  children: <Widget>[
+                    Text('เบอร์ติดต่อ : '+emptel)
+                  ],),
+                Row(children: <Widget>[
+                  Text('ที่อยู่ : '+emp_address)
+                ],)
+                ],
+              )
+              ,padding: EdgeInsets.only(bottom: 5),)
+          ],
+        ), //subtitle: Text(branchaddress),
+        trailing: Column(
+            children: <Widget>[
+             /* IconButton(icon: Icon(Icons.edit), onPressed: () {
+                Navigator.push(context,
+                  MaterialPageRoute(
+                      builder: (context) => editemp(empid: id,empname: empname,empnickname: empnickname,emp_salary: emp_salary.toString(),
+                        emp_addrees: emp_address,emp_conname: conname,emp_tel: emptel,emp_con_address: con_address,
+                        emp_con_relation: con_relation,emp_con_tel: contel,)
+                  ),);
+            },),*/
+            IconButton(icon: Icon(Icons.monetization_on,color: Colors.green,),tooltip: 'จัดการสิทธิประโยชน์', onPressed: () {
               Navigator.push(context,
                 MaterialPageRoute(
-                    builder: (context) => editemp(empid: id,empname: empname,empnickname: empnickname,emp_salary: emp_salary.toString(),
-                      emp_addrees: emp_address,emp_conname: conname,emp_tel: emptel,emp_con_address: con_address,
-                      emp_con_relation: con_relation,emp_con_tel: contel,)
-                ),
-              );
+                    builder: (context) => benefit(empid: id,)
+                ),);
             },),
-            IconButton(icon: Icon(Icons.delete), onPressed: null)
-          ],
-        ),
-
-      ],
-      ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => showemp(
-              id: id,
-              empname: empname,
-              emptel: emptel,
-              empnickname: empnickname,
-              emp_address: emp_address,
-              emp_salary: emp_salary,
-              conname: conname,
-              con_relation: con_relation,
-              contel: contel,
-              con_address: con_address,),
+            IconButton(icon: Icon(Icons.assignment),tooltip: 'จัดการตำแหน่งพนักงาน', onPressed: null),
+             ],
           ),
-        );
-      },
-    ),);
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => showemp(
+                id: id,
+                empname: empname,
+                emptel: emptel,
+                empnickname: empnickname,
+                emp_address: emp_address,
+                emp_salary: emp_salary,
+                conname: conname,
+                con_relation: con_relation,
+                contel: contel,
+                con_address: con_address,),
+            ),
+          );
+        },
+      ),),
+    );
 
   }
 

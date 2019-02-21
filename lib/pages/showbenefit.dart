@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-
+import 'package:moment/moment.dart';
 class showbenefit extends StatefulWidget {
   @override
   _showbenefitState createState() => _showbenefitState();
+  int benefitid;
+  String title;
+  int price;
+  int date;
+  String note;
+  showbenefit({this.title,this.price,this.note,this.benefitid,this.date});
 }
 
 class _showbenefitState extends State<showbenefit> {
@@ -20,15 +26,19 @@ class _showbenefitState extends State<showbenefit> {
           children: <Widget>[
             ListTile(
               leading: Text('รายการ    '),
-              title: Text('ฟิตเนส'),
+              title: Text(widget.title),
             ),
             ListTile(
               leading: Text('มูลค่า       '),
-              title: Text('2200'),
+              title: Text(widget.price.toString()),
+            ),
+            ListTile(
+              leading: Text('วันที่       '),
+              title: Text(Moment(widget.date).format('dd/MMM/yyyy') ,),
             ),
             ListTile(
               leading: Text('หมายเหตุ '),
-              title: Text('2200/เดือน'),
+              title: Text(widget.note),
             ),
           ],
         ),

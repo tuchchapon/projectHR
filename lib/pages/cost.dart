@@ -82,17 +82,22 @@ class _costState extends State<cost>  {
 
 
       body: new ListView(children: <Widget>[
-        Row(children: <Widget>[
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
           Text('   ค่าใช้จ่ายทั่วไป'),
-          IconButton(icon: Icon(Icons.add), onPressed: (){
+          IconButton(
+            icon: Icon(Icons.add), onPressed: (){
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => addfixcost(id: widget.id,)
               ),
             );
-          },)
-        ],),
+          },
+          tooltip: 'เพิ่มค่าใช้จ่ายทั่วไป',)
+        ],
+        ),
+        Divider(),
         Container(
             margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
             child: Column( children: fixisTrue == 0 ? [
@@ -100,7 +105,9 @@ class _costState extends State<cost>  {
             ] : detailfixcost()
             )
         ),
-        Row(children: <Widget>[
+        Divider(),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
           Text('   ค่าใช้จ่ายอื่นๆ'),
           IconButton(icon: Icon(Icons.add), onPressed: (){
             Navigator.push(
@@ -109,8 +116,10 @@ class _costState extends State<cost>  {
                   builder: (context) => addcost(id: widget.id,)
               ),
             );
-          })
+          }
+         ,tooltip: 'เพื่มค่าใช้จ่ายอื่นๆ', )
         ],),
+        Divider(),
         Container(
             margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
             child: Column( children: fixisTrue == 0 ? [

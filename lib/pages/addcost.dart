@@ -14,8 +14,8 @@ class addcost extends StatefulWidget {
 class _addcostState extends State<addcost> {
   String addit_title;
   String addit_price;
-  var timestamp;
-  int timestampa;
+  var timestamp = DateTime.now().millisecondsSinceEpoch;
+  var timestampa;
   String adddate = 'วว/ดด/ปปปป';
 
   Future _adddate() async {
