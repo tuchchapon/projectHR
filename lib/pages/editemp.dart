@@ -299,7 +299,7 @@ class _editemp extends State<editemp> {
                         telcon.text, con_namecon.text, con_relationcon.text,
                         con_addresscon.text, con_telcon.text, idbranch);
           print(empid.text);
-           print(idbranch);
+           print(idbranch);Navigator.of(context).pop('/employee');
                   }),
               ]
           ),

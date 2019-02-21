@@ -139,7 +139,7 @@ Widget build(BuildContext context) {
 
       floatingActionButton: FloatingActionButton(
   backgroundColor: buttoncolor,
-      onPressed: (){Navigator.of(context).pushNamed('/addmember');},
+      onPressed: (){Navigator.of(context).pushNamed('/addemp');},
     child: Icon(Icons.add),)
 
   );
@@ -174,35 +174,37 @@ class Detailemp extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return Container(
+      child: ListTile(
       title: Text('${empname}(${empnickname})'),
       subtitle: Stack(
         children: <Widget>[
           Container(
-              child: Column(children: <Widget>[
-            Row(children: <Widget>[
-              Text('เบอร์ติดต่อ : '+emptel)
-            ],),
-            Row(children: <Widget>[
-              Text('ที่อยู่ : '+emp_address)
-            ],)
-          ],
-          )
-          ,padding: EdgeInsets.only(bottom: 5),)
+            child: Column(
+              children: <Widget>[Row(
+                children: <Widget>[
+                  Text('เบอร์ติดต่อ : '+emptel)
+                ],),
+              Row(children: <Widget>[
+                Text('ที่อยู่ : '+emp_address)
+              ],)
+              ],
+            )
+            ,padding: EdgeInsets.only(bottom: 5),)
         ],
       ), //subtitle: Text(branchaddress),
       trailing: Stack(children: <Widget>[
         Column(
           children: <Widget>[
             IconButton(icon: Icon(Icons.edit), onPressed: () {
-      Navigator.push(context,
-        MaterialPageRoute(
-            builder: (context) => editemp(empid: id,empname: empname,empnickname: empnickname,emp_salary: emp_salary.toString(),
-            emp_addrees: emp_address,emp_conname: conname,emp_tel: emptel,emp_con_address: con_address,
-              emp_con_relation: con_relation,emp_con_tel: contel,)
-        ),
-      );
-    },),
+              Navigator.push(context,
+                MaterialPageRoute(
+                    builder: (context) => editemp(empid: id,empname: empname,empnickname: empnickname,emp_salary: emp_salary.toString(),
+                      emp_addrees: emp_address,emp_conname: conname,emp_tel: emptel,emp_con_address: con_address,
+                      emp_con_relation: con_relation,emp_con_tel: contel,)
+                ),
+              );
+            },),
             IconButton(icon: Icon(Icons.delete), onPressed: null)
           ],
         ),
@@ -227,7 +229,7 @@ class Detailemp extends StatelessWidget {
           ),
         );
       },
-    );
+    ),);
 
   }
 

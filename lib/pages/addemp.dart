@@ -5,13 +5,13 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/Branch.dart';
 
-class addmember extends StatefulWidget {
+class addemp extends StatefulWidget {
   @override
-  _addmemberState createState() => new _addmemberState();
+  _addempState createState() => new _addempState();
 
 }
 
-class _addmemberState extends State<addmember> {
+class _addempState extends State<addemp> {
   int choiceloop;
   String _branch = 'กรุณาเลือกตำแหน่ง';
   int idbranch;

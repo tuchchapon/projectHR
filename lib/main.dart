@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         '/project': (BuildContext contrext) => new project(),
         '/cost': (BuildContext contrext) => new cost(),
         '/benefit': (BuildContext contrext) => new benefit(),
-        '/addmember': (BuildContext contrext) => new addmember(),
+        '/addemp': (BuildContext contrext) => new addemp(),
         '/addvacation': (BuildContext contrext) => new addvacation(),
         '/addposition': (BuildContext contrext) => new addposition(),
         '/addbranch': (BuildContext contrext) => new addbranch(),
@@ -82,8 +82,8 @@ class MyApp extends StatelessWidget {
         '/editbranch': (BuildContext contrext) => new editbranch(),
         '/editproject': (BuildContext contrext) => new editproject(),
       },
-    // home: new login(), //first page displayed
-     home: new Home(), //first page displayed
+      // home: new login(), //first page displayed
+       home: new Home(), //first page displayed
     );
   }
 }
