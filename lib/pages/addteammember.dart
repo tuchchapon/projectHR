@@ -1,141 +1,124 @@
 import 'package:flutter/material.dart';
-//import 'addemp.dart';
 import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../model/Position.dart';
+import 'editposition.dart';
+import './empfreetimes.dart';
 
+//import 'listposition.dart';
+//
+
+
+//
 class addteammember extends StatefulWidget {
+
   @override
-  _addteammemberState createState() => _addteammemberState();
+  _addteammemberState createState() => new _addteammemberState();
+  int project_id;
+  addteammember({this.project_id});
 }
 
-enum Answers{Front1,Front2,Front3,Front4,back1,back2,back3,back4,mobile1,mobile2,mobile3,mobile4,design1,design2,design3,design4}
+class _addteammemberState extends State<addteammember>  {
 
-class _addteammemberState extends State<addteammember> {
-  
-  String _member = '';
-void _setValue(String member) => setState(() => _member = member);
-  Future _addmember() async {
-    switch(
-    await showDialog(
-        context: context,
-        child: new SimpleDialog(
-          title: new Text('เลือกตำแหน่ง'),
-          children: <Widget>[
-            Text('        Frontend',style: TextStyle(fontSize: 18),),
-            new SimpleDialogOption(child: new Text('ธัชพล1 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.Front1);},),
-            new SimpleDialogOption(child: new Text('นายธัชพล2 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.Front2);},),
-            new SimpleDialogOption(child: new Text('นายธัชพล3 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.Front3);},),
-            new SimpleDialogOption(child: new Text('นายธัชพล4 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.Front4);},),
-            Text('         Backend',style: TextStyle(fontSize: 18),),
-            new SimpleDialogOption(child: new Text('นางธัชพล5 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.back1);},),
-            new SimpleDialogOption(child: new Text('นางสาวธัชพล6 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.back2);},),
-            new SimpleDialogOption(child: new Text('นางธัชพล7 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.back3);},),
-            new SimpleDialogOption(child: new Text('นางธัชพล8 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.back4);},),
-            Text('         Design',style: TextStyle(fontSize: 18),),
-            new SimpleDialogOption(child: new Text('นางธัชพล9 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.design1);},),
-            new SimpleDialogOption(child: new Text('นางธัชพล10 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.design2);},),
-            new SimpleDialogOption(child: new Text('นางธัชพล11 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.design3);},),
-            new SimpleDialogOption(child: new Text('นางธัชพล12 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.design4);},),
-            Text('         Mobile',style: TextStyle(fontSize: 18),),
-            new SimpleDialogOption(child: new Text('นางธัชพล13 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.mobile1);},),
-            new SimpleDialogOption(child: new Text('นางธัชพล14 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.mobile2);},),
-            new SimpleDialogOption(child: new Text('นางธัชพล15 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.mobile3);},),
-            new SimpleDialogOption(child: new Text('นางธัชพล16 สุธรรมมา'),onPressed: (){Navigator.pop(context, Answers.mobile4);},),
-          ],
-        )
-    )
-    ) {
-      case Answers.Front1:
-        _setValue('ธัชพล สุธรรมมา1');
-        break;
-      case Answers.Front2:
-        _setValue('นายธัชพล สุธรรมมา2');
-        break;
-      case Answers.Front3:
-        _setValue('นางธัชพล สุธรรมมา3');
-        break;
-      case Answers.Front4:
-        _setValue('นางสาวธัชพล สุธรรมมา4');
-        break;
-      case Answers.back1:
-        _setValue('ธัชพล สุธรรมมา5');
-        break;
-      case Answers.back2:
-        _setValue('ธัชพล สุธรรมมา6');
-        break;
-      case Answers.back3:
-        _setValue('ธัชพล สุธรรมมา7');
-        break;
-      case Answers.back4:
-        _setValue('ธัชพล สุธรรมมา8');
-        break;
-      case Answers.design1:
-        _setValue('ธัชพล สุธรรมมา9');
-        break;
-      case Answers.design2:
-        _setValue('ธัชพล สุธรรมมา10');
-        break;
-      case Answers.design3:
-        _setValue('ธัชพล สุธรรมมา11');
-        break;
-      case Answers.design4:
-        _setValue('ธัชพล สุธรรมมา12');
-        break;
-      case Answers.mobile1:
-        _setValue('ธัชพล สุธรรมมา13');
-        break;
-      case Answers.mobile2:
-        _setValue('ธัชพล สุธรรมมา14');
-        break;
-      case Answers.mobile3:
-        _setValue('ธัชพล สุธรรมมา15');
-        break;
-      case Answers.mobile4:
-        _setValue('ธัชพล สุธรรมมา16');
-        break;
-    }
-  }
-void save (){
 
-  }
-
+  // List positionlist;
+  Position listPosition = new Position();
+  int isTrue = 0;
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    getposition();
+  }
+  Future<void> getposition() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/position/datatable',
+        headers: {'authorization': "Bearer "+token});
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+
+    if (response.statusCode == 200) {
+
+      listPosition = new Position.fromJson(jsonResponse);
+      setState(() {
+        this.isTrue = 1;
+      });
+      print('AAAAAA');
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+    // print('print+++++++'+listPosition.data[1].positionName);
+  }
+
+
+//
+//
+//
+  Widget build(BuildContext context){
+    Color buttoncolor = const Color(0xFF4fa2e1);
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
 
     double screenWidth = queryData.size.width;
-    double screenHeight = queryData.size.height;
+    double screenHeight = queryData.size.height*0.4;
+//    print('mylength'+listposition.data.length.toString());
     return new Scaffold(
-        appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
+        appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
+            title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+            actions: <Widget>[
+              new IconButton(icon: new Icon(Icons.search), onPressed: null),
+              //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
+            ]
         ),
-        body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
-          child: new Center(
-            child: new ListView(
-              children: <Widget>[
-                ListTile(
-                  leading: Text('เลือกสมาชิก'),
-                  title: Text(_member,style: TextStyle(fontSize: 12),),
-                  trailing: FlatButton(onPressed: _addmember, child: Text('เลือกสมาชิกในทีม')),
-                ),
-                Divider(color: Colors.grey),
-                ListTile(
-                  leading: Text('ระยะเวลาทำงาน      '),
-                  title: TextField(decoration: InputDecoration.collapsed(hintText: 'ป้อนระยะเวลาทำงาน'),),
-                ),
-                Divider(color: Colors.grey),
-                ListTile(
-                  leading: Text('จำนวน Sprint         '),
-                  title: TextField(decoration: InputDecoration.collapsed(hintText: 'ป้อนจำนวน Sprint'),),
-                ),
-                Divider(color: Colors.grey),
-                RaisedButton(onPressed: save,child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
-            ],
-            ),
-          ),
-        ),
-     // floatingActionButton: RaisedButton(padding: EdgeInsets.fromLTRB(150, 10 /*top*/, 150/*right*/, 10/*bottom*/),onPressed: save,child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
+        body: Container
+          (width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.white,
+          child:  isTrue != 0 ?
+          ListView.builder(
+            itemCount: listPosition.data.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                  child: DetailPosition( id: listPosition.data[index].id,
+                    positionName:listPosition.data[index].positionName ,projectid: widget.project_id,)
+              );
+            },
+          ):Text('Waiting')
 
+          ,),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: buttoncolor,
+          onPressed: (){Navigator.of(context).pushNamed('/addposition');},
+          child: Icon(Icons.add),)
     );
+  }
+
+}
+
+class DetailPosition extends StatelessWidget {
+  //
+
+  int id;
+  int projectid;
+  String positionName;
+
+  DetailPosition({this.id,this.positionName,this.projectid});
+  @override
+  Widget build(BuildContext context) {
+    return Card(child:
+    ListTile(
+      leading: Text(positionName),
+      trailing: IconButton(icon: Icon(Icons.view_list,color: Colors.blue,), onPressed: null),
+      onTap: () {
+        Navigator.push(context,
+          MaterialPageRoute(
+
+              builder: (context) => empfreetimes(project_id: projectid,position_id: id,)
+          ),
+        );
+      },
+    ));
   }
 }

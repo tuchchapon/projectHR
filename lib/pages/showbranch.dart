@@ -115,7 +115,7 @@ class _showbranchState extends State<showbranch> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => cost(id: widget.id,listfixcost: listfixcost,listaddit: listadditcost,),
+                            builder: (context) => cost(id: widget.id,listfixcost: listfixcost,listaddit: listadditcost,getadditcost: getbranchaddit,getfixcost: getbranchfixcost,),
                           ),
                         );
                       },

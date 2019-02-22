@@ -1,0 +1,105 @@
+import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../model/empfreetimes.dart';
+
+class empfreetimes extends StatefulWidget {
+  @override
+  _empfreetimesState createState() => _empfreetimesState();
+  int project_id;
+  int position_id;
+  empfreetimes({this.project_id,this.position_id});
+}
+
+class _empfreetimesState extends State<empfreetimes> {
+
+  @override
+  void initState() {
+    super.initState();
+    getfreetime();
+    print('position id is'+widget.position_id.toString());
+    print('project id is'+widget.project_id.toString());
+  }
+  int loopfreetimes=0;
+  int isTrue =0;
+  Freetime listfreetimes = new Freetime();
+  Future<void> getfreetime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/freetime/emp/${widget.project_id}/${widget.position_id}',
+        headers: {'authorization': "Bearer "+token});
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+   // print(response.body);
+    if (response.statusCode == 200) {
+
+      listfreetimes = new Freetime.fromJson(jsonResponse);
+      setState(() {
+        this.loopfreetimes = listfreetimes.data.length;
+        this.isTrue = 1;
+        print(loopfreetimes);
+        print(isTrue);
+      });
+      print('AAAAAA');
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+    // print('print+++++++'+listPosition.data[1].positionName);
+  }
+
+
+
+  Color colorappbar = const Color(0xFF2ac3fe);
+//  final  Position position;
+  @override
+  Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
+
+    return Scaffold(
+      appBar: AppBar(backgroundColor: colorappbar,
+        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+      ),
+      body: ListView(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+                children: isTrue == 0 ? [
+                  Text('Waiting Data'),
+                ] : detailfreetime()
+            )
+
+
+        ),],
+      )
+
+    );
+  }
+  List<Widget> detailfreetime(){
+    List<Widget> mylist = new List();
+    for(int i = 0; i < this.loopfreetimes ; i++ ){
+      mylist.add(Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            ListTile(title: Text(listfreetimes.data[i].empName),
+              subtitle: Row(children: <Widget>[
+              Text('สถานะ ',style: TextStyle(color: Colors.green),),
+              Text(listfreetimes.data[i].freetime,style: TextStyle(color: Colors.black),),
+
+              ],),),
+            Divider()]
+      )
+      );
+    }
+    return mylist;
+  }
+}
+

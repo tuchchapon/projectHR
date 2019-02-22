@@ -225,7 +225,7 @@ class DetailProject extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
           MaterialPageRoute(
-              builder: (context) => showproject(project_id: id,)
+              builder: (context) => showproject(project_id:id )
           ),
         );
       },

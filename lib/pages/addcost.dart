@@ -8,7 +8,8 @@ class addcost extends StatefulWidget {
   @override
   _addcostState createState() => new _addcostState();
   int id;
-  addcost({this.id});
+  Function getadditcost;
+  addcost({this.id,this.getadditcost});
 }
 
 class _addcostState extends State<addcost> {
@@ -92,7 +93,8 @@ class _addcostState extends State<addcost> {
                   Divider(color: Colors.grey,),
                   RaisedButton(
                     onPressed: (){
-                      Addbranchaddit(addit_title, addit_price, timestamp.toString(), widget.id.toString());},
+                      Addbranchaddit(addit_title, addit_price, timestamp.toString(), widget.id.toString());widget.getadditcost();},
+
                     child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),
                   ),
             ],
@@ -120,7 +122,7 @@ class _addcostState extends State<addcost> {
         headers: {'authorization': "Bearer "+Token},
         body: body);
     print(response);
-    Navigator.of(context).pushReplacementNamed('/branch');
+    Navigator.of(context).pushNamed('/branch');
     final Map<String, dynamic> responseData = await json.decode(
         response.body);
     print(responseData);

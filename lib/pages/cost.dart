@@ -9,14 +9,16 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'editfixcost.dart';
 import 'editbrannaddit.dart';
+import 'branch.dart';
 class cost extends StatefulWidget {
   @override
   _costState createState() => new _costState();
   int id;
   Branchfixcost listfixcost;
   Branchaddit listaddit;
-
-  cost({this.id,this.listfixcost,this.listaddit});
+  Function getadditcost;
+  Function getfixcost;
+  cost({this.id,this.listfixcost,this.listaddit,this.getadditcost,this.getfixcost});
 }
 
 class _costState extends State<cost>  {
@@ -56,6 +58,8 @@ class _costState extends State<cost>  {
     bid.text = widget.id.toString();
     loopfixcost = widget.listfixcost.data.length;
     loopaddit = widget.listaddit.data.length;
+    widget.getfixcost();
+    widget.getadditcost();
   }
 
   Branchfixcost fixcostmanage = new Branchfixcost();
@@ -115,7 +119,7 @@ class _costState extends State<cost>  {
               MaterialPageRoute(
                   builder: (context) => addcost(id: widget.id,)
               ),
-            );
+            ).then((onValue){widget.getadditcost();});
           }
          ,tooltip: 'เพื่มค่าใช้จ่ายอื่นๆ', )
         ],),
