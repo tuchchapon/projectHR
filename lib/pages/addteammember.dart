@@ -31,6 +31,29 @@ class _addteammemberState extends State<addteammember>  {
     super.initState();
     getposition();
   }
+  Future<dynamic> Addposition(position) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    //  print(user);
+    // print(pass);
+    print(position);
+    // print(password);
+    var url = 'http://35.198.219.154:1337/position/create';
+    var body = {
+      'position_name': position,
+    };
+    print(body);
+    http.Response response = await http.post(
+        url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    Navigator.of(context).pushReplacementNamed('/position');
+    final Map<String, dynamic> responseData = await json.decode(
+        response.body);
+    print(responseData);
+    return responseData['code'];
+
+  }
   Future<void> getposition() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
@@ -88,10 +111,7 @@ class _addteammemberState extends State<addteammember>  {
           ):Text('Waiting')
 
           ,),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: buttoncolor,
-          onPressed: (){Navigator.of(context).pushNamed('/addposition');},
-          child: Icon(Icons.add),)
+
     );
   }
 
@@ -115,7 +135,7 @@ class DetailPosition extends StatelessWidget {
         Navigator.push(context,
           MaterialPageRoute(
 
-              builder: (context) => empfreetimes(project_id: projectid,position_id: id,)
+              builder: (context) => empfreetimes(project_id: projectid,position_id: id,positionname: positionName,)
           ),
         );
       },

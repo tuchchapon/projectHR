@@ -10,7 +10,8 @@ class empfreetimes extends StatefulWidget {
   _empfreetimesState createState() => _empfreetimesState();
   int project_id;
   int position_id;
-  empfreetimes({this.project_id,this.position_id});
+  String positionname;
+  empfreetimes({this.project_id,this.position_id,this.positionname});
 }
 
 class _empfreetimesState extends State<empfreetimes> {
@@ -50,7 +51,29 @@ class _empfreetimesState extends State<empfreetimes> {
     }
     // print('print+++++++'+listPosition.data[1].positionName);
   }
+  Future<dynamic> addteammember(position_id,project_id,team_id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    //  print(user);
+    // print(pass);
 
+    // print(password);
+    var url = 'http://35.198.219.154:1337/position/create';
+    var body = {
+
+    };
+    print(body);
+    http.Response response = await http.post(
+        url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    Navigator.of(context).pushReplacementNamed('/position');
+    final Map<String, dynamic> responseData = await json.decode(
+        response.body);
+    print(responseData);
+    return responseData['code'];
+
+  }
 
 
   Color colorappbar = const Color(0xFF2ac3fe);
@@ -68,6 +91,8 @@ class _empfreetimesState extends State<empfreetimes> {
       ),
       body: ListView(
         children: <Widget>[
+          Padding(padding: EdgeInsets.only(top: 10)),
+          Text('    ตำแหน่ง '+widget.positionname,style: TextStyle(fontSize: 16),),
           Container(
             margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
             padding: EdgeInsets.all(16.0),
@@ -94,12 +119,15 @@ class _empfreetimesState extends State<empfreetimes> {
               Text('สถานะ ',style: TextStyle(color: Colors.green),),
               Text(listfreetimes.data[i].freetime,style: TextStyle(color: Colors.black),),
 
-              ],),),
+              ],)
+            //  ,onTap: ,
+            ),
             Divider()]
       )
       );
     }
     return mylist;
   }
+
 }
 

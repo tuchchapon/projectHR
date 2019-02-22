@@ -40,7 +40,6 @@ class _editbranchadditState extends State<editbranchaddit> {
 
       setState(() {
         widget.branch_addit_date = picked.millisecondsSinceEpoch;
-       // adddate = picked.toString();
         print('Time stamp is ${widget.branch_addit_date}');
        // print(adddate);
       });

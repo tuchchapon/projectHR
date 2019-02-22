@@ -122,7 +122,7 @@ class _addcostState extends State<addcost> {
         headers: {'authorization': "Bearer "+Token},
         body: body);
     print(response);
-    Navigator.of(context).pushNamed('/branch');
+    Navigator.of(context).pushNamed('/showbranch');
     final Map<String, dynamic> responseData = await json.decode(
         response.body);
     print(responseData);

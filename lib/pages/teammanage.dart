@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../model/teammember.dart';
 import './addteammember.dart';
-
+import './updatesprint.dart';
 class teammanage extends StatefulWidget {
   @override
   _teammanageState createState() => _teammanageState();
@@ -100,7 +100,6 @@ class _teammanageState extends State<teammanage> {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    onTap: (){Navigator.of(context).pushNamed('/memberstatus');},
                     title: Text(listteam.data[i].empId.empName),
                     subtitle: Column(children: <Widget>[
                       Row(children: <Widget>[
@@ -114,7 +113,16 @@ class _teammanageState extends State<teammanage> {
                       ],)
 
                     ],),
-                  ),
+                 trailing: IconButton(icon: Icon(Icons.edit,color: Colors.blue,), onPressed: (){
+                   Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                       builder: (context) => updatesprint(teamid: listteam.data[i].id,
+                         empid: listteam.data[i].empId.id,
+                         startdate: listteam.data[i].empEndDate.toString(),
+                         enddate: listteam.data[i].empEndDate.toString(),),
+                     ),
+                   );}), ),
                   Divider()
                 ],
               ),
