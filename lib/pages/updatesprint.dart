@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moment/moment.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class updatesprint extends StatefulWidget {
   @override
@@ -17,13 +20,36 @@ class _updatesprintState extends State<updatesprint> {
     super.initState();
     print(widget.teamid);
     print(widget.empid);
-
+  //startdate = widget.startdate;
+ // enddate =widget.enddate;
 
   }
 
-  var timestamp = DateTime.now().millisecondsSinceEpoch;
-  int startdate;
-  int enddate;
+  var startdate ;
+  var enddate ;
+
+  //int startdate;
+  //int enddate;
+  Future<dynamic> setSprint(id,startdate,enddate) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/team/update';
+    var body = {
+      'id': id,
+      'emp_start_date': startdate,
+      'emp_end_date': enddate,
+    };
+    http.Response response = await http.post(
+        url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    final Map<String, dynamic> responseData = await json.decode(
+        response.body);
+    print(responseData);
+    //fetchPost();
+    return responseData['code'];
+
+  }
 
   Future _startdate() async {
     DateTime picked = await showDatePicker(
@@ -34,13 +60,10 @@ class _updatesprintState extends State<updatesprint> {
       lastDate: new DateTime(2022),
 
     ) ;
-
     if(picked != null) {
-
-
       setState(() {
-        timestamp = picked.millisecondsSinceEpoch;
-        print('Time stamp is ${timestamp}');
+        startdate = picked.millisecondsSinceEpoch;
+        print('startdate is ${startdate}');
       });
     };
   }
@@ -58,8 +81,8 @@ class _updatesprintState extends State<updatesprint> {
 
 
       setState(() {
-        timestamp = picked.millisecondsSinceEpoch;
-        print('Time stamp is ${timestamp}');
+        enddate = picked.millisecondsSinceEpoch;
+        print('Time stamp is ${enddate}');
       });
     };
   }
@@ -83,18 +106,20 @@ class _updatesprintState extends State<updatesprint> {
               children: <Widget>[
                 ListTile(
                   leading: Text('วันที่        '),
-                  title: Text(Moment(timestamp).format("dd/MMM/yyyy")),
-                  trailing: IconButton(icon:Icon(Icons.event), onPressed: null),
+                  title: startdate == 0? Text(startdate.toString())
+                      : Text(Moment(startdate).format("dd/MMM/yyyy")) ,
+                  trailing: IconButton(icon:Icon(Icons.event), onPressed: _startdate),
                 ),
                 Divider(color: Colors.grey,),
                 ListTile(
                   leading: Text('วันที่        '),
-                  title: Text(Moment(timestamp).format("dd/MMM/yyyy")),
-                  trailing: IconButton(icon:Icon(Icons.event), onPressed: null),
+                  title: enddate == 0? Text(enddate.toString())
+                  :Text(Moment(enddate).format("dd/MMM/yyyy")),
+                  trailing: IconButton(icon:Icon(Icons.event), onPressed: _enddate),
                 ),
                 RaisedButton(
                   onPressed: (){
-                   // Addbranchaddit(addit_title, addit_price, timestamp.toString(), widget.id.toString());widget.getadditcost();
+                    setSprint(widget.teamid.toString(), startdate.toString(), enddate.toString());
         },
 
                   child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),

@@ -49,6 +49,23 @@ class _teammanageState extends State<teammanage> {
      throw Exception('Failed to load post');
    }
  }
+ Future<dynamic> deletemember(team_id) async{
+   SharedPreferences prefs = await SharedPreferences.getInstance();
+   String Token = prefs.getString("prefsToken");
+   var url = 'http://35.198.219.154:1337/team/delete';
+   var body = {
+     'id': team_id,
+   //  'EmpId': emp_id,
+   };
+
+   print(team_id.toString());
+   http.Response response = await http.post(url,
+       headers: {'authorization': "Bearer "+Token},
+       body: body);
+   //  print(response.body);
+   print(response.body);
+   getteam();
+ }
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +120,11 @@ class _teammanageState extends State<teammanage> {
                     title: Text(listteam.data[i].empId.empName),
                     subtitle: Column(children: <Widget>[
                       Row(children: <Widget>[
+                        Text('ตำแหน่ง  ',style: TextStyle(color: Colors.black),),
+                        Text(listteam.data[i].positionId.positionName,style: TextStyle(color: Colors.green),),
+                      ],),
+                      Row(children: <Widget>[
                         Text('วันที่เริ่มต้น  ',style: TextStyle(color: Colors.black),),
-
                          Text(listteam.data[i].empStartDateFormat,style: TextStyle(color: Colors.blue),),
                       ],),
                       Row(children: <Widget>[
@@ -113,16 +133,32 @@ class _teammanageState extends State<teammanage> {
                       ],)
 
                     ],),
-                 trailing: IconButton(icon: Icon(Icons.edit,color: Colors.blue,), onPressed: (){
-                   Navigator.push(
-                     context,
-                     MaterialPageRoute(
-                       builder: (context) => updatesprint(teamid: listteam.data[i].id,
-                         empid: listteam.data[i].empId.id,
-                         startdate: listteam.data[i].empEndDate.toString(),
-                         enddate: listteam.data[i].empEndDate.toString(),),
-                     ),
-                   );}), ),
+                 trailing:  Column(children: <Widget>[
+                   IconButton(icon: Icon(Icons.edit,color: Colors.blue,), onPressed: (){
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                         builder: (context) => updatesprint(teamid: listteam.data[i].id,
+                             empid: listteam.data[i].empId.id,
+                             startdate: listteam.data[i],
+                             enddate: listteam.data[i].empEndDate),
+                       ),
+                     );}
+                   ),
+                   IconButton(icon: Icon(Icons.delete,color: Colors.blue,),
+                       ///ลบสมาชิกทีม
+
+                       onPressed: (){
+                     deletemember(listteam.data[i].id.toString());
+                     print(widget.team_id);
+                     print(widget.project_id);
+
+                   //  print(listteam.data[i].empId);
+                   }
+                   ),
+
+                 ]
+                ,)),
                   Divider()
                 ],
               ),

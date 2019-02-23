@@ -1,186 +1,299 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import '../model/Position.dart';
-import 'position.dart';
+import 'package:moment/moment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../model/projectmanage.dart';
 
-
-
-//
 class editproject extends StatefulWidget {
   @override
   _editprojectState createState() => new _editprojectState();
-  int id;
-  String projectname;
-  String costomername;
-  editproject({this.id,this.projectname,this.costomername});
 
+  int projectid;
 
-
+  editproject({this.projectid});
 }
-
 class _editprojectState extends State<editproject> {
+
+
   @override
   void initState() {
     super.initState();
     print('++++++++++++++++');
-    branchAddcon.text = widget.costomername;
-    idcon.text = widget.id.toString();
-    branchnamecon.text = widget.projectname;
+    getprojectdata();
+
+
+  }
+  final projectnamecon = TextEditingController();
+  final cus_namecon = TextEditingController();
+  final startdatecon = TextEditingController();
+  final enddatecon = TextEditingController();
+  final teamnamecon = TextEditingController();
+  final notecon = TextEditingController();
+  Project listProject = Project();
+  int projectisTrue = 0;
+  Future<void> getprojectdata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/projectmanage/${widget.projectid}/view',
+      headers: {'authorization': "Bearer "+token},);
+     print(response.body);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    listProject = new Project.fromJson(jsonResponse);
+    setState(() {
+      projectisTrue = 1;
+      projectnamecon.text = listProject.data.projectName;
+      cus_namecon.text = listProject.data.projectCostomerName;
+      startdatecon.text = listProject.data.projectStartDateFormat;
+      enddatecon.text = listProject.data.projectEndDateFormat;
+      teamnamecon.text = listProject.data.projectTeamName;
+      notecon.text = listProject.data.projectNote;
+    });
+    //  print(listfixcost.data[0].fixcostBranchId.id.toString());
+
+    if (response.statusCode == 200) {
+
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
+  Future<dynamic> updateproject(projectid,projectname,customer_name,startdate,enddate,teamname,note) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/projectmanage/update';
+    var body = {
+      'id' :projectid,
+      'project_name': projectname,
+      'project_costomer_name': customer_name,
+      'project_start_date': startdate,
+      'project_end_date': enddate,
+      'project_team_name' : teamname,
+      'project_note': note,
+    };
+    print(body);
+    http.Response response = await http.post(
+        url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    Navigator.of(context).pushReplacementNamed('/project');
+    final Map<String, dynamic> responseData = await json.decode(
+        response.body);
+    print(responseData);
+    return responseData['code'];
+
   }
 
+  Future _startday() async {
+    DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2020)
+    );
+    if(picked != null){
+      setState(() {
+        listProject.data.projectStartDate = picked.millisecondsSinceEpoch;
+        print(listProject.data.projectStartDate);
+      });
 
-  String positionName;
-  final branchnamecon = TextEditingController();
-  final branchAddcon = TextEditingController();
-  final idcon = TextEditingController();
-  @override
+    }
+  }
+
+  Future _endday() async {
+    DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2020)
+    );
+    // picked.millisecondsSinceEpoch;
+    if(picked != null){
+      setState(() {
+        listProject.data.projectEndDate = picked.millisecondsSinceEpoch;
+
+      });
+    }
+  }
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        title: Text('แก้ไขข้อมูล'),
+    Color buttoncolor = const Color(0xFF4fa2e1);
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height;
+    return new Scaffold(
+      appBar: new AppBar(backgroundColor: colorappbar,
+        title: new Text('แก้ไขโปรเจ็ค',style:TextStyle(color: Colors.brown[500]),),
       ),
-      body: new Container(
-        margin: EdgeInsets.all(10),
-        child: new Center(
-          child: new ListView(
-              children: <Widget>[
-                ListTile(
-                  leading: Text('ตำแหน่ง'),
-                  title: TextField(
-                    //     controller: myController,
-                    decoration: InputDecoration.collapsed(
 
-                        hintText: branchnamecon.text),
-                    onChanged: (String value) {
-                      //  myController.text = value;
-                      // print('ID = ${}');
-                    },
-                    controller: branchnamecon,
-                  ),
-                ),
-                Divider() ,
-                ListTile(
-                  leading: Text('ที่อยู่'),
-                  title: TextField(
-                    //     controller: myController,
-                    decoration: InputDecoration.collapsed(
+      body: ListView(children: <Widget>[
 
-                        hintText: branchAddcon.text),
-                    onChanged: (String value) {
-                      //  myController.text = value;
-                      // print('ID = ${}');
-                    },
-                    controller: branchAddcon,
+        Container(
+            width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
+            child: projectisTrue != 0?  Center(
+              child: new ListView(
+                children: <Widget>[
+                  ListTile(
+                    leading: Text('ชื่อโปรเจค     '),
+                    title: TextField(
+                      onChanged: (String projectinput) {
+                        projectnamecon.text  = projectinput;
+                        print(projectnamecon.text);
+                      },
+                      controller: projectnamecon,
+                      decoration: InputDecoration.collapsed(hintText: 'ป้อนโปรเจค'),
+                    ),
                   ),
-                ),
-                //  Text(_position),
-                //   new Text(_position),
-                Divider(color: Colors.grey,),
-                RaisedButton(onPressed: (){
-                  Updatebranch(idcon.text, branchnamecon.text,branchAddcon.text);
-                  print(idcon);
-                  print(branchnamecon);
-                  Navigator.of(context).pushReplacementNamed('/branch');
-                },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
-              ]
-          ),
+                  Divider(color: Colors.grey),
+                  ListTile(
+                    leading: Text('ลูกค้า          '),
+                    title: TextField(
+                      onChanged: (String cus_input) {
+                        cus_namecon.text  = cus_input;
+                        print(cus_namecon.text);
+                      },
+                      controller: cus_namecon,
+                      decoration: InputDecoration.collapsed(hintText: 'ป้อนชื่อลูกค้า'),),
+                  ),
+                  Divider(color: Colors.grey),
+                  ListTile(
+                    leading: Text('วันเริ่มต้น     '),
+                    title: Text(Moment(listProject.data.projectStartDate).format('dd/MMM/yyyy')),
+                    trailing: IconButton(icon:Icon(Icons.event), onPressed: _startday),
+                  ),
+                  Divider(color: Colors.grey),
+                  ListTile(
+                    leading: Text('วันเสร็จสิ้น    '),
+                    title: Text(Moment(listProject.data.projectEndDate).format('dd/MMM/yyyy')),
+                    trailing: IconButton(icon:Icon(Icons.event), onPressed: _endday),
+                  ),
+                  Divider(color: Colors.grey),
+                  ListTile(
+                    leading: Text('ทีมรับผิดชอบ'),
+                    title: TextField(
+                      onChanged: (String teaminput) {
+                        teamnamecon.text  = teaminput;
+                        print(teamnamecon.text);
+                      },
+                      controller: teamnamecon,
+                      decoration: InputDecoration.collapsed(hintText: 'ป้อนทีมรับผิดชอบ'),),
+                  ),
+                  Divider(color: Colors.grey),
+                  ListTile(
+                    leading: Text('หมายเหตุ      '),
+                    title: TextField(
+                      onChanged: (String noteinput) {
+                        notecon.text  = noteinput;
+                        print(notecon.text);
+                      },
+                      controller: notecon,
+                      decoration: InputDecoration.collapsed(hintText: 'ระบุหมายเหตุ'),),
+                  ),
+                  Divider(color: Colors.grey),
+                  RaisedButton(onPressed: (){
+                  //  print(widget.projectid,);
+                  //  print(projectnamecon.text);
+                  //  print(cus_namecon.text);
+                    //   print(listProject.data.projectStartDate);
+                    //    print(listProject.data.projectEndDate);
+                //    print(teamnamecon.text);
+                //    print(notecon.text);
+                    updateproject(widget.projectid.toString(), projectnamecon.text,
+                        cus_namecon.text, listProject.data.projectStartDate.toString(),
+                        listProject.data.projectEndDate.toString(),
+                        teamnamecon.text, notecon.text);
+                  },child:Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,),
+                ],
+              ),
+            )
+                : Text ('no data')
         ),
-      ),
+      ],)
     );
   }
-}
 
-//
-
-Future<dynamic> Updatebranch(id,branchname,branchAdd) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String Token = prefs.getString("prefsToken");
-  var url = 'http://35.198.219.154:1337/branch/update';
-  var body = {
-    'id': id,
-    'branch_name': branchname,
-    'branch_address': branchAdd,
-
-  };
-  print(body);
-  http.Response response = await http.post(
-      url,
-      headers: {'authorization': "Bearer "+Token},
-      body: body);
-  final Map<String, dynamic> responseData = await json.decode(
-      response.body);
-  print(responseData);
-  return responseData['code'];
-
-}
-//
-/*
-
- */
-//
-String validateName(String value) {
-  Pattern pattern =
-      '[a-zA-Zก-ฮ1-9]';
-  RegExp regex = new RegExp(pattern);
-  if (value.length < 1) {
-    return 'กรุณาป้อนตำแหน่ง';
-  } else if (!regex.hasMatch(value)) {
-    return 'รูปแบบไม่ถูกต้อง';
-  }
-  else
-    return null;
 }
 /*
-int id;
-String positionName;
-Positiondetail({this.id,this.positionName,});
-
-
-Color colorappbar = const Color(0xFF2ac3fe);
-//  final  Position position;
-String position;
-@override
-Widget build(BuildContext context) {
-  MediaQueryData queryData = MediaQuery.of(context);
-
-  double screenWidth = queryData.size.width;
-  double screenHeight = queryData.size.height;
-
-  return new Container(
-    height: screenHeight,
-    width: screenWidth,
-    margin: EdgeInsets.all(10),
-    child: new Center(
-      child: new ListView(
-          children: <Widget>[
-            ListTile(
-              leading: Text('ตำแหน่ง'),
-              title: TextField(
-                //     controller: myController,
-                decoration: InputDecoration.collapsed(
-                    hintText: 'ป้อนตำแหน่ง'),
-                onChanged: (String value) {
-                  position = value;
-                  print(position);
-                },
+new Container(
+          width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
+        child: projectisTrue != 0?  Center(
+          child: new ListView(
+            children: <Widget>[
+              ListTile(
+                leading: Text('ชื่อโปรเจค     '),
+                title: TextField(
+                  onChanged: (String projectinput) {
+                    projectnamecon.text  = projectinput;
+                    print(projectnamecon.text);
+                  },
+                  controller: projectnamecon,
+                  decoration: InputDecoration.collapsed(hintText: 'ป้อนโปรเจค'),
+                ),
               ),
-            ),
-            //  Text(_position),
-            //   new Text(_position),
-            Divider(color: Colors.grey,),
-            RaisedButton(onPressed: () {
-              Updateposition(id, position);
-              print(position);
-            },
-              child: Text('บันทึก', style: TextStyle(color: Colors.white),),
-              color: Colors.green,)
-          ]
+              Divider(color: Colors.grey),
+              ListTile(
+                leading: Text('ลูกค้า          '),
+                title: TextField(
+                  onChanged: (String cus_input) {
+                    cus_namecon.text  = cus_input;
+                    print(cus_namecon.text);
+                  },
+                  controller: cus_namecon,
+                  decoration: InputDecoration.collapsed(hintText: 'ป้อนชื่อลูกค้า'),),
+              ),
+              Divider(color: Colors.grey),
+              ListTile(
+                leading: Text('วันเริ่มต้น     '),
+                title: Text(listProject.data.projectStartDateFormat),
+                trailing: IconButton(icon:Icon(Icons.event), onPressed: null),
+              ),
+              Divider(color: Colors.grey),
+              ListTile(
+                leading: Text('วันเสร็จสิ้น    '),
+                title: Text(Moment(listProject.data.projectEndDateFormat).format('dd/MMM/yyyy')),
+                trailing: IconButton(icon:Icon(Icons.event), onPressed: null),
+              ),
+              Divider(color: Colors.grey),
+              ListTile(
+                leading: Text('ทีมรับผิดชอบ'),
+                title: TextField(
+                  onChanged: (String teaminput) {
+                    projectnamecon.text  = teaminput;
+                    print(projectnamecon.text);
+                  },
+                  controller: projectnamecon,
+                  decoration: InputDecoration.collapsed(hintText: 'ป้อนทีมรับผิดชอบ'),),
+              ),
+              Divider(color: Colors.grey),
+              ListTile(
+                leading: Text('หมายเหตุ      '),
+                title: TextField(
+                  onChanged: (String noteinput) {
+                    notecon.text  = noteinput;
+                    print(notecon.text);
+                  },
+                  controller: notecon,
+                  decoration: InputDecoration.collapsed(hintText: 'ระบุหมายเหตุ'),),
+              ),
+              Divider(color: Colors.grey),
+              RaisedButton(onPressed: (){
+                print(widget.projectid,);
+                print(projectnamecon.text);
+                print(cus_namecon.text);
+             //   print(listProject.data.projectStartDate);
+            //    print(listProject.data.projectEndDate);
+                print(teamnamecon.text);
+                print(notecon.text);
+             //   updateproject(widget.projectid.toString(), projectnamecon.text, customer_namecon.text,
+             //       widget.startdate.toString(), widget.enddate.toString(), teamnamecon.text, notecon.text);
+              },child:Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,),
+            ],
+          ),
+        )
+        : Text ('no data')
       ),
-    ),
-  );
-}
-*/
+ */

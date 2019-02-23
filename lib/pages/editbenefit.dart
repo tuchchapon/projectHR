@@ -26,14 +26,6 @@ class _editbenefitState extends State<editbenefit> {
      pricecon.text = widget.price.toString();
      datecon.text = widget.date.toString();
    notecon.text = widget.note;
-   print('++++++++++++1234');
-    print(titlecon.text);
-    print(pricecon.text);
-    print(datecon.text);
-    print(notecon.text);
-    print(widget.empid.toString());
-    print(widget.benefitid);
-    print('+++++++++++1234');
   }
 //  String adddate = 'วว/ดด/ปปปป';
   String benefit_title;

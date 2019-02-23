@@ -51,23 +51,22 @@ class _empfreetimesState extends State<empfreetimes> {
     }
     // print('print+++++++'+listPosition.data[1].positionName);
   }
-  Future<dynamic> addteammember(position_id,project_id,team_id) async {
+  Future<dynamic> addteammember(position_id,project_id,emp_id,) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
-    //  print(user);
-    // print(pass);
 
-    // print(password);
-    var url = 'http://35.198.219.154:1337/position/create';
+    var url = 'http://35.198.219.154:1337/m/team/create';
     var body = {
-
+      'position_id': position_id,
+      'project_id':project_id,
+      'emp_id':emp_id,
     };
     print(body);
     http.Response response = await http.post(
         url,
         headers: {'authorization': "Bearer "+Token},
         body: body);
-    Navigator.of(context).pushReplacementNamed('/position');
+    Navigator.of(context).pushReplacementNamed('/project');
     final Map<String, dynamic> responseData = await json.decode(
         response.body);
     print(responseData);
@@ -120,7 +119,8 @@ class _empfreetimesState extends State<empfreetimes> {
               Text(listfreetimes.data[i].freetime,style: TextStyle(color: Colors.black),),
 
               ],)
-            //  ,onTap: ,
+
+              ,onTap: (){addteammember(widget.position_id.toString(), widget.project_id.toString(), listfreetimes.data[i].empId.toString());}
             ),
             Divider()]
       )

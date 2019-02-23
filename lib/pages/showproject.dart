@@ -6,6 +6,7 @@ import 'dart:async';
 import '../model/projectmanage.dart';
 import '../model/projectaddit.dart';
 import './teammanage.dart';
+import './projectaddit.dart';
 class showproject extends StatefulWidget {
   @override
   _showprojectState createState() => _showprojectState();
@@ -121,17 +122,36 @@ class _showprojectState extends State<showproject> {
                 ],
               )
           ),
-          ListTile(title: Text('ค่าใช้จ่ายเพิ่มเติม'),trailing: FlatButton(onPressed: null,
+          ListTile(title: Text('ค่าใช้จ่ายเพิ่มเติม'),trailing: FlatButton(onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => projectaddit(),
+              ),
+            );
+          },
               child: Text('จัดการค่าใช้จ่าย >')),),
           Container(
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
-              child: Column( children: additisTrue == 0 ? [
+              child: Column( children: additisTrue != 0 ? [
                 Text('ไม่มีข้อมูลค่าใช้จ่าย'),
               ] : detailadddit()
               )
           ),
-       Divider()
+       Divider(),
+          Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
+              child: Row( children: additisTrue != 0 ? [
+                Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+              ] : Row(children: <Widget>[
+                Text('ค่าใช้จ่ายทั้งหมด'),
+                Text(listProject.data.projectTotalCost.toString()),
+              ],)
+              )
+          ),
+          Divider() 
         ],)
       );
     }

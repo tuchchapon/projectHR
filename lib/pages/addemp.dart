@@ -99,7 +99,6 @@ class _addempState extends State<addemp> {
       });
 
     } else {
-
       throw Exception('Failed to load post');
     }
   }

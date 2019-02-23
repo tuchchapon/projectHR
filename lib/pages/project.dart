@@ -209,7 +209,7 @@ class DetailProject extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => editproject(),
+                  builder: (context) => editproject(projectid: id,),
                 ),
               );
             }
