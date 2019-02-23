@@ -126,7 +126,7 @@ class _showprojectState extends State<showproject> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => projectaddit(),
+                builder: (context) => projectaddit(projectid: widget.project_id,projectname: listProject.data.projectName,),
               ),
             );
           },
@@ -134,7 +134,7 @@ class _showprojectState extends State<showproject> {
           Container(
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
-              child: Column( children: additisTrue != 0 ? [
+              child: Column( children: additisTrue == 0 ? [
                 Text('ไม่มีข้อมูลค่าใช้จ่าย'),
               ] : detailadddit()
               )
@@ -143,15 +143,12 @@ class _showprojectState extends State<showproject> {
           Container(
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
-              child: Row( children: additisTrue != 0 ? [
+              child: Row( children: additisTrue == 0 ? [
                 Text('ไม่มีข้อมูลค่าใช้จ่าย'),
-              ] : Row(children: <Widget>[
-                Text('ค่าใช้จ่ายทั้งหมด'),
-                Text(listProject.data.projectTotalCost.toString()),
-              ],)
+              ] : totalcost()
               )
           ),
-          Divider() 
+          Divider()
         ],)
       );
     }
@@ -170,4 +167,17 @@ class _showprojectState extends State<showproject> {
     }
     return mylist;
   }
+  List<Widget> totalcost(){
+    List<Widget> mylist = new List();
+    for(int i = 0; i < 1 ; i++ ){
+      mylist.add(Column(
+          children: <Widget>[
+      Text('ค่าใช้จ่ายทั้งหมด',style: TextStyle(fontSize: 14),),
+        Text(listProject.data.projectTotalCost.toString()+' บาท')
+          ]
+      )
+      );
+    }
+    return mylist;
   }
+}
