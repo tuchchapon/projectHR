@@ -34,6 +34,7 @@ import './pages/homeuser.dart';
 import './pages/editposition.dart';
 import './pages/editbranch.dart';
 import './pages/editproject.dart';
+import './pages/addprojectaddit.dart';
 
 void main() => runApp(new MyApp());
 
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
         '/editposition': (BuildContext contrext) => new editposition(),
         '/editbranch': (BuildContext contrext) => new editbranch(),
         '/editproject': (BuildContext contrext) => new editproject(),
+        '/addprojectaddit': (BuildContext contrext) => new addprojectaddit(),
       },
       home: new login(), //first page displayed
       //   home: new Home(), //first page displayed

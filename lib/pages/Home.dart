@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../model/manday.dart';
+import '../model/project.dart';
 
 
 class Home extends StatefulWidget {
@@ -8,86 +14,83 @@ class Home extends StatefulWidget {
 }
 
 
-
-class Sales {
-  int year;
-  int sales;
-  charts.Color color;
-  Sales(this.year,this.sales,this.color);
-}
-class Emp {
-  int emps;
-  int value;
-  charts.Color color;
-  Emp(this.emps,this.value,this.color);
-}
-
-
-
-
   @override
   Widget build(BuildContext context) {
 
 
 }
 class _HomeState extends State<Home> {
-
-
-
-
-
-  List<Sales> _data;
-  List<charts.Series<Sales, int>> _chartdata;
-
-  List<Emp> _empdata;
-  List<charts.Series<Emp, int>> _chartemp;
-
-
-  void _makeData() {
-    _chartdata = new List<charts.Series<Sales, int>>();
-    _data = <Sales>[
-      new Sales(0,50, charts.MaterialPalette.purple.shadeDefault),
-      new Sales(1,75, charts.MaterialPalette.blue.shadeDefault),
-    ];
-
-    _chartdata.add(new charts.Series(
-      id: 'Sales',
-      data: _data,
-      colorFn: (Sales sales,_) => sales.color,
-      domainFn: (Sales sales,_) => sales.year,
-      measureFn: (Sales sales,_) => sales.sales,
-    ));
-  }
-  void _makeEmp() {
-    _chartemp = new List<charts.Series<Emp, int>>();
-    _empdata = <Emp>[
-      new Emp(0,20, charts.MaterialPalette.purple.shadeDefault),
-      new Emp(1,30, charts.MaterialPalette.blue.shadeDefault),
-      new Emp(2,10, charts.MaterialPalette.yellow.shadeDefault),
-      new Emp(3,70, charts.MaterialPalette.deepOrange.shadeDefault),
-    ];
-
-    _chartemp.add(new charts.Series(
-      id: 'Emps',
-      data: _empdata,
-      colorFn: (Emp emp,_) => emp.color,
-      domainFn: (Emp emp,_) => emp.emps,
-      measureFn: (Emp emp,_) => emp.value,
-    ));
-  }
-
-
   @override
   void initState() {
     super.initState();
-    _makeData();
-    _makeEmp();
+    getmanday();
+    getprojectsell();
+  }
+  ///
+  int loopproject =0;
+  int loopmanday =0;
+  int projectisTrue =0;
+  int mandayisTrue =0;
+  Project listproject = new Project();
+  Manday listmanday = new Manday();
+  ///
+
+  Future<void> getprojectsell() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/projectmanage/datatable',
+        headers: {'authorization': "Bearer "+token});
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    print(jsonResponse);
+
+    if (response.statusCode == 200) {
+
+      // If the call to the server was successful, parse the JSON
+//      return Position.fromJson(json.decode(response.body));
+      listproject = new Project.fromJson(jsonResponse);
+      setState(() {
+        loopproject = listproject.data.length;
+        this.projectisTrue = 1;
+      });
+      print('AAAAAA');
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+    // print('print+++++++'+listPosition.data[1].positionName);
+  }
+
+  Future<void> getmanday() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/manday/emp/datatable',
+        headers: {'authorization': "Bearer "+token});
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    print(jsonResponse);
+
+    if (response.statusCode == 200) {
+
+      // If the call to the server was successful, parse the JSON
+//      return Position.fromJson(json.decode(response.body));
+      listmanday = new Manday.fromJson(jsonResponse);
+      setState(() {
+        loopmanday = listmanday.data.length;
+        this.mandayisTrue = 1;
+      });
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+    // print('print+++++++'+listPosition.data[1].positionName);
   }
 
   @override
   Widget build(BuildContext context) {
 
-// Try reading data from the counter key. If it does not exist, return 0.
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
 
@@ -96,7 +99,7 @@ class _HomeState extends State<Home> {
     return new Scaffold(
       appBar: new AppBar(
           backgroundColor: colorappbar,
-          title: new Text('หน้าหลัก',style:TextStyle(color: Colors.brown[500]),),
+          title: new Text('หน้าหลัก ',style:TextStyle(color: Colors.brown[500]),),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.search,color: Colors.black,), onPressed: null),
           //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
@@ -155,7 +158,194 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: ListView(
+      body:ListView(children: <Widget>[
+        Container(width: screenWidth,margin: EdgeInsets.all(10),padding: EdgeInsets.all(10),
+          child: Column(children: <Widget>[
+
+            Divider(),
+            Row(children: <Widget>[Text('Selling rate',style: TextStyle(fontSize: 20),),Padding(padding: EdgeInsets.only(top: 20,bottom: 20)),
+            IconButton(icon: Icon(Icons.list), onPressed: null,tooltip: 'ดูทั้งหมด',)],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,),
+            Divider(),
+            Container(
+                width: screenWidth,
+                child: Column( children: mandayisTrue == 0 ? [
+                  Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+                ] : detailmanday()
+                )
+            ),
+          Padding(padding: EdgeInsets.only(top: 20,bottom: 20)),
+            Divider(),
+          Row(children: <Widget>[Text('Project  sell',style: TextStyle(fontSize: 20),),Padding(padding: EdgeInsets.only(top: 20,bottom: 20)),] ),
+            Divider(),
+            Container(
+                width: screenWidth,
+                child: Column( children: projectisTrue == 0 ? [
+                  Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+                ] : detailproject()
+                )
+            ),
+            Container(
+                width: screenWidth,
+                child: Column( children: projectisTrue == 0 ? [
+                  Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+                ] : totalsell()
+                )
+            ),
+          ],
+          ),)
+      ],)
+      );
+
+  }
+  List<Widget> totalsell(){
+    List<Widget> mylist = new List();
+    for(int i = 0; i < 1 ; i++ ){
+
+      int totalsell = listproject.allprojectCost *3;
+      mylist.add(Column(
+          children: <Widget>[
+            Row(children: <Widget>[Text('ราคาต้นทุน')],),
+            Padding(padding: EdgeInsets.only(bottom: 5,top: 5)),
+            Row(children: <Widget>[Text(listproject.allprojectCost.toString(),style: TextStyle(color: Colors.red),),],),
+            Padding(padding: EdgeInsets.only(bottom: 5,top: 5)),
+            Row(children: <Widget>[Text('ราคาขายทั้งหมด'),],),
+            Padding(padding: EdgeInsets.only(bottom: 5,top: 5)),
+            Row(children: <Widget>[Text(totalsell.toString(),style: TextStyle(color: Colors.green),),],),
+            Divider()
+
+ ]
+
+      )
+      );
+    }
+    return mylist;
+  }
+  List<Widget> detailproject(){
+    List<Widget> mylist = new List();
+    for(int i = 0; i < loopproject ; i++ ){
+      double sellingrate = listproject.data[i].projectTotalCost*3;
+      mylist.add(Column(
+          children: <Widget>[
+
+            Row(children: <Widget>[Text(listproject.data[i].projectName),],),
+            Row(children: <Widget>[Text('ลูกค้า '),Text(listproject.data[i].projectCostomerName),],),
+            Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[
+              Text('ราคาต้นทุน :  '),
+              Text(listproject.data[i].projectTotalCost.toString(),style: TextStyle(color: Colors.red),),
+              Text('   บาท')
+            ],
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[
+              Text('ราคาขาย : '),
+              Text(sellingrate.toString(),style: TextStyle(color: Colors.green),),
+              Text('   บาท')
+            ],),
+            Divider()
+          ]
+
+      )
+      );
+    }
+    return mylist;
+  }
+  List<Widget> detailmanday(){
+    List<Widget> mylist = new List();
+    for(int i = 0; i < 5 ; i++ ){
+      mylist.add(Column(
+          children: <Widget>[
+
+             Row(children: <Widget>[Text(listmanday.data[i].empName),],),
+            Row(children: <Widget>[
+              Text(listmanday.data[i].selling.toString(),style: TextStyle(color: Colors.green),),
+              Text('  บาท/วัน')
+            ],),
+              Divider()
+               ]
+
+      )
+      );
+    }
+    return mylist;
+  }
+}
+
+
+/**
+    Container(
+    padding: EdgeInsets.all(10),
+    margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
+    child: Row( children: additisTrue == 0 ? [
+    Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+    ] : totalcost()
+    )
+    ),
+ */
+/*
+
+class Sales {
+  int year;
+  int sales;
+  charts.Color color;
+  Sales(this.year,this.sales,this.color);
+}
+class Emp {
+  int emps;
+  int value;
+  charts.Color color;
+  Emp(this.emps,this.value,this.color);
+}
+
+
+  List<Sales> _data;
+  List<charts.Series<Sales, int>> _chartdata;
+
+  List<Emp> _empdata;
+  List<charts.Series<Emp, int>> _chartemp;
+
+
+  void _makeData() {
+    _chartdata = new List<charts.Series<Sales, int>>();
+    _data = <Sales>[
+      new Sales(0,50, charts.MaterialPalette.purple.shadeDefault),
+      new Sales(1,75, charts.MaterialPalette.blue.shadeDefault),
+    ];
+
+    _chartdata.add(new charts.Series(
+      id: 'Sales',
+      data: _data,
+      colorFn: (Sales sales,_) => sales.color,
+      domainFn: (Sales sales,_) => sales.year,
+      measureFn: (Sales sales,_) => sales.sales,
+    ));
+  }
+  void _makeEmp() {
+    _chartemp = new List<charts.Series<Emp, int>>();
+    _empdata = <Emp>[
+      new Emp(0,20, charts.MaterialPalette.purple.shadeDefault),
+      new Emp(1,30, charts.MaterialPalette.blue.shadeDefault),
+      new Emp(2,10, charts.MaterialPalette.yellow.shadeDefault),
+      new Emp(3,70, charts.MaterialPalette.deepOrange.shadeDefault),
+    ];
+
+    _chartemp.add(new charts.Series(
+      id: 'Emps',
+      data: _empdata,
+      colorFn: (Emp emp,_) => emp.color,
+      domainFn: (Emp emp,_) => emp.emps,
+      measureFn: (Emp emp,_) => emp.value,
+    ));
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _makeData();
+    _makeEmp();
+  }
+//
+ListView(
         children: <Widget>[
           Column(
         children: <Widget>[
@@ -311,15 +501,11 @@ class _HomeState extends State<Home> {
             subtitle: Text('44000',style: TextStyle(color: Colors.green),),
           ),
           Divider(),
-          
+
       ],
           )
-      );
 
-  }
-}
-
-/*
+//
  ListView(
         children: <Widget>[Container(color: Colors.black,height: screenHeight,width: screenWidth,margin: EdgeInsets.all(5),
               child: new Column(

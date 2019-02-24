@@ -22,7 +22,6 @@ class cost extends StatefulWidget {
 }
 
 class _costState extends State<cost>  {
-
 //
   Future<dynamic> deletefix(id) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -158,7 +157,7 @@ class _costState extends State<cost>  {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             ListTile(title: Text(widget.listfixcost.data[i].fixcostTitle,),
-              subtitle: Text(widget.listfixcost.data[i].fixcostPrice.toString()+'\$'),
+              subtitle: Text(widget.listfixcost.data[i].fixcostPrice.toString()+' \฿',style: TextStyle(color: Colors.green),),
               onTap: (){
                 Navigator.push(
                   context,
@@ -218,7 +217,7 @@ class _costState extends State<cost>  {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
           ListTile(title:  Text(widget.listaddit.data[i].branchAdditTitle),
-          subtitle: Text(widget.listaddit.data[i].branchAdditPrice.toString()+'\$'),
+          subtitle: Text(widget.listaddit.data[i].branchAdditPrice.toString()+' \฿',style: TextStyle(color: Colors.green),),
             onTap: (){
               Navigator.push(
                 context,

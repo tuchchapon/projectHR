@@ -160,7 +160,7 @@ class _showbranchState extends State<showbranch> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(listfixcost.data[i].fixcostTitle,style: TextStyle(color: Colors.grey),),
-            Text(listfixcost.data[i].fixcostPrice.toString()+' \$',style: TextStyle(color: Colors.grey),)
+            Text(listfixcost.data[i].fixcostPrice.toString()+' \฿',style: TextStyle(color: Colors.green),)
           ]
       ));
     }
@@ -173,7 +173,7 @@ class _showbranchState extends State<showbranch> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(listadditcost.data[i].branchAdditTitle,style: TextStyle(color: Colors.grey),),
-            Text(listadditcost.data[i].branchAdditPrice.toString()+' \$',style: TextStyle(color: Colors.grey),)
+            Text(listadditcost.data[i].branchAdditPrice.toString()+' \฿',style: TextStyle(color: Colors.green),)
           ]
       )
       );

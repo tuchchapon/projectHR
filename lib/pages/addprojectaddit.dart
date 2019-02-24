@@ -7,8 +7,8 @@ class addprojectaddit extends StatefulWidget {
   @override
   _addprojectadditState createState() => _addprojectadditState();
   int projectid;
-  String projectname;
-  addprojectaddit({this.projectid,this.projectname});
+
+  addprojectaddit({this.projectid});
 
 }
 
@@ -16,9 +16,6 @@ class _addprojectadditState extends State<addprojectaddit> {
   String addit_title;
   String addit_price;
   var timestamp = DateTime.now().millisecondsSinceEpoch;
-  var timestampa;
-  String adddate = 'วว/ดด/ปปปป';
-
   Future _adddate() async {
     DateTime picked = await showDatePicker(
       context: context,
@@ -27,16 +24,16 @@ class _addprojectadditState extends State<addprojectaddit> {
       firstDate: new DateTime(2018),
       lastDate: new DateTime(2022),
 
-    ) ;
+    );
 
     if(picked != null) {
 
 
       setState(() {
         timestamp = picked.millisecondsSinceEpoch;
-        adddate = picked.toString();
+      //  adddate = picked.toString();
         print('Time stamp is ${timestamp}');
-        print(adddate);
+      //  print(adddate);
       });
     };
   }
@@ -93,7 +90,7 @@ class _addprojectadditState extends State<addprojectaddit> {
                 Divider(color: Colors.grey,),
                 RaisedButton(
                   onPressed: (){
-                    //   Addbranchaddit(addit_title, addit_price, timestamp.toString(), widget.id.toString());widget.getadditcost();
+          Addprojectaddit(addit_title, addit_price, timestamp.toString(), widget.projectid.toString());
                   },
 
                   child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),
@@ -104,17 +101,17 @@ class _addprojectadditState extends State<addprojectaddit> {
       ),
     );
   }
-  Future<dynamic> Addbranchaddit(title ,price,adddate,branchid) async {
+  Future<dynamic> Addprojectaddit(title ,price,adddate,project_id ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
 
     print(title);
-    var url = 'http://35.198.219.154:1337/branchaddit/create';
+    var url = 'http://35.198.219.154:1337/projectaddit/create';
     var body = {
-      'branch_addit_branch_id': branchid,
-      'branch_addit_title': title,
-      'branch_addit_price': price,
-      'branch_addit_date' : adddate,
+      'project_id': project_id,
+      'project_addit_title': title,
+      'project_addit_price': price,
+      'project_addit_date' : adddate,
 
     };
     print('Body is ${body}');
@@ -123,7 +120,7 @@ class _addprojectadditState extends State<addprojectaddit> {
         headers: {'authorization': "Bearer "+Token},
         body: body);
     print(response);
-    Navigator.of(context).pushNamed('/showbranch');
+    Navigator.of(context).pushNamed('/project');
     final Map<String, dynamic> responseData = await json.decode(
         response.body);
     print(responseData);

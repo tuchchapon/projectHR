@@ -2,13 +2,24 @@
 //
 //     final project = projectFromJson(jsonString);
 
+import 'dart:convert';
+
+Project projectFromJson(String str) {
+  final jsonData = json.decode(str);
+  return Project.fromJson(jsonData);
+}
+
+String projectToJson(Project data) {
+  final dyn = data.toJson();
+  return json.encode(dyn);
+}
 
 class Project {
   int draw;
   int recordsTotal;
   int recordsFiltered;
   List<Data> data;
-  double allprojectCost;
+  int allprojectCost;
 
   Project({
     this.draw,
@@ -18,18 +29,21 @@ class Project {
     this.allprojectCost,
   });
 
-  factory Project.fromJson(Map<String, dynamic> parsedJson){
-  var list = parsedJson['data'] as List;
-  print(list.runtimeType);
-  List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
+  factory Project.fromJson(Map<String, dynamic> json) => new Project(
+    draw: json["draw"],
+    recordsTotal: json["recordsTotal"],
+    recordsFiltered: json["recordsFiltered"],
+    data: new List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+    allprojectCost: json["allproject_cost"],
+  );
 
-    return Project(
-    draw: parsedJson['draw'],
-    recordsTotal: parsedJson['recordsTotal'],
-    recordsFiltered: parsedJson['recordsFiltered'],
-      data: dataList
-    );
-}
+  Map<String, dynamic> toJson() => {
+    "draw": draw,
+    "recordsTotal": recordsTotal,
+    "recordsFiltered": recordsFiltered,
+    "data": new List<dynamic>.from(data.map((x) => x.toJson())),
+    "allproject_cost": allprojectCost,
+  };
 }
 
 class Data {
@@ -39,84 +53,35 @@ class Data {
   String projectTeamName;
   int projectStartDate;
   String projectStartDateFormat;
+  double projectTotalCost;
 
   Data({
-
     this.id,
     this.projectName,
     this.projectCostomerName,
     this.projectTeamName,
     this.projectStartDate,
     this.projectStartDateFormat,
-
+    this.projectTotalCost,
   });
 
-  factory Data.fromJson(Map<String, dynamic> parsedJson){
-    return Data(
-    id: parsedJson["id"],
-    projectName: parsedJson["project_name"],
-    projectCostomerName: parsedJson["project_costomer_name"],
-        projectTeamName: parsedJson["project_team_name"],
-      projectStartDate: parsedJson["project_start_date"],
-      projectStartDateFormat:  parsedJson["projectStartDateFormat"],
-
+  factory Data.fromJson(Map<String, dynamic> json) => new Data(
+    id: json["id"],
+    projectName: json["project_name"],
+    projectCostomerName: json["project_costomer_name"],
+    projectTeamName: json["project_team_name"],
+    projectStartDate: json["project_start_date"],
+    projectStartDateFormat: json["project_start_date_format"],
+    projectTotalCost: json["project_total_cost"].toDouble(),
   );
-    }
-      }
-/*
 
-class Position {
-  int draw;
-  int recordsTotal;
-  int recordsFiltered;
-  List<Data> data;
-
-  Position({
-    this.draw,
-    this.recordsTotal,
-    this.recordsFiltered,
-    this.data,
-  });
-  factory Position.fromJson(Map<String, dynamic> parsedJson){
-
-    var list = parsedJson['data'] as List;
-    print(list.runtimeType);
-    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
-
-
-    return Position(
-        draw: parsedJson['draw'],
-        recordsTotal: parsedJson['recordsTotal'],
-        recordsFiltered: parsedJson['recordsFiltered'],
-        data: dataList
-    );
-  }
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "project_name": projectName,
+    "project_costomer_name": projectCostomerName,
+    "project_team_name": projectTeamName,
+    "project_start_date": projectStartDate,
+    "project_start_date_format": projectStartDateFormat,
+    "project_total_cost": projectTotalCost,
+  };
 }
-
-
-class Data {
-  int createdAt;
-  int updatedAt;
-  int id;
-  String positionName;
-  int status;
-
-  Data({
-    this.createdAt,
-    this.updatedAt,
-    this.id,
-    this.positionName,
-    this.status,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> parsedJson){
-    return Data(
-      createdAt: parsedJson["createdAt"],
-      updatedAt: parsedJson["updatedAt"],
-      id: parsedJson["id"],
-      positionName: parsedJson["position_name"],
-      status: parsedJson["status"],
-    );
-  }
-}
-*/

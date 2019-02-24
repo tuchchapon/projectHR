@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-//import 'listposition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/project.dart';
 import './editproject.dart';

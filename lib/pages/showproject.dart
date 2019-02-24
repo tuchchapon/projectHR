@@ -160,7 +160,7 @@ class _showprojectState extends State<showproject> {
           children: <Widget>[
            ListTile(title: Text(listaddit.data[i].projectAdditTitle,style: TextStyle(fontSize: 12),),
               subtitle: Text(listaddit.data[i].projectAdditDateFormat,style: TextStyle(fontSize: 12)),
-              trailing: Text(listaddit.data[i].projectAdditPrice.toString()+' \$',style: TextStyle(fontSize: 12),))
+              trailing: Text(listaddit.data[i].projectAdditPrice.toString()+' \฿',style: TextStyle(fontSize: 12),))
           ]
       )
       );
