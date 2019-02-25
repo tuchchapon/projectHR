@@ -206,7 +206,7 @@ class DetailPosition extends StatelessWidget {
       child: new Container(
         color: Colors.white,
         child: new ListTile(
-          title: new Text(positionName),
+          title: new Row(children: <Widget>[Icon(Icons.assignment,color: Colors.green,),Text(positionName)],),
           onTap: () {
             Navigator.push(context,
               MaterialPageRoute(
@@ -217,7 +217,7 @@ class DetailPosition extends StatelessWidget {
       ),
       secondaryActions: <Widget>[
         new IconSlideAction(
-          caption: 'Edit',
+          caption: 'แก้ไขข้อมูล',
           color: Colors.black45,
           icon: Icons.edit,
              onTap: (){
@@ -230,7 +230,7 @@ class DetailPosition extends StatelessWidget {
              }
         ),
         new IconSlideAction(
-          caption: 'Delete',
+          caption: 'ลบข้อมูล',
           color: Colors.red,
           icon: Icons.delete,
              onTap: () => _showAlert(context, 'ต้องการลบ ${positionName} หรือไม่!')

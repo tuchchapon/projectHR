@@ -203,7 +203,7 @@ class Detailemp extends StatelessWidget {
           child: new Container(
               color: Colors.white,
               child: Card(child: new ListTile(
-                title: new Text(empname+'(${empnickname})'),
+                title: Row(children: <Widget>[Icon(Icons.person,color: Colors.green,),Text(empname+'(${empnickname})')],),
                 subtitle: Column(children: <Widget>[
                   Row(children: <Widget>[
                     Text('เบอร์ติดต่อ   '),
@@ -230,7 +230,7 @@ class Detailemp extends StatelessWidget {
           ),
           secondaryActions: <Widget>[
             new IconSlideAction(
-              caption: 'Position',
+              caption: 'ตำแหน่ง',
               color: Colors.blue,
               icon: Icons.assignment,
               onTap: () {
@@ -241,7 +241,7 @@ class Detailemp extends StatelessWidget {
               },
             ),
             new IconSlideAction(
-              caption: 'benefit',
+              caption: 'สิทธิประโยชน์',
               color: Colors.green,
               icon: Icons.card_giftcard,
               onTap: () {
@@ -252,7 +252,7 @@ class Detailemp extends StatelessWidget {
               },
             ),
             new IconSlideAction(
-                caption: 'Edit',
+                caption: 'แก้ไขข้อมูล',
                 color: Colors.black45,
                 icon: Icons.edit,
                 onTap: () {
@@ -266,7 +266,7 @@ class Detailemp extends StatelessWidget {
                 }
             ),
             new IconSlideAction(
-                caption: 'Delete',
+                caption: 'ลบข้อมูล',
                 color: Colors.red,
                 icon: Icons.delete,
                 onTap: () => _showAlert(context, 'ต้องการลบ ${empname} หรือไม่!')

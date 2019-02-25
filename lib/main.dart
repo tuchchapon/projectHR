@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
         '/allmanday': (BuildContext contrext) => new allmanday(),
 
       },
-      home: new login(), //first page displayed
+      home: login(), //first page displayed
       //   home: new Home(), //first page displayed
     );
   }

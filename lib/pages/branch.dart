@@ -184,45 +184,46 @@ class Detailbranch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Column(children: <Widget>[
-    Slidable(
-    delegate: new SlidableDrawerDelegate(),
-    actionExtentRatio: 0.23,
-    child: new Container(
-    color: Colors.white,
-    child: new ListTile(
-    title: new Text(branch_name),
-    subtitle: Text(branchaddress,style: TextStyle(fontSize: 12),),
-    onTap: () {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => showbranch(id: id,branch_name: branch_name,branchaddress: branchaddress,),
+      Slidable(
+      delegate: new SlidableDrawerDelegate(),
+      actionExtentRatio: 0.25,
+      child: new Container(
+        color: Colors.white,
+        child: new ListTile(
+          title: new Row(children: <Widget>[Icon(Icons.account_balance,color: Colors.blue),Text(branch_name)],),
+          subtitle: Text(branchaddress,style: TextStyle(fontSize: 12),),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => showbranch(id: id,branch_name: branch_name,branchaddress: branchaddress,),
+              ),
+            );
+          },
+        ),
+      ),
+      secondaryActions: <Widget>[
+        new IconSlideAction(
+          caption: 'แก้ไขข้อมูล',
+          color: Colors.black45,
+          icon: Icons.edit,
+          onTap: () {
+            Navigator.push(context,
+              MaterialPageRoute(
+                  builder: (context) => editbranch(id: id,branchname: branch_name,branch_address: branchaddress,)
+              ),
+            );
+          },
+        ),
+        new IconSlideAction(
+            caption: 'ลบข้อมูล',
+            color: Colors.red,
+            icon: Icons.delete,
+            onTap: () => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
+        ),
+      ],
     ),
-    );
-    },
-    ),
-    ),
-    secondaryActions: <Widget>[
-    new IconSlideAction(
-    caption: 'Edit',
-    color: Colors.black45,
-    icon: Icons.edit,
-    onTap: () {
-    Navigator.push(context,
-    MaterialPageRoute(
-    builder: (context) => editbranch(id: id,branchname: branch_name,branch_address: branchaddress,)
-    ),
-    );
-    },
-    ),
-    new IconSlideAction(
-    caption: 'Delete',
-    color: Colors.red,
-    icon: Icons.delete,
-    onTap: () => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
-    ),
-    ],
-    ),
+
     Divider()],);
   }
 

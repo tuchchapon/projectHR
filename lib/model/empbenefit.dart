@@ -1,24 +1,44 @@
+// To parse this JSON data, do
+//
+//     final benefit = benefitFromJson(jsonString);
+
+import 'dart:convert';
+
+Empbenefit benefitFromJson(String str) {
+  final jsonData = json.decode(str);
+  return Empbenefit.fromJson(jsonData);
+}
+
+String benefitToJson(Empbenefit data) {
+  final dyn = data.toJson();
+  return json.encode(dyn);
+}
+
 class Empbenefit {
-  List<Data> data;
+  List<Datum> data;
+  int benafitTotal;
   String message;
 
   Empbenefit({
     this.data,
+    this.benafitTotal,
     this.message,
   });
-  factory Empbenefit.fromJson(Map<String, dynamic> parsedJson){
-    var list = parsedJson['data'] as List;
-    // print(list.runtimeType);
-    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
 
+  factory Empbenefit.fromJson(Map<String, dynamic> json) => new Empbenefit(
+    data: new List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    benafitTotal: json["benafitTotal"],
+    message: json["message"],
+  );
 
-    return Empbenefit(
-        data: dataList
-    );
-  }
+  Map<String, dynamic> toJson() => {
+    "data": new List<dynamic>.from(data.map((x) => x.toJson())),
+    "benafitTotal": benafitTotal,
+    "message": message,
+  };
 }
 
-class Data {
+class Datum {
   int createdAt;
   int updatedAt;
   int id;
@@ -28,7 +48,7 @@ class Data {
   String benefitNote;
   int benefitEmpId;
 
-  Data({
+  Datum({
     this.createdAt,
     this.updatedAt,
     this.id,
@@ -38,7 +58,8 @@ class Data {
     this.benefitNote,
     this.benefitEmpId,
   });
-  factory Data.fromJson(Map<String, dynamic> json) => new Data(
+
+  factory Datum.fromJson(Map<String, dynamic> json) => new Datum(
     createdAt: json["createdAt"],
     updatedAt: json["updatedAt"],
     id: json["id"],
@@ -48,4 +69,15 @@ class Data {
     benefitNote: json["benefit_note"],
     benefitEmpId: json["benefit_emp_id"],
   );
+
+  Map<String, dynamic> toJson() => {
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "id": id,
+    "benefit_title": benefitTitle,
+    "benefit_price": benefitPrice,
+    "benefit_date": benefitDate,
+    "benefit_note": benefitNote,
+    "benefit_emp_id": benefitEmpId,
+  };
 }

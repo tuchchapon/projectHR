@@ -65,7 +65,8 @@ class _costState extends State<cost>  {
 
   int loopaddit = 0;
   int loopfixcost = 0;
-  int fixisTrue = 1;
+  int fixisTrue = 0;
+  int additisTrue = 0;
   final bid = TextEditingController();
  // final fixcostcon = TextEditingController();
   Widget build(BuildContext context) {
@@ -94,17 +95,24 @@ class _costState extends State<cost>  {
               ),
             );
           },
-          tooltip: 'เพิ่มค่าใช้จ่ายทั่วไป',)
-        ],
+          tooltip: 'เพิ่มค่าใช้จ่ายทั่วไป',),
+
+          ],
         ),
+
         Divider(),
         Container(
             margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
-            child: Column( children: fixisTrue == 0 ? [
+            child: Column( children: fixisTrue == 1 ? [
               Text('Waiting Data'),
             ] : detailfixcost()
             )
         ),
+        Divider(),
+        Row(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('ค่าใช้จ่ายทั่วไปทั้งหมด  '),
+        Text(widget.listfixcost.branchFixcostTotal.toString(),style: TextStyle(color: Colors.green),),
+        Text('  บาท '),
+        ],),
         Divider(),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -122,12 +130,17 @@ class _costState extends State<cost>  {
         Divider(),
         Container(
             margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
-            child: Column( children: fixisTrue == 0 ? [
+            child: Column( children: additisTrue == 1 ? [
               Text('Waiting Data'),
             ] : detailadddit()
             )
         ),
-      ],),
+     Divider(),
+     Row(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('ค่าใข้จ่ายเพิ่มเติมทั้งหมด '),
+     Text(widget.listaddit.branchAdditTotal.toString(),style: TextStyle(color: Colors.green),),Text('  บาท  ')],)
+        ,Divider(),
+        ],
+      ),
     );
   }
   List<Widget> detailfixcost(){
@@ -153,7 +166,8 @@ class _costState extends State<cost>  {
 
         );
       }
-      mylist.add(          Container(child:
+      mylist.add(
+          Container(child:
       Slidable(
         delegate: new SlidableDrawerDelegate(),
         actionExtentRatio: 0.23,
@@ -178,7 +192,7 @@ class _costState extends State<cost>  {
         ),
         secondaryActions: <Widget>[
           new IconSlideAction(
-              caption: 'Edit',
+              caption: 'แก้ไขข้อมูล',
               color: Colors.black45,
               icon: Icons.edit,
               onTap: (){
@@ -195,7 +209,7 @@ class _costState extends State<cost>  {
               },
           ),
           new IconSlideAction(
-              caption: 'Delete',
+              caption: 'ลบข้อมูล',
               color: Colors.red,
               icon: Icons.delete,
               onTap: () {_showAlert(context, 'ต้องการลบ ${widget.listfixcost.data[i].fixcostTitle} หรือไม่!');}
@@ -254,7 +268,7 @@ class _costState extends State<cost>  {
             ),
             secondaryActions: <Widget>[
               new IconSlideAction(
-                caption: 'Edit',
+                caption: 'แก้ไขข้อมูล',
                 color: Colors.black45,
                 icon: Icons.edit,
                    onTap: (){
@@ -270,7 +284,7 @@ class _costState extends State<cost>  {
                    },
               ),
               new IconSlideAction(
-                caption: 'Delete',
+                caption: 'ลบข้อมูล',
                 color: Colors.red,
                 icon: Icons.delete,
                    onTap: () {_showAlert(context, 'ต้องการลบ ${widget.listaddit.data[i].branchAdditTitle} หรือไม่!');}

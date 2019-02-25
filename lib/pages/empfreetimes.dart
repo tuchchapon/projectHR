@@ -34,6 +34,8 @@ class _empfreetimesState extends State<empfreetimes> {
         headers: {'authorization': "Bearer "+token});
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
+    print(widget.project_id);
+    print(widget.position_id);
    // print(response.body);
     if (response.statusCode == 200) {
 

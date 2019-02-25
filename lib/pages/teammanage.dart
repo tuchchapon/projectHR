@@ -141,7 +141,7 @@ class _teammanageState extends State<teammanage> {
                     ),
                     secondaryActions: <Widget>[
                       new IconSlideAction(
-                        caption: 'Edit',
+                        caption: 'แก้ไขข้อมูล',
                         color: Colors.black45,
                         icon: Icons.edit,
                            onTap: () {
@@ -156,7 +156,7 @@ class _teammanageState extends State<teammanage> {
                              );}
                       ),
                       new IconSlideAction(
-                        caption: 'Delete',
+                        caption: 'ลบข้อมูล',
                         color: Colors.red,
                         icon: Icons.delete,
                            onTap: () {

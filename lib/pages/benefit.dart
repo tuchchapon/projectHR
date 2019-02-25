@@ -77,18 +77,18 @@ class _benefitState extends State<benefit>  {
     return new Scaffold(
       appBar: new AppBar(
           backgroundColor: colorappbar,
-          title: new Text('สิทธิประโยชน์',style: TextStyle(color: Colors.brown[500]),),
-          actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.search), onPressed: null),
-        //      new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-          ]
+          title: new Text('สิทธิประโยชน์',style: TextStyle(color: Colors.white,),),
+
       ),
 
         body: ListView(
           children: <Widget>[
             Container(width: screenWidth,margin: EdgeInsets.all(5),
               child:  Column(children: <Widget>[
-                Text('ข้อมูลสิทธิประโยชน์'),
+                Text('ข้อมูลสิทธิประโยชน์',style: TextStyle(fontSize: 16),),
+                Padding(padding: EdgeInsets.only(bottom: 10)),
+                Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[Text('รวมค่าใช้จ่ายสิทธิประโยชน์ทั้งหมด '),
+                Text(listbenefit.benafitTotal.toString(),style: TextStyle(color: Colors.green),),Text('  บาท')],),
                 Container(
                   width: screenWidth,height: screenHeight*2.1,
                   child:  benefitIstrue != 0 ?
@@ -105,11 +105,11 @@ class _benefitState extends State<benefit>  {
                     },
                   ):Text('ไม่มีข้อมูล')
 
-                  ,padding: EdgeInsets.only(left: 10),)
-              ],
+                  ,padding: EdgeInsets.only(left: 10),),
+
+            ],
               ),
           ),
-
           ],
 
         ),
@@ -172,6 +172,7 @@ trailing: IconButton(icon: Icon(Icons.delete),  onPressed: () {_showAlert(contex
 
 } ),
     );
+
   }
 
 }

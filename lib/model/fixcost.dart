@@ -1,24 +1,41 @@
+// To parse this JSON data, do
+//
+//     final fixcost = fixcostFromJson(jsonString);
 
+import 'dart:convert';
+
+Branchfixcost fixcostFromJson(String str) {
+  final jsonData = json.decode(str);
+  return Branchfixcost.fromJson(jsonData);
+}
+
+String fixcostToJson(Branchfixcost data) {
+  final dyn = data.toJson();
+  return json.encode(dyn);
+}
 
 class Branchfixcost {
-
   List<Data> data;
+  int branchFixcostTotal;
+  String message;
 
   Branchfixcost({
     this.data,
+    this.branchFixcostTotal,
+    this.message,
   });
 
+  factory Branchfixcost.fromJson(Map<String, dynamic> json) => new Branchfixcost(
+    data: new List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+    branchFixcostTotal: json["branchFixcostTotal"],
+    message: json["message"],
+  );
 
-  factory Branchfixcost.fromJson(Map<String, dynamic> parsedJson){
-    var list = parsedJson['data'] as List;
-    // print(list.runtimeType);
-    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
-
-
-    return Branchfixcost(
-        data: dataList
-    );
-  }
+  Map<String, dynamic> toJson() => {
+    "data": new List<dynamic>.from(data.map((x) => x.toJson())),
+    "branchFixcostTotal": branchFixcostTotal,
+    "message": message,
+  };
 }
 
 class Data {
@@ -50,5 +67,13 @@ class Data {
     fixcostBranchId: json["fixcost_branch_id"],
   );
 
+  Map<String, dynamic> toJson() => {
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "id": id,
+    "fixcost_title": fixcostTitle,
+    "fixcost_price": fixcostPrice,
+    "fixcost_note": fixcostNote,
+    "fixcost_branch_id": fixcostBranchId,
+  };
 }
-

@@ -102,7 +102,7 @@ class _showbranchState extends State<showbranch> {
       ),
       body: ListView(
         children: <Widget>[
-          Container(
+          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
               margin: EdgeInsets.only(right: 5,left: 5),height:screenHeight*0.3,width: screenWidth,
               child: Center(
                 child: Column(
@@ -124,9 +124,10 @@ class _showbranchState extends State<showbranch> {
               ),
               ),
           ),
+          Padding(padding: EdgeInsets.all(5)),
           Text('     ค่าใช้จ่ายทั่วไป           ',style: TextStyle(fontSize: 12)),
           ListTile(leading: Text('รายการ'),trailing: Text('มูลค่า'),),
-          Container(
+          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
               child: Column( children: fixisTrue == 0 ? [
@@ -134,9 +135,10 @@ class _showbranchState extends State<showbranch> {
               ] : detailfixcost()
               )
           ),
+          Padding(padding: EdgeInsets.all(5)),
           Text('     ค่าใช้จ่ายอื่นๆ           ',style: TextStyle(fontSize: 12)),
           ListTile(leading: Text('รายการ'),trailing: Text('มูลค่า'),),
-          Container(
+          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
               child: Column( children: additisTrue == 0 ? [

@@ -7,6 +7,7 @@ import 'package:project/model/projectmanage.dart';
 import 'package:project/model/projectaddit.dart';
 import 'package:project/pages/teammanage.dart';
 import 'package:project/pages/projectaddit.dart';
+import 'package:project/model/mandaycost.dart';
 
 class showproject extends StatefulWidget {
   @override
@@ -21,15 +22,42 @@ class _showprojectState extends State<showproject> {
     super.initState();
     getprojectdata();
     getprojectaddit();
+    getmanday();
   //  print('id is'+widget.id.toString());
 
   }
   int projectisTrue =0;
   int additisTrue =0;
+  int mandayisTrue = 0;
+  int loopmanday = 0;
   int loopaddit=0;
   Project listProject = new Project();
   Projectaddit listaddit = new Projectaddit();
+  Mandaycost listmanday = new Mandaycost();
 
+  Future<void> getmanday() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/manday/project/${widget.project_id}/view',
+      headers: {'authorization': "Bearer "+token},);
+    // print(response.body);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    listmanday = new Mandaycost.fromJson(jsonResponse);
+      print(response.body);
+    //  print(listfixcost.data[0].fixcostBranchId.id.toString());
+
+    if (response.statusCode == 200) {
+      setState(() {
+        loopmanday = listmanday.data.length;
+        mandayisTrue = 1;
+        // this.loopfixcost = listfixcost.data.length;
+      });
+    } else {
+      throw Exception('Failed to load post');
+    }
+  }
   Future<void> getprojectdata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
@@ -40,14 +68,14 @@ class _showprojectState extends State<showproject> {
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
     listProject = new Project.fromJson(jsonResponse);
-    setState(() {
-      projectisTrue = 1;
-     // this.loopfixcost = listfixcost.data.length;
-    });
+
     //  print(listfixcost.data[0].fixcostBranchId.id.toString());
 
     if (response.statusCode == 200) {
-
+      setState(() {
+        projectisTrue = 1;
+        // this.loopfixcost = listfixcost.data.length;
+      });
     } else {
       throw Exception('Failed to load post');
     }
@@ -62,15 +90,15 @@ class _showprojectState extends State<showproject> {
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
     listaddit = new Projectaddit.fromJson(jsonResponse);
-    setState(() {
-      additisTrue = 1;
-      loopaddit = listaddit.data.length;
-    // print(loopaddit);
-    });
+
     //  print(listfixcost.data[0].fixcostBranchId.id.toString());
 
     if (response.statusCode == 200) {
-
+      setState(() {
+        additisTrue = 1;
+        loopaddit = listaddit.data.length;
+        // print(loopaddit);
+      });
     } else {
       throw Exception('Failed to load post');
     }
@@ -91,8 +119,8 @@ class _showprojectState extends State<showproject> {
         body: new ListView(children: <Widget>[
           Padding(padding: EdgeInsets.only(top: 10)),
           Text('   ข้อมูลโปรเจ็ค',style: TextStyle(fontSize: 16),),
-          Container(
-              height: screenHeight*0.62,width: screenWidth,margin: EdgeInsets.all(5),
+          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
+              height: screenHeight*0.65,width: screenWidth,margin: EdgeInsets.all(5),
               //padding: new EdgeInsets.all(10.0),
               child: projectisTrue == 0 ? Text('ไม่มีข้อมูล') : Column(
                 children: <Widget>[
@@ -102,9 +130,11 @@ class _showprojectState extends State<showproject> {
                     title: Text(listProject.data.projectCostomerName,style: TextStyle(fontSize: 12)),),
                   ListTile(leading: Text('วันที่เริ่ม     '),
                     title: Text(listProject.data.projectStartDateFormat,style: TextStyle(fontSize: 12)),
-                    trailing: Icon(Icons.event),),
+                    trailing: Icon(Icons.event,color: Colors.black,),),
                   ListTile(leading: Text('วันที่สิ้นสุด    ',style: TextStyle(fontSize: 12)),
-                    title: Text(listProject.data.projectEndDateFormat,style: TextStyle(fontSize: 12)),trailing: Icon(Icons.event),),
+                    title: Text(listProject.data.projectEndDateFormat,style: TextStyle(fontSize: 12)),trailing: Icon(Icons.event,color: Colors.black,),),
+                  ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),
+                    title: Text(listProject.data.projectNote,style: TextStyle(fontSize: 12)),),
                   ListTile(leading: Text('ทีมรับผิดชอบ',style: TextStyle(fontSize: 12)),
                     title: Text(listProject.data.projectTeamName,style: TextStyle(fontSize: 12)),
                     trailing: FlatButton(onPressed: () {
@@ -115,13 +145,14 @@ class _showprojectState extends State<showproject> {
                         ),
                       );
                     },
-                      child: Text('จัดการทีม >')),),
-                  ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),
-                    title: Text(listProject.data.projectNote,style: TextStyle(fontSize: 12)),),
-                  Divider()
-                ],
-              )
+                        child: Text('จัดการทีม >')),),
+
+            ],
+              ),
+
           ),
+
+
           ListTile(title: Text('ค่าใช้จ่ายเพิ่มเติม'),trailing: FlatButton(onPressed: () {
             Navigator.push(
               context,
@@ -131,7 +162,7 @@ class _showprojectState extends State<showproject> {
             );
           },
               child: Text('จัดการค่าใช้จ่าย >')),),
-          Container(
+          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
               child: Column( children: additisTrue == 0 ? [
@@ -139,12 +170,12 @@ class _showprojectState extends State<showproject> {
               ] : detailadddit()
               )
           ),
-       Divider(),
-          Container(
+       Padding(padding: EdgeInsets.all(5)),
+          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
-              child: Row( children: additisTrue == 0 ? [
-                Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+              child: Row( children: mandayisTrue == 0 ? [
+               Text('ไม่มีข้อมูล'),
               ] : totalcost()
               )
           ),
@@ -173,7 +204,7 @@ class _showprojectState extends State<showproject> {
       mylist.add(Column(
           children: <Widget>[
       Text('ค่าใช้จ่ายทั้งหมด',style: TextStyle(fontSize: 14),),
-        Text(listProject.data.projectTotalCost.toString()+' บาท')
+        Row(children: <Widget>[Text(listmanday.projectCostTotal.toString(),style: TextStyle(color: Colors.green),),Text('  บาท')],)
           ]
       )
       );

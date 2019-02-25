@@ -11,7 +11,7 @@ class projectaddit extends StatefulWidget {
   _projectadditState createState() => _projectadditState();
   int projectid;
  String projectname;
-  projectaddit({this.projectname,this.projectid});
+   projectaddit({this.projectname,this.projectid});
 
 }
 

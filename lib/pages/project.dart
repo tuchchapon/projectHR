@@ -97,7 +97,7 @@ class _projectState extends State<project>  {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
-                    CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
+                    CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
                     Padding(padding: EdgeInsets.only(top: 20,left: 50)),
                     Text('admin',style: TextStyle(fontSize: 20),)
                     ],
@@ -208,11 +208,10 @@ class DetailProject extends StatelessWidget {
     return  Container(child: Column(children: <Widget>[
     Slidable(
     delegate: new SlidableDrawerDelegate(),
-      actionExtentRatio: 0.23,
+      actionExtentRatio: 0.25,
       child: new Container(
-        color: Colors.white,
         child: new ListTile(
-          title: new Text(projectname),
+          title: Row(children: <Widget>[Icon(Icons.work,color: Colors.blue,),Text( projectname)],),
           subtitle: Column(children: <Widget>[
             Row(children: <Widget>[Text('ลูกค้า : '),Text(projectcostomerName)],),
             Row(children: <Widget>[Text('ทีมรับผิดชอบ : '),Text(projectTeamName)],)
@@ -227,7 +226,7 @@ class DetailProject extends StatelessWidget {
       ),
       secondaryActions: <Widget>[
         new IconSlideAction(
-            caption: 'Edit',
+            caption: 'แก้ไขข้อมูล',
             color: Colors.black45,
             icon: Icons.edit,
             onTap: (){
@@ -240,7 +239,7 @@ class DetailProject extends StatelessWidget {
             }
         ),
         new IconSlideAction(
-            caption: 'Delete',
+            caption: 'ลบข้อมูล',
             color: Colors.red,
             icon: Icons.delete,
             onTap: () => _showAlert(context, 'ต้องการลบ ${projectname} หรือไม่!')
