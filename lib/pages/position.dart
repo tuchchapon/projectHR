@@ -3,11 +3,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-//import 'listposition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/Position.dart';
 import 'editposition.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:project/model/Position.dart';
 
 //
 

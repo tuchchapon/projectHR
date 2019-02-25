@@ -3,12 +3,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-import '../model/employee.dart';
-import './showemp.dart';
 import 'editemp.dart';
-import './benefit.dart';
-import './empposition.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:project/model/employee.dart';
+import 'package:project/pages/showemp.dart';
+import 'package:project/pages/benefit.dart';
+import 'package:project/pages/empposition.dart';
+
 class employee extends StatefulWidget {
   @override
   _employeeState createState() => new _employeeState();

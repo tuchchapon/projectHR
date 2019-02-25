@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../model/teammember.dart';
-import './addteammember.dart';
-import './updatesprint.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:project/model/teammember.dart';
+import 'package:project/pages/addteammember.dart';
+import 'package:project/pages/updatesprint.dart';
 
 class teammanage extends StatefulWidget {
   @override

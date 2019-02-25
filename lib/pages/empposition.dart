@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'addbenefit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import './addempposition.dart';
-import '../model/positionemp.dart';
+import 'package:project/model/positionemp.dart';
+import 'package:project/pages/addempposition.dart';
 
 class empposition extends StatefulWidget {
   @override

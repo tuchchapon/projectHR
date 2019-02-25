@@ -3,11 +3,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/Position.dart';
-import 'editposition.dart';
-import './empfreetimes.dart';
+//import 'empfreetimes.dart';
+import 'package:project/model/Position.dart';
+import 'package:project/pages/empfreetimes.dart';
 
-//import 'listposition.dart';
 //
 
 

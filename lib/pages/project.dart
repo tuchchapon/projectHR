@@ -4,11 +4,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/project.dart';
-import './editproject.dart';
 import 'package:moment/moment.dart';
-import './showproject.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:project/model/project.dart';
+import 'package:project/pages/editproject.dart';
+import 'package:project/pages/showproject.dart';
+
 
 //
 

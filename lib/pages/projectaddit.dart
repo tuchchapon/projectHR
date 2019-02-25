@@ -3,8 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:moment/moment.dart';
-import '../model/projectaddit.dart';
-import './addprojectaddit.dart';
+import 'package:project/model/projectaddit.dart';
+import 'package:project/pages/addprojectaddit.dart';
+
 class projectaddit extends StatefulWidget {
   @override
   _projectadditState createState() => _projectadditState();

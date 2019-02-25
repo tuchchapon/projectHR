@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final freetime = freetimeFromJson(jsonString);
 
 import 'dart:convert';
 

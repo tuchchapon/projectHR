@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
-import '../model/manday.dart';
-import '../model/project.dart';
+import 'package:project/model/manday.dart';
+import 'package:project/model/project.dart';
 
 
 

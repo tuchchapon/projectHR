@@ -4,7 +4,7 @@ import 'package:moment/moment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../model/projectmanage.dart';
+import 'package:project/model/projectmanage.dart';
 
 class editproject extends StatefulWidget {
   @override

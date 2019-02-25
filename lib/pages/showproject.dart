@@ -3,10 +3,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import '../model/projectmanage.dart';
-import '../model/projectaddit.dart';
-import './teammanage.dart';
-import './projectaddit.dart';
+import 'package:project/model/projectmanage.dart';
+import 'package:project/model/projectaddit.dart';
+import 'package:project/pages/teammanage.dart';
+import 'package:project/pages/projectaddit.dart';
+
 class showproject extends StatefulWidget {
   @override
   _showprojectState createState() => _showprojectState();

@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../model/manday.dart';
+import 'package:project/model/manday.dart';
 
 class allmanday extends StatefulWidget {
   @override

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/Branch.dart';
+import 'package:project/model/Branch.dart';
 
 class editemp extends StatefulWidget {
   @override
