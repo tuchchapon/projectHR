@@ -7,7 +7,6 @@ import './pages/project.dart';
 import './pages/cost.dart';
 import './pages/benefit.dart';
 import './pages/addemp.dart';
-import './pages/addvacation.dart';
 import './pages/addposition.dart';
 import './pages/addbranch.dart';
 import './pages/addproject.dart';
@@ -17,7 +16,6 @@ import './pages/addbenefit.dart';
 import './pages/login.dart';
 import './pages/showproject.dart';
 import './pages/showemp.dart';
-import './pages/showvacation.dart';
 import './pages/showposition.dart';
 import './pages/showbranch.dart';
 import './pages/showfixcost.dart';
@@ -54,7 +52,6 @@ class MyApp extends StatelessWidget {
         '/cost': (BuildContext contrext) => new cost(),
         '/benefit': (BuildContext contrext) => new benefit(),
         '/addemp': (BuildContext contrext) => new addemp(),
-        '/addvacation': (BuildContext contrext) => new addvacation(),
         '/addposition': (BuildContext contrext) => new addposition(),
         '/addbranch': (BuildContext contrext) => new addbranch(),
         '/addproject': (BuildContext contrext) => new addproject(),
@@ -64,7 +61,6 @@ class MyApp extends StatelessWidget {
         '/login': (BuildContext contrext) => new login(),
         '/showproject': (BuildContext contrext) => new showproject(),
         '/showmember': (BuildContext contrext) => new showemp(),
-        '/showvacation': (BuildContext contrext) => new showvacation(),
         '/showposition': (BuildContext contrext) => new showposition(),
         '/showbranch': (BuildContext contrext) => new showbranch(),
         '/showfixcost': (BuildContext contrext) => new showfixcost(),
