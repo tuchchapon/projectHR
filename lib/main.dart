@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import './pages/Home.dart';
 import './pages/employee.dart';
-import './pages/vacation.dart';
 import './pages/position.dart';
 import './pages/branch.dart';
 import './pages/project.dart';
@@ -49,7 +48,6 @@ class MyApp extends StatelessWidget {
         //All available pages
         '/Home': (BuildContext contrext) => new Home(),
        '/employee': (BuildContext contrext) => new employee(),
-        '/vacation': (BuildContext contrext) => new vacation(),
         '/position': (BuildContext contrext) => new position(),
         '/branch': (BuildContext contrext) => new branch(),
         '/project': (BuildContext contrext) => new project(),
