@@ -13,7 +13,7 @@ class addemp extends StatefulWidget {
 
 class _addempState extends State<addemp> {
   int choiceloop;
-  String _branch = 'กรุณาเลือกตำแหน่ง';
+  String _branch = 'กรุณาเลือกสาขา';
   int idbranch;
   String empname;
   String empnickname;

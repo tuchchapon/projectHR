@@ -69,10 +69,7 @@ class _addteammemberState extends State<addteammember>  {
     return new Scaffold(
         appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
             title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
-            actions: <Widget>[
-              new IconButton(icon: new Icon(Icons.search), onPressed: null),
-              //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-            ]
+
         ),
         body: Container
           (width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.white,

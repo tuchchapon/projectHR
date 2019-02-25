@@ -72,11 +72,15 @@ class _addpositionState extends State<addposition> {
          ListTile(
           leading: Text('ตำแหน่ง'),
           title: TextField(
-       //     controller: myController,
-              decoration: InputDecoration.collapsed(
+            //     controller: myController,
+            decoration: InputDecoration.collapsed(
+                hintText: 'ป้อนตำแหน่ง'),
+            onChanged: (String value) {
+              validateName(value);
+              position = value;
+              print(position);
 
-              hintText: 'ป้อนตำแหน่ง'),
-
+            },
             autocorrect: false,),
         ),
      //  Text(_position),
@@ -117,13 +121,13 @@ class _addpositionState extends State<addposition> {
     return responseData['code'];
 
   }
-  String validateName(String name) {
+  String validateName(String value) {
     Pattern pattern =
         '[a-zA-Zก-ฮ1-9]';
     RegExp regex = new RegExp(pattern);
-    if (name.length == 0) {
-      return 'กรุณาป้อนข้อมูล';
-    } else if (!regex.hasMatch(name)) {
+    if (value.length < 1) {
+      return 'กรุณาป้อนตำแหน่ง';
+    } else if (!regex.hasMatch(value)) {
       return 'รูปแบบไม่ถูกต้อง';
     }
     else

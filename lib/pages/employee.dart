@@ -75,10 +75,7 @@ Widget build(BuildContext context) {
     appBar: new AppBar(
       backgroundColor: colorappbar,
         title: new Text('พนักงาน',style: TextStyle(color: Colors.brown[500]),),
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.search), onPressed: null),
-       //   new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-        ]
+
     ),
 
       drawer: Drawer(

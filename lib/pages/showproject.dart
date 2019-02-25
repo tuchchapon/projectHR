@@ -61,11 +61,10 @@ class _showprojectState extends State<showproject> {
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
     listaddit = new Projectaddit.fromJson(jsonResponse);
-    print(listaddit.data[0].projectAdditTitle);
     setState(() {
       additisTrue = 1;
       loopaddit = listaddit.data.length;
-     print(loopaddit);
+    // print(loopaddit);
     });
     //  print(listfixcost.data[0].fixcostBranchId.id.toString());
 

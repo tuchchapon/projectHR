@@ -36,7 +36,6 @@ import './pages/editbranch.dart';
 import './pages/editproject.dart';
 import './pages/addprojectaddit.dart';
 import './pages/allmanday.dart';
-
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -85,6 +84,7 @@ class MyApp extends StatelessWidget {
         '/editproject': (BuildContext contrext) => new editproject(),
         '/addprojectaddit': (BuildContext contrext) => new addprojectaddit(),
         '/allmanday': (BuildContext contrext) => new allmanday(),
+
       },
       home: new login(), //first page displayed
       //   home: new Home(), //first page displayed

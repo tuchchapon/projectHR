@@ -106,10 +106,7 @@ class _positionState extends State<position>  {
     return new Scaffold(
         appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
             title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
-            actions: <Widget>[
-              new IconButton(icon: new Icon(Icons.search), onPressed: null),
-              //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-            ]
+
         ),
         drawer: Drawer(
           child: Column(

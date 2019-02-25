@@ -81,9 +81,7 @@ class _teammanageState extends State<teammanage> {
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
         title: new Text('จัดการทีมและ sprint',style: TextStyle(color: Colors.brown[500]),),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.search),color: Colors.black, onPressed: null)
-        ],
+
       ),
       body:  ListView(
         children: <Widget>[
