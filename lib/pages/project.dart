@@ -146,7 +146,7 @@ class _projectState extends State<project>  {
                     projectcostomerName: listProject.data[index].projectCostomerName,
                     startdate: listProject.data[index].projectStartDate,
                     projectTeamName: listProject.data[index].projectTeamName,
-                    fetchPost: fetchPost,
+                    del: deleteproject,
                   ),
               );
             },
@@ -164,27 +164,13 @@ class _projectState extends State<project>  {
 
 class DetailProject extends StatelessWidget {
   //
-  Future<dynamic> deleteproject(id) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String Token = prefs.getString("prefsToken");
-    var url = 'http://35.198.219.154:1337/projectmanage/delete';
-    var body = {
-      'id': id,
-    };
-    print(id.toString());
-    http.Response response = await http.post(url,
-        headers: {'authorization': "Bearer "+Token},
-        body: body);
-    fetchPost();
-  }
-
   Future _showAlert(BuildContext context, String message) async {
     return showDialog(
         context: context,
         child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
-            new FlatButton(onPressed: () {deleteproject(id.toString());Navigator.pop(context);print(id.toString());}, child: new Text('ยืนยัน')
+            new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);print(id.toString());}, child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],
@@ -201,7 +187,7 @@ class DetailProject extends StatelessWidget {
   String projectTeamName;
   double projectcost;
   String projectnote;
-  Function fetchPost;
+  Function del;
 
   DetailProject({
     this.id,
@@ -212,7 +198,7 @@ class DetailProject extends StatelessWidget {
     this.projectTeamName,
     this.projectcost,
     this.projectnote,
-    this.fetchPost
+    this.del
     //this.del
   }
     );

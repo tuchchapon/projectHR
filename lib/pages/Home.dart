@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
         headers: {'authorization': "Bearer "+token});
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
-    print(jsonResponse);
+  //  print(jsonResponse);
 
     if (response.statusCode == 200) {
 
@@ -239,7 +239,7 @@ class _HomeState extends State<Home> {
     List<Widget> mylist = new List();
     for(int i = 0; i < 1 ; i++ ){
 
-      int totalsell = listproject.allprojectCost *3;
+      double totalsell = listproject.allprojectCost *3;
       mylist.add(Column(
           children: <Widget>[
             Row(children: <Widget>[Text('ราคาต้นทุนทั้งหมด')],),

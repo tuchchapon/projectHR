@@ -40,6 +40,16 @@ class _addpositionState extends State<addposition> {
     );
   }
 */
+  @override
+  void initState() {
+    super.initState();
+    print('++++++++++++++++');
+    //myController.addListener(validateName);
+
+  }
+
+ // final myController = TextEditingController();
+
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
 
@@ -64,13 +74,9 @@ class _addpositionState extends State<addposition> {
           title: TextField(
        //     controller: myController,
               decoration: InputDecoration.collapsed(
-              hintText: 'ป้อนตำแหน่ง'),
-            onChanged: (String value) {
-              validateName(value);
-              position = value;
-              print(position);
 
-            },
+              hintText: 'ป้อนตำแหน่ง'),
+
             autocorrect: false,),
         ),
      //  Text(_position),
@@ -78,7 +84,8 @@ class _addpositionState extends State<addposition> {
         Divider(color: Colors.grey,),
          RaisedButton(onPressed: (){
            Addposition(position);
-           print(position);
+          // print(position);
+          // print('con ='+myController.text);
          },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
           ]
         ),
@@ -110,19 +117,20 @@ class _addpositionState extends State<addposition> {
     return responseData['code'];
 
   }
+  String validateName(String name) {
+    Pattern pattern =
+        '[a-zA-Zก-ฮ1-9]';
+    RegExp regex = new RegExp(pattern);
+    if (name.length == 0) {
+      return 'กรุณาป้อนข้อมูล';
+    } else if (!regex.hasMatch(name)) {
+      return 'รูปแบบไม่ถูกต้อง';
+    }
+    else
+      return null;
+  }
 }
 //
 
 //
-String validateName(String value) {
-  Pattern pattern =
-    '[a-zA-Zก-ฮ1-9]';
-  RegExp regex = new RegExp(pattern);
-  if (value.length < 1) {
-    return 'กรุณาป้อนตำแหน่ง';
-  } else if (!regex.hasMatch(value)) {
-    return 'รูปแบบไม่ถูกต้อง';
-  }
-  else
-    return null;
-}
+

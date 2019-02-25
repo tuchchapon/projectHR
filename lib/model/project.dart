@@ -18,8 +18,8 @@ class Project {
   int draw;
   int recordsTotal;
   int recordsFiltered;
-  List<Data> data;
-  int allprojectCost;
+  List<Datum> data;
+  double allprojectCost;
 
   Project({
     this.draw,
@@ -33,8 +33,8 @@ class Project {
     draw: json["draw"],
     recordsTotal: json["recordsTotal"],
     recordsFiltered: json["recordsFiltered"],
-    data: new List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
-    allprojectCost: json["allproject_cost"],
+    data: new List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    allprojectCost: json["allproject_cost"].toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -46,7 +46,7 @@ class Project {
   };
 }
 
-class Data {
+class Datum {
   int id;
   String projectName;
   String projectCostomerName;
@@ -55,7 +55,7 @@ class Data {
   String projectStartDateFormat;
   double projectTotalCost;
 
-  Data({
+  Datum({
     this.id,
     this.projectName,
     this.projectCostomerName,
@@ -65,7 +65,7 @@ class Data {
     this.projectTotalCost,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => new Data(
+  factory Datum.fromJson(Map<String, dynamic> json) => new Datum(
     id: json["id"],
     projectName: json["project_name"],
     projectCostomerName: json["project_costomer_name"],
