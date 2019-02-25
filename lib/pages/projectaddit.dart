@@ -76,7 +76,9 @@ class _projectadditState extends State<projectaddit> {
 
       body: ListView(
         children: <Widget>[
+          Padding(padding: EdgeInsets.only(top: 15)),
           Row(children: <Widget>[
+
             Text('   ค่าใช้จ่าย ',style: TextStyle(fontSize: 16),),
             Text(widget.projectname,style: TextStyle(color: Colors.blue,fontSize: 16),)
           ],),

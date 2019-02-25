@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/Position.dart';
 import 'editposition.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 //
 
 
@@ -34,7 +36,7 @@ class _positionState extends State<position>  {
     final response =
     await http.get('http://35.198.219.154:1337/position/datatable',
         headers: {'authorization': "Bearer "+token});
-//for (i=0 ,i>)
+  //for (i=0 ,i>)
   //  final Map<String, dynamic> responseData = await json.decode(response.body);
   //  response.body;
    //* print('respondata ${responseData['data']}');
@@ -155,15 +157,14 @@ class _positionState extends State<position>  {
             ],
           ),
         ),
-        body: Container
-          (width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.white,
+        body: Container(width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.white,
           child:  isTrue != 0 ?
           ListView.builder(
             itemCount: listPosition.data.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                child: DetailPosition( id: listPosition.data[index].id,
-                  positionName:listPosition.data[index].positionName ,del: deletePosition,)
+                  child: DetailPosition( id: listPosition.data[index].id,
+                    positionName:listPosition.data[index].positionName ,del: deletePosition,)
               );
             },
           ):Text('Waiting')
@@ -178,6 +179,8 @@ class _positionState extends State<position>  {
 
 }
 
+
+
 class DetailPosition extends StatelessWidget {
   //
   Future _showAlert(BuildContext context, String message) async {
@@ -186,7 +189,7 @@ class DetailPosition extends StatelessWidget {
         child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
-            new FlatButton(onPressed: () {del(id.toString());}, child: new Text('ยืนยัน')
+            new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);}, child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],
@@ -200,32 +203,45 @@ class DetailPosition extends StatelessWidget {
   DetailPosition({this.id,this.positionName,this.del});
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Text(positionName),
-      title: Row(mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          IconButton(icon: Icon(Icons.edit), onPressed: (){
-            Navigator.push(
-              context,
+    return Container(child: Column(children: <Widget>[
+    Slidable(
+    delegate: new SlidableDrawerDelegate(),
+      actionExtentRatio: 0.23,
+      child: new Container(
+        color: Colors.white,
+        child: new ListTile(
+          title: new Text(positionName),
+          onTap: () {
+            Navigator.push(context,
               MaterialPageRoute(
-                builder: (context) => editposition(id: id,positionName: positionName,),
+                  builder: (context) => DetailScreen(id: id,positionName: positionName,)
               ),
             );
-          }),
-          IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${positionName} หรือไม่!')
-            // del(id.toString());
-
-          ),
-        ],
+          }, ),
       ),
-    onTap: () {
-      Navigator.push(context,
-        MaterialPageRoute(
-            builder: (context) => DetailScreen(id: id,positionName: positionName,)
+      secondaryActions: <Widget>[
+        new IconSlideAction(
+          caption: 'Edit',
+          color: Colors.black45,
+          icon: Icons.edit,
+             onTap: (){
+               Navigator.push(
+                 context,
+                 MaterialPageRoute(
+                   builder: (context) => editposition(id: id,positionName: positionName,),
+                 ),
+               );
+             }
         ),
-      );
-      },
-    );
+        new IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+             onTap: () => _showAlert(context, 'ต้องการลบ ${positionName} หรือไม่!')
+        ),
+      ],
+    ),
+   Divider() ],),);
   }
 }
 class DetailScreen extends StatelessWidget {
@@ -292,3 +308,82 @@ Container(
       ),
     );
  */
+/**
+    Slidable(
+    delegate: new SlidableDrawerDelegate(),
+    actionExtentRatio: 0.23,
+    child: new Container(
+    color: Colors.white,
+    child: new ListTile(
+    title: new Text(listPosition.data[index].positionName),
+    ),
+    ),
+    secondaryActions: <Widget>[
+    new IconSlideAction(
+    caption: 'Edit',
+    color: Colors.black45,
+    icon: Icons.edit,
+    //   onTap: () => _showSnackBar('More'),
+    ),
+    new IconSlideAction(
+    caption: 'Delete',
+    color: Colors.red,
+    icon: Icons.delete,
+    //   onTap: () => _showSnackBar('Delete'),
+    ),
+    ],
+    ),
+    */
+
+/**
+ * class DetailPosition extends StatelessWidget {
+    //
+    Future _showAlert(BuildContext context, String message) async {
+    return showDialog(
+    context: context,
+    child: new AlertDialog(
+    title: new Text(message),
+    actions: <Widget>[
+    new FlatButton(onPressed: () {del(id.toString());}, child: new Text('ยืนยัน')
+    ),
+    new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
+    ],
+    )
+
+    );
+    }
+    Function del;
+    int id;
+    String positionName;
+    DetailPosition({this.id,this.positionName,this.del});
+    @override
+    Widget build(BuildContext context) {
+    return ListTile(
+    leading: Text(positionName),
+    title: Row(mainAxisAlignment: MainAxisAlignment.end,
+    children: <Widget>[
+    IconButton(icon: Icon(Icons.edit), onPressed: (){
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => editposition(id: id,positionName: positionName,),
+    ),
+    );
+    }),
+    IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${positionName} หรือไม่!')
+    // del(id.toString());
+
+    ),
+    ],
+    ),
+    onTap: () {
+    Navigator.push(context,
+    MaterialPageRoute(
+    builder: (context) => DetailScreen(id: id,positionName: positionName,)
+    ),
+    );
+    },
+    );
+    }
+    }
+*/

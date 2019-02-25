@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:math';
 import '../model/manday.dart';
 import '../model/project.dart';
 
@@ -12,11 +13,15 @@ class Home extends StatefulWidget {
   @override
   _HomeState createState() => new _HomeState();
 }
+class Sales {
+  String year;
+  int sales;
 
+  Sales(this.year,this.sales);
+}
 
   @override
   Widget build(BuildContext context) {
-
 
 }
 class _HomeState extends State<Home> {
@@ -25,6 +30,7 @@ class _HomeState extends State<Home> {
     super.initState();
     getmanday();
     getprojectsell();
+    _makeData();
   }
   ///
   int loopproject =0;
@@ -33,8 +39,42 @@ class _HomeState extends State<Home> {
   int mandayisTrue =0;
   Project listproject = new Project();
   Manday listmanday = new Manday();
+  List<Sales> _laptops;
+  List<Sales> _desktops;
+  List<charts.Series<Sales, String>> _chartdata;
   ///
+  void _makeData() {
 
+    _laptops = new List<Sales>();
+    _desktops = new List<Sales>();
+    _chartdata = new List<charts.Series<Sales, String>>();
+
+    final rnd = new Random();
+    for(int i = 2016; i < 2019; i++) {
+      _laptops.add(new Sales(i.toString(), rnd.nextInt(1000)));
+      _desktops.add(new Sales(i.toString(), rnd.nextInt(1000)));
+    }
+
+    _chartdata.add(new charts.Series(
+      id: 'Sales',
+      data: _laptops,
+      domainFn: (Sales sales,__) => sales.year,
+      measureFn: (Sales sales,__) => sales.sales,
+      displayName: 'Sales',
+      colorFn: (_,__) => charts.MaterialPalette.green.shadeDefault,
+    ));
+
+    _chartdata.add(new charts.Series(
+      id: 'Sales',
+      data: _desktops,
+      domainFn: (Sales sales,__) => sales.year,
+      measureFn: (Sales sales,__) => sales.sales,
+      displayName: 'Sales',
+      colorFn: (_,__) => charts.MaterialPalette.red.shadeDefault,
+    ));
+
+  }
+  ///
   Future<void> getprojectsell() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
@@ -100,10 +140,7 @@ class _HomeState extends State<Home> {
       appBar: new AppBar(
           backgroundColor: colorappbar,
           title: new Text('หน้าหลัก ',style:TextStyle(color: Colors.brown[500]),),
-          actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.search,color: Colors.black,), onPressed: null),
-          //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-          ]
+
       ),
 
       drawer: Drawer(
@@ -164,7 +201,7 @@ class _HomeState extends State<Home> {
 
             Divider(),
             Row(children: <Widget>[Text('Selling rate',style: TextStyle(fontSize: 20),),Padding(padding: EdgeInsets.only(top: 20,bottom: 20)),
-            IconButton(icon: Icon(Icons.list), onPressed: null,tooltip: 'ดูทั้งหมด',)],
+            IconButton(icon: Icon(Icons.list), onPressed: (){Navigator.of(context).pushNamed('/allmanday');},tooltip: 'ดูทั้งหมด',)],
             mainAxisAlignment: MainAxisAlignment.spaceBetween,),
             Divider(),
             Container(
@@ -205,13 +242,13 @@ class _HomeState extends State<Home> {
       int totalsell = listproject.allprojectCost *3;
       mylist.add(Column(
           children: <Widget>[
-            Row(children: <Widget>[Text('ราคาต้นทุน')],),
+            Row(children: <Widget>[Text('ราคาต้นทุนทั้งหมด')],),
             Padding(padding: EdgeInsets.only(bottom: 5,top: 5)),
-            Row(children: <Widget>[Text(listproject.allprojectCost.toString(),style: TextStyle(color: Colors.red),),],),
+            Row(children: <Widget>[Text(listproject.allprojectCost.toString()+'  บาท',style: TextStyle(color: Colors.red),),],),
             Padding(padding: EdgeInsets.only(bottom: 5,top: 5)),
             Row(children: <Widget>[Text('ราคาขายทั้งหมด'),],),
             Padding(padding: EdgeInsets.only(bottom: 5,top: 5)),
-            Row(children: <Widget>[Text(totalsell.toString(),style: TextStyle(color: Colors.green),),],),
+            Row(children: <Widget>[Text(totalsell.toString()+'  บาท',style: TextStyle(color: Colors.green),),],),
             Divider()
 
  ]
@@ -231,13 +268,13 @@ class _HomeState extends State<Home> {
             Row(children: <Widget>[Text(listproject.data[i].projectName),],),
             Row(children: <Widget>[Text('ลูกค้า '),Text(listproject.data[i].projectCostomerName),],),
             Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[
-              Text('ราคาต้นทุน :  '),
+              Text('ราคาต้นทุน : '),
               Text(listproject.data[i].projectTotalCost.toString(),style: TextStyle(color: Colors.red),),
               Text('   บาท')
             ],
             ),
             Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[
-              Text('ราคาขาย : '),
+              Text('ราคาขาย    : '),
               Text(sellingrate.toString(),style: TextStyle(color: Colors.green),),
               Text('   บาท')
             ],),

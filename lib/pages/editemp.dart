@@ -167,8 +167,8 @@ class _editemp extends State<editemp> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('ชื่อ-นามสกุล    \n',style: TextStyle(fontSize: 16),),
-                  title: TextField(maxLength: 40,
+                  leading: Text('ชื่อ-นามสกุล    ',style: TextStyle(fontSize: 16),),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนชื่อนามสกุล'
                     ),
@@ -180,8 +180,8 @@ class _editemp extends State<editemp> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('ชื่อเล่น               \n',style: TextStyle(),),
-                  title: TextField(maxLength: 40,
+                  leading: Text('ชื่อเล่น               ',style: TextStyle(),),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนชื่อเล่น'
                     ),
@@ -193,8 +193,8 @@ class _editemp extends State<editemp> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('ที่อยู่                \n',style: TextStyle(fontSize: 16),),
-                  title: TextField(maxLength: 50,
+                  leading: Text('ที่อยู่                ',style: TextStyle(fontSize: 16),),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนที่อยู่'
                     ),
@@ -220,7 +220,7 @@ class _editemp extends State<editemp> {
                 Divider(),
                 ListTile(
                   leading: Text('เงินเดือน          \n',style: TextStyle(fontSize: 16),),
-                  title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
+                  title: TextField(keyboardType: TextInputType.phone ,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเงินเดือน'
                     ),
@@ -241,8 +241,8 @@ class _editemp extends State<editemp> {
                   leading: Text('ข้อมูลผู้ติดต่อ',style: TextStyle(fontSize: 20),),),
                 Divider(),
                 ListTile(
-                  leading: Text('ผู้ติดต่อฉุกเฉิน  \n'),
-                  title: TextField(maxLength: 40,
+                  leading: Text('ผู้ติดต่อฉุกเฉิน  '),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนผู้ติดต่อฉุกเฉิน'
                     ),
@@ -254,8 +254,8 @@ class _editemp extends State<editemp> {
 
                 Divider(),
                 ListTile(
-                  leading: Text('ที่อยู่                \n'),
-                  title: TextField(maxLength: 50,
+                  leading: Text('ที่อยู่                '),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนที่อยู่'
                     ),
@@ -266,8 +266,8 @@ class _editemp extends State<editemp> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('เกี่ยวข้องเป็น    \n'),
-                  title: TextField(maxLength: 20,
+                  leading: Text('เกี่ยวข้องเป็น    '),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนสถานะ'
                     ),

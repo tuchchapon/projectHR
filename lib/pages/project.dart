@@ -8,6 +8,7 @@ import '../model/project.dart';
 import './editproject.dart';
 import 'package:moment/moment.dart';
 import './showproject.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 //
 
@@ -57,7 +58,19 @@ class _projectState extends State<project>  {
     // print('print+++++++'+listPosition.data[1].positionName);
   }
 
-
+  Future<dynamic> deleteproject(id) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/projectmanage/delete';
+    var body = {
+      'id': id,
+    };
+    print(id.toString());
+    http.Response response = await http.post(url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    fetchPost();
+  }
 //
 //
 //
@@ -72,10 +85,7 @@ class _projectState extends State<project>  {
     return new Scaffold(
         appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
             title: new Text('โปรเจค',style: TextStyle(color: Colors.brown[500]),),
-            actions: <Widget>[
-              new IconButton(icon: new Icon(Icons.search), onPressed: null),
-              //  new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-            ]
+
         ),
         drawer: Drawer(
           child: Column(
@@ -136,7 +146,7 @@ class _projectState extends State<project>  {
                     projectcostomerName: listProject.data[index].projectCostomerName,
                     startdate: listProject.data[index].projectStartDate,
                     projectTeamName: listProject.data[index].projectTeamName,
-
+                    fetchPost: fetchPost,
                   ),
               );
             },
@@ -154,13 +164,27 @@ class _projectState extends State<project>  {
 
 class DetailProject extends StatelessWidget {
   //
+  Future<dynamic> deleteproject(id) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/projectmanage/delete';
+    var body = {
+      'id': id,
+    };
+    print(id.toString());
+    http.Response response = await http.post(url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+    fetchPost();
+  }
+
   Future _showAlert(BuildContext context, String message) async {
     return showDialog(
         context: context,
         child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
-            new FlatButton(onPressed: null/*() {del(id.toString());}*/, child: new Text('ยืนยัน')
+            new FlatButton(onPressed: () {deleteproject(id.toString());Navigator.pop(context);print(id.toString());}, child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],
@@ -177,6 +201,7 @@ class DetailProject extends StatelessWidget {
   String projectTeamName;
   double projectcost;
   String projectnote;
+  Function fetchPost;
 
   DetailProject({
     this.id,
@@ -187,12 +212,59 @@ class DetailProject extends StatelessWidget {
     this.projectTeamName,
     this.projectcost,
     this.projectnote,
+    this.fetchPost
     //this.del
   }
     );
   @override
   Widget build(BuildContext context) {
-    return  ListTile(
+    return  Container(child: Column(children: <Widget>[
+    Slidable(
+    delegate: new SlidableDrawerDelegate(),
+      actionExtentRatio: 0.23,
+      child: new Container(
+        color: Colors.white,
+        child: new ListTile(
+          title: new Text(projectname),
+          subtitle: Column(children: <Widget>[
+            Row(children: <Widget>[Text('ลูกค้า : '),Text(projectcostomerName)],),
+            Row(children: <Widget>[Text('ทีมรับผิดชอบ : '),Text(projectTeamName)],)
+          ],),
+          onTap: () {
+            Navigator.push(context,
+              MaterialPageRoute(
+                  builder: (context) => showproject(project_id:id )
+              ),
+            );
+          },),
+      ),
+      secondaryActions: <Widget>[
+        new IconSlideAction(
+            caption: 'Edit',
+            color: Colors.black45,
+            icon: Icons.edit,
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => editproject(projectid: id,),
+                ),
+              );
+            }
+        ),
+        new IconSlideAction(
+            caption: 'Delete',
+            color: Colors.red,
+            icon: Icons.delete,
+            onTap: () => _showAlert(context, 'ต้องการลบ ${projectname} หรือไม่!')
+        ),
+     ],
+    ),
+    Divider() ],),);
+}
+}
+/*
+ListTile(
       title: Text(projectname),
       subtitle: Column(
         children: <Widget>[
@@ -229,6 +301,4 @@ class DetailProject extends StatelessWidget {
         );
       },
     );
-
-  }
-}
+ */

@@ -5,6 +5,8 @@ import 'dart:convert';
 import '../model/teammember.dart';
 import './addteammember.dart';
 import './updatesprint.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 class teammanage extends StatefulWidget {
   @override
   _teammanageState createState() => _teammanageState();
@@ -116,6 +118,73 @@ class _teammanageState extends State<teammanage> {
             Container(
               child: Column(
                 children: <Widget>[
+                  Slidable(
+                    delegate: new SlidableDrawerDelegate(),
+                    actionExtentRatio: 0.23,
+                    child: new Container(
+                      child: new ListTile(
+                        title: new Text(listteam.data[i].empId.empName),
+                        subtitle: Column(children: <Widget>[
+                          Row(children: <Widget>[
+                            Text('ตำแหน่ง  ',style: TextStyle(color: Colors.black),),
+                            Text(listteam.data[i].positionId.positionName,style: TextStyle(color: Colors.green),),
+                          ],),
+                          Row(children: <Widget>[
+                            Text('วันที่เริ่มต้น  ',style: TextStyle(color: Colors.black),),
+                            Text(listteam.data[i].empStartDateFormat,style: TextStyle(color: Colors.blue),),
+                          ],),
+                          Row(children: <Widget>[
+                            Text('วันที่สิ้นสุด:  ',style: TextStyle(color: Colors.black),),
+                            Text(listteam.data[i].empEndDateFormat,style: TextStyle(color: Colors.blue),),
+                          ],)
+
+                        ],),
+                      ),
+                    ),
+                    secondaryActions: <Widget>[
+                      new IconSlideAction(
+                        caption: 'Edit',
+                        color: Colors.black45,
+                        icon: Icons.edit,
+                           onTap: () {
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(
+                                 builder: (context) => updatesprint(teamid: listteam.data[i].id,
+                                     empid: listteam.data[i].empId.id,
+                                     startdate: listteam.data[i],
+                                     enddate: listteam.data[i].empEndDate),
+                               ),
+                             );}
+                      ),
+                      new IconSlideAction(
+                        caption: 'Delete',
+                        color: Colors.red,
+                        icon: Icons.delete,
+                           onTap: () {
+                             deletemember(listteam.data[i].id.toString());
+                             print(widget.team_id);
+                             print(widget.project_id);
+
+                             //  print(listteam.data[i].empId);
+                           }
+                      ),
+                    ],
+                  ),
+                  Divider()
+                ],
+              ),
+            )
+
+
+          ]
+      )
+      );
+    }
+    return mylist;
+  }
+}
+/*
                   ListTile(
                     title: Text(listteam.data[i].empId.empName),
                     subtitle: Column(children: <Widget>[
@@ -159,16 +228,4 @@ class _teammanageState extends State<teammanage> {
 
                  ]
                 ,)),
-                  Divider()
-                ],
-              ),
-            )
-
-
-          ]
-      )
-      );
-    }
-    return mylist;
-  }
-}
+ */

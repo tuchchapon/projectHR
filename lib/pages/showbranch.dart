@@ -122,11 +122,8 @@ class _showbranchState extends State<showbranch> {
                           child: Text(('     จัดการค่าใช้จ่าย  >'),style: TextStyle(fontSize: 12),))),
                 ],
               ),
-
               ),
-
           ),
-
           Text('     ค่าใช้จ่ายทั่วไป           ',style: TextStyle(fontSize: 12)),
           ListTile(leading: Text('รายการ'),trailing: Text('มูลค่า'),),
           Container(

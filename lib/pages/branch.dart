@@ -9,6 +9,7 @@ import '../model/fixcost.dart';
 import '../model/branchaddit.dart';
 import './editbranch.dart';
 import './showbranch.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 
 
@@ -186,32 +187,44 @@ class Detailbranch extends StatelessWidget {
   Detailbranch({this.id,this.branch_name,this.branchaddress,this.del});
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Text(branch_name),
-      title: Row(mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          IconButton(icon: Icon(Icons.edit),onPressed:() {
-      Navigator.push(context,
-        MaterialPageRoute(
-            builder: (context) => editbranch(id: id,branchname: branch_name,branch_address: branchaddress,)
+    return     Slidable(
+      delegate: new SlidableDrawerDelegate(),
+      actionExtentRatio: 0.23,
+      child: new Container(
+        color: Colors.white,
+        child: new ListTile(
+          title: new Text(branch_name),
+          subtitle: Text(branchaddress,style: TextStyle(fontSize: 12),),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => showbranch(id: id,branch_name: branch_name,branchaddress: branchaddress,),
+              ),
+            );
+          },
         ),
-      );
-    },
-          )
-          ,IconButton(icon: Icon(Icons.delete), onPressed: () => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
-            // del(id.toString());
-
-          ),
-        ],
-      ),//subtitle: Text(branchaddress),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => showbranch(id: id,branch_name: branch_name,branchaddress: branchaddress,),
-          ),
-        );
-      },
+      ),
+      secondaryActions: <Widget>[
+        new IconSlideAction(
+          caption: 'Edit',
+          color: Colors.black45,
+          icon: Icons.edit,
+             onTap: () {
+               Navigator.push(context,
+                 MaterialPageRoute(
+                     builder: (context) => editbranch(id: id,branchname: branch_name,branch_address: branchaddress,)
+                 ),
+               );
+             },
+        ),
+        new IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+           onTap: () => _showAlert(context, 'ต้องการลบ ${branch_name} หรือไม่!')
+        ),
+      ],
     );
   }
 

@@ -51,6 +51,7 @@ class _addempState extends State<addemp> {
         headers: {'authorization': "Bearer "+Token},
         body: body);
    print(response.body);
+   print(response.statusCode);
     Navigator.of(context).pushReplacementNamed('/employee');
   }
 //
@@ -135,8 +136,8 @@ class _addempState extends State<addemp> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('ชื่อ-นามสกุล    \n',style: TextStyle(fontSize: 16),),
-                  title: TextField(maxLength: 40,
+                  leading: Text('ชื่อ-นามสกุล    ',style: TextStyle(fontSize: 16),),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนชื่อนามสกุล'
                     ),
@@ -148,8 +149,8 @@ class _addempState extends State<addemp> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('ชื่อเล่น               \n',style: TextStyle(),),
-                  title: TextField(maxLength: 40,
+                  leading: Text('ชื่อเล่น               ',style: TextStyle(),),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนชื่อเล่น'
                     ),
@@ -161,8 +162,8 @@ class _addempState extends State<addemp> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('ที่อยู่                \n',style: TextStyle(fontSize: 16),),
-                  title: TextField(maxLength: 50,
+                  leading: Text('ที่อยู่                ',style: TextStyle(fontSize: 16),),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนที่อยู่'
                     ),
@@ -174,7 +175,7 @@ class _addempState extends State<addemp> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('เบอร์ติดต่อ       \n',style: TextStyle(fontSize: 16),),
+                  leading: Text('เบอร์ติดต่อ       ',style: TextStyle(fontSize: 16),),
                   title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเบอร์ติดต่อ'
@@ -187,8 +188,8 @@ class _addempState extends State<addemp> {
                 ),
                 Divider(),
                 ListTile(
-                  leading: Text('เงินเดือน          \n',style: TextStyle(fontSize: 16),),
-                  title: TextField(keyboardType: TextInputType.phone ,maxLength: 10,
+                  leading: Text('เงินเดือน          ',style: TextStyle(fontSize: 16),),
+                  title: TextField(keyboardType: TextInputType.phone ,autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเงินเดือน'
                     ),
@@ -209,8 +210,8 @@ class _addempState extends State<addemp> {
                   leading: Text('ข้อมูลผู้ติดต่อ',style: TextStyle(fontSize: 20),),),
                 Divider(),
                 ListTile(
-                  leading: Text('ผู้ติดต่อฉุกเฉิน  \n'),
-                  title: TextField(maxLength: 40,
+                  leading: Text('ผู้ติดต่อฉุกเฉิน  '),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนผู้ติดต่อฉุกเฉิน'
                     ),
@@ -223,8 +224,8 @@ class _addempState extends State<addemp> {
 
                 Divider(),
                 ListTile(
-                  leading: Text('ที่อยู่                \n'),
-                  title: TextField(maxLength: 50,
+                  leading: Text('ที่อยู่                '),
+                  title: TextField(autocorrect: false,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนที่อยู่'
                     ),
@@ -236,8 +237,8 @@ class _addempState extends State<addemp> {
                 ),
           Divider(),
           ListTile(
-            leading: Text('เกี่ยวข้องเป็น    \n'),
-            title: TextField(maxLength: 20,
+            leading: Text('เกี่ยวข้องเป็น    '),
+            title: TextField(autocorrect: false,
               decoration: InputDecoration.collapsed(
                   hintText: 'ป้อนสถานะ'
               ),

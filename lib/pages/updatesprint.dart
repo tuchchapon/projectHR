@@ -46,7 +46,7 @@ class _updatesprintState extends State<updatesprint> {
     final Map<String, dynamic> responseData = await json.decode(
         response.body);
     print(responseData);
-    //fetchPost();
+    Navigator.of(context).pushReplacementNamed('/project');
     return responseData['code'];
 
   }

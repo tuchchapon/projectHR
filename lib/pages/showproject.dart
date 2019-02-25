@@ -115,7 +115,7 @@ class _showprojectState extends State<showproject> {
                         ),
                       );
                     },
-                      child: Text('จัดการทีม >'),color: Colors.blue,),),
+                      child: Text('จัดการทีม >')),),
                   ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),
                     title: Text(listProject.data.projectNote,style: TextStyle(fontSize: 12)),),
                   Divider()
