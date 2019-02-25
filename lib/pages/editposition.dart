@@ -96,7 +96,7 @@ class _editpositionState extends State<editposition> {
                   Updateposition(idcon.text, myController.text);
                  print(idcon);
                   print(myController);
-                  Navigator.of(context).pushReplacementNamed('/position');
+
                  },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
               ]
           ),
@@ -104,29 +104,37 @@ class _editpositionState extends State<editposition> {
       ),
     );
   }
+  Future<dynamic> Updateposition(id,position) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String Token = prefs.getString("prefsToken");
+    var url = 'http://35.198.219.154:1337/position/update';
+    var body = {
+      'id': id,
+      'position_name': position,
+    };
+
+
+    print(body);
+    http.Response response = await http.post(
+        url,
+        headers: {'authorization': "Bearer "+Token},
+        body: body);
+
+    final Map<String, dynamic> responseData = await json.decode(
+        response.body);
+    print(responseData);
+    if(response.statusCode == 200){
+      Navigator.of(context).pushReplacementNamed('/position');
+
+    }
+    return responseData['code'];
+
+  }
 }
 
 //
 
-Future<dynamic> Updateposition(id,position) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String Token = prefs.getString("prefsToken");
-  var url = 'http://35.198.219.154:1337/position/update';
-  var body = {
-    'id': id,
-    'position_name': position,
-  };
-  print(body);
-  http.Response response = await http.post(
-      url,
-      headers: {'authorization': "Bearer "+Token},
-      body: body);
-  final Map<String, dynamic> responseData = await json.decode(
-      response.body);
-  print(responseData);
-  return responseData['code'];
 
-}
 //
 /*
 

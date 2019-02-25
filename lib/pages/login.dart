@@ -34,7 +34,8 @@ Map<String, dynamic> toJson() => {
 
 
 class _loginState extends State<login> {
-
+  String user ;
+  String pass ;
   void _showDialog() {
     // flutter defined function
     showDialog(
@@ -43,7 +44,7 @@ class _loginState extends State<login> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("เกิดข้อผิดพลาด !!",style: TextStyle(fontSize: 20),),
-          content: new Text("กรุณากรอกข้อมูล"),
+          content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
@@ -57,34 +58,16 @@ class _loginState extends State<login> {
       },
     );
   }
-  void _checklenght() {
-    // flutter defined function
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("เกิดข้อผิดพลาด !!",style: TextStyle(fontSize: 20),),
-          content: new Text("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("ปิด"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  String user ;
-  String pass ;
+
+
 
  // final usercon = TextEditingController();
  // final passcon = TextEditingController();
-
+  void initState() {
+    super.initState();
+    user = '';
+    pass = '';
+  }
     Future<dynamic> LoginA(username , password) async {
       print(username);
       print(password);

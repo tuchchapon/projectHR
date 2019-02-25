@@ -7,7 +7,33 @@ class addbranch extends StatefulWidget {
 }
 
 class _addbranchState extends State<addbranch> {
-
+void initState(){
+  super.initState();
+  branchname ='';
+  branchad ='';
+}
+void _showDialog() {
+  // flutter defined function
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      // return object of type Dialog
+      return AlertDialog(
+        title: new Text("ผิดพลาด !"),
+        content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
+        actions: <Widget>[
+          // usually buttons at the bottom of the dialog
+          new FlatButton(
+            child: new Text("ปิด"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
   Future<dynamic> AddBranch(branchName,branchAD) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
@@ -37,7 +63,7 @@ class _addbranchState extends State<addbranch> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.white),),
       ),
 
       body: new Container(height: screenHeight,width: screenWidth,
@@ -76,7 +102,12 @@ class _addbranchState extends State<addbranch> {
             RaisedButton(
               padding: EdgeInsets.only(right: 25),
               onPressed: (){
+              if (branchname == '' || branchad == ''){
+                _showDialog();
+              }
+              else{
                 AddBranch(branchname, branchad);
+              }
               },child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
           ],
         ),

@@ -76,7 +76,7 @@ class _addbenefitState extends State<addbenefit> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.white),),
       ),
 
       body: new Container(height: screenHeight,width: screenWidth,margin: EdgeInsets.all(10),

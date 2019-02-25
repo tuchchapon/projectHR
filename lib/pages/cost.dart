@@ -109,11 +109,11 @@ class _costState extends State<cost>  {
             )
         ),
         Divider(),
-        Row(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('ค่าใช้จ่ายทั่วไปทั้งหมด  '),
-        Text(widget.listfixcost.branchFixcostTotal.toString(),style: TextStyle(color: Colors.green),),
-        Text('  บาท '),
+        Row(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('ค่าใช้จ่ายทั่วไปทั้งหมด  ',style: TextStyle(fontSize: 16),),
+        Text(widget.listfixcost.branchFixcostTotal.toString(),style: TextStyle(color: Colors.green,fontSize: 16),),
+        Text('  บาท ',style: TextStyle(fontSize: 16),),
         ],),
-        Divider(),
+        Divider(color: Colors.black,height: 0.2,),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
           Text('   ค่าใช้จ่ายอื่นๆ'),
@@ -136,9 +136,9 @@ class _costState extends State<cost>  {
             )
         ),
      Divider(),
-     Row(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('ค่าใข้จ่ายเพิ่มเติมทั้งหมด '),
-     Text(widget.listaddit.branchAdditTotal.toString(),style: TextStyle(color: Colors.green),),Text('  บาท  ')],)
-        ,Divider(),
+     Row(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('ค่าใข้จ่ายเพิ่มเติมทั้งหมด ',style: TextStyle(fontSize: 16),),
+     Text(widget.listaddit.branchAdditTotal.toString(),style: TextStyle(color: Colors.green,fontSize: 16),),Text('  บาท  ',style: TextStyle(fontSize: 16),)],)
+        ,Divider(color: Colors.black,height: 0.2,),
         ],
       ),
     );

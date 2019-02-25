@@ -12,6 +12,12 @@ class addcost extends StatefulWidget {
 }
 
 class _addcostState extends State<addcost> {
+
+void initState(){
+  super.initState();
+  addit_title = '';
+  addit_price ='';
+}
   String addit_title;
   String addit_price;
   var timestamp = DateTime.now().millisecondsSinceEpoch;
@@ -41,6 +47,73 @@ class _addcostState extends State<addcost> {
   }
 
   Widget build(BuildContext context) {
+
+    void _showDialog() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("ผิดพลาด !"),
+            content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("ปิด"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    void _showDialognumber() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("ผิดพลาด !"),
+            content: new Text("ข้อมูลไม่ถูกต้อง"),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("ปิด"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    void _showDialogsave() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("บันทึกข้อมูลแล้ว"),
+            //   content: new Text("รูปแบบข้อมูลผิดพลาด"),
+            actions: <Widget>[
+
+              new FlatButton(
+                child: new Text("ปิด"),
+                onPressed: () {
+                  Addbranchaddit(addit_title, addit_price.toString(), timestamp.toString(), widget.id.toString()) ;
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
 
@@ -92,7 +165,13 @@ class _addcostState extends State<addcost> {
                   Divider(color: Colors.grey,),
                   RaisedButton(
                     onPressed: (){
-                      Addbranchaddit(addit_title, addit_price, timestamp.toString(), widget.id.toString());widget.getadditcost();},
+                      if (addit_title.length == 0 || addit_price.length == 0){
+                        _showDialog();
+                      }
+                      else {
+                        _showDialogsave();
+                      }
+                      },
 
                     child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),
                   ),

@@ -187,7 +187,11 @@ class Detailemp extends StatelessWidget {
           child: new AlertDialog(
             title: new Text(message),
             actions: <Widget>[
-              new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);}, child: new Text('ยืนยัน')
+              new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text('ลบข้อมูลสำเร็จ'),
+                duration: Duration(seconds: 3),
+              ));}, child: new Text('ยืนยัน')
               ),
               new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
             ],

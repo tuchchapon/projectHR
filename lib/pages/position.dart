@@ -104,7 +104,7 @@ class _positionState extends State<position>  {
 //    print('mylength'+listposition.data.length.toString());
     return new Scaffold(
         appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
-            title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+            title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.white),),
 
         ),
         drawer: Drawer(
@@ -185,7 +185,11 @@ class DetailPosition extends StatelessWidget {
         child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
-            new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);}, child: new Text('ยืนยัน')
+            new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('ลบข้อมูลสำเร็จ'),
+              duration: Duration(seconds: 3),
+            ));}, child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],

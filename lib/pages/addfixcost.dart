@@ -13,12 +13,59 @@ class _addfixcostState extends State<addfixcost> {
   @override
   void initState() {
     super.initState();
-    print('id is'+widget.id.toString());
+    title ='';
+    price = '';
+    note = '';
   }
   String title;
   String price;
   String note;
   Widget build(BuildContext context) {
+
+    void _showDialog() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("ผิดพลาด !"),
+            content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("ปิด"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    void _showDialognumber() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("บันทึกข้อมูลแล้ว"),
+         //   content: new Text("รูปแบบข้อมูลผิดพลาด"),
+            actions: <Widget>[
+
+              new FlatButton(
+                child: new Text("ปิด"),
+                onPressed: () {
+                  Addfixcost(title, price, note, widget.id.toString()) ;
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
 
@@ -48,7 +95,7 @@ class _addfixcostState extends State<addfixcost> {
         Divider(color: Colors.grey,),
         ListTile(
           leading: Text('มูลค่า      '),
-          title:            TextField(
+          title:            TextField(keyboardType: TextInputType.numberWithOptions(),
             decoration: InputDecoration.collapsed(
               hintText: ('ระบุมูลค่า'),
             ),
@@ -74,7 +121,13 @@ class _addfixcostState extends State<addfixcost> {
         Divider(color: Colors.grey,),
         RaisedButton(
           padding: EdgeInsets.only(right: 25),
-          onPressed: (){Addfixcost(title, price, note, widget.id.toString());},
+          onPressed: (){
+            if (title == ''|| price == '' || note ==''){
+              _showDialog();
+            }
+            else{_showDialognumber();}
+
+          },
           child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
             ],
           ),

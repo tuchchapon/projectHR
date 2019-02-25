@@ -25,7 +25,7 @@ void save(){
 */
 
 class _addpositionState extends State<addposition> {
- String position;
+ String position='';
  //final myController = TextEditingController();
 /*
   void addPosition(String name,) {
@@ -42,14 +42,40 @@ class _addpositionState extends State<addposition> {
   @override
   void initState() {
     super.initState();
+    position = '';
     print('++++++++++++++++');
     //myController.addListener(validateName);
 
   }
+  final _text = TextEditingController();
+  bool _validate = false;
 
  // final myController = TextEditingController();
 
   Widget build(BuildContext context) {
+
+    void _showDialog() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("ผิดพลาด !"),
+            content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("ปิด"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
     MediaQueryData queryData = MediaQuery.of(context);
 
     double screenWidth = queryData.size.width;
@@ -75,7 +101,6 @@ class _addpositionState extends State<addposition> {
             decoration: InputDecoration.collapsed(
                 hintText: 'ป้อนตำแหน่ง'),
             onChanged: (String value) {
-              validateName(value);
               position = value;
               print(position);
 
@@ -86,7 +111,12 @@ class _addpositionState extends State<addposition> {
        //   new Text(_position),
         Divider(color: Colors.grey,),
          RaisedButton(onPressed: (){
-           Addposition(position);
+         //  print(position.length);
+           if (position == ''){
+             _showDialog();
+           }
+           else{Addposition(position);}
+
           // print(position);
           // print('con ='+myController.text);
          },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
@@ -114,6 +144,7 @@ class _addpositionState extends State<addposition> {
  headers: {'authorization': "Bearer "+Token},
           body: body);
     Navigator.of(context).pushReplacementNamed('/position');
+
     final Map<String, dynamic> responseData = await json.decode(
         response.body);
     print(responseData);
@@ -124,7 +155,7 @@ class _addpositionState extends State<addposition> {
     Pattern pattern =
         '[a-zA-Zก-ฮ1-9]';
     RegExp regex = new RegExp(pattern);
-    if (value.length < 1) {
+    if (value.length == 1) {
       return 'กรุณาป้อนตำแหน่ง';
     } else if (!regex.hasMatch(value)) {
       return 'รูปแบบไม่ถูกต้อง';

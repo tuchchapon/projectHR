@@ -6,6 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:project/model/teammember.dart';
 import 'package:project/pages/addteammember.dart';
 import 'package:project/pages/updatesprint.dart';
+import 'dart:async';
 
 class teammanage extends StatefulWidget {
   @override
@@ -108,8 +109,29 @@ class _teammanageState extends State<teammanage> {
     );
   }
   List<Widget> detailteam(){
+
+
     List<Widget> mylist = new List();
     for(int i = 0; i < this.loopmember ; i++ ){
+      Future _showAlert(BuildContext context, String message) async {
+        return showDialog(
+            context: context,
+            child: new AlertDialog(
+              title: new Text(message),
+              actions: <Widget>[
+                new FlatButton(onPressed: () {deletemember(listteam.data[i].id.toString());Navigator.pop(context);
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text('ลบข้อมูลสำเร็จ'),
+                  duration: Duration(seconds: 3),
+                ));
+                }, child: new Text('ยืนยัน')
+                ),
+                new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
+              ],
+            )
+
+        );
+      }
       mylist.add(Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -159,13 +181,15 @@ class _teammanageState extends State<teammanage> {
                         caption: 'ลบข้อมูล',
                         color: Colors.red,
                         icon: Icons.delete,
-                           onTap: () {
+                           onTap: ()=> _showAlert(context, 'ต้องการลบ ${listteam.data[i].empId.empName} หรือไม่!') /*{
+
                              deletemember(listteam.data[i].id.toString());
+
                              print(widget.team_id);
                              print(widget.project_id);
 
                              //  print(listteam.data[i].empId);
-                           }
+                           }*/
                       ),
                     ],
                   ),
