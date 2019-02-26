@@ -103,7 +103,7 @@ class _showempState extends State<showemp> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('ข้อมูลพนักงาน',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('ข้อมูลพนักงาน',style: TextStyle(color: Colors.white),),
       ),
       body: ListView(
         children: <Widget>[

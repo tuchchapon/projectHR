@@ -33,6 +33,7 @@ import './pages/editbranch.dart';
 import './pages/editproject.dart';
 import './pages/addprojectaddit.dart';
 import './pages/allmanday.dart';
+import './pages/chart.dart';
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -78,6 +79,7 @@ class MyApp extends StatelessWidget {
         '/editproject': (BuildContext contrext) => new editproject(),
         '/addprojectaddit': (BuildContext contrext) => new addprojectaddit(),
         '/allmanday': (BuildContext contrext) => new allmanday(),
+        '/chart': (BuildContext contrext) => new chart(),
 
       },
       home: login(), //first page displayed

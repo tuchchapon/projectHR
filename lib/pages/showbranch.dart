@@ -98,7 +98,7 @@ class _showbranchState extends State<showbranch> {
 
     return Scaffold(
       appBar: AppBar(backgroundColor: colorappbar,
-        title: Text('ข้อมูลสาขา',style: TextStyle(color: Colors.brown[500]),),
+        title: Text('ข้อมูลสาขา',style: TextStyle(color: Colors.white),),
       ),
       body: ListView(
         children: <Widget>[

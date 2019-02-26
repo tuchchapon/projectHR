@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:project/model/manday.dart';
 import 'package:project/model/project.dart';
+import 'package:project/model/chart_position.dart';
 
 
 
@@ -15,30 +16,52 @@ class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
 
 }
+class Label {
+  String label;
+  int value;
 
+  Label(this.value,this.label);
+}
 
   @override
   Widget build(BuildContext context) {
 
 }
+class Sales {
+  String year;
+  int sales;
+
+  Sales(this.year,this.sales);
+}
 class _HomeState extends State<Home> {
+
+
+
   @override
   void initState() {
     super.initState();
     getmanday();
     getprojectsell();
 
+
   }
   ///
+  int loopchart =0;
   int loopproject =0;
   int loopmanday =0;
   int projectisTrue =0;
   int mandayisTrue =0;
   Project listproject = new Project();
   Manday listmanday = new Manday();
-  ///
-  void _makeData() {
 
+  ///
+
+
+  ///
+  Future <void> clearpref()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("prefsToken");
+    print("prefsToken");
   }
   ///
   Future<void> getprojectsell() async {
@@ -52,20 +75,16 @@ class _HomeState extends State<Home> {
   //  print(jsonResponse);
 
     if (response.statusCode == 200) {
-
-      // If the call to the server was successful, parse the JSON
-//      return Position.fromJson(json.decode(response.body));
       listproject = new Project.fromJson(jsonResponse);
       setState(() {
         loopproject = listproject.data.length;
         this.projectisTrue = 1;
       });
-   //   print('AAAAAA');
     } else {
-      // If that call was not successful, throw an error.
+
       throw Exception('Failed to load post');
     }
-    // print('print+++++++'+listPosition.data[1].positionName);
+
   }
 
   Future<void> getmanday() async {
@@ -80,8 +99,6 @@ class _HomeState extends State<Home> {
 
     if (response.statusCode == 200) {
 
-      // If the call to the server was successful, parse the JSON
-//      return Position.fromJson(json.decode(response.body));
       listmanday = new Manday.fromJson(jsonResponse);
       setState(() {
         loopmanday = listmanday.data.length;
@@ -91,11 +108,11 @@ class _HomeState extends State<Home> {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
     }
-    // print('print+++++++'+listPosition.data[1].positionName);
   }
 
   @override
   Widget build(BuildContext context) {
+
 
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
@@ -105,7 +122,8 @@ class _HomeState extends State<Home> {
     return new Scaffold(
       appBar: new AppBar(
           backgroundColor: colorappbar,
-          title: new Text('หน้าหลัก ',style:TextStyle(color: Colors.brown[500]),),
+          title: new Text('หน้าหลัก ',style:TextStyle(color: Colors.white),),
+
 
       ),
 
@@ -118,7 +136,7 @@ class _HomeState extends State<Home> {
                 child: Column(mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Padding(padding: EdgeInsets.only(top: 20,)),
-                  CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
+                  CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
                   Padding(padding: EdgeInsets.only(top: 20,left: 50)),
                   Text('admin',style: TextStyle(fontSize: 20),)
                   ],
@@ -152,6 +170,20 @@ class _HomeState extends State<Home> {
               title: Text('ตำแหน่ง'),
               onTap:(){Navigator.of(context).pushNamed('/position');},
             ),
+            Divider(height: 0.2,),
+          Column(children: <Widget>[
+
+            ListTile(
+              leading: Icon(Icons.close
+                  ,color: Colors.red),
+              title: Text('ออกจากระบบ'),
+              onTap: (){
+                Navigator.of(context).pushReplacementNamed('/login');
+                clearpref();
+                },
+            )],),
+
+            Divider(height: 0.2,)
  /*           ListTile(
               leading: Icon(Icons.card_giftcard,color: Colors.black),
               title: Text('สิทธิประโยชน์'),
@@ -161,11 +193,12 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body:ListView(children: <Widget>[
-        Container(width: screenWidth,margin: EdgeInsets.all(10),padding: EdgeInsets.all(10),
+      body: ListView(
+        children: <Widget>[
+          /*IconButton(icon: Icon(Icons.add), onPressed: (){Navigator.of(context).pushNamed('/chart');}),*/
+        Container(
+          width: screenWidth,margin: EdgeInsets.all(10),padding: EdgeInsets.all(10),
           child: Column(children: <Widget>[
-
-
 
             Divider(),
             Row(children: <Widget>[
@@ -176,7 +209,7 @@ class _HomeState extends State<Home> {
             Container(
                 width: screenWidth,
                 child: Column( children: mandayisTrue == 0 ? [
-                  Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+                  CircularProgressIndicator(),
                 ] : detailmanday()
                 )
             ),
@@ -187,14 +220,14 @@ class _HomeState extends State<Home> {
             Container(
                 width: screenWidth,
                 child: Column( children: projectisTrue == 0 ? [
-                  Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+                  CircularProgressIndicator(backgroundColor: Colors.red,),
                 ] : detailproject()
                 )
             ),
             Container(
                 width: screenWidth,
                 child: Column( children: projectisTrue == 0 ? [
-                  Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+                  CircularProgressIndicator(),
                 ] : totalsell()
                 )
             ),
@@ -291,10 +324,7 @@ class _HomeState extends State<Home> {
 
 /// Horizontal bar chart with bar label renderer example and hidden domain axis.
 
-
-/// Horizontal bar chart with bar label renderer example and hidden domain axis.
-
-
+/*
 class HorizontalBarLabelChart extends StatelessWidget {
   final List<charts.Series> seriesList;
   final bool animate;
@@ -310,25 +340,12 @@ class HorizontalBarLabelChart extends StatelessWidget {
     );
   }
 
-
-  // [BarLabelDecorator] will automatically position the label
-  // inside the bar if the label will fit. If the label will not fit and the
-  // area outside of the bar is larger than the bar, it will draw outside of the
-  // bar. Labels can always display inside or outside using [LabelPosition].
-  //
-  // Text style for inside / outside can be controlled independently by setting
-  // [insideLabelStyleSpec] and [outsideLabelStyleSpec].
   @override
   Widget build(BuildContext context) {
     return new charts.BarChart(
       seriesList,
       animate: animate,
       vertical: false,
-      // Set a bar label decorator.
-      // Example configuring different styles for inside/outside:
-      //       barRendererDecorator: new charts.BarLabelDecorator(
-      //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
-      //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
       barRendererDecorator: new charts.BarLabelDecorator<String>(),
       // Hide domain axis.
       domainAxis:
@@ -337,22 +354,22 @@ class HorizontalBarLabelChart extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final data = [
-      new OrdinalSales('2014', 5),
-      new OrdinalSales('2015', 25),
-      new OrdinalSales('2016', 100),
-      new OrdinalSales('2017', 75),
+  static List<charts.Series<ChartPosition, String>> _createSampleData() {
+    final ChartPosition = [
+      new Data(),
+      new Data(),
+      new Data(),
+      new Data(),
     ];
 
     return [
-      new charts.Series<OrdinalSales, String>(
+      new charts.Series<ChartPosition, String>(
           id: 'Sales',
-          domainFn: (OrdinalSales sales, _) => sales.year,
-          measureFn: (OrdinalSales sales, _) => sales.sales,
+          domainFn: (ChartPosition sales, _) => sales.data[0].label,
+          measureFn: (ChartPosition sales, _) => sales.data[0].value,
           data: data,
           // Set a label accessor to control the text of the bar label.
-          labelAccessorFn: (OrdinalSales sales, _) =>
+          labelAccessorFn: (ChartPosition sales, _) =>
           '${sales.year}: \$${sales.sales.toString()}')
     ];
   }
@@ -365,3 +382,4 @@ class OrdinalSales {
 
   OrdinalSales(this.year, this.sales);
 }
+*/

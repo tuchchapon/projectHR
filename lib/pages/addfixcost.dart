@@ -73,7 +73,7 @@ class _addfixcostState extends State<addfixcost> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มค่าใช้จ่ายทั่วไป',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('เพิ่มค่าใช้จ่ายทั่วไป',style: TextStyle(color: Colors.white),),
       ),
 
       body: new Container(

@@ -83,7 +83,7 @@ class _addpositionState extends State<addposition> {
     Color colorappbar = const Color(0xFF2ac3fe);
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.white),),
 
       ),
 

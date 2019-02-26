@@ -88,7 +88,7 @@ class _empfreetimesState extends State<empfreetimes> {
 
     return Scaffold(
       appBar: AppBar(backgroundColor: colorappbar,
-        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.white),),
       ),
       body: ListView(
         children: <Widget>[

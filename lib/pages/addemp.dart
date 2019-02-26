@@ -12,18 +12,64 @@ class addemp extends StatefulWidget {
 }
 
 class _addempState extends State<addemp> {
+
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ผิดพลาด !"),
+          content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  void _showDialogbranch() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ผิดพลาด !"),
+          content: new Text("กรุณาเลือกสาขา"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   int choiceloop;
   String _branch = 'กรุณาเลือกสาขา';
-  int idbranch;
-  String empname;
-  String empnickname;
-  String emp_salary;
-  String emp_addrees;
-  String emp_tel;
-  String emp_conname;
-  String emp_con_relation;
-  String emp_con_address;
-  String emp_con_tel;
+  int idbranch ;
+  String empname='';
+  String empnickname='';
+  String emp_salary = '';
+  String emp_addrees= '';
+  String emp_tel= '';
+  String emp_conname ='';
+  String emp_con_relation ='';
+  String emp_con_address ='';
+  String emp_con_tel ='';
 
   //
   Future<dynamic> Addemp(emp_name,emp_nickname,emp_salary,emp_address,
@@ -108,6 +154,15 @@ class _addempState extends State<addemp> {
   void initState() {
     super.initState();
     getbranchdata();
+    empname ='';
+    empnickname='';
+    emp_salary = '';
+    emp_addrees= '';
+    emp_tel= '';
+    emp_conname ='';
+    emp_con_relation ='';
+    emp_con_address ='';
+    emp_con_tel ='';
   }
 
   Widget build(BuildContext context) {
@@ -121,7 +176,7 @@ class _addempState extends State<addemp> {
 
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('เพิ่มข้อมูล',style: TextStyle(color: Colors.white),),
       ),
       body: Container(
         height: screenHeight,
@@ -268,16 +323,20 @@ class _addempState extends State<addemp> {
                   textColor: (Colors.white),
                   padding: EdgeInsets.all(10),
                   onPressed: (){
+                  if(empname == '' || empnickname == ''|| emp_salary == '' || emp_addrees =='' || emp_tel == ''
+                  || emp_conname == '' ||emp_con_relation == ''||emp_con_address ==''||emp_con_tel =='')
+                  {_showDialog();}
+                  else{
                     Addemp(empname,
                         empnickname,
                         emp_salary,
                         emp_addrees,
                         emp_tel,
-                        emp_conname,
-                        emp_con_relation,
-                        emp_con_relation,
                         emp_con_tel,
-                        idbranch);
+                        emp_con_relation,
+                        emp_con_address,
+                        emp_con_tel,
+                        idbranch);}
                     },
                 ),
               ]

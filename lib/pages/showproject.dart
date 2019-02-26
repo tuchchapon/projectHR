@@ -114,7 +114,7 @@ class _showprojectState extends State<showproject> {
     Color colorappbar = const Color(0xFF2ac3fe);
       return new Scaffold(
         appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('ข้อมูลโปรเจ็ค',style: TextStyle(color: Colors.brown[500]),),
+          title: new Text('ข้อมูลโปรเจ็ค',style: TextStyle(color: Colors.white),),
         ),
         body: new ListView(children: <Widget>[
           Padding(padding: EdgeInsets.only(top: 10)),

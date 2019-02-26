@@ -58,6 +58,28 @@ class _loginState extends State<login> {
       },
     );
   }
+  void _showDialogwrong() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("เกิดข้อผิดพลาด !!",style: TextStyle(fontSize: 20),),
+          content: new Text("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 
 
@@ -80,7 +102,7 @@ class _loginState extends State<login> {
         http.Response response = await http.post(
             url,
             body: body);
-        print(response.headers);
+       // print(response.headers);
         print(response.statusCode);
 
     /*  final Map<String, dynamic> responseData = await json.decode(response.body);
@@ -94,10 +116,9 @@ class _loginState extends State<login> {
       prefs.setString("prefsToken",token.token);
       print(response.body);
 
-    if (token.username == "admin"){
+    if (response.statusCode == 200){
       Navigator.of(context).pushReplacementNamed('/Home');
     }
-
 
 
 
@@ -194,10 +215,7 @@ Future<String>getToken()async{
               if (user.length == 0 ||  pass.length == 0){
                 _showDialog();
               }
-              else{
-                LoginA(user,pass);
-
-              }
+              else{LoginA(user,pass);}
 
   print('username is :'+user);
   print('password is :'+pass);

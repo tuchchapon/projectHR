@@ -127,7 +127,7 @@ class _editprojectState extends State<editproject> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('แก้ไขโปรเจ็ค',style:TextStyle(color: Colors.brown[500]),),
+        title: new Text('แก้ไขโปรเจ็ค',style:TextStyle(color: Colors.white),),
       ),
 
       body: ListView(children: <Widget>[
@@ -195,13 +195,6 @@ class _editprojectState extends State<editproject> {
                   ),
                   Divider(color: Colors.grey),
                   RaisedButton(onPressed: (){
-                  //  print(widget.projectid,);
-                  //  print(projectnamecon.text);
-                  //  print(cus_namecon.text);
-                    //   print(listProject.data.projectStartDate);
-                    //    print(listProject.data.projectEndDate);
-                //    print(teamnamecon.text);
-                //    print(notecon.text);
                     updateproject(widget.projectid.toString(), projectnamecon.text,
                         cus_namecon.text, listProject.data.projectStartDate.toString(),
                         listProject.data.projectEndDate.toString(),

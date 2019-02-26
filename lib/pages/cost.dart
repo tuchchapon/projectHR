@@ -77,7 +77,7 @@ class _costState extends State<cost>  {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('ค่าใช้จ่าย',style: TextStyle(color: Colors.brown[500]),),
+          title: new Text('ค่าใช้จ่าย',style: TextStyle(color: Colors.white),),
       ),
 
 
@@ -318,7 +318,7 @@ class Detailfixcost extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(backgroundColor: colorappbar,
-        title: Text('ค่าใช้จ่ายทั่วไป',style: TextStyle(color: Colors.brown[500]),),
+        title: Text('ค่าใช้จ่ายทั่วไป',style: TextStyle(color: Colors.white),),
       ),
       body: Container(
           margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
@@ -358,7 +358,7 @@ class Detailadditcost extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(backgroundColor: colorappbar,
-        title: Text('ค่าใช้จ่ายเพิ่มเติม',style: TextStyle(color: Colors.brown[500]),),
+        title: Text('ค่าใช้จ่ายเพิ่มเติม',style: TextStyle(color: Colors.white),),
       ),
       body: Container(
           margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,

@@ -86,7 +86,7 @@ class _addprojectState extends State<addproject> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มโปรเจค',style:TextStyle(color: Colors.brown[500]),),
+        title: new Text('เพิ่มโปรเจค',style:TextStyle(color: Colors.white),),
       ),
 
       body: new Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),

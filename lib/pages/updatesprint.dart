@@ -96,7 +96,7 @@ class _updatesprintState extends State<updatesprint> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('จัดการ sprint',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('จัดการ sprint',style: TextStyle(color: Colors.white),),
       ),
 
       body: new Container(

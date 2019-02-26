@@ -86,11 +86,8 @@ class _emppositionState extends State<empposition>  {
     return new Scaffold(
         appBar: new AppBar(
             backgroundColor: colorappbar,
-            title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
-            actions: <Widget>[
-              new IconButton(icon: new Icon(Icons.search), onPressed: null),
-              //      new IconButton(icon: new Icon(Icons.home), onPressed: () {Navigator.of(context).pushNamed('/Home');})
-            ]
+            title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.white),),
+
         ),
 
         body: ListView(

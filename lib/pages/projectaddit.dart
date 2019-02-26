@@ -72,7 +72,7 @@ class _projectadditState extends State<projectaddit> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('ค่าใช้จ่าย',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('ค่าใช้จ่าย',style: TextStyle(color: Colors.white),),
       ),
 
       body: ListView(

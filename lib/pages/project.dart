@@ -84,8 +84,8 @@ class _projectState extends State<project>  {
     double screenHeight = queryData.size.height*0.4;
 //    print('mylength'+listposition.data.length.toString());
     return new Scaffold(
-        appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
-            title: new Text('โปรเจค',style: TextStyle(color: Colors.brown[500]),),
+        appBar: new AppBar(backgroundColor:colorappbar,
+            title: new Text('โปรเจค',style: TextStyle(color: Colors.white),),
 
         ),
         drawer: Drawer(

@@ -121,7 +121,7 @@ void initState(){
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('เพิ่มค่าใช้จ่ายอื่นๆ',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('เพิ่มค่าใช้จ่ายอื่นๆ',style: TextStyle(color: Colors.white),),
       ),
 
       body: new Container(

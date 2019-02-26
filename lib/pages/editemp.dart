@@ -152,7 +152,7 @@ class _editemp extends State<editemp> {
 
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('แก้ไข้ข้อมูล',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('แก้ไขข้อมูล',style: TextStyle(color: Colors.white),),
       ),
       body: Container(
         height: screenHeight,

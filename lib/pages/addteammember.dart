@@ -66,8 +66,8 @@ class _addteammemberState extends State<addteammember>  {
     double screenHeight = queryData.size.height*0.4;
 //    print('mylength'+listposition.data.length.toString());
     return new Scaffold(
-        appBar: new AppBar(backgroundColor:Colors.lightBlue[300],
-            title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+        appBar: new AppBar(backgroundColor:colorappbar,
+            title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.white),),
 
         ),
         body: Container

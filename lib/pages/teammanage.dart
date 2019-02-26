@@ -81,7 +81,7 @@ class _teammanageState extends State<teammanage> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('จัดการทีมและ sprint',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('จัดการทีมและ sprint',style: TextStyle(color: Colors.white),),
 
       ),
       body:  ListView(

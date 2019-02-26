@@ -75,7 +75,7 @@ Widget build(BuildContext context) {
   return new Scaffold(
     appBar: new AppBar(
       backgroundColor: colorappbar,
-        title: new Text('พนักงาน',style: TextStyle(color: Colors.brown[500]),),
+        title: new Text('พนักงาน',style: TextStyle(color: Colors.white),),
 
     ),
 
@@ -87,7 +87,7 @@ Widget build(BuildContext context) {
               child: Center(
                 child: Column(mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
-                  CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
+                  CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
                   Padding(padding: EdgeInsets.only(top: 20,left: 50)),
                   Text('admin',style: TextStyle(fontSize: 20),)
                   ],

@@ -86,7 +86,7 @@ class _branchState extends State<branch>  {
     double screenHeight = queryData.size.height*0.4;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-          title: new Text('สาขา',style: TextStyle(color: Colors.brown[500]),),
+          title: new Text('สาขา',style: TextStyle(color: Colors.white),),
 
       ),
 
@@ -98,7 +98,7 @@ class _branchState extends State<branch>  {
                 child: Center(
                   child: Column(mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
-                    CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
+                    CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
                     Padding(padding: EdgeInsets.only(top: 20,left: 50)),
                     Text('admin',style: TextStyle(fontSize: 20),)
                     ],

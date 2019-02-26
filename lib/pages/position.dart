@@ -116,7 +116,7 @@ class _positionState extends State<position>  {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
-                    CircleAvatar(child: Icon(Icons.image),radius: 30,backgroundColor: Colors.grey,),
+                    CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
                     Padding(padding: EdgeInsets.only(top: 20,left: 50)),
                     Text('admin',style: TextStyle(fontSize: 20),)
                     ],
@@ -262,7 +262,7 @@ class DetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(backgroundColor: colorappbar,
-        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.brown[500]),),
+        title: Text('ข้อมูลตำแหน่ง',style: TextStyle(color: Colors.white),),
       ),
       body: Container(
         margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
