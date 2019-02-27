@@ -1,22 +1,22 @@
 // To parse this JSON data, do
 //
-//     final branch = branchFromJson(jsonString);
+//     final branchaddit = branchadditFromJson(jsonString);
 
 import 'dart:convert';
 
-Branchaddit branchFromJson(String str) {
+Branchaddit branchadditFromJson(String str) {
   final jsonData = json.decode(str);
   return Branchaddit.fromJson(jsonData);
 }
 
-String branchToJson(Branchaddit data) {
+String branchadditToJson(Branchaddit data) {
   final dyn = data.toJson();
   return json.encode(dyn);
 }
 
 class Branchaddit {
-  List<Data> data;
-  int branchAdditTotal;
+  List<Datum> data;
+  double branchAdditTotal;
   String message;
 
   Branchaddit({
@@ -26,8 +26,8 @@ class Branchaddit {
   });
 
   factory Branchaddit.fromJson(Map<String, dynamic> json) => new Branchaddit(
-    data: new List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
-    branchAdditTotal: json["branchAdditTotal"],
+    data: new List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    branchAdditTotal: json["branchAdditTotal"].toDouble(),
     message: json["message"],
   );
 
@@ -38,15 +38,15 @@ class Branchaddit {
   };
 }
 
-class Data {
+class Datum {
   int id;
   String branchAdditTitle;
-  int branchAdditPrice;
+  double branchAdditPrice;
   int branchAdditDate;
   int branchAdditBranchId;
   String branchAdditDateFormat;
 
-  Data({
+  Datum({
     this.id,
     this.branchAdditTitle,
     this.branchAdditPrice,
@@ -55,10 +55,10 @@ class Data {
     this.branchAdditDateFormat,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => new Data(
+  factory Datum.fromJson(Map<String, dynamic> json) => new Datum(
     id: json["id"],
     branchAdditTitle: json["branch_addit_title"],
-    branchAdditPrice: json["branch_addit_price"],
+    branchAdditPrice: json["branch_addit_price"].toDouble(),
     branchAdditDate: json["branch_addit_date"],
     branchAdditBranchId: json["branch_addit_branch_id"],
     branchAdditDateFormat: json["branch_addit_date_format"],

@@ -210,7 +210,7 @@ class DetailPosition extends StatelessWidget {
       child: new Container(
         color: Colors.white,
         child: new ListTile(
-          title: new Row(children: <Widget>[Icon(Icons.assignment,color: Colors.green,),Text(positionName)],),
+          title: new Row(children: <Widget>[Icon(Icons.assignment,color: Colors.blue,),Text(' '+positionName)],),
           onTap: () {
             Navigator.push(context,
               MaterialPageRoute(

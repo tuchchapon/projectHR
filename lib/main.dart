@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         '/addfixcost': (BuildContext contrext) => new addfixcost(),
         '/addcost': (BuildContext contrext) => new addcost(),
         '/addbenefit': (BuildContext contrext) => new addbenefit(),
-        '/login': (BuildContext contrext) => new login(),
+        '/login': (BuildContext contrext) => new Login(),
         '/showproject': (BuildContext contrext) => new showproject(),
         '/showmember': (BuildContext contrext) => new showemp(),
         '/showposition': (BuildContext contrext) => new showposition(),
@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
         '/chart': (BuildContext contrext) => new chart(),
 
       },
-      home: login(), //first page displayed
+      home: Login(), //first page displayed
       //   home: new Home(), //first page displayed
     );
   }

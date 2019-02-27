@@ -259,7 +259,7 @@ class _costState extends State<cost>  {
                     MaterialPageRoute(
                         builder: (context) => Detailadditcost(id: widget.listaddit.data[i].id,
                           branch_addit_title: widget.listaddit.data[i].branchAdditTitle,
-                          branch_addit_price: widget.listaddit.data[i].branchAdditPrice,
+                          branch_addit_price: widget.listaddit.data[i].branchAdditPrice.floor(),
                           branch_addit_date: widget.listaddit.data[i].branchAdditDate,)
                     ),
                   );
@@ -277,7 +277,7 @@ class _costState extends State<cost>  {
                        MaterialPageRoute(
                            builder: (context) => editbranchaddit(bid: widget.id,id:widget.listaddit.data[i].id,
                              branch_addit_title: widget.listaddit.data[i].branchAdditTitle,
-                             branch_addit_price: widget.listaddit.data[i].branchAdditPrice,
+                             branch_addit_price: widget.listaddit.data[i].branchAdditPrice.floor(),
                              branch_addit_date: widget.listaddit.data[i].branchAdditDate,)
                        ),
                      );

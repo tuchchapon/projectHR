@@ -12,23 +12,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
 
 }
-class Label {
-  String label;
-  int value;
 
-  Label(this.value,this.label);
-}
-
-  @override
-  Widget build(BuildContext context) {
-
-}
-class Sales {
-  String year;
-  int sales;
-
-  Sales(this.year,this.sales);
-}
 class _HomeState extends State<Home> {
 
 
@@ -167,17 +151,19 @@ class _HomeState extends State<Home> {
               onTap:(){Navigator.of(context).pushNamed('/position');},
             ),
             Divider(height: 0.2,),
-          Column(children: <Widget>[
-
-            ListTile(
-              leading: Icon(Icons.close
-                  ,color: Colors.red),
-              title: Text('ออกจากระบบ'),
-              onTap: (){
-                Navigator.of(context).pushReplacementNamed('/login');
-                clearpref();
+            Container(child:
+            Column(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.close
+                    ,color: Colors.red),
+                title: Text('ออกจากระบบ'),
+                onTap: (){
+                  Navigator.of(context).pushReplacementNamed('/login');
+                  clearpref();
                 },
-            )],),
+              ),
+            ],)
+            ),
 
             Divider(height: 0.2,)
  /*           ListTile(
@@ -243,16 +229,16 @@ class _HomeState extends State<Home> {
     List<Widget> mylist = new List();
     for(int i = 0; i < 1 ; i++ ){
 
-      double totalsell = listproject.allprojectCost *3;
+      int totalsell = listproject.allprojectCost.floor();
       mylist.add(Column(
           children: <Widget>[
             Row(children: <Widget>[Text('ราคาต้นทุนทั้งหมด')],),
             Padding(padding: EdgeInsets.only(bottom: 5,top: 5)),
-            Row(children: <Widget>[Text(listproject.allprojectCost.toString()+'  บาท',style: TextStyle(color: Colors.red),),],),
+            Row(children: <Widget>[Text(listproject.allprojectCost.floor().toString()+'  บาท',style: TextStyle(color: Colors.red),),],),
             Padding(padding: EdgeInsets.only(bottom: 5,top: 5)),
             Row(children: <Widget>[Text('ราคาขายทั้งหมด'),],),
             Padding(padding: EdgeInsets.only(bottom: 5,top: 5)),
-            Row(children: <Widget>[Text(totalsell.toString()+'  บาท',style: TextStyle(color: Colors.green),),],),
+            Row(children: <Widget>[Text(listproject.allprojectSelling.floor().toString()+'  บาท',style: TextStyle(color: Colors.green),),],),
             Divider()
 
  ]
@@ -273,13 +259,13 @@ class _HomeState extends State<Home> {
             Row(children: <Widget>[Text('ลูกค้า '),Text(listproject.data[i].projectCostomerName),],),
             Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[
               Text('ราคาต้นทุน : '),
-              Text(listproject.data[i].projectTotalCost.toString(),style: TextStyle(color: Colors.red),),
+              Text(listproject.data[i].projectTotalCost.floor().toString(),style: TextStyle(color: Colors.red),),
               Text('   บาท')
             ],
             ),
             Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[
               Text('ราคาขาย    : '),
-              Text(sellingrate.toString(),style: TextStyle(color: Colors.green),),
+              Text(sellingrate.floor().toString(),style: TextStyle(color: Colors.green),),
               Text('   บาท')
             ],),
             Divider()
@@ -298,7 +284,7 @@ class _HomeState extends State<Home> {
 
              Row(children: <Widget>[Text(listmanday.data[i].empName),],),
             Row(children: <Widget>[
-              Text(listmanday.data[i].manday.toString(),style: TextStyle(color: Colors.green),),
+              Text(listmanday.data[i].manday.floor().toString(),style: TextStyle(color: Colors.green),),
               Text('  บาท/วัน')
             ],),
               Divider()

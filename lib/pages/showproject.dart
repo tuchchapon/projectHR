@@ -118,66 +118,80 @@ class _showprojectState extends State<showproject> {
         ),
         body: new ListView(children: <Widget>[
           Padding(padding: EdgeInsets.only(top: 10)),
-          Text('   ข้อมูลโปรเจ็ค',style: TextStyle(fontSize: 16),),
-          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
-              height: screenHeight*0.65,width: screenWidth,margin: EdgeInsets.all(5),
-              //padding: new EdgeInsets.all(10.0),
-              child: projectisTrue == 0 ? Text('ไม่มีข้อมูล') : Column(
-                children: <Widget>[
-                  ListTile(leading: Text('โปรเจ็ค       ',style: TextStyle(fontSize: 12)),
-                    title: Text(listProject.data.projectName,style: TextStyle(fontSize: 12),),),
-                  ListTile(leading: Text('ชื่อลูกค้า      ',style: TextStyle(fontSize: 12)),
-                    title: Text(listProject.data.projectCostomerName,style: TextStyle(fontSize: 12)),),
-                  ListTile(leading: Text('วันที่เริ่ม     '),
-                    title: Text(listProject.data.projectStartDateFormat,style: TextStyle(fontSize: 12)),
-                    trailing: Icon(Icons.event,color: Colors.black,),),
-                  ListTile(leading: Text('วันที่สิ้นสุด    ',style: TextStyle(fontSize: 12)),
-                    title: Text(listProject.data.projectEndDateFormat,style: TextStyle(fontSize: 12)),trailing: Icon(Icons.event,color: Colors.black,),),
-                  ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),
-                    title: Text(listProject.data.projectNote,style: TextStyle(fontSize: 12)),),
-                  ListTile(leading: Text('ทีมรับผิดชอบ',style: TextStyle(fontSize: 12)),
-                    title: Text(listProject.data.projectTeamName,style: TextStyle(fontSize: 12)),
-                    trailing: FlatButton(onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => teammanage(project_id: widget.project_id,team_id: widget.project_id,team_name: listProject.data.projectTeamName,),
-                        ),
-                      );
-                    },
-                        child: Text('จัดการทีม >')),),
 
-            ],
-              ),
+          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
+            height: screenHeight*0.65,width: screenWidth,margin: EdgeInsets.all(5),
+            //padding: new EdgeInsets.all(10.0),
+            child: projectisTrue == 0 ? Container() : Column(children: <Widget>[
+              Padding(padding: EdgeInsets.only(top: 10)),
+              //  Text('   ข้อมูลโปรเจ็ค',style: TextStyle(fontSize: 16),),
+                ListTile(leading: Text('โปรเจ็ค       ',style: TextStyle(fontSize: 12)),
+                  title: Text(listProject.data.projectName,style: TextStyle(fontSize: 12),),),
+                ListTile(leading: Text('ชื่อลูกค้า      ',style: TextStyle(fontSize: 12)),
+                  title: Text(listProject.data.projectCostomerName,style: TextStyle(fontSize: 12)),),
+                ListTile(leading: Text('วันที่เริ่ม     '),
+                  title: Text(listProject.data.projectStartDateFormat,style: TextStyle(fontSize: 12)),
+                  trailing: Icon(Icons.event,color: Colors.black,),),
+                ListTile(leading: Text('วันที่สิ้นสุด    ',style: TextStyle(fontSize: 12)),
+                  title: Text(listProject.data.projectEndDateFormat,style: TextStyle(fontSize: 12)),trailing: Icon(Icons.event,color: Colors.black,),),
+                ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),
+                  title: Text(listProject.data.projectNote,style: TextStyle(fontSize: 12)),),
+                ListTile(leading: Text('ทีมรับผิดชอบ',style: TextStyle(fontSize: 12)),
+                  title: Text(listProject.data.projectTeamName,style: TextStyle(fontSize: 12)),
+                  trailing: FlatButton(onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => teammanage(project_id: widget.project_id,team_id: widget.project_id,team_name: listProject.data.projectTeamName,),
+                      ),
+                    );
+                  },
+                      child: Text('จัดการทีม >')),),
+
+              ],
+
+            ),
 
           ),
-
-
-          ListTile(
-            title: Text('ค่าใช้จ่ายเพิ่มเติม'),trailing: FlatButton(onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => projectaddit(projectid: widget.project_id,projectname: listProject.data.projectName,),
-              ),
-            );
-          },
-              child: Text('จัดการค่าใช้จ่าย >')),),
-          Container(
-              decoration: BoxDecoration(border: Border.all(width: 0.1)),
+          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
-              child: Column( children: additisTrue == 0 ? [
+              child: Column( children: mandayisTrue == 0 ? [
                 CircularProgressIndicator(),
-              ] : detailadddit()
+              ] : teammanday()
               )
           ),
-       Padding(padding: EdgeInsets.all(5)),
+          Padding(padding: EdgeInsets.only(top: 10)),
+          Container( decoration: BoxDecoration(border: Border.all(width: 0.1)),
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
+            child: Column(children: <Widget>[
+              ListTile(
+                title: Text('ค่าใช้จ่ายเพิ่มเติม',style: TextStyle(fontSize: 12),),
+                trailing: FlatButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => projectaddit(projectid: widget.project_id,projectname: listProject.data.projectName,),
+                    ),
+                  );
+                },
+                    child: Text('จัดการค่าใช้จ่าย >',style: TextStyle(fontSize: 12),)),),
+              Container(
+
+
+                  child: Column( children: additisTrue == 0 ? [
+                    CircularProgressIndicator(),
+                  ] : detailadddit()
+                  )
+              )
+            ],),),
+          Padding(padding: EdgeInsets.all(5)),
           Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
               child: Row( children: mandayisTrue == 0 ? [
-               Text('ไม่มีข้อมูล'),
+                CircularProgressIndicator(),
               ] : totalcost()
               )
           ),
@@ -205,8 +219,27 @@ class _showprojectState extends State<showproject> {
     for(int i = 0; i < 1 ; i++ ){
       mylist.add(Column(
           children: <Widget>[
-      Text('ค่าใช้จ่ายทั้งหมด',style: TextStyle(fontSize: 14),),
-        Row(children: <Widget>[Text(listmanday.projectCostTotal.toString(),style: TextStyle(color: Colors.green),),Text('  บาท')],)
+      Text('ค่าใช้จ่ายทั้งหมด',style: TextStyle(fontSize: 16),),
+        Row(children: <Widget>[
+          Text(listmanday.projectCostTotal.floor().toString(),style: TextStyle(color: Colors.green,fontSize: 16),),Text('  บาท')],)
+          ]
+      )
+      );
+    }
+    return mylist;
+  }
+  List<Widget> teammanday(){
+    List<Widget> mylist = new List();
+    for(int i = 0; i < loopmanday ; i++ ){
+    int total =  listmanday.data[i].manday.floor() * listmanday.data[i].workday;
+      mylist.add(Column(
+          children: <Widget>[
+
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: <Widget>[
+              Text(listmanday.data[i].empName),
+              Text(total.toString()+' บาท')
+
+            ],)
           ]
       )
       );

@@ -50,14 +50,14 @@ class _showbranchState extends State<showbranch> {
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
     listfixcost = new Branchfixcost.fromJson(jsonResponse);
-    setState(() {
-      fixisTrue = 1;
-      this.loopfixcost = listfixcost.data.length;
-    });
+
   //  print(listfixcost.data[0].fixcostBranchId.id.toString());
 
     if (response.statusCode == 200) {
-
+      setState(() {
+        fixisTrue = 1;
+        this.loopfixcost = listfixcost.data.length;
+      });
     } else {
       throw Exception('Failed to load post');
     }
@@ -72,12 +72,12 @@ class _showbranchState extends State<showbranch> {
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
     listadditcost = new Branchaddit.fromJson(jsonResponse);
-    setState(() {
-      additisTrue = 1;
-      this.loopaddit = listadditcost.data.length;
-    });
-    if (response.statusCode == 200) {
 
+    if (response.statusCode == 200) {
+      setState(() {
+        additisTrue = 1;
+        this.loopaddit = listadditcost.data.length;
+      });
     } else {
 
       throw Exception('Failed to load post');
@@ -172,7 +172,7 @@ class _showbranchState extends State<showbranch> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(listadditcost.data[i].branchAdditTitle,style: TextStyle(color: Colors.grey),),
-            Text(listadditcost.data[i].branchAdditPrice.toString()+' \฿',style: TextStyle(color: Colors.green),)
+            Text(listadditcost.data[i].branchAdditPrice.floor().toString()+' \฿',style: TextStyle(color: Colors.green),)
           ]
       )
       );

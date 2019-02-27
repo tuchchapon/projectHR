@@ -172,7 +172,7 @@ class detailbenefit extends StatelessWidget {
           ),
         );
       },
-trailing: IconButton(icon: Icon(Icons.delete),  onPressed: () {_showAlert(context, 'ต้องการลบ ${benefit_title} หรือไม่!');
+trailing: IconButton(icon: Icon(Icons.delete,color: Colors.red,),  onPressed: () {_showAlert(context, 'ต้องการลบ ${benefit_title} หรือไม่!');
 
 } ),
     );

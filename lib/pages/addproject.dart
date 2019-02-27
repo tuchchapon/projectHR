@@ -10,14 +10,15 @@ class addproject extends StatefulWidget {
 }
 class _addprojectState extends State<addproject> {
 
-  String projectname;
-  String customer_name;
+  String projectname='';
+  String customer_name='';
   int startdate =DateTime.now().millisecondsSinceEpoch;
   int enddate   =DateTime.now().millisecondsSinceEpoch;
-  String teamname;
-  String note;
+  String teamname='';
+  String note='';
+  String selling ='';
 
-  Future<dynamic> Addnewproject(projectname,customer_name,startdate,enddate,teamname,note) async {
+  Future<dynamic> Addnewproject(projectname,customer_name,startdate,enddate,teamname,note,selling) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
     //  print(user);
@@ -32,6 +33,7 @@ class _addprojectState extends State<addproject> {
       'project_end_date': enddate,
       'project_team_name' : teamname,
       'project_note': note,
+      "selling": selling,
 
     };
     print(body);
@@ -136,23 +138,31 @@ class _addprojectState extends State<addproject> {
             ),
             Divider(color: Colors.grey),
             ListTile(
+              leading: Text('Selling Rate'
+                  ''),
+              title: TextField(
+                  onChanged: (String sellingrate) {
+                selling  = sellingrate;
+                print(selling);
+              },
+                decoration: InputDecoration.collapsed(hintText: 'selling rate'),),
+            ),
+            Divider(color: Colors.grey),
+            ListTile(
               leading: Text('หมายเหตุ      '),
               title: TextField(
-                  onChanged: (String noteinput) {
-                note  = noteinput;
-                print(note);
-              },
+                onChanged: (String noteinput) {
+                  note  = noteinput;
+                  print(note);
+                },
                 decoration: InputDecoration.collapsed(hintText: 'ระบุหมายเหตุ'),),
             ),
             Divider(color: Colors.grey),
             RaisedButton(onPressed: (){
-              print(projectname);
-              print(customer_name);
-              print(startdate);
-              print(enddate);
-              print(teamname);
-              print(note);
-          Addnewproject(projectname, customer_name, startdate.toString(), enddate.toString(), teamname, note);
+            if(projectname == '' ||customer_name == ''|| teamname ==''|| note =='' || selling ==''){
+
+            }
+          Addnewproject(projectname, customer_name, startdate.toString(), enddate.toString(), teamname, note,selling);
             },child:Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,),
           ],
         ),

@@ -78,8 +78,7 @@ class _chartState extends State<chart> {
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
 
-    double screenWidth = queryData.size.width;
-    double screenHeight = queryData.size.height*0.4;
+
     return new Scaffold(
       appBar: new AppBar(
         backgroundColor: colorappbar,

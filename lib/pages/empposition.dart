@@ -163,7 +163,7 @@ class detailempposition extends StatelessWidget {
     return ListTile(
       title: Text(position_name),
 
-        trailing: IconButton(icon: Icon(Icons.delete),  onPressed: () {_showAlert(context, 'ต้องการลบ ${position_name} หรือไม่!');
+        trailing: IconButton(icon: Icon(Icons.delete,color: Colors.red,),  onPressed: () {_showAlert(context, 'ต้องการลบ ${position_name} หรือไม่!');
 
 
     })

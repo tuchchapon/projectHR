@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-class login extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
-  _loginState createState() => _loginState();
+  _LoginState createState() => _LoginState();
 }
 class Gettoken {
 String username;
@@ -33,7 +33,7 @@ Map<String, dynamic> toJson() => {
 }
 
 
-class _loginState extends State<login> {
+class _LoginState extends State<Login> {
   String user ;
   String pass ;
   void _showDialog() {

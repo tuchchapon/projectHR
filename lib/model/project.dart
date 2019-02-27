@@ -20,6 +20,7 @@ class Project {
   int recordsFiltered;
   List<Datum> data;
   double allprojectCost;
+  double allprojectSelling;
 
   Project({
     this.draw,
@@ -27,6 +28,7 @@ class Project {
     this.recordsFiltered,
     this.data,
     this.allprojectCost,
+    this.allprojectSelling,
   });
 
   factory Project.fromJson(Map<String, dynamic> json) => new Project(
@@ -35,6 +37,7 @@ class Project {
     recordsFiltered: json["recordsFiltered"],
     data: new List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     allprojectCost: json["allproject_cost"].toDouble(),
+    allprojectSelling: json["allproject_selling"].toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +46,7 @@ class Project {
     "recordsFiltered": recordsFiltered,
     "data": new List<dynamic>.from(data.map((x) => x.toJson())),
     "allproject_cost": allprojectCost,
+    "allproject_selling": allprojectSelling,
   };
 }
 
@@ -54,6 +58,7 @@ class Datum {
   int projectStartDate;
   String projectStartDateFormat;
   double projectTotalCost;
+  double projectTotalSelling;
 
   Datum({
     this.id,
@@ -63,6 +68,7 @@ class Datum {
     this.projectStartDate,
     this.projectStartDateFormat,
     this.projectTotalCost,
+    this.projectTotalSelling,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => new Datum(
@@ -73,6 +79,7 @@ class Datum {
     projectStartDate: json["project_start_date"],
     projectStartDateFormat: json["project_start_date_format"],
     projectTotalCost: json["project_total_cost"].toDouble(),
+    projectTotalSelling: json["project_total_selling"].toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -83,5 +90,6 @@ class Datum {
     "project_start_date": projectStartDate,
     "project_start_date_format": projectStartDateFormat,
     "project_total_cost": projectTotalCost,
+    "project_total_selling": projectTotalSelling,
   };
 }
