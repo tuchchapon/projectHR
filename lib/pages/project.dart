@@ -211,7 +211,7 @@ class DetailProject extends StatelessWidget {
       actionExtentRatio: 0.25,
       child: new Container(
         child: new ListTile(
-          title: Row(children: <Widget>[Icon(Icons.work,color: Colors.blue,),Text( projectname)],),
+          title: Row(children: <Widget>[Icon(Icons.work,color: Colors.blue,),Text('  '+projectname)],),
           subtitle: Column(children: <Widget>[
             Row(children: <Widget>[Text('ลูกค้า : '),Text(projectcostomerName)],),
             Row(children: <Widget>[Text('ทีมรับผิดชอบ : '),Text(projectTeamName)],)

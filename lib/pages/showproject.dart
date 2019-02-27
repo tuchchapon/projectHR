@@ -153,7 +153,8 @@ class _showprojectState extends State<showproject> {
           ),
 
 
-          ListTile(title: Text('ค่าใช้จ่ายเพิ่มเติม'),trailing: FlatButton(onPressed: () {
+          ListTile(
+            title: Text('ค่าใช้จ่ายเพิ่มเติม'),trailing: FlatButton(onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -162,11 +163,12 @@ class _showprojectState extends State<showproject> {
             );
           },
               child: Text('จัดการค่าใช้จ่าย >')),),
-          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
+          Container(
+              decoration: BoxDecoration(border: Border.all(width: 0.1)),
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
               child: Column( children: additisTrue == 0 ? [
-                Text('ไม่มีข้อมูลค่าใช้จ่าย'),
+                CircularProgressIndicator(),
               ] : detailadddit()
               )
           ),

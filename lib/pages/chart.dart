@@ -15,6 +15,7 @@ class chart extends StatefulWidget {
 
 
 class _chartState extends State<chart> {
+
   List<Data> position;
   List<charts.Series<Data, String>> _chartdata;
   int chartisTrue =0;
@@ -43,10 +44,7 @@ class _chartState extends State<chart> {
 
       throw Exception('Failed to load post');
     }
-    for (int i = 0;i < this.loopchart;i++){
-      print(listpo.data[i].label);
-      print(listpo.data[i].value);
-    }
+
     position = new List<Data>();
     _chartdata = new List<charts.Series<Data, String>>();
 
@@ -66,8 +64,6 @@ class _chartState extends State<chart> {
     ));
   }
 
-
-
   @override
   void initState() {
 
@@ -79,8 +75,14 @@ class _chartState extends State<chart> {
 
   @override
   Widget build(BuildContext context) {
+    Color colorappbar = const Color(0xFF2ac3fe);
+    MediaQueryData queryData = MediaQuery.of(context);
+
+    double screenWidth = queryData.size.width;
+    double screenHeight = queryData.size.height*0.4;
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: colorappbar,
         title: new Text('ข้อมูลพนักงานในตำแหน่ง'),
       ),
       body: chartisTrue ==1 ?  new Container(
