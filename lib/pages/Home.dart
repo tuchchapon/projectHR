@@ -3,12 +3,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:math';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:project/model/manday.dart';
 import 'package:project/model/project.dart';
-import 'package:project/model/chart_position.dart';
-
 
 
 class Home extends StatefulWidget {
@@ -199,11 +195,17 @@ class _HomeState extends State<Home> {
         Container(
           width: screenWidth,margin: EdgeInsets.all(10),padding: EdgeInsets.all(10),
           child: Column(children: <Widget>[
-
+           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: <Widget>[
+             Text('All Employee',style: TextStyle(fontSize: 20),),
+             IconButton(icon: Icon(Icons.insert_chart,color: Colors.blue,),
+                 onPressed: (){Navigator.of(context).pushNamed('/chart');},tooltip: 'ข้อมูลพนักงานทั้งหมด'),
+           ],) ,
+           
             Divider(),
             Row(children: <Widget>[
               Text('Selling rate',style: TextStyle(fontSize: 20),),Padding(padding: EdgeInsets.only(top: 20,bottom: 20)),
-            IconButton(icon: Icon(Icons.list), onPressed: (){Navigator.of(context).pushNamed('/allmanday');},tooltip: 'ดูทั้งหมด',)],
+            IconButton(icon: Icon(Icons.list),
+              onPressed: (){Navigator.of(context).pushNamed('/allmanday');},tooltip: 'ดูทั้งหมด',)],
             mainAxisAlignment: MainAxisAlignment.spaceBetween,),
             Divider(),
             Container(
@@ -296,7 +298,7 @@ class _HomeState extends State<Home> {
 
              Row(children: <Widget>[Text(listmanday.data[i].empName),],),
             Row(children: <Widget>[
-              Text(listmanday.data[i].selling.toString(),style: TextStyle(color: Colors.green),),
+              Text(listmanday.data[i].manday.toString(),style: TextStyle(color: Colors.green),),
               Text('  บาท/วัน')
             ],),
               Divider()

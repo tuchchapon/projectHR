@@ -102,23 +102,20 @@ class _loginState extends State<login> {
         http.Response response = await http.post(
             url,
             body: body);
-       // print(response.headers);
         print(response.statusCode);
+      if (response.statusCode == 200) {
+        String jsonString = response.body.toString();
+        final jsonResponse = json.decode(jsonString);
+        Gettoken token = new Gettoken.fromJson(jsonResponse);
+        print('Token is:'+token.token);
+        prefs.setString("prefsToken",token.token);
+        Navigator.of(context).pushReplacementNamed('/Home');
 
-    /*  final Map<String, dynamic> responseData = await json.decode(response.body);
-      print('responbody ${response.body}');
-      print('respondata ${responseData}');
-*/
-      String jsonString = response.body.toString();
-      final jsonResponse = json.decode(jsonString);
-      Gettoken token = new Gettoken.fromJson(jsonResponse);
-      print('Token is:'+token.token);
-      prefs.setString("prefsToken",token.token);
-      print(response.body);
+      } else {
+        _showDialogwrong();
 
-    if (response.statusCode == 200){
-      Navigator.of(context).pushReplacementNamed('/Home');
-    }
+        throw Exception('Failed to load post');
+      }
 
 
 

@@ -44,9 +44,6 @@ class _projectState extends State<project>  {
     // print(jsonResponse);
 
     if (response.statusCode == 200) {
-
-      // If the call to the server was successful, parse the JSON
-//      return Position.fromJson(json.decode(response.body));
       listProject = new Project.fromJson(jsonResponse);
       setState(() {
         this.isTrue = 1;
@@ -167,8 +164,7 @@ class DetailProject extends StatelessWidget {
   //
   Future _showAlert(BuildContext context, String message) async {
     return showDialog(
-        context: context,
-        child: new AlertDialog(
+        context: context, child: new AlertDialog(
           title: new Text(message),
           actions: <Widget>[
             new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);print(id.toString());
@@ -250,7 +246,8 @@ class DetailProject extends StatelessWidget {
         ),
      ],
     ),
-    Divider() ],),);
+    Divider()
+    ],),);
 }
 }
 /*

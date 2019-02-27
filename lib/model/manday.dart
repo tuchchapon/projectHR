@@ -15,14 +15,14 @@ String mandayToJson(Manday data) {
 }
 
 class Manday {
-  List<Datum> data;
+  List<Data> data;
 
   Manday({
     this.data,
   });
 
   factory Manday.fromJson(Map<String, dynamic> json) => new Manday(
-    data: new List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: new List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -30,27 +30,24 @@ class Manday {
   };
 }
 
-class Datum {
+class Data {
   int empId;
   String empName;
   String empNickname;
   double manday;
-  double selling;
 
-  Datum({
+  Data({
     this.empId,
     this.empName,
     this.empNickname,
     this.manday,
-    this.selling,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => new Datum(
+  factory Data.fromJson(Map<String, dynamic> json) => new Data(
     empId: json["emp_id"],
     empName: json["emp_name"],
     empNickname: json["emp_nickname"],
     manday: json["manday"].toDouble(),
-    selling: json["Selling"].toDouble(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -58,6 +55,5 @@ class Datum {
     "emp_name": empName,
     "emp_nickname": empNickname,
     "manday": manday,
-    "Selling": selling,
   };
 }

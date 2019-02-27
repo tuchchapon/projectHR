@@ -1,27 +1,30 @@
+// To parse this JSON data, do
+//
+//     final allposition = allpositionFromJson(jsonString);
 
 import 'dart:convert';
 
-ChartPosition chartPositionFromJson(String str) {
+Allposition allpositionFromJson(String str) {
   final jsonData = json.decode(str);
-  return ChartPosition.fromJson(jsonData);
+  return Allposition.fromJson(jsonData);
 }
 
-String chartPositionToJson(ChartPosition data) {
+String allpositionToJson(Allposition data) {
   final dyn = data.toJson();
   return json.encode(dyn);
 }
 
-class ChartPosition {
-  List<Datum> data;
+class Allposition {
+  List<Data> data;
   int allPosition;
 
-  ChartPosition({
+  Allposition({
     this.data,
     this.allPosition,
   });
 
-  factory ChartPosition.fromJson(Map<String, dynamic> json) => new ChartPosition(
-    data: new List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+  factory Allposition.fromJson(Map<String, dynamic> json) => new Allposition(
+    data: new List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
     allPosition: json["all_position"],
   );
 
@@ -31,16 +34,16 @@ class ChartPosition {
   };
 }
 
-class Datum {
+class Data {
   String label;
   int value;
 
-  Datum({
+  Data({
     this.label,
     this.value,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => new Datum(
+  factory Data.fromJson(Map<String, dynamic> json) => new Data(
     label: json["label"],
     value: json["value"],
   );

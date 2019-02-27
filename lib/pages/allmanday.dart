@@ -82,7 +82,7 @@ class _allmandayState extends State<allmanday> {
 
             Row(children: <Widget>[Text(listmanday.data[i].empName),],),
             Row(children: <Widget>[
-              Text(listmanday.data[i].selling.toString(),style: TextStyle(color: Colors.green,),),
+              Text(listmanday.data[i].manday.toString(),style: TextStyle(color: Colors.green,),),
               Text('  บาท/วัน')
             ],),
             Divider()

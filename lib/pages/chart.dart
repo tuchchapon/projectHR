@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:project/model/chart_position.dart';
+import 'package:project/model/allposition.dart';
 
 
 class chart extends StatefulWidget {
@@ -13,17 +12,14 @@ class chart extends StatefulWidget {
   _chartState createState() => new _chartState();
 }
 
-class Positionchart {
-  String labal;
-  int value;
 
-  Positionchart(this.labal,this.value);
-}
 
 class _chartState extends State<chart> {
+  List<Data> position;
+  List<charts.Series<Data, String>> _chartdata;
   int chartisTrue =0;
   int loopchart =0;
-  ChartPosition listpo = new ChartPosition();
+  Allposition listpo = new Allposition();
 
   Future<void> getchart_position() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -33,75 +29,76 @@ class _chartState extends State<chart> {
         headers: {'authorization': "Bearer "+token});
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
-    //  print(jsonResponse);
 
+   print(response.statusCode);
     if (response.statusCode == 200) {
-      listpo = new ChartPosition.fromJson(jsonResponse);
-      setState(() {
-        print(response.body);
-        loopchart = listpo.data.length;
-        this.chartisTrue = 1;
-      });
+    setState(() {
+      listpo = new Allposition.fromJson(jsonResponse);
+      loopchart = listpo.data.length;
+      chartisTrue =1;
+      print(loopchart);
+    });
+
     } else {
 
       throw Exception('Failed to load post');
     }
+    for (int i = 0;i < this.loopchart;i++){
+      print(listpo.data[i].label);
+      print(listpo.data[i].value);
+    }
+    position = new List<Data>();
+    _chartdata = new List<charts.Series<Data, String>>();
 
-  }
-  List<Positionchart> _laptops;
-  List<charts.Series<Positionchart, String>> _chartdata;
+    for(int i = 0; i < this.loopchart; i++) {
 
-
-  void _makeData() {
-
-    _laptops = new List<Positionchart>();
-    _chartdata = new List<charts.Series<Positionchart, String>>();
-
-    final rnd = new Random();
-    for(int i = 2016; i < 2019; i++) {
-      _laptops.add(new Positionchart(i.toString(), rnd.nextInt(1000)));
+      position.add(new Data(label: listpo.data[i].label,value: listpo.data[i].value));
     }
 
     _chartdata.add(new charts.Series(
-      id: 'Sales',
-      data: _laptops,
-      domainFn: (Positionchart sales,__) => sales.labal,
-      measureFn: (Positionchart sales,__) => sales.value,
-      displayName: 'Sales',
-      colorFn: (_,__) => charts.MaterialPalette.green.shadeDefault,
+      id: 'value',
+      data: position,
+      domainFn: (Data positiondata,__) => positiondata.label,
+      measureFn: (Data positiondata,__) => positiondata.value,
+      displayName: 'positiondata',
+      labelAccessorFn: (Data positiondata,__) => positiondata.label+' '+positiondata.value.toString()+' คน',
+      colorFn: (_,__) => charts.MaterialPalette.blue.shadeDefault,
     ));
-
-
-
   }
+
+
 
   @override
   void initState() {
-    _makeData();
+
     getchart_position();
-    print(listpo.data[0].label);
+  //  _makeData();
+
+   // print(listpo.data[0].label);
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Name here'),
+        title: new Text('ข้อมูลพนักงานในตำแหน่ง'),
       ),
-      body: new Container(
+      body: chartisTrue ==1 ?  new Container(
           padding: new EdgeInsets.all(32.0),
           child: new Center(
             child: new Column(
               children: <Widget>[
-                new Text('Add Widgets Here'),
                 new Expanded(child: new charts.BarChart(
                   _chartdata,
+                  barRendererDecorator: new charts.BarLabelDecorator<String>(),
+                  domainAxis:
+                  new charts.OrdinalAxisSpec(renderSpec: new charts.NoneRenderSpec()),
                   vertical: false,
                 ))
               ],
             ),
           )
-      ),
+      ):  Center(child: CircularProgressIndicator(),),
     );
   }
 }
