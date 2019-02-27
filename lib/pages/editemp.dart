@@ -18,6 +18,9 @@ class editemp extends StatefulWidget {
   String emp_con_relation;
   String emp_con_address;
   String emp_con_tel;
+  int branch_id;
+  String branch_name;
+
   editemp({
     this.empid,
     this.empname,
@@ -28,13 +31,14 @@ class editemp extends StatefulWidget {
     this.emp_conname,
     this.emp_con_relation,
     this.emp_con_address,
-    this.emp_con_tel
+    this.emp_con_tel,
+    this.branch_id,
+    this.branch_name
   });
 }
 
 class _editemp extends State<editemp> {
   int choiceloop;
-  String _branch = 'กรุณาเลือกสาขา';
   int idbranch;
   void initState() {
     super.initState();
@@ -50,6 +54,10 @@ class _editemp extends State<editemp> {
      con_relationcon.text = widget.emp_con_relation;
      con_addresscon.text = widget.emp_con_address;
      con_telcon.text = widget.emp_con_tel;
+     branhcon.text =widget.branch_name;
+     idbranch = widget.branch_id;
+     print(idbranch.toString()+'dsgkijkdsfhjsdjfhhjsdgdh');
+
   }
   final empid = TextEditingController();
   final namecon = TextEditingController();
@@ -61,6 +69,8 @@ class _editemp extends State<editemp> {
   final con_relationcon = TextEditingController();
   final con_addresscon = TextEditingController();
   final con_telcon = TextEditingController();
+  final branhcon = TextEditingController();
+
   //
   Future<dynamic> updateemp(emp_id,emp_name,emp_nickname,emp_salary,emp_address,
       emp_tel,emp_emer_contactname,emp_contact_relation,emp_emer_contact_address,
@@ -233,7 +243,7 @@ class _editemp extends State<editemp> {
                 Divider(),
                 ListTile(
                   leading: new Text('สาขา      ',style: TextStyle(fontSize: 16),),
-                  title: Text('${_branch}',style: TextStyle(fontSize: 14),),
+                  title: Text('${branhcon.text}',style: TextStyle(fontSize: 14),),
                   trailing: new IconButton(icon: new Icon(Icons.list), onPressed: _askUser),
                 ),
                 Divider(),
@@ -317,7 +327,7 @@ class _editemp extends State<editemp> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             new SimpleDialogOption(child: new Text(listBranch.data[i].branchName),onPressed: ()
-            {Navigator.pop(context);setState(() {_branch = listBranch.data[i].branchName;idbranch = listBranch.data[i].id;
+            {Navigator.pop(context);setState(() {branhcon.text = listBranch.data[i].branchName;idbranch = listBranch.data[i].id;
             });},),
           ]
       )

@@ -151,7 +151,8 @@ class _HomeState extends State<Home> {
               onTap:(){Navigator.of(context).pushNamed('/position');},
             ),
             Divider(height: 0.2,),
-            Container(child:
+            Container(
+                child:
             Column(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[
               ListTile(
                 leading: Icon(Icons.close

@@ -110,7 +110,7 @@ class _costState extends State<cost>  {
         ),
         Divider(),
         Row(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('ค่าใช้จ่ายทั่วไปทั้งหมด  ',style: TextStyle(fontSize: 16),),
-        Text(widget.listfixcost.branchFixcostTotal.toString(),style: TextStyle(color: Colors.green,fontSize: 16),),
+        Text(widget.listfixcost.branchFixcostTotal.floor().toString(),style: TextStyle(color: Colors.green,fontSize: 16),),
         Text('  บาท ',style: TextStyle(fontSize: 16),),
         ],),
         Divider(color: Colors.black,height: 0.2,),
@@ -137,7 +137,7 @@ class _costState extends State<cost>  {
         ),
      Divider(),
      Row(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[Text('ค่าใข้จ่ายเพิ่มเติมทั้งหมด ',style: TextStyle(fontSize: 16),),
-     Text(widget.listaddit.branchAdditTotal.toString(),style: TextStyle(color: Colors.green,fontSize: 16),),Text('  บาท  ',style: TextStyle(fontSize: 16),)],)
+     Text(widget.listaddit.branchAdditTotal.floor().toString(),style: TextStyle(color: Colors.green,fontSize: 16),),Text('  บาท  ',style: TextStyle(fontSize: 16),)],)
         ,Divider(color: Colors.black,height: 0.2,),
         ],
       ),

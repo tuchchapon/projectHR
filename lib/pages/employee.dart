@@ -135,7 +135,8 @@ Widget build(BuildContext context) {
                   emptel: listEmp.data[index].empTel,emp_address: listEmp.data[index].empAddress,
                   emp_salary: listEmp.data[index].empSalary,conname: listEmp.data[index].empEmerConName,
                   contel: listEmp.data[index].empEmerConTel,con_address: listEmp.data[index].empEmerConAddress,
-                  empnickname: listEmp.data[index].empNickname,con_relation: listEmp.data[index].empEmerConRelation,del: deleteemp,)
+                  empnickname: listEmp.data[index].empNickname,con_relation: listEmp.data[index].empEmerConRelation,
+                    del: deleteemp,branch_id: listEmp.data[index].empBranchId.id,branch_name: listEmp.data[index].empBranchId.branchName)
             );
           },
         ):Text('Waiting'),
@@ -164,6 +165,8 @@ class Detailemp extends StatelessWidget {
   String contel;
   String con_address;
   Function del;
+  int branch_id;
+  String branch_name;
 
   Detailemp({
     this.id,
@@ -177,6 +180,8 @@ class Detailemp extends StatelessWidget {
     this.contel,
     this.con_address,
     this.del,
+    this.branch_id,
+    this.branch_name
   });
   @override
   Widget build(BuildContext context) {
@@ -265,7 +270,7 @@ class Detailemp extends StatelessWidget {
                         builder: (context) => editemp(empid: id,empname: empname,
                             empnickname: empnickname,emp_tel: emptel,emp_con_address: emp_address,
                             emp_salary: emp_salary.toString(),emp_conname: conname,emp_con_relation: con_relation,
-                            emp_con_tel: contel,emp_addrees:  emp_address,)
+                            emp_con_tel: contel,emp_addrees:  emp_address,branch_id: branch_id,branch_name: branch_name,)
                     ),);
                 }
             ),

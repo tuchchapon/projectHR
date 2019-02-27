@@ -120,7 +120,7 @@ class _showprojectState extends State<showproject> {
           Padding(padding: EdgeInsets.only(top: 10)),
 
           Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
-            height: screenHeight*0.65,width: screenWidth,margin: EdgeInsets.all(5),
+            height: screenHeight*0.75,width: screenWidth,margin: EdgeInsets.all(5),
             //padding: new EdgeInsets.all(10.0),
             child: projectisTrue == 0 ? Container() : Column(children: <Widget>[
               Padding(padding: EdgeInsets.only(top: 10)),
@@ -134,6 +134,7 @@ class _showprojectState extends State<showproject> {
                   trailing: Icon(Icons.event,color: Colors.black,),),
                 ListTile(leading: Text('วันที่สิ้นสุด    ',style: TextStyle(fontSize: 12)),
                   title: Text(listProject.data.projectEndDateFormat,style: TextStyle(fontSize: 12)),trailing: Icon(Icons.event,color: Colors.black,),),
+               ListTile( leading: Text('Selling Rate',style: TextStyle(fontSize: 12),),title: Text('${listProject.data.selling*100} \%',style: TextStyle(fontSize: 12),),),
                 ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),
                   title: Text(listProject.data.projectNote,style: TextStyle(fontSize: 12)),),
                 ListTile(leading: Text('ทีมรับผิดชอบ',style: TextStyle(fontSize: 12)),
@@ -153,14 +154,21 @@ class _showprojectState extends State<showproject> {
             ),
 
           ),
-          Container(decoration: BoxDecoration(border: Border.all(width: 0.1)),
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
-              child: Column( children: mandayisTrue == 0 ? [
-                CircularProgressIndicator(),
-              ] : teammanday()
-              )
-          ),
+                    Container(
+                      decoration: BoxDecoration(border: Border.all(width: 0.1)),
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
+                      child: Column(
+                      children: <Widget>[
+                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[Text('ชื่อพนักงาน'),Text('ราคาต้นทุน')],),
+                       Container(
+                  child: Column( children: mandayisTrue == 0 ? [
+                    CircularProgressIndicator(),
+                  ] : teammanday()
+                    )
+               ),
+        ],)),
           Padding(padding: EdgeInsets.only(top: 10)),
           Container( decoration: BoxDecoration(border: Border.all(width: 0.1)),
             padding: EdgeInsets.all(10),

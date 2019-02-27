@@ -1,3 +1,19 @@
+// To parse this JSON data, do
+//
+//     final employee = employeeFromJson(jsonString);
+
+import 'dart:convert';
+
+Employee employeeFromJson(String str) {
+  final jsonData = json.decode(str);
+  return Employee.fromJson(jsonData);
+}
+
+String employeeToJson(Employee data) {
+  final dyn = data.toJson();
+  return json.encode(dyn);
+}
+
 class Employee {
   int draw;
   int recordsTotal;
@@ -10,17 +26,20 @@ class Employee {
     this.recordsFiltered,
     this.data,
   });
-  factory Employee.fromJson(Map<String, dynamic> parsedJson){
-    var list = parsedJson['data'] as List;
-    // print(list.runtimeType);
-    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
 
+  factory Employee.fromJson(Map<String, dynamic> json) => new Employee(
+    draw: json["draw"],
+    recordsTotal: json["recordsTotal"],
+    recordsFiltered: json["recordsFiltered"],
+    data: new List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+  );
 
-    return Employee(
-        data: dataList
-    );
-  }
-
+  Map<String, dynamic> toJson() => {
+    "draw": draw,
+    "recordsTotal": recordsTotal,
+    "recordsFiltered": recordsFiltered,
+    "data": new List<dynamic>.from(data.map((x) => x.toJson())),
+  };
 }
 
 class Data {
@@ -37,7 +56,8 @@ class Data {
   String empEmerConRelation;
   String empEmerConAddress;
   String empEmerConTel;
- // int empBranchId;
+  int status;
+  EmpBranchId empBranchId;
 
   Data({
     this.createdAt,
@@ -53,8 +73,10 @@ class Data {
     this.empEmerConRelation,
     this.empEmerConAddress,
     this.empEmerConTel,
-  //  this.empBranchId,
+    this.status,
+    this.empBranchId,
   });
+
   factory Data.fromJson(Map<String, dynamic> json) => new Data(
     createdAt: json["createdAt"],
     updatedAt: json["updatedAt"],
@@ -69,9 +91,27 @@ class Data {
     empEmerConRelation: json["emp_emer_con_relation"],
     empEmerConAddress: json["emp_emer_con_address"],
     empEmerConTel: json["emp_emer_con_tel"],
-   // empBranchId: json["emp_branch_id"],
+    status: json["status"],
+    empBranchId: EmpBranchId.fromJson(json["emp_branch_id"]),
   );
 
+  Map<String, dynamic> toJson() => {
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "id": id,
+    "emp_name": empName,
+    "emp_nickname": empNickname,
+    "emp_salary": empSalary,
+    "emp_address": empAddress,
+    "emp_id_card": empIdCard,
+    "emp_tel": empTel,
+    "emp_emer_con_name": empEmerConName,
+    "emp_emer_con_relation": empEmerConRelation,
+    "emp_emer_con_address": empEmerConAddress,
+    "emp_emer_con_tel": empEmerConTel,
+    "status": status,
+    "emp_branch_id": empBranchId.toJson(),
+  };
 }
 
 class EmpBranchId {
@@ -91,5 +131,21 @@ class EmpBranchId {
     this.status,
   });
 
+  factory EmpBranchId.fromJson(Map<String, dynamic> json) => new EmpBranchId(
+    createdAt: json["createdAt"],
+    updatedAt: json["updatedAt"],
+    id: json["id"],
+    branchName: json["branch_name"],
+    branchAddress: json["branch_address"],
+    status: json["status"],
+  );
 
+  Map<String, dynamic> toJson() => {
+    "createdAt": createdAt,
+    "updatedAt": updatedAt,
+    "id": id,
+    "branch_name": branchName,
+    "branch_address": branchAddress,
+    "status": status,
+  };
 }

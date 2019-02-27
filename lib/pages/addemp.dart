@@ -135,14 +135,12 @@ class _addempState extends State<addemp> {
     // print(jsonResponse["data"]);
 
     listBranch = new Branch.fromJson(jsonResponse);
-    print(listBranch.data.length);
-    print(listBranch.data[0].id);
-    print(listBranch.data[0].branchName);
     if (response.statusCode == 200) {
       //listBrabch = new Branch.fromJson(jsonResponse);
       setState(() {
         choiceloop = listBranch.data.length;
         this.isTrue = 1;
+
       });
 
     } else {
@@ -154,15 +152,7 @@ class _addempState extends State<addemp> {
   void initState() {
     super.initState();
     getbranchdata();
-    empname ='';
-    empnickname='';
-    emp_salary = '';
-    emp_addrees= '';
-    emp_tel= '';
-    emp_conname ='';
-    emp_con_relation ='';
-    emp_con_address ='';
-    emp_con_tel ='';
+
   }
 
   Widget build(BuildContext context) {
@@ -306,7 +296,7 @@ class _addempState extends State<addemp> {
                 Divider(),
                 ListTile(
                   leading: Text('เบอร์ติดต่อ       \n'),
-                  title: TextField(maxLength: 10,keyboardType: TextInputType.phone,
+                  title: TextField(maxLength: 10,keyboardType: TextInputType.number,
                     decoration: InputDecoration.collapsed(
                         hintText: 'ป้อนเบอร์ติดต่อ'
                     ),
@@ -323,11 +313,14 @@ class _addempState extends State<addemp> {
                   textColor: (Colors.white),
                   padding: EdgeInsets.all(10),
                   onPressed: (){
-                  if(empname == '' || empnickname == ''|| emp_salary == '' || emp_addrees =='' || emp_tel == ''
-                  || emp_conname == '' ||emp_con_relation == ''||emp_con_address ==''||emp_con_tel =='')
-                  {_showDialog();}
-                  else{
-                    Addemp(empname,
+                  if(empname == '' || empnickname == ''|| emp_salary == '' || emp_addrees =='' ||
+                      emp_tel == '' || emp_conname == '' ||emp_con_relation == ''||emp_con_address ==''||emp_con_tel =='')
+                 {_showDialog();}
+                else if (idbranch == null){
+                  _showDialogbranch();
+                  }
+                 else{
+                   Addemp(empname,
                         empnickname,
                         emp_salary,
                         emp_addrees,
@@ -336,7 +329,8 @@ class _addempState extends State<addemp> {
                         emp_con_relation,
                         emp_con_address,
                         emp_con_tel,
-                        idbranch);}
+                        idbranch);
+                  }
                     },
                 ),
               ]

@@ -14,7 +14,7 @@ class editbranchaddit extends StatefulWidget {
   int bid;
   int id;
   String branch_addit_title;
-  int branch_addit_price;
+  var branch_addit_price;
   int branch_addit_date;
   editbranchaddit({this.bid,this.id,this.branch_addit_title,this.branch_addit_price,this.branch_addit_date});
 

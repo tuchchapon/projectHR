@@ -100,7 +100,7 @@ class _empfreetimesState extends State<empfreetimes> {
             child: Column(
                 children: isTrue == 0 ? [
                   Text('Waiting Data'),
-                ] : detailfreetime()
+                ]:Text('dsfsdf') //: detailfreetime()
             )
 
 

@@ -92,6 +92,10 @@ class _positionState extends State<position>  {
      print(response.body);
     fetchPost();
   }
+  void cleartoken() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("prefsToken");
+  }
 //
 //
   Widget build(BuildContext context){
@@ -149,7 +153,20 @@ class _positionState extends State<position>  {
                 title: Text('ตำแหน่ง'),
                 onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
-
+              Container(
+                  child:
+                  Column(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[
+                    ListTile(
+                      leading: Icon(Icons.close
+                          ,color: Colors.red),
+                      title: Text('ออกจากระบบ'),
+                      onTap: (){
+                        Navigator.of(context).pushReplacementNamed('/login');
+                      cleartoken();
+                      },
+                    ),
+                  ],)
+              ),
             ],
           ),
         ),
