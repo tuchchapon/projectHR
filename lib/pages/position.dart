@@ -203,10 +203,12 @@ class DetailPosition extends StatelessWidget {
           title: new Text(message),
           actions: <Widget>[
             new FlatButton(onPressed: () {del(id.toString());Navigator.pop(context);
-            Scaffold.of(context).showSnackBar(SnackBar(
+            Scaffold.of(context).showSnackBar(
+                SnackBar(animation: AnimationController(vsync: AnimatedListState()),
               content: Text('ลบข้อมูลสำเร็จ'),
               duration: Duration(seconds: 3),
-            ));}, child: new Text('ยืนยัน')
+            )
+            );}, child: new Text('ยืนยัน')
             ),
             new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
           ],

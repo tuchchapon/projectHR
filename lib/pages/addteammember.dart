@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //import 'empfreetimes.dart';
 import 'package:project/model/Position.dart';
 import 'package:project/pages/empfreetimes.dart';
+import 'package:project/pages/updatesprint.dart';
 
 //
 
@@ -71,14 +72,15 @@ class _addteammemberState extends State<addteammember>  {
 
         ),
         body: Container
-          (width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.white,
+          (width: screenWidth,height: screenHeight*2.1,margin: EdgeInsets.all(5),color: Colors.transparent,
           child:  isTrue != 0 ?
           ListView.builder(
             itemCount: listPosition.data.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                  child: DetailPosition( id: listPosition.data[index].id,
-                    positionName:listPosition.data[index].positionName ,projectid: widget.project_id,)
+                  child: DetailPosition( positionid:  listPosition.data[index].id,
+                    positionName:listPosition.data[index].positionName ,projectid: widget.project_id,
+                    )
               );
             },
           ):Text('Waiting')
@@ -93,11 +95,12 @@ class _addteammemberState extends State<addteammember>  {
 class DetailPosition extends StatelessWidget {
   //
 
-  int id;
+ // int id;
   int projectid;
   String positionName;
+  int positionid;
 
-  DetailPosition({this.id,this.positionName,this.projectid});
+  DetailPosition({this.positionName,this.projectid,this.positionid});
   @override
   Widget build(BuildContext context) {
     return Card(child:
@@ -105,13 +108,29 @@ class DetailPosition extends StatelessWidget {
       leading: Text(positionName),
       trailing: IconButton(icon: Icon(Icons.view_list,color: Colors.blue,), onPressed: null),
       onTap: () {
+        print(projectid);
+        print(positionName);
+        print(positionid);
+
         Navigator.push(context,
           MaterialPageRoute(
 
-              builder: (context) => empfreetimes(project_id: projectid,position_id: id,positionname: positionName,)
+              builder: (context) => updatesprint(projectid: projectid,positionid: positionid,positionname: positionName,)
           ),
         );
       },
     ));
   }
 }
+
+/*
+() {
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(
+                                 builder: (context) => updatesprint(teamid: listteam.data[i].id,
+                                    projectid: widget.project_id,
+                                 ),
+                               ),
+                             );}
+ */

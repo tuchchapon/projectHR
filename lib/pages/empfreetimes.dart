@@ -10,8 +10,18 @@ class empfreetimes extends StatefulWidget {
   _empfreetimesState createState() => _empfreetimesState();
   int project_id;
   int position_id;
+  Freetime listfreetimes;
   String positionname;
-  empfreetimes({this.project_id,this.position_id,this.positionname});
+  int emp_startdate;
+  int emp_enddate;
+  /*
+
+  String positionname;
+  int startdate;
+  int enddate;
+  int empid;*/
+
+  empfreetimes({this.listfreetimes,this.project_id,this.position_id,this.positionname,this.emp_enddate,this.emp_startdate});
 }
 
 class _empfreetimesState extends State<empfreetimes> {
@@ -19,14 +29,16 @@ class _empfreetimesState extends State<empfreetimes> {
   @override
   void initState() {
     super.initState();
-    getfreetime();
-    print('position id is'+widget.position_id.toString());
-    print('project id is'+widget.project_id.toString());
+   loopfreetimes = widget.listfreetimes.data.length;
+   print(loopfreetimes);
+
+   isTrue = 1;
   }
-  int loopfreetimes=0;
+  int loopfreetimes;
   int isTrue =0;
-  Freetime listfreetimes = new Freetime();
-  Future<void> getfreetime() async {
+
+ // Freetime listfreetimes = new Freetime();
+/*  Future<void> getfreetime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
     final response =
@@ -53,25 +65,58 @@ class _empfreetimesState extends State<empfreetimes> {
     }
     // print('print+++++++'+listPosition.data[1].positionName);
   }
-  Future<dynamic> addteammember(position_id,project_id,emp_id,) async {
+  */
+  void _showbusy() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("เกิดข้อผิดพลาด !!",style: TextStyle(fontSize: 20),),
+          content: new Text("พนักงานคนนี้ไม่ว่างในเวลาที่เลือก"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  Future<dynamic> addteammember(position_id,project_id,emp_id,emp_startdate,emp_enddate) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
 
     var url = 'http://35.198.219.154:1337/m/team/create';
     var body = {
-      'position_id': position_id,
-      'project_id':project_id,
-      'emp_id':emp_id,
+      'position_id': position_id.toString(),
+      'project_id':project_id.toString(),
+      'emp_id':emp_id.toString(),
+      'emp_start_date': emp_startdate.toString(),
+      'emp_end_date':emp_enddate.toString()
     };
-    print(body);
     http.Response response = await http.post(
         url,
         headers: {'authorization': "Bearer "+Token},
         body: body);
-    Navigator.of(context).pushReplacementNamed('/project');
+    print('statue = '+response.statusCode.toString());
+    print(response.body);
+   if (response.statusCode == 200){
+     Navigator.of(context).pushReplacementNamed('/project');
+
+   }
     final Map<String, dynamic> responseData = await json.decode(
         response.body);
-    print(responseData);
+  //  print(responseData);
+
+
     return responseData['code'];
 
   }
@@ -95,6 +140,81 @@ class _empfreetimesState extends State<empfreetimes> {
           Padding(padding: EdgeInsets.only(top: 10)),
           Text('    ตำแหน่ง '+widget.positionname,style: TextStyle(fontSize: 16),),
           Container(
+              margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                  children: isTrue == 0 ? [
+                    Text('Waiting Data'),
+                  ]: detailfreetime()
+              )
+
+
+          ),],
+      )
+
+    );
+  }
+  List<Widget> detailfreetime(){
+    List<Widget> mylist = new List();
+    for(int i = 0; i < this.loopfreetimes; i++ ){
+      void _showfree() {
+        // flutter defined function
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+            return AlertDialog(
+              title: new Text("เพิ่มสมาชิกทีม ",style: TextStyle(fontSize: 20),),
+              content: new Text("ต้องการเพิ่ม ${widget.listfreetimes.data[i].empName} "),
+              actions: <Widget>[
+                // usually buttons at the bottom of the dialog
+                new FlatButton(
+                  child: new Text("ยืนยัน"),
+                  onPressed: () {
+                    addteammember(widget.position_id, widget.project_id, widget.listfreetimes.data[i].empId, widget.emp_startdate, widget.emp_enddate);
+                  },
+                ),
+                new FlatButton(
+                  child: new Text("ยกเลิก"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+      mylist.add(Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+      ListTile(title: Text(widget.listfreetimes.data[i].empName),subtitle: Text(widget.listfreetimes.data[i].freetime),
+      onTap: (){
+        if (widget.listfreetimes.data[i].freetime == 'ไม่ว่าง'){
+          _showbusy();
+        }
+        else{
+       _showfree();
+
+
+        }
+      },)
+
+          ]
+      )
+      );
+    }
+    return mylist;
+  }
+
+}
+
+/*\
+ListView(
+        children: <Widget>[
+          Padding(padding: EdgeInsets.only(top: 10)),
+          Text('    ตำแหน่ง '+widget.positionname,style: TextStyle(fontSize: 16),),
+          Container(
             margin: EdgeInsets.all(5),height:screenHeight ,width: screenWidth,
             padding: EdgeInsets.all(16.0),
             child: Column(
@@ -106,30 +226,4 @@ class _empfreetimesState extends State<empfreetimes> {
 
         ),],
       )
-
-    );
-  }
-  List<Widget> detailfreetime(){
-    List<Widget> mylist = new List();
-    for(int i = 0; i < this.loopfreetimes ; i++ ){
-      mylist.add(Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            ListTile(title: Text(listfreetimes.data[i].empName),
-              subtitle: Row(children: <Widget>[
-              Text('สถานะ ',style: TextStyle(color: Colors.green),),
-              Text(listfreetimes.data[i].freetime,style: TextStyle(color: Colors.black),),
-
-              ],)
-
-              ,onTap: (){addteammember(widget.position_id.toString(), widget.project_id.toString(), listfreetimes.data[i].empId.toString());}
-            ),
-            Divider()]
-      )
-      );
-    }
-    return mylist;
-  }
-
-}
-
+ */

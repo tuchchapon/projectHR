@@ -110,7 +110,9 @@ class _teammanageState extends State<teammanage> {
   }
   List<Widget> detailteam(){
 
+void delete ()async {
 
+}
     List<Widget> mylist = new List();
     for(int i = 0; i < this.loopmember ; i++ ){
       Future _showAlert(BuildContext context, String message) async {
@@ -119,11 +121,11 @@ class _teammanageState extends State<teammanage> {
             child: new AlertDialog(
               title: new Text(message),
               actions: <Widget>[
-                new FlatButton(onPressed: () {deletemember(listteam.data[i].id.toString());Navigator.pop(context);
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text('ลบข้อมูลสำเร็จ'),
-                  duration: Duration(seconds: 3),
-                ));
+                new FlatButton(onPressed: () {
+
+                //deletemember(listteam.data[i].id.toString());Navigator.pop(context);
+
+                Navigator.pop(context);
                 }, child: new Text('ยืนยัน')
                 ),
                 new FlatButton(onPressed: () => Navigator.pop(context), child: new Text('ยกเลิก'))
@@ -163,25 +165,13 @@ class _teammanageState extends State<teammanage> {
                     ),
                     secondaryActions: <Widget>[
                       new IconSlideAction(
-                        caption: 'แก้ไขข้อมูล',
-                        color: Colors.black45,
-                        icon: Icons.edit,
-                           onTap: () {
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                 builder: (context) => updatesprint(teamid: listteam.data[i].id,
-                                     empid: listteam.data[i].empId.id,
-                                     startdate: listteam.data[i],
-                                     enddate: listteam.data[i].empEndDate),
-                               ),
-                             );}
-                      ),
-                      new IconSlideAction(
                         caption: 'ลบข้อมูล',
                         color: Colors.red,
                         icon: Icons.delete,
-                           onTap: ()=> _showAlert(context, 'ต้องการลบ ${listteam.data[i].empId.empName} หรือไม่!') /*{
+                           onTap: (){
+                             _showAlert(context, 'ต้องการลบ ${listteam.data[i].empId.empName} หรือไม่!');
+
+                           }  /*{
 
                              deletemember(listteam.data[i].id.toString());
 

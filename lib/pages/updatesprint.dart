@@ -3,41 +3,44 @@ import 'package:moment/moment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:project/model/empfreetimes.dart';
+import 'package:project/pages/empfreetimes.dart';
 
 class updatesprint extends StatefulWidget {
   @override
   _updatesprintState createState() => _updatesprintState();
-  int teamid;
-  int empid;
-  var startdate;
-  var enddate;
-  updatesprint({this.teamid,this.enddate,this.startdate,this.empid});
+  int projectid;
+ // int teamid;
+  int positionid;
+  String positionname;
+  updatesprint({this.projectid,this.positionname,this.positionid});
 }
 
 class _updatesprintState extends State<updatesprint> {
   @override
   void initState() {
     super.initState();
-    print(widget.teamid);
-    print(widget.empid);
+    print(widget.projectid);
   //startdate = widget.startdate;
  // enddate =widget.enddate;
 
   }
 
-  var startdate ;
-  var enddate ;
+  int startdate ;
+  int enddate ;
 
   //int startdate;
   //int enddate;
-  Future<dynamic> setSprint(id,startdate,enddate) async {
+  Future<dynamic> setSprint(emp_startdate,emp_enddate,projectid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
-    var url = 'http://35.198.219.154:1337/team/update';
+    var url = 'http://35.198.219.154:1337/freetime/emp/${widget.projectid}/${widget.positionid}';
     var body = {
-      'id': id,
-      'emp_start_date': startdate,
-      'emp_end_date': enddate,
+     // 'id': teamid,
+      'emp_start_date': startdate.toString(),
+      'emp_end_date': enddate.toString(),
+      'position_id':widget.positionid.toString(),
+      'project_id':widget.projectid.toString(),
     };
     http.Response response = await http.post(
         url,
@@ -45,8 +48,27 @@ class _updatesprintState extends State<updatesprint> {
         body: body);
     final Map<String, dynamic> responseData = await json.decode(
         response.body);
-    print(responseData);
-    Navigator.of(context).pushReplacementNamed('/project');
+    print(response.body);
+
+    print(widget.projectid);
+    if (response.statusCode == 200) {
+
+      Freetime listfreetime = Freetime.fromJson(responseData);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => empfreetimes(positionname: widget.positionname,
+              position_id: widget.positionid,project_id: widget.projectid,emp_enddate: enddate,emp_startdate: startdate,listfreetimes: listfreetime,),
+          ),
+        );
+      setState(() {
+
+      });
+      print('AAAAAA');
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
     return responseData['code'];
 
   }
@@ -96,7 +118,7 @@ class _updatesprintState extends State<updatesprint> {
     double screenHeight = queryData.size.height;
     return new Scaffold(
       appBar: new AppBar(backgroundColor: colorappbar,
-        title: new Text('จัดการ sprint',style: TextStyle(color: Colors.white),),
+        title: new Text('กำหนดเวลาทำงาน',style: TextStyle(color: Colors.white),),
       ),
 
       body: new Container(
@@ -119,7 +141,7 @@ class _updatesprintState extends State<updatesprint> {
                 ),
                 RaisedButton(
                   onPressed: (){
-                    setSprint(widget.teamid.toString(), startdate.toString(), enddate.toString());
+                   setSprint( startdate, enddate, widget.projectid);
         },
 
                   child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),
