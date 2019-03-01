@@ -19,10 +19,12 @@ class _employeeState extends State<employee>  {
 
   Employee listEmp = new Employee();
   int isTrue = 0;
+  String username;
 
   Future<void> getempdata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
+    String USER = prefs.getString("prefsUsername");
     final response =
     await http.get('http://35.198.219.154:1337/emp/datatable',
       headers: {'authorization': "Bearer "+token},);
@@ -35,6 +37,7 @@ class _employeeState extends State<employee>  {
     if (response.statusCode == 200 || response.statusCode == 200) {
       //listBrabch = new Branch.fromJson(jsonResponse);
       setState(() {
+        username = USER;
         this.isTrue = 1;
       });
 
@@ -92,15 +95,21 @@ Widget build(BuildContext context) {
               child: Center(
                 child: Column(mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(top: 20,)),
-                    CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
-                    Padding(padding: EdgeInsets.only(top: 20,left: 50)),
-                    Text('admin',style: TextStyle(fontSize: 20),)
+                    Stack(children: <Widget>[
+                      Padding(padding: EdgeInsets.only(top: 10)),
+                      Container(child:  CircleAvatar(child: Image(image: AssetImage('pic/logo.png'),fit: BoxFit.cover,),radius: 40,backgroundColor: Colors.transparent,),),
+                    ],),
+
+                    Padding(padding: EdgeInsets.only(left: 50)),
+
+                    isTrue == 1 ? Text(username,style: TextStyle(fontSize: 14),): Text('')
+
                   ],
                 ),
               )
               ,padding: EdgeInsets.only(right: 200,top: 10),
             ),
+
             //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
             ListTile(
               leading: Icon(Icons.dashboard,color: Colors.blue),
@@ -136,6 +145,7 @@ Widget build(BuildContext context) {
                         ,color: Colors.red),
                     title: Text('ออกจากระบบ'),
                     onTap: (){
+
                       Navigator.of(context).pushReplacementNamed('/login');
                       cleartoken();
                     },

@@ -24,6 +24,7 @@ class _positionState extends State<position>  {
  // List positionlist;
   Position listPosition = new Position();
   int isTrue = 0;
+  String username;
   @override
   void initState() {
     super.initState();
@@ -32,6 +33,7 @@ class _positionState extends State<position>  {
   Future<void> fetchPost() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
+    String USER =prefs.getString("prefsUsername");
     final response =
     await http.get('http://35.198.219.154:1337/position/datatable',
         headers: {'authorization': "Bearer "+token});
@@ -49,6 +51,7 @@ class _positionState extends State<position>  {
 //      return Position.fromJson(json.decode(response.body));
       listPosition = new Position.fromJson(jsonResponse);
       setState(() {
+        username = USER;
         this.isTrue = 1;
       });
     } else {
@@ -110,7 +113,7 @@ class _positionState extends State<position>  {
             title: new Text('ตำแหน่ง',style: TextStyle(color: Colors.white),),
 
         ),
-        drawer: Drawer(
+        drawer:  Drawer(
           child: Column(
             children: <Widget>[
               Container(width: screenWidth,height: screenHeight*0.6,
@@ -118,15 +121,21 @@ class _positionState extends State<position>  {
                 child: Center(
                   child: Column(mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Padding(padding: EdgeInsets.only(top: 20,)),
-                      CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
-                      Padding(padding: EdgeInsets.only(top: 20,left: 50)),
-                      Text('admin',style: TextStyle(fontSize: 20),)
+                      Stack(children: <Widget>[
+                        Padding(padding: EdgeInsets.only(top: 10)),
+                        Container(child:  CircleAvatar(child: Image(image: AssetImage('pic/logo.png'),fit: BoxFit.cover,),radius: 40,backgroundColor: Colors.transparent,),),
+                      ],),
+
+                      Padding(padding: EdgeInsets.only(left: 50)),
+
+                      isTrue == 1 ? Text(username,style: TextStyle(fontSize: 14),): Text('')
+
                     ],
                   ),
                 )
                 ,padding: EdgeInsets.only(right: 200,top: 10),
               ),
+
               //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
               ListTile(
                 leading: Icon(Icons.dashboard,color: Colors.blue),
@@ -162,6 +171,7 @@ class _positionState extends State<position>  {
                           ,color: Colors.red),
                       title: Text('ออกจากระบบ'),
                       onTap: (){
+
                         Navigator.of(context).pushReplacementNamed('/login');
                         cleartoken();
                       },
