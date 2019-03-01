@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:moment/moment.dart';
 import 'package:project/model/projectaddit.dart';
 import 'package:project/pages/addprojectaddit.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class projectaddit extends StatefulWidget {
   @override
@@ -22,6 +23,8 @@ class _projectadditState extends State<projectaddit> {
     getprojectaddit();
 
   }
+
+  //
   Projectaddit listaddit  =new Projectaddit();
   int additisTrue = 0;
   int loopaddit =0;
@@ -61,6 +64,8 @@ class _projectadditState extends State<projectaddit> {
         headers: {'authorization': "Bearer "+Token},
         body: body);
     getprojectaddit();
+    Navigator.of(context).pushReplacementNamed('/project');
+
   }
 
   Widget build(BuildContext context) {
@@ -105,10 +110,41 @@ class _projectadditState extends State<projectaddit> {
     );
     }
   List<Widget> detailadddit(){
+
+
     List<Widget> mylist = new List();
     for(int i = 0; i < this.loopaddit; i++ ){
-      mylist.add(Column(
-          children: <Widget>[
+      mylist.add(
+          Slidable(
+            delegate: new SlidableDrawerDelegate(),
+            actionExtentRatio: 0.23,
+            child: new Container(
+              child: new ListTile(
+                leading: Icon(Icons.assignment,color: Colors.blue,),
+                title: Text(listaddit.data[i].projectAdditTitle),
+              ),
+
+            ),
+            secondaryActions: <Widget>[
+
+              new IconSlideAction(
+                  caption: 'ลบข้อมูล',
+                  color: Colors.red,
+                  icon: Icons.delete,
+                  onTap: () {
+                    deleteaddit(listaddit.data[i].id.toString());
+                  }
+              ),
+            ],
+          )
+      );
+    }
+    return mylist;
+  }
+
+}
+/*
+
             ListTile(title: Text(listaddit.data[i].projectAdditTitle),subtitle: Column(children: <Widget>[
               Row(children: <Widget>[
                 Text(listaddit.data[i].projectAdditPrice.toString()),
@@ -121,10 +157,5 @@ class _projectadditState extends State<projectaddit> {
               )
             ],),
             trailing: IconButton(icon: Icon(Icons.delete,color: Colors.red,), onPressed: (){deleteaddit(listaddit.data[i].id.toString());}),)
-          ]
-      )
-      );
-    }
-    return mylist;
-  }
-}
+
+ */

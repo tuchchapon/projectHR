@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:project/model/manday.dart';
 import 'package:project/model/project.dart';
+import 'package:project/model/employee.dart';
 
 
 class Home extends StatefulWidget {
@@ -22,21 +23,48 @@ class _HomeState extends State<Home> {
     super.initState();
     getmanday();
     getprojectsell();
+    getempdata();
 
 
   }
   ///
-  int loopchart =0;
   int loopproject =0;
   int loopmanday =0;
   int projectisTrue =0;
   int mandayisTrue =0;
+  int empisTrue=0;
+  int loopemp=0;
   Project listproject = new Project();
   Manday listmanday = new Manday();
+  Employee listEmp = new Employee();
 
   ///
 
+  Future<void> getempdata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("prefsToken");
+    final response =
+    await http.get('http://35.198.219.154:1337/emp/datatable',
+      headers: {'authorization': "Bearer "+token},);
+    //  print(response.body);
+    String jsonString = response.body.toString();
+    final jsonResponse = json.decode(jsonString);
+    // print(jsonResponse["data"]);
+    listEmp = new Employee.fromJson(jsonResponse);
 
+    if (response.statusCode == 200 || response.statusCode == 200) {
+      //listBrabch = new Branch.fromJson(jsonResponse);
+      setState(() {
+        this.empisTrue = 1;
+      });
+
+      // print(listEmp.data[0].empName);
+    } else if (response.statusCode == 401){
+      Navigator.pushReplacementNamed(context, ('/login'));
+
+      throw Exception('Failed to load post');
+    }
+  }
   ///
   void cleartoken() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -88,6 +116,7 @@ class _HomeState extends State<Home> {
       throw Exception('Failed to load post');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -181,12 +210,13 @@ class _HomeState extends State<Home> {
         Container(
           width: screenWidth,margin: EdgeInsets.all(10),padding: EdgeInsets.all(10),
           child: Column(children: <Widget>[
-           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: <Widget>[
-             Text('All Employee',style: TextStyle(fontSize: 20),),
-             IconButton(icon: Icon(Icons.insert_chart,color: Colors.blue,),
+
+         empisTrue == 1 ?  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: <Widget>[
+             Text('พนักงานทั้งหมด',style: TextStyle(fontSize: 18),),Text(listEmp.data.length.toString()+' คน',style: TextStyle(fontSize: 18,color: Colors.green),),
+             IconButton(icon: Icon(Icons.insert_chart,color: Colors.black,),
                  onPressed: (){Navigator.of(context).pushNamed('/chart');},tooltip: 'ข้อมูลพนักงานทั้งหมด'),
-           ],) ,
-           
+           ],): CircularProgressIndicator(),
+
             Divider(),
             Row(children: <Widget>[
               Text('Selling rate',style: TextStyle(fontSize: 20),),Padding(padding: EdgeInsets.only(top: 20,bottom: 20)),

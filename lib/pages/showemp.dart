@@ -125,7 +125,7 @@ class _showempState extends State<showemp> {
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
               child: Column( children: positionIstrue == 0 ? [
-                Text('Waiting Data'),
+                CircularProgressIndicator(),
               ] : detailposition()
               )
           ),
@@ -145,7 +145,7 @@ class _showempState extends State<showemp> {
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.only(left: 5,right: 5),width: screenWidth,
               child: Column( children: benefitIstrue == 0 ? [
-                Text('Waiting Data'),
+               CircularProgressIndicator(),
               ] : detailbenefit()
               )
           ),

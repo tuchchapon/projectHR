@@ -67,7 +67,7 @@ class _allmandayState extends State<allmanday> {
         Container(margin: EdgeInsets.all(10),
             width: screenWidth,
             child: Column( children: mandayisTrue == 0 ? [
-              Text('ไม่มีข้อมูล'),
+             Container(child: Center(child: CircularProgressIndicator(),),)
             ] : detailmanday()
             )
         ),

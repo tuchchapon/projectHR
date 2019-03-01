@@ -82,8 +82,7 @@ class _benefitState extends State<benefit>  {
 
       ),
 
-        body:
-            Container(width: screenWidth,margin: EdgeInsets.all(5),
+        body: Container(width: screenWidth,margin: EdgeInsets.all(5),
               child:  Column(children: <Widget>[
                 Text('ข้อมูลสิทธิประโยชน์',style: TextStyle(fontSize: 16),),
                 Padding(padding: EdgeInsets.only(bottom: 10)),
@@ -173,6 +172,7 @@ class detailbenefit extends StatelessWidget {
             icon: Icons.delete,
     onTap: () {
       _showAlert(context, 'ต้องการลบ ${benefit_title} หรือไม่!');
+
     }
     )
       ],

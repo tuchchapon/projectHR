@@ -18,7 +18,7 @@ class _addbenefitState extends State<addbenefit> {
   String benefit_title='';
   String benefit_price='';
   String benefit_note='';
-  var benefit_date = DateTime.now().millisecondsSinceEpoch;
+  int benefit_date = DateTime.now().millisecondsSinceEpoch;
   Future _adddate() async {
     DateTime picked = await showDatePicker(
       context: context,

@@ -13,8 +13,8 @@ class addprojectaddit extends StatefulWidget {
 }
 
 class _addprojectadditState extends State<addprojectaddit> {
-  String addit_title;
-  String addit_price;
+  String addit_title='';
+  String addit_price='';
   var timestamp = DateTime.now().millisecondsSinceEpoch;
   Future _adddate() async {
     DateTime picked = await showDatePicker(
@@ -36,6 +36,28 @@ class _addprojectadditState extends State<addprojectaddit> {
       //  print(adddate);
       });
     };
+  }
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ผิดพลาด !"),
+          content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget build(BuildContext context) {
@@ -90,7 +112,13 @@ class _addprojectadditState extends State<addprojectaddit> {
                 Divider(color: Colors.grey,),
                 RaisedButton(
                   onPressed: (){
-          Addprojectaddit(addit_title, addit_price, timestamp.toString(), widget.projectid.toString());
+                    if(addit_title == ''|| addit_price == ''){
+                  _showDialog();
+                    }
+                    else{
+                      Addprojectaddit(addit_title, addit_price, timestamp.toString(), widget.projectid.toString());
+                    }
+
                   },
 
                   child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),

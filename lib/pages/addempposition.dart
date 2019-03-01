@@ -34,7 +34,7 @@ class _addemppositionState extends State<addempposition> {
           children: <Widget>[
             Container(
                 child: Column( children: isTrue == 0 ? [
-                  Text('Waiting Data'),
+                  CircularProgressIndicator(),
                 ] : choiceposition()
                 )
             ),

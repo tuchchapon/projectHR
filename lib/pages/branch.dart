@@ -189,7 +189,8 @@ class _branchState extends State<branch>  {
 }
 class Detailbranch extends StatelessWidget {
   //
-  Future _showAlert(BuildContext context, String message) async {
+  Future _showAlert(
+      BuildContext context, String message) async {
     return showDialog(
         context: context,
         child: new AlertDialog(

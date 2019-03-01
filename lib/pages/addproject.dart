@@ -48,7 +48,29 @@ class _addprojectState extends State<addproject> {
     return responseData['code'];
 
   }
-
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ผิดพลาด !"),
+          content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+//
   Future _startday() async {
     DateTime picked = await showDatePicker(
         context: context,
@@ -160,14 +182,43 @@ class _addprojectState extends State<addproject> {
             Divider(color: Colors.grey),
             RaisedButton(onPressed: (){
             if(projectname == '' ||customer_name == ''|| teamname ==''|| note =='' || selling ==''){
-
+              _showDialog();
             }
-          Addnewproject(projectname, customer_name, startdate.toString(), enddate.toString(), teamname, note,selling);
+         else{
+              _showDialogsave();
+            }
             },child:Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,),
           ],
         ),
         ),
       ),
+    );
+  }
+  void _showDialogsave() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ต้องการบันทึกข้อมูลหรือไม่"),
+          //   content: new Text("รูปแบบข้อมูลผิดพลาด"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("ยืนยัน"),
+              onPressed: () {
+                Addnewproject(projectname, customer_name, startdate.toString(), enddate.toString(), teamname, note,selling);
+              },
+            ),
+            new FlatButton(
+              child: new Text("ยกเลิก"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
