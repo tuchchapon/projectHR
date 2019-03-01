@@ -29,7 +29,7 @@ class _editbranchState extends State<editbranch> {
     branchnamecon.text = widget.branchname;
   }
 
-
+  Color colorappbar = const Color(0xFF2ac3fe);
   //String branchname;
   final branchnamecon = TextEditingController();
   final branchAddcon = TextEditingController();
@@ -37,7 +37,7 @@ class _editbranchState extends State<editbranch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: Text('แก้ไขข้อมูลสาขา'),
       ),
       body: new Container(

@@ -45,7 +45,7 @@ class _showprojectState extends State<showproject> {
     String jsonString = response.body.toString();
     final jsonResponse = json.decode(jsonString);
     listmanday = new Mandaycost.fromJson(jsonResponse);
-      print(response.body);
+     // print(response.body);
     //  print(listfixcost.data[0].fixcostBranchId.id.toString());
 
     if (response.statusCode == 200) {
@@ -76,6 +76,7 @@ class _showprojectState extends State<showproject> {
         projectisTrue = 1;
         // this.loopfixcost = listfixcost.data.length;
       });
+      print(response.statusCode);
     } else {
       throw Exception('Failed to load post');
     }
@@ -134,7 +135,7 @@ class _showprojectState extends State<showproject> {
                   trailing: Icon(Icons.event,color: Colors.black,),),
                 ListTile(leading: Text('วันที่สิ้นสุด    ',style: TextStyle(fontSize: 12)),
                   title: Text(listProject.data.projectEndDateFormat,style: TextStyle(fontSize: 12)),trailing: Icon(Icons.event,color: Colors.black,),),
-               ListTile( leading: Text('Selling Rate',style: TextStyle(fontSize: 12),),title: Text('${listProject.data.selling*100} \%',style: TextStyle(fontSize: 12),),),
+               ListTile( leading: Text('กำไรที่ต้องการ',style: TextStyle(fontSize: 12),),title: Text('${listProject.data.selling} \%',style: TextStyle(fontSize: 12),),),
                 ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),
                   title: Text(listProject.data.projectNote,style: TextStyle(fontSize: 12)),),
                 ListTile(leading: Text('ทีมรับผิดชอบ',style: TextStyle(fontSize: 12)),
@@ -229,7 +230,7 @@ class _showprojectState extends State<showproject> {
           children: <Widget>[
       Text('ค่าใช้จ่ายทั้งหมด',style: TextStyle(fontSize: 16),),
         Row(children: <Widget>[
-          Text(listmanday.projectCostTotal.floor().toString(),style: TextStyle(color: Colors.green,fontSize: 16),),Text('  บาท')],)
+          Text(listmanday.projectCostTotal.toString(),style: TextStyle(color: Colors.green,fontSize: 16),),Text('  บาท')],)
           ]
       )
       );
@@ -239,13 +240,13 @@ class _showprojectState extends State<showproject> {
   List<Widget> teammanday(){
     List<Widget> mylist = new List();
     for(int i = 0; i < loopmanday ; i++ ){
-    int total =  listmanday.data[i].manday.floor() * listmanday.data[i].workday;
+   // int total =  listmanday.data[i].manday.floor() * listmanday.data[i].workday;
       mylist.add(Column(
           children: <Widget>[
 
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: <Widget>[
               Text(listmanday.data[i].empName),
-              Text(total.toString()+' บาท')
+              Text(listmanday.data[i].manday.toString()+' บาท')
 
             ],)
           ]

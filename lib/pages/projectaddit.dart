@@ -120,7 +120,7 @@ class _projectadditState extends State<projectaddit> {
               ],
               )
             ],),
-            trailing: IconButton(icon: Icon(Icons.delete), onPressed: (){deleteaddit(listaddit.data[i].id.toString());}),)
+            trailing: IconButton(icon: Icon(Icons.delete,color: Colors.red,), onPressed: (){deleteaddit(listaddit.data[i].id.toString());}),)
           ]
       )
       );

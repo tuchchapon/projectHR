@@ -55,11 +55,10 @@ class _editpositionState extends State<editposition> {
   @override
   void initState() {
     super.initState();
-    print('++++++++++++++++');
     myController.text = widget.positionName;
     idcon.text = widget.id.toString();
   }
-
+  Color colorappbar = const Color(0xFF2ac3fe);
 
   String positionName;
   final myController = TextEditingController();
@@ -67,7 +66,7 @@ class _editpositionState extends State<editposition> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: Text('แก้ไขรายละเอียดตำแหน่ง'),
       ),
       body: new Container(

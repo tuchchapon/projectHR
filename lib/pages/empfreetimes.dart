@@ -73,7 +73,7 @@ class _empfreetimesState extends State<empfreetimes> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("เกิดข้อผิดพลาด !!",style: TextStyle(fontSize: 20),),
+          title: new Text("พนักงาน",style: TextStyle(fontSize: 20),),
           content: new Text("พนักงานคนนี้ไม่ว่างในเวลาที่เลือก"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
@@ -120,7 +120,11 @@ class _empfreetimesState extends State<empfreetimes> {
     return responseData['code'];
 
   }
-
+  Future <void> clearpref()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("prefsToken");
+    print("prefsToken");
+  }
 
   Color colorappbar = const Color(0xFF2ac3fe);
 //  final  Position position;
@@ -155,6 +159,7 @@ class _empfreetimesState extends State<empfreetimes> {
     );
   }
   List<Widget> detailfreetime(){
+    int status =0;
     List<Widget> mylist = new List();
     for(int i = 0; i < this.loopfreetimes; i++ ){
       void _showfree() {
@@ -185,10 +190,14 @@ class _empfreetimesState extends State<empfreetimes> {
           },
         );
       }
+      //Text('        '+widget.listfreetimes.data[i].freetime,style: TextStyle(fontSize: 12),)
       mylist.add(Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-      ListTile(title: Text(widget.listfreetimes.data[i].empName),subtitle: Text(widget.listfreetimes.data[i].freetime),
+      ListTile(title: Row(children: <Widget>[Icon(Icons.face),Text(' '+widget.listfreetimes.data[i].empName)],),
+        subtitle: widget.listfreetimes.data[i].freetime == 'ไม่ว่าง' ?
+        Text('        ไม่ว่าง',style: TextStyle(color: Colors.red,fontSize: 12),)
+            :Text('        ว่าง',style: TextStyle(color: Colors.green,fontSize: 12),),
       onTap: (){
         if (widget.listfreetimes.data[i].freetime == 'ไม่ว่าง'){
           _showbusy();

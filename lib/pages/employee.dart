@@ -65,6 +65,11 @@ class _employeeState extends State<employee>  {
     getempdata();
   }
 //
+  void cleartoken() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("prefsToken");
+  }
+  //
 Widget build(BuildContext context) {
   Color buttoncolor = const Color(0xFF4fa2e1);
   Color colorappbar = const Color(0xFF2ac3fe);
@@ -86,40 +91,65 @@ Widget build(BuildContext context) {
               color: colorappbar,
               child: Center(
                 child: Column(mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
-                  CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
-                  Padding(padding: EdgeInsets.only(top: 20,left: 50)),
-                  Text('admin',style: TextStyle(fontSize: 20),)
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.only(top: 20,)),
+                    CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
+                    Padding(padding: EdgeInsets.only(top: 20,left: 50)),
+                    Text('admin',style: TextStyle(fontSize: 20),)
                   ],
                 ),
-              ),padding: EdgeInsets.only(right: 200,top: 10),
+              )
+              ,padding: EdgeInsets.only(right: 200,top: 10),
             ),
             //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
             ListTile(
-              leading: Icon(Icons.dashboard,color: Colors.black),
+              leading: Icon(Icons.dashboard,color: Colors.blue),
               title: Text('Dashboard'),
               onTap: (){Navigator.of(context).pushNamed('/Home');},
             ),
             ListTile(
-              leading: Icon(Icons.assignment,color: Colors.black),
+              leading: Icon(Icons.assignment,color: Colors.blue),
               title: Text('โปรเจค'),
               onTap:(){Navigator.of(context).pushNamed('/project');},
             ),
             ListTile(
-              leading: Icon(Icons.people,color: Colors.black),
+              leading: Icon(Icons.people,color: Colors.blue),
               title: Text('พนักงาน'),
               onTap: (){Navigator.of(context).pushNamed('/employee');},
             ),
             ListTile(
-              leading: Icon(Icons.account_balance,color: Colors.black),
+              leading: Icon(Icons.account_balance,color: Colors.blue),
               title: Text('สาขา'),
               onTap:(){Navigator.of(context).pushNamed('/branch');},
             ),
             ListTile(
-              leading: Icon(Icons.work,color: Colors.black),
+              leading: Icon(Icons.work,color: Colors.blue),
               title: Text('ตำแหน่ง'),
               onTap:(){Navigator.of(context).pushNamed('/position');},
             ),
+            Divider(height: 0.2,),
+            Container(
+                child:
+                Column(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.close
+                        ,color: Colors.red),
+                    title: Text('ออกจากระบบ'),
+                    onTap: (){
+                      Navigator.of(context).pushReplacementNamed('/login');
+                      cleartoken();
+                    },
+                  ),
+                ],)
+            ),
+
+            Divider(height: 0.2,)
+            /*           ListTile(
+              leading: Icon(Icons.card_giftcard,color: Colors.black),
+              title: Text('สิทธิประโยชน์'),
+              onTap:(){Navigator.of(context).pushNamed('/benefit');},
+
+            ),*/
           ],
         ),
       ),
@@ -212,7 +242,7 @@ class Detailemp extends StatelessWidget {
           child: new Container(
               color: Colors.white,
               child: Card(child: new ListTile(
-                title: Row(children: <Widget>[Icon(Icons.person,color: Colors.green,),Text(empname+'(${empnickname})')],),
+                title: Row(children: <Widget>[Icon(Icons.face,color: Colors.black,),Text(empname+'(${empnickname})')],),
                 subtitle: Column(children: <Widget>[
                   Row(children: <Widget>[
                     Text('เบอร์ติดต่อ   '),

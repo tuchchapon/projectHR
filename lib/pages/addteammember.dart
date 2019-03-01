@@ -103,23 +103,25 @@ class DetailPosition extends StatelessWidget {
   DetailPosition({this.positionName,this.projectid,this.positionid});
   @override
   Widget build(BuildContext context) {
-    return Card(child:
-    ListTile(
-      leading: Text(positionName),
-      trailing: IconButton(icon: Icon(Icons.view_list,color: Colors.blue,), onPressed: null),
-      onTap: () {
-        print(projectid);
-        print(positionName);
-        print(positionid);
+    return Container(child: Column(children: <Widget>[
+      ListTile(
+        leading: Text(positionName),
+        trailing: IconButton(icon: Icon(Icons.view_list,color: Colors.blue,), onPressed: null),
+        onTap: () {
+          print(projectid);
+          print(positionName);
+          print(positionid);
 
-        Navigator.push(context,
-          MaterialPageRoute(
+          Navigator.push(context,
+            MaterialPageRoute(
 
-              builder: (context) => updatesprint(projectid: projectid,positionid: positionid,positionname: positionName,)
-          ),
-        );
-      },
-    ));
+                builder: (context) => updatesprint(projectid: projectid,positionid: positionid,positionname: positionName,)
+            ),
+          );
+        },
+      ),
+      Divider()
+    ],),);
   }
 }
 

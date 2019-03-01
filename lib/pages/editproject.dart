@@ -25,12 +25,14 @@ class _editprojectState extends State<editproject> {
 
 
   }
+  //
   final projectnamecon = TextEditingController();
   final cus_namecon = TextEditingController();
   final startdatecon = TextEditingController();
   final enddatecon = TextEditingController();
   final teamnamecon = TextEditingController();
   final notecon = TextEditingController();
+  final sellingcon = TextEditingController();
   Project listProject = Project();
   int projectisTrue = 0;
   Future<void> getprojectdata() async {
@@ -51,6 +53,8 @@ class _editprojectState extends State<editproject> {
       enddatecon.text = listProject.data.projectEndDateFormat;
       teamnamecon.text = listProject.data.projectTeamName;
       notecon.text = listProject.data.projectNote;
+      sellingcon.text = listProject.data.selling.toString();
+      print(sellingcon.text);
     });
     //  print(listfixcost.data[0].fixcostBranchId.id.toString());
 
@@ -60,7 +64,7 @@ class _editprojectState extends State<editproject> {
       throw Exception('Failed to load post');
     }
   }
-  Future<dynamic> updateproject(projectid,projectname,customer_name,startdate,enddate,teamname,note) async {
+  Future<dynamic> updateproject(projectid,projectname,customer_name,startdate,enddate,teamname,note,selling) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");
     var url = 'http://35.198.219.154:1337/projectmanage/update';
@@ -72,6 +76,7 @@ class _editprojectState extends State<editproject> {
       'project_end_date': enddate,
       'project_team_name' : teamname,
       'project_note': note,
+      "selling": selling,
     };
     print(body);
     http.Response response = await http.post(
@@ -184,6 +189,18 @@ class _editprojectState extends State<editproject> {
                   ),
                   Divider(color: Colors.grey),
                   ListTile(
+                    leading: Text('กำไรที่ต้องการ'
+                        ''),
+                    title: TextField(
+                      onChanged: (String sellingrate) {
+                        sellingcon.text  = sellingrate;
+                        print(sellingcon.text);
+                      },
+                      controller: sellingcon,
+                      decoration: InputDecoration.collapsed(hintText: 'ป้อนกำไรที่ต้องการ'),),
+                  ),
+                  Divider(),
+                  ListTile(
                     leading: Text('หมายเหตุ      '),
                     title: TextField(
                       onChanged: (String noteinput) {
@@ -198,7 +215,7 @@ class _editprojectState extends State<editproject> {
                     updateproject(widget.projectid.toString(), projectnamecon.text,
                         cus_namecon.text, listProject.data.projectStartDate.toString(),
                         listProject.data.projectEndDate.toString(),
-                        teamnamecon.text, notecon.text);
+                        teamnamecon.text, notecon.text,sellingcon.text);
                   },child:Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,),
                 ],
               ),

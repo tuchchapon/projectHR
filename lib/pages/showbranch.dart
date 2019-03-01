@@ -118,6 +118,7 @@ class _showbranchState extends State<showbranch> {
                             builder: (context) => cost(id: widget.id,listfixcost: listfixcost,listaddit: listadditcost,getadditcost: getbranchaddit,getfixcost: getbranchfixcost,),
                           ),
                         );
+
                       },
                           child: Text(('     จัดการค่าใช้จ่าย  >'),style: TextStyle(fontSize: 12),))),
                 ],

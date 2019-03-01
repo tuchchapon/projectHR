@@ -138,14 +138,14 @@ class _addprojectState extends State<addproject> {
             ),
             Divider(color: Colors.grey),
             ListTile(
-              leading: Text('Selling Rate'
+              leading: Text('กำไรที่ต้องการ'
                   ''),
               title: TextField(
                   onChanged: (String sellingrate) {
                 selling  = sellingrate;
                 print(selling);
               },
-                decoration: InputDecoration.collapsed(hintText: 'selling rate'),),
+                decoration: InputDecoration.collapsed(hintText: 'ป้อนกำไรที่ต้องการ'),),
             ),
             Divider(color: Colors.grey),
             ListTile(

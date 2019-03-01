@@ -21,9 +21,54 @@ class _updatesprintState extends State<updatesprint> {
   void initState() {
     super.initState();
     print(widget.projectid);
-  //startdate = widget.startdate;
+  startdate = DateTime.now().millisecondsSinceEpoch;
+  enddate = DateTime.now().millisecondsSinceEpoch;
  // enddate =widget.enddate;
 
+  }
+  void _er403() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("เกิดข้อผิดพลาด !!",style: TextStyle(fontSize: 20),),
+          content: new Text("โปรดเลือกระยะเวลาให้ถูกต้อง",style: TextStyle(fontSize: 12),),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  void _er402() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("เกิดข้อผิดพลาด !!",style: TextStyle(fontSize: 20),),
+          content: new Text("โปรดเลือกวันที่ภายในระยะเวลาโปรเจ็ค"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   int startdate ;
@@ -50,9 +95,8 @@ class _updatesprintState extends State<updatesprint> {
         response.body);
     print(response.body);
 
-    print(widget.projectid);
+    print('aaaaaaaa'+response.statusCode.toString());
     if (response.statusCode == 200) {
-
       Freetime listfreetime = Freetime.fromJson(responseData);
       Navigator.push(
           context,
@@ -65,9 +109,16 @@ class _updatesprintState extends State<updatesprint> {
 
       });
       print('AAAAAA');
-    } else {
-      // If that call was not successful, throw an error.
+    } else if (response.statusCode ==403){
+     _er403();
+
+    }
+    else if(response.statusCode == 402){
+      _er402();
       throw Exception('Failed to load post');
+    }
+    else{
+
     }
     return responseData['code'];
 
@@ -127,14 +178,14 @@ class _updatesprintState extends State<updatesprint> {
             child: ListView(
               children: <Widget>[
                 ListTile(
-                  leading: Text('วันที่        '),
+                  leading: Text('วันที่เริ่มงาน     '),
                   title: startdate == 0? Text(startdate.toString())
                       : Text(Moment(startdate).format("dd/MMM/yyyy")) ,
                   trailing: IconButton(icon:Icon(Icons.event), onPressed: _startdate),
                 ),
                 Divider(color: Colors.grey,),
                 ListTile(
-                  leading: Text('วันที่        '),
+                  leading: Text('วันสิ้นสุด          '),
                   title: enddate == 0? Text(enddate.toString())
                   :Text(Moment(enddate).format("dd/MMM/yyyy")),
                   trailing: IconButton(icon:Icon(Icons.event), onPressed: _enddate),

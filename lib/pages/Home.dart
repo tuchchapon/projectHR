@@ -38,10 +38,9 @@ class _HomeState extends State<Home> {
 
 
   ///
-  Future <void> clearpref()async{
+  void cleartoken() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("prefsToken");
-    print("prefsToken");
   }
   ///
   Future<void> getprojectsell() async {
@@ -126,27 +125,27 @@ class _HomeState extends State<Home> {
             ),
             //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
             ListTile(
-              leading: Icon(Icons.dashboard,color: Colors.black),
+              leading: Icon(Icons.dashboard,color: Colors.blue),
               title: Text('Dashboard'),
               onTap: (){Navigator.of(context).pushNamed('/Home');},
             ),
             ListTile(
-              leading: Icon(Icons.assignment,color: Colors.black),
+              leading: Icon(Icons.assignment,color: Colors.blue),
               title: Text('โปรเจค'),
               onTap:(){Navigator.of(context).pushNamed('/project');},
             ),
             ListTile(
-              leading: Icon(Icons.people,color: Colors.black),
+              leading: Icon(Icons.people,color: Colors.blue),
               title: Text('พนักงาน'),
               onTap: (){Navigator.of(context).pushNamed('/employee');},
             ),
             ListTile(
-              leading: Icon(Icons.account_balance,color: Colors.black),
+              leading: Icon(Icons.account_balance,color: Colors.blue),
               title: Text('สาขา'),
               onTap:(){Navigator.of(context).pushNamed('/branch');},
             ),
             ListTile(
-              leading: Icon(Icons.work,color: Colors.black),
+              leading: Icon(Icons.work,color: Colors.blue),
               title: Text('ตำแหน่ง'),
               onTap:(){Navigator.of(context).pushNamed('/position');},
             ),
@@ -160,7 +159,7 @@ class _HomeState extends State<Home> {
                 title: Text('ออกจากระบบ'),
                 onTap: (){
                   Navigator.of(context).pushReplacementNamed('/login');
-                  clearpref();
+                  cleartoken();
                 },
               ),
             ],)
@@ -252,7 +251,7 @@ class _HomeState extends State<Home> {
   List<Widget> detailproject(){
     List<Widget> mylist = new List();
     for(int i = 0; i < loopproject ; i++ ){
-      double sellingrate = listproject.data[i].projectTotalCost*3;
+     // double sellingrate = listproject.data[i].projectTotalCost*3;
       mylist.add(Column(
           children: <Widget>[
 
@@ -260,13 +259,13 @@ class _HomeState extends State<Home> {
             Row(children: <Widget>[Text('ลูกค้า '),Text(listproject.data[i].projectCostomerName),],),
             Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[
               Text('ราคาต้นทุน : '),
-              Text(listproject.data[i].projectTotalCost.floor().toString(),style: TextStyle(color: Colors.red),),
+              Text(listproject.data[i].projectTotalCost.toString(),style: TextStyle(color: Colors.red),),
               Text('   บาท')
             ],
             ),
             Row(mainAxisAlignment: MainAxisAlignment.start,children: <Widget>[
               Text('ราคาขาย    : '),
-              Text(sellingrate.floor().toString(),style: TextStyle(color: Colors.green),),
+              Text(listproject.data[i].projectTotalSelling.toString(),style: TextStyle(color: Colors.green),),
               Text('   บาท')
             ],),
             Divider()

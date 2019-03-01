@@ -54,7 +54,7 @@ class _editbranchadditState extends State<editbranchaddit> {
     additidcon.text = widget.id.toString();
     addit_titlecon.text = widget.branch_addit_title;
     addit_pricecon.text = widget.branch_addit_price.toString();
-    addit_datecon.text = widget.branch_addit_date.toString();
+ //   addit_datecon.text = widget.branch_addit_date.toString();
     print('id = '+bidcon.text);
     print('additidcon = '+additidcon.text);
     print('addit_titlecon = '+addit_titlecon.text);
@@ -70,11 +70,12 @@ class _editbranchadditState extends State<editbranchaddit> {
   final addit_pricecon = TextEditingController();
   final addit_datecon = TextEditingController();
 
-
+  Color colorappbar = const Color(0xFF2ac3fe);
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: new AppBar(
+      appBar: new AppBar(backgroundColor: colorappbar,
         title: Text('แก้ไขข้อมูล'),
       ),
       body: new Container(
@@ -123,14 +124,16 @@ class _editbranchadditState extends State<editbranchaddit> {
                 //   new Text(_position),
                 Divider(color: Colors.grey,),
                 RaisedButton(onPressed: (){
-                  Updatebranchaddit(bidcon.text, additidcon.text, addit_titlecon.text, addit_pricecon.text, addit_datecon.text);
+                // Updatebranchaddit(bidcon.text,additidcon.text, addit_titlecon.text,
+                 //     addit_pricecon.text, widget.branch_addit_date);
+                 Updatebranchaddit(bidcon.text, widget.id, addit_titlecon.text, addit_pricecon.text, widget.branch_addit_date);
                   print('bid is'+bidcon.text);
                   print('additidcon is'+additidcon.text);
                   print('addit_titlecon is'+addit_titlecon.text);
                   print('addit_pricecon is'+addit_pricecon.text);
-                  print('addit_datecon is'+addit_datecon.text);
+                  print('addit_datecon is'+widget.branch_addit_date.toString());
                   Navigator.of(context).pop('/cost');
-                },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
+                  },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
               ]
           ),
         ),
@@ -146,11 +149,11 @@ Future<dynamic> Updatebranchaddit(branchid,addit_id,addit_title,addit_price,addi
   String Token = prefs.getString("prefsToken");
   var url = 'http://35.198.219.154:1337/branchaddit/update';
   var body = {
-    'branch_addit_branch_id': branchid,
-    'id': addit_id,
+    'branch_addit_branch_id': branchid.toString(),
+    'id': addit_id.toString(),
     'branch_addit_title': addit_title,
-    'branch_addit_price': addit_price,
-    'branch_addit_date': addit_date,
+    'branch_addit_price': addit_price.toString(),
+    'branch_addit_date': addit_date.toString(),
 
   };
   http.Response response = await http.post(

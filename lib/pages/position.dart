@@ -51,7 +51,6 @@ class _positionState extends State<position>  {
       setState(() {
         this.isTrue = 1;
       });
-      print('AAAAAA');
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -117,42 +116,44 @@ class _positionState extends State<position>  {
               Container(width: screenWidth,height: screenHeight*0.6,
                 color: colorappbar,
                 child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[Padding(padding: EdgeInsets.only(top: 20,)),
-                    CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
-                    Padding(padding: EdgeInsets.only(top: 20,left: 50)),
-                    Text('admin',style: TextStyle(fontSize: 20),)
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(padding: EdgeInsets.only(top: 20,)),
+                      CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
+                      Padding(padding: EdgeInsets.only(top: 20,left: 50)),
+                      Text('admin',style: TextStyle(fontSize: 20),)
                     ],
                   ),
-                ),padding: EdgeInsets.only(right: 200,top: 10),
+                )
+                ,padding: EdgeInsets.only(right: 200,top: 10),
               ),
               //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
               ListTile(
-                leading: Icon(Icons.dashboard,color: Colors.black),
+                leading: Icon(Icons.dashboard,color: Colors.blue),
                 title: Text('Dashboard'),
                 onTap: (){Navigator.of(context).pushNamed('/Home');},
               ),
               ListTile(
-                leading: Icon(Icons.assignment,color: Colors.black),
+                leading: Icon(Icons.assignment,color: Colors.blue),
                 title: Text('โปรเจค'),
                 onTap:(){Navigator.of(context).pushNamed('/project');},
               ),
               ListTile(
-                leading: Icon(Icons.people,color: Colors.black),
+                leading: Icon(Icons.people,color: Colors.blue),
                 title: Text('พนักงาน'),
                 onTap: (){Navigator.of(context).pushNamed('/employee');},
               ),
               ListTile(
-                leading: Icon(Icons.account_balance,color: Colors.black),
+                leading: Icon(Icons.account_balance,color: Colors.blue),
                 title: Text('สาขา'),
                 onTap:(){Navigator.of(context).pushNamed('/branch');},
               ),
               ListTile(
-                leading: Icon(Icons.work,color: Colors.black),
+                leading: Icon(Icons.work,color: Colors.blue),
                 title: Text('ตำแหน่ง'),
                 onTap:(){Navigator.of(context).pushNamed('/position');},
               ),
+              Divider(height: 0.2,),
               Container(
                   child:
                   Column(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[
@@ -162,11 +163,19 @@ class _positionState extends State<position>  {
                       title: Text('ออกจากระบบ'),
                       onTap: (){
                         Navigator.of(context).pushReplacementNamed('/login');
-                      cleartoken();
+                        cleartoken();
                       },
                     ),
                   ],)
               ),
+
+              Divider(height: 0.2,)
+              /*           ListTile(
+              leading: Icon(Icons.card_giftcard,color: Colors.black),
+              title: Text('สิทธิประโยชน์'),
+              onTap:(){Navigator.of(context).pushNamed('/benefit');},
+
+            ),*/
             ],
           ),
         ),
@@ -180,7 +189,7 @@ class _positionState extends State<position>  {
                     positionName:listPosition.data[index].positionName ,del: deletePosition,)
               );
             },
-          ):Text('Waiting')
+          ):Container(child: Center(child: CircularProgressIndicator(),),)
 
         ,padding: EdgeInsets.only(left: 10),),
         floatingActionButton: FloatingActionButton(
@@ -229,7 +238,8 @@ class DetailPosition extends StatelessWidget {
       child: new Container(
         color: Colors.white,
         child: new ListTile(
-          title: new Row(children: <Widget>[Icon(Icons.assignment,color: Colors.blue,),Text(' '+positionName)],),
+          leading: Icon(Icons.assignment,color: Colors.blue,),
+          title: new Row(children: <Widget>[Text(positionName)],),
           onTap: () {
             Navigator.push(context,
               MaterialPageRoute(

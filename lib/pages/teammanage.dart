@@ -123,7 +123,7 @@ void delete ()async {
               actions: <Widget>[
                 new FlatButton(onPressed: () {
 
-                //deletemember(listteam.data[i].id.toString());Navigator.pop(context);
+                deletemember(listteam.data[i].id.toString());Navigator.pop(context);
 
                 Navigator.pop(context);
                 }, child: new Text('ยืนยัน')
