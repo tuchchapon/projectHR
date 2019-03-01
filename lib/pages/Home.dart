@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:project/model/manday.dart';
 import 'package:project/model/project.dart';
 import 'package:project/model/employee.dart';
+import 'package:project/model/Drawer.dart';
 
 
 class Home extends StatefulWidget {
@@ -37,7 +38,10 @@ class _HomeState extends State<Home> {
   Project listproject = new Project();
   Manday listmanday = new Manday();
   Employee listEmp = new Employee();
+  String username;
 
+  ///
+  ///
   ///
 
   Future<void> getempdata() async {
@@ -97,6 +101,8 @@ class _HomeState extends State<Home> {
   Future<void> getmanday() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
+    String User = prefs.getString("prefsUsername");
+
     final response =
     await http.get('http://35.198.219.154:1337/manday/emp/datatable',
         headers: {'authorization': "Bearer "+token});
@@ -110,6 +116,7 @@ class _HomeState extends State<Home> {
       setState(() {
         loopmanday = listmanday.data.length;
         this.mandayisTrue = 1;
+        username = User;
       });
     } else {
       // If that call was not successful, throw an error.
@@ -135,7 +142,8 @@ class _HomeState extends State<Home> {
 
       ),
 
-      drawer: Drawer(
+
+      drawer:     Drawer(
         child: Column(
           children: <Widget>[
             Container(width: screenWidth,height: screenHeight*0.6,
@@ -143,15 +151,21 @@ class _HomeState extends State<Home> {
               child: Center(
                 child: Column(mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.only(top: 20,)),
-                  CircleAvatar(child: Icon(Icons.person,color: Colors.black,),radius: 30,backgroundColor: Colors.grey,),
-                  Padding(padding: EdgeInsets.only(top: 20,left: 50)),
-                  Text('admin',style: TextStyle(fontSize: 20),)
+                    Stack(children: <Widget>[
+                      Padding(padding: EdgeInsets.only(top: 10)),
+                      Container(child:  CircleAvatar(child: Image(image: AssetImage('pic/logo.png'),fit: BoxFit.cover,),radius: 40,backgroundColor: Colors.transparent,),),
+                    ],),
+
+                    Padding(padding: EdgeInsets.only(left: 50)),
+                    
+                    mandayisTrue == 1 ? Text(username,style: TextStyle(fontSize: 14),): Text('')
+
                   ],
                 ),
               )
               ,padding: EdgeInsets.only(right: 200,top: 10),
             ),
+
             //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
             ListTile(
               leading: Icon(Icons.dashboard,color: Colors.blue),
@@ -181,21 +195,22 @@ class _HomeState extends State<Home> {
             Divider(height: 0.2,),
             Container(
                 child:
-            Column(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.close
-                    ,color: Colors.red),
-                title: Text('ออกจากระบบ'),
-                onTap: (){
-                  Navigator.of(context).pushReplacementNamed('/login');
-                  cleartoken();
-                },
-              ),
-            ],)
+                Column(mainAxisAlignment: MainAxisAlignment.end,children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.close
+                        ,color: Colors.red),
+                    title: Text('ออกจากระบบ'),
+                    onTap: (){
+
+                      Navigator.of(context).pushReplacementNamed('/login');
+                      cleartoken();
+                    },
+                  ),
+                ],)
             ),
 
             Divider(height: 0.2,)
- /*           ListTile(
+            /*           ListTile(
               leading: Icon(Icons.card_giftcard,color: Colors.black),
               title: Text('สิทธิประโยชน์'),
               onTap:(){Navigator.of(context).pushNamed('/benefit');},

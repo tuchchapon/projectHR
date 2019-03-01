@@ -2,35 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:project/model/User.dart';
 
 
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
-class Gettoken {
-String username;
-String status;
-String token;
-
-Gettoken({
-this.username,
-this.status,
-this.token
-});
-
-factory Gettoken.fromJson(Map<String, dynamic> json) => new Gettoken(
-  username:  json["username"],
-  status:  json["status"],
-  token:  json["token"],
-);
-
-Map<String, dynamic> toJson() => {
-  "username": username,
-  "status": status,
-  "token": token,
-};
-}
+User userdetail = new User();
 
 
 class _LoginState extends State<Login> {
@@ -102,13 +81,15 @@ class _LoginState extends State<Login> {
         http.Response response = await http.post(
             url,
             body: body);
+        print(response.body);
         print(response.statusCode);
       if (response.statusCode == 200) {
         String jsonString = response.body.toString();
         final jsonResponse = json.decode(jsonString);
-        Gettoken token = new Gettoken.fromJson(jsonResponse);
-        print('Token is:'+token.token);
-        prefs.setString("prefsToken",token.token);
+       User  userdetail = new User.fromJson(jsonResponse);
+        print('Token is:'+userdetail.token);
+        prefs.setString("prefsToken",userdetail.token);
+        prefs.setString("prefsUsername",userdetail.name);
         Navigator.of(context).pushReplacementNamed('/Home');
 
       } else {
@@ -159,6 +140,7 @@ Future<String>getToken()async{
     hintText: 'username',border: InputBorder.none),
     onChanged: (String unameinput) {
     user  = unameinput;
+
     print(user);
     },
     ),

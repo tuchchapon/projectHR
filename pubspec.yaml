@@ -50,6 +50,7 @@ flutter:
   assets:
   - pic/11.png
   - pic/log.png
+  - pic/logo.png
 
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
