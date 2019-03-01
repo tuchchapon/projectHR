@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:project/model/positionemp.dart';
 import 'package:project/pages/addempposition.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class empposition extends StatefulWidget {
   @override
@@ -160,14 +161,25 @@ class detailempposition extends StatelessWidget {
   detailempposition({this.position_name,this.id,this.del});
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(position_name),
+   return Slidable(
+      delegate: new SlidableDrawerDelegate(),
+      actionExtentRatio: 0.23,
+      child: new Container(
+        child: new ListTile(
+          title: new Text(position_name),
+        ),
+      ),
+      secondaryActions: <Widget>[
+        new IconSlideAction(
+            caption: 'ลบข้อมูล',
+            color: Colors.red,
+            icon: Icons.delete,
+            onTap: (){
+             _showAlert(context, "ต้องการลบ ${position_name} ใช่หรือไม่");
 
-        trailing: IconButton(icon: Icon(Icons.delete,color: Colors.red,),  onPressed: () {_showAlert(context, 'ต้องการลบ ${position_name} หรือไม่!');
-
-
-    })
-
+            }
+        ),
+      ],
     );}
 
 }

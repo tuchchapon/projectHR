@@ -122,6 +122,58 @@ class _editprojectState extends State<editproject> {
       });
     }
   }
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("เกิดข้อผิดพลาด !!",style: TextStyle(fontSize: 20),),
+          content: new Text(""),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  void _showDialogsave() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ต้องการบันทึกข้อมูลหรือไม่"),
+          //   content: new Text("รูปแบบข้อมูลผิดพลาด"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("ยืนยัน"),
+              onPressed: () {
+                updateproject(widget.projectid.toString(), projectnamecon.text,
+                    cus_namecon.text, listProject.data.projectStartDate.toString(),
+                    listProject.data.projectEndDate.toString(),
+                    teamnamecon.text, notecon.text,sellingcon.text);
+              },
+            ),
+            new FlatButton(
+              child: new Text("ยกเลิก"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   Widget build(BuildContext context) {
     Color buttoncolor = const Color(0xFF4fa2e1);
@@ -135,10 +187,7 @@ class _editprojectState extends State<editproject> {
         title: new Text('แก้ไขโปรเจ็ค',style:TextStyle(color: Colors.white),),
       ),
 
-      body: ListView(children: <Widget>[
-
-        Container(
-            width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
+      body: Container(width: screenWidth,height: screenHeight,margin: EdgeInsets.all(10),
             child: projectisTrue != 0?  Center(
               child: new ListView(
                 children: <Widget>[
@@ -212,17 +261,14 @@ class _editprojectState extends State<editproject> {
                   ),
                   Divider(color: Colors.grey),
                   RaisedButton(onPressed: (){
-                    updateproject(widget.projectid.toString(), projectnamecon.text,
-                        cus_namecon.text, listProject.data.projectStartDate.toString(),
-                        listProject.data.projectEndDate.toString(),
-                        teamnamecon.text, notecon.text,sellingcon.text);
+                    _showDialogsave();
+
                   },child:Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,),
                 ],
               ),
             )
                 : Text ('no data')
         ),
-      ],)
     );
   }
 

@@ -43,11 +43,11 @@ class Data {
   int projectStartDate;
   int projectEndDate;
   String projectTeamName;
-  int projectTotalCost;
+  double projectTotalCost;
   String projectNote;
   int status;
-  double selling;
-  int projectTotalSelling;
+  int selling;
+  double projectTotalSelling;
   String projectStartDateFormat;
   String projectEndDateFormat;
 
@@ -78,11 +78,11 @@ class Data {
     projectStartDate: json["project_start_date"],
     projectEndDate: json["project_end_date"],
     projectTeamName: json["project_team_name"],
-    projectTotalCost: json["project_total_cost"],
+    projectTotalCost: json["project_total_cost"].toDouble(),
     projectNote: json["project_note"],
     status: json["status"],
-    selling: json["selling"].toDouble(),
-    projectTotalSelling: json["project_total_selling"],
+    selling: json["selling"],
+    projectTotalSelling: json["project_total_selling"].toDouble(),
     projectStartDateFormat: json["project_start_date_format"],
     projectEndDateFormat: json["project_end_date_format"],
   );

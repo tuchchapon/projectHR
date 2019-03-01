@@ -76,6 +76,33 @@ class _addpositionState extends State<addposition> {
         },
       );
     }
+    void _showDialogsave() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("ต้องการบันทึกข้อมูลหรือไม่"),
+            //   content: new Text("รูปแบบข้อมูลผิดพลาด"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("ยืนยัน"),
+                onPressed: () {
+                  Addposition(position);
+                },
+              ),
+              new FlatButton(
+                child: new Text("ยกเลิก"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
     MediaQueryData queryData = MediaQuery.of(context);
 
     double screenWidth = queryData.size.width;
@@ -115,7 +142,7 @@ class _addpositionState extends State<addposition> {
            if (position == ''){
              _showDialog();
            }
-           else{Addposition(position);}
+           else{_showDialogsave();}
 
           // print(position);
           // print('con ='+myController.text);

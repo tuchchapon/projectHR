@@ -70,11 +70,11 @@ class _showprojectState extends State<showproject> {
     listProject = new Project.fromJson(jsonResponse);
 
     //  print(listfixcost.data[0].fixcostBranchId.id.toString());
-
+    print(response.body);
     if (response.statusCode == 200) {
       setState(() {
         projectisTrue = 1;
-        // this.loopfixcost = listfixcost.data.length;
+
       });
       print(response.statusCode);
     } else {
@@ -92,7 +92,7 @@ class _showprojectState extends State<showproject> {
     final jsonResponse = json.decode(jsonString);
     listaddit = new Projectaddit.fromJson(jsonResponse);
 
-    //  print(listfixcost.data[0].fixcostBranchId.id.toString());
+
 
     if (response.statusCode == 200) {
       setState(() {
@@ -135,7 +135,7 @@ class _showprojectState extends State<showproject> {
                   trailing: Icon(Icons.event,color: Colors.black,),),
                 ListTile(leading: Text('วันที่สิ้นสุด    ',style: TextStyle(fontSize: 12)),
                   title: Text(listProject.data.projectEndDateFormat,style: TextStyle(fontSize: 12)),trailing: Icon(Icons.event,color: Colors.black,),),
-               ListTile( leading: Text('กำไรที่ต้องการ',style: TextStyle(fontSize: 12),),title: Text('${listProject.data.selling} \%',style: TextStyle(fontSize: 12),),),
+               ListTile( leading: Text('กำไรที่ต้องการ',style: TextStyle(fontSize: 12),),title: Text('${listProject.data.selling.toString()} \%',style: TextStyle(fontSize: 12),),),
                 ListTile(leading: Text('หมายเหตุ',style: TextStyle(fontSize: 12)),
                   title: Text(listProject.data.projectNote,style: TextStyle(fontSize: 12)),),
                 ListTile(leading: Text('ทีมรับผิดชอบ',style: TextStyle(fontSize: 12)),
@@ -150,7 +150,7 @@ class _showprojectState extends State<showproject> {
                   },
                       child: Text('จัดการทีม >')),),
 
-              ],
+              ]
 
             ),
 

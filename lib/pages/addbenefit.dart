@@ -15,9 +15,9 @@ class _addbenefitState extends State<addbenefit> {
 
   int timestamp;
 //  String adddate = 'วว/ดด/ปปปป';
-  String benefit_title;
-  String benefit_price;
-  String benefit_note;
+  String benefit_title='';
+  String benefit_price='';
+  String benefit_note='';
   var benefit_date = DateTime.now().millisecondsSinceEpoch;
   Future _adddate() async {
     DateTime picked = await showDatePicker(
@@ -126,8 +126,10 @@ class _addbenefitState extends State<addbenefit> {
           Divider(color: Colors.grey,),
           RaisedButton(onPressed: (){
 
-           Addbenefit(widget.empid.toString(), benefit_title, benefit_price, benefit_date.toString(), benefit_note);
+          if(benefit_title ==''|| benefit_price ==''||benefit_date ==''||benefit_note ==''){
 
+          }
+          Addbenefit(widget.empid.toString(), benefit_title, benefit_price, benefit_date.toString(), benefit_note);
           },
             child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
           ],

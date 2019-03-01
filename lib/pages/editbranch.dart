@@ -78,15 +78,69 @@ class _editbranchState extends State<editbranch> {
                 //   new Text(_position),
                 Divider(color: Colors.grey,),
                 RaisedButton(onPressed: (){
-                  Updatebranch(idcon.text, branchnamecon.text,branchAddcon.text);
-                  print(idcon);
-                  print(branchnamecon);
-                  Navigator.of(context).pushReplacementNamed('/branch');
+              if(branchnamecon.text ==''|| branchAddcon.text ==''){
+                _showDialog();
+              }
+                else{
+                  _showDialogsave();
+              }
+
                 },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
               ]
           ),
         ),
       ),
+    );
+  }
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ผิดพลาด !"),
+          content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  void _showDialogsave() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ต้องการบันทึกข้อมูลหรือไม่"),
+          //   content: new Text("รูปแบบข้อมูลผิดพลาด"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("ยืนยัน"),
+              onPressed: () {
+                Updatebranch(idcon.text, branchnamecon.text,branchAddcon.text);
+                Navigator.of(context).pushReplacementNamed('/branch');
+
+              },
+            ),
+            new FlatButton(
+              child: new Text("ยกเลิก"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -110,6 +164,7 @@ Future<dynamic> Updatebranch(id,branchname,branchAdd) async {
   final Map<String, dynamic> responseData = await json.decode(
       response.body);
   print(responseData);
+
   return responseData['code'];
 
 }

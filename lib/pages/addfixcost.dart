@@ -51,14 +51,19 @@ class _addfixcostState extends State<addfixcost> {
         builder: (BuildContext context) {
           // return object of type Dialog
           return AlertDialog(
-            title: new Text("บันทึกข้อมูลแล้ว"),
+            title: new Text("ต้องการบันทึกข้อมูลหรือไม่"),
          //   content: new Text("รูปแบบข้อมูลผิดพลาด"),
             actions: <Widget>[
-
               new FlatButton(
-                child: new Text("ปิด"),
+                child: new Text("ยืนยัน"),
                 onPressed: () {
                   Addfixcost(title, price, note, widget.id.toString()) ;
+                },
+              ),
+              new FlatButton(
+                child: new Text("ยกเลิก"),
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -66,6 +71,7 @@ class _addfixcostState extends State<addfixcost> {
         },
       );
     }
+
     Color colorappbar = const Color(0xFF2ac3fe);
     MediaQueryData queryData = MediaQuery.of(context);
 
@@ -162,5 +168,6 @@ class _addfixcostState extends State<addfixcost> {
     return responseData['code'];
 
   }
+
 
 }

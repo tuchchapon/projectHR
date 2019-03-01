@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'showbenefit.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:project/model/empbenefit.dart';
 
 class benefit extends StatefulWidget {
@@ -81,8 +82,7 @@ class _benefitState extends State<benefit>  {
 
       ),
 
-        body: ListView(
-          children: <Widget>[
+        body:
             Container(width: screenWidth,margin: EdgeInsets.all(5),
               child:  Column(children: <Widget>[
                 Text('ข้อมูลสิทธิประโยชน์',style: TextStyle(fontSize: 16),),
@@ -90,7 +90,7 @@ class _benefitState extends State<benefit>  {
                 Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[Text('รวมค่าใช้จ่ายสิทธิประโยชน์ทั้งหมด '),
                 Text(listbenefit.benafitTotal.toString(),style: TextStyle(color: Colors.green),),Text('  บาท')],),
                 Container(
-                  width: screenWidth,height: screenHeight*2.1,
+                  width: screenWidth,height: screenHeight*1.9,
                   child:  benefitIstrue != 0 ?
                   ListView.builder(
                     itemCount: listbenefit.data.length,
@@ -109,8 +109,6 @@ class _benefitState extends State<benefit>  {
 
             ],
               ),
-          ),
-          ],
 
         ),
         floatingActionButton: FloatingActionButton(
@@ -159,6 +157,27 @@ class detailbenefit extends StatelessWidget {
   detailbenefit({this.empid,this.id,this.benefit_title,this.benefit_price,this.benefit_note,this.benefit_date,this.del});
   @override
   Widget build(BuildContext context) {
+   return Slidable(
+      delegate: new SlidableDrawerDelegate(),
+      actionExtentRatio: 0.23,
+      child: new Container(
+        child: new ListTile(
+          title: Text(benefit_title),
+          subtitle: Text(benefit_price.toString()),
+        ),
+      ),
+      secondaryActions: <Widget>[
+        new IconSlideAction(
+            caption: 'ลบข้อมูล',
+            color: Colors.red,
+            icon: Icons.delete,
+    onTap: () {
+      _showAlert(context, 'ต้องการลบ ${benefit_title} หรือไม่!');
+    }
+    )
+      ],
+    );
+   /*
     return ListTile(
       title: Text(benefit_title),
 
@@ -175,7 +194,7 @@ class detailbenefit extends StatelessWidget {
 trailing: IconButton(icon: Icon(Icons.delete,color: Colors.red,),  onPressed: () {_showAlert(context, 'ต้องการลบ ${benefit_title} หรือไม่!');
 
 } ),
-    );
+    );*/
 
   }
 

@@ -92,9 +92,11 @@ class _editpositionState extends State<editposition> {
                 //   new Text(_position),
                 Divider(color: Colors.grey,),
                 RaisedButton(onPressed: (){
-                  Updateposition(idcon.text, myController.text);
-                 print(idcon);
-                  print(myController);
+                if (myController.text ==''){
+                  _showDialog();
+                }else{
+                  _showDialogsave();
+                }
 
                  },child: Text('บันทึก',style: TextStyle(color: Colors.white),),color: Colors.green,)
               ]
@@ -103,6 +105,58 @@ class _editpositionState extends State<editposition> {
       ),
     );
   }
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ผิดพลาด !"),
+          content: new Text("กรุณากรอกข้อมูลให้ครบถ้วน"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("ปิด"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  void _showDialogsave() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("ต้องการบันทึกข้อมูลหรือไม่"),
+          //   content: new Text("รูปแบบข้อมูลผิดพลาด"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("ยืนยัน"),
+              onPressed: () {
+                Updateposition(idcon.text, myController.text);
+                print(idcon);
+                print(myController);
+              },
+            ),
+            new FlatButton(
+              child: new Text("ยกเลิก"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<dynamic> Updateposition(id,position) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String Token = prefs.getString("prefsToken");

@@ -106,7 +106,7 @@ void _showDialog() {
                 _showDialog();
               }
               else{
-                AddBranch(branchname, branchad);
+                _showDialogsave();
               }
               },child: Text('บันทึก'),color:(Colors.green),textColor: (Colors.white),),
           ],
@@ -116,4 +116,32 @@ void _showDialog() {
 
     );
   }
+void _showDialogsave() {
+  // flutter defined function
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      // return object of type Dialog
+      return AlertDialog(
+        title: new Text("ต้องการบันทึกข้อมูลหรือไม่"),
+        //   content: new Text("รูปแบบข้อมูลผิดพลาด"),
+        actions: <Widget>[
+          new FlatButton(
+            child: new Text("ยืนยัน"),
+            onPressed: () {
+              AddBranch(branchname, branchad);
+
+            },
+          ),
+          new FlatButton(
+            child: new Text("ยกเลิก"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 }
