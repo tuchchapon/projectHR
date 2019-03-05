@@ -90,6 +90,7 @@ class _LoginState extends State<Login> {
         print('Token is:'+userdetail.token);
         prefs.setString("prefsToken",userdetail.token);
         prefs.setString("prefsUsername",userdetail.name);
+        prefs.setString("prefsStatus",userdetail.status);
         Navigator.of(context).pushReplacementNamed('/Home');
 
       } else {

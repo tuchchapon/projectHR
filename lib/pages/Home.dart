@@ -39,6 +39,7 @@ class _HomeState extends State<Home> {
   Manday listmanday = new Manday();
   Employee listEmp = new Employee();
   String username;
+  String status;
 
   ///
   ///
@@ -102,6 +103,7 @@ class _HomeState extends State<Home> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
     String User = prefs.getString("prefsUsername");
+    String STATUS = prefs.getString("prefsStatus");
 
     final response =
     await http.get('http://35.198.219.154:1337/manday/emp/datatable',
@@ -117,6 +119,7 @@ class _HomeState extends State<Home> {
         loopmanday = listmanday.data.length;
         this.mandayisTrue = 1;
         username = User;
+        status = STATUS;
       });
     } else {
       // If that call was not successful, throw an error.
@@ -143,27 +146,23 @@ class _HomeState extends State<Home> {
       ),
 
 
-      drawer:     Drawer(
+      drawer: Drawer(
         child: Column(
           children: <Widget>[
             Container(width: screenWidth,height: screenHeight*0.6,
               color: colorappbar,
-              child: Center(
-                child: Column(mainAxisAlignment: MainAxisAlignment.start,
+                child: Column(
                   children: <Widget>[
-                    Stack(children: <Widget>[
-                      Padding(padding: EdgeInsets.only(top: 10)),
-                      Container(child:  CircleAvatar(child: Image(image: AssetImage('pic/logo.png'),fit: BoxFit.cover,),radius: 40,backgroundColor: Colors.transparent,),),
-                    ],),
+                    Padding(padding: EdgeInsets.only(top: 10,left: 20)),
+                    Container(child:  CircleAvatar(child: Image(image: AssetImage('pic/logo.png'),fit: BoxFit.cover,),radius: 30,backgroundColor: Colors.transparent,),),
 
-                    Padding(padding: EdgeInsets.only(left: 50)),
-                    
-                    mandayisTrue == 1 ? Text(username,style: TextStyle(fontSize: 14),): Text('')
+                    mandayisTrue == 1 ? Text(username,style: TextStyle(fontSize: 12,color: Colors.white),): Text(''),
+                    mandayisTrue == 1 ? Text(status,style: TextStyle(fontSize: 12,color: Colors.white),): Text('')
 
                   ],
                 ),
-              )
-              ,padding: EdgeInsets.only(right: 200,top: 10),
+
+              padding: EdgeInsets.only(right: 200,top: 10),
             ),
 
             //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),

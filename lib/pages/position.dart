@@ -25,6 +25,7 @@ class _positionState extends State<position>  {
   Position listPosition = new Position();
   int isTrue = 0;
   String username;
+  String status;
   @override
   void initState() {
     super.initState();
@@ -34,6 +35,7 @@ class _positionState extends State<position>  {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
     String USER =prefs.getString("prefsUsername");
+    String STATUS = prefs.getString("prefsStatus");
     final response =
     await http.get('http://35.198.219.154:1337/position/datatable',
         headers: {'authorization': "Bearer "+token});
@@ -51,6 +53,7 @@ class _positionState extends State<position>  {
 //      return Position.fromJson(json.decode(response.body));
       listPosition = new Position.fromJson(jsonResponse);
       setState(() {
+        status = STATUS;
         username = USER;
         this.isTrue = 1;
       });
@@ -118,22 +121,18 @@ class _positionState extends State<position>  {
             children: <Widget>[
               Container(width: screenWidth,height: screenHeight*0.6,
                 color: colorappbar,
-                child: Center(
-                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Stack(children: <Widget>[
-                        Padding(padding: EdgeInsets.only(top: 10)),
-                        Container(child:  CircleAvatar(child: Image(image: AssetImage('pic/logo.png'),fit: BoxFit.cover,),radius: 40,backgroundColor: Colors.transparent,),),
-                      ],),
+                child: Column(
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.only(top: 10,left: 20)),
+                    Container(child:  CircleAvatar(child: Image(image: AssetImage('pic/logo.png'),fit: BoxFit.cover,),radius: 30,backgroundColor: Colors.transparent,),),
 
-                      Padding(padding: EdgeInsets.only(left: 50)),
+                    isTrue == 1 ? Text(username,style: TextStyle(fontSize: 12,color: Colors.white),): Text(''),
+                    isTrue == 1 ? Text(status,style: TextStyle(fontSize: 12,color: Colors.white),): Text('')
 
-                      isTrue == 1 ? Text(username,style: TextStyle(fontSize: 14),): Text('')
+                  ],
+                ),
 
-                    ],
-                  ),
-                )
-                ,padding: EdgeInsets.only(right: 200,top: 10),
+                padding: EdgeInsets.only(right: 200,top: 10),
               ),
 
               //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),

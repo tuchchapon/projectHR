@@ -29,6 +29,7 @@ class _projectState extends State<project>  {
   Project listProject = new Project();
   int isTrue = 0;
   String username;
+  String status;
   @override
   void initState() {
     super.initState();
@@ -38,6 +39,7 @@ class _projectState extends State<project>  {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("prefsToken");
     String USER = prefs.getString("prefsUsername");
+    String STATUS = prefs.getString("prefsStatus");
     final response =
     await http.get('http://35.198.219.154:1337/projectmanage/datatable',
         headers: {'authorization': "Bearer "+token});
@@ -49,6 +51,7 @@ class _projectState extends State<project>  {
       listProject = new Project.fromJson(jsonResponse);
       setState(() {
         username =USER;
+        status = STATUS;
         this.isTrue = 1;
       });
       print('AAAAAA');
@@ -96,22 +99,18 @@ class _projectState extends State<project>  {
             children: <Widget>[
               Container(width: screenWidth,height: screenHeight*0.6,
                 color: colorappbar,
-                child: Center(
-                  child: Column(mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Stack(children: <Widget>[
-                        Padding(padding: EdgeInsets.only(top: 10)),
-                        Container(child:  CircleAvatar(child: Image(image: AssetImage('pic/logo.png'),fit: BoxFit.cover,),radius: 40,backgroundColor: Colors.transparent,),),
-                      ],),
+                child: Column(
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.only(top: 10,left: 20)),
+                    Container(child:  CircleAvatar(child: Image(image: AssetImage('pic/logo.png'),fit: BoxFit.cover,),radius: 30,backgroundColor: Colors.transparent,),),
 
-                      Padding(padding: EdgeInsets.only(left: 50)),
+                    isTrue == 1 ? Text(username,style: TextStyle(fontSize: 12,color: Colors.white),): Text(''),
+                    isTrue == 1 ? Text(status,style: TextStyle(fontSize: 12,color: Colors.white),): Text('')
 
-                      isTrue == 1 ? Text(username,style: TextStyle(fontSize: 14),): Text('')
+                  ],
+                ),
 
-                    ],
-                  ),
-                )
-                ,padding: EdgeInsets.only(right: 200,top: 10),
+                padding: EdgeInsets.only(right: 200,top: 10),
               ),
 
               //FlatButton(onPressed: (){Navigator.of(context).pushNamed('/member');}, child: new Text('asagasf') ),
